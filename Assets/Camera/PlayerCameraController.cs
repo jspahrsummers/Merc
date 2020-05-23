@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowController : MonoBehaviour
+public class PlayerCameraController : MonoBehaviour
 {
-    public GameObject followTarget;
+    private GameObject followTarget => GameObject.FindWithTag("Player");
 
     // Start is called before the first frame update
     void Start()
