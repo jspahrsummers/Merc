@@ -5,8 +5,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerShipController : MonoBehaviour
 {
-    public float rotateSpeed;
-    public float thrustAcceleration;
+    public float turnSpeed;
+    public float torque;
+    public float thrust;
 
     private float m_Turning;
     private float m_Thrusting;
@@ -32,7 +33,17 @@ public class PlayerShipController : MonoBehaviour
     void Update()
     {
         var rigidbody = gameObject.GetComponent<Rigidbody2D>();
-        rigidbody.rotation += m_Turning * rotateSpeed * Time.deltaTime;
-        rigidbody.AddRelativeForce(Vector2.up * m_Thrusting * thrustAcceleration * Time.deltaTime);
+
+        if (Mathf.Abs(rigidbody.angularVelocity) >= torque)
+        {
+            rigidbody.AddTorque(m_Turning * torque * Time.deltaTime);
+        }
+        else
+        {
+            rigidbody.angularVelocity = 0;
+            rigidbody.rotation += m_Turning * turnSpeed * Time.deltaTime;
+        }
+
+        rigidbody.AddRelativeForce(Vector2.up * m_Thrusting * thrust * Time.deltaTime);
     }
 }

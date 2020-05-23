@@ -158,8 +158,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e45a38d90f534a54c85a141943713172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 360
-  thrustAcceleration: 0.1
+  turnSpeed: 360
+  torque: 30
+  thrust: 300
 --- !u!50 &7302967399826460537
 Rigidbody2D:
   serializedVersion: 4
@@ -176,7 +177,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: db00b6df10fe62745afe798b35adff34, type: 2}
+  m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
