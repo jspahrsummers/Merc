@@ -8,10 +8,13 @@ public class PlayerShipController : MonoBehaviour
     public float turnSpeed;
     public float torque;
     public float thrust;
+    public GameObject missilePrefab;
 
     private float m_Turning;
     private float m_Thrusting;
     private Vector3 m_Velocity;
+
+    private new Rigidbody2D rigidbody => gameObject.GetComponent<Rigidbody2D>();
 
     public void OnThrust(InputAction.CallbackContext context)
     {
@@ -23,6 +26,13 @@ public class PlayerShipController : MonoBehaviour
         m_Turning = context.ReadValue<float>();
     }
 
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        var missile = Instantiate(missilePrefab, transform.position, transform.rotation, transform.parent).GetComponent<Rigidbody2D>();
+        missile.velocity = rigidbody.velocity;
+        missile.AddRelativeForce(Vector2.up * 10, ForceMode2D.Impulse);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,8 +42,6 @@ public class PlayerShipController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var rigidbody = gameObject.GetComponent<Rigidbody2D>();
-
         if (Mathf.Abs(rigidbody.angularVelocity) >= torque)
         {
             rigidbody.AddTorque(m_Turning * torque * Time.deltaTime);
