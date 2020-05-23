@@ -1,0 +1,74 @@
+{
+    "name": "Ship",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "ff7745ec-7784-4c52-9e60-f7bbb87c2816",
+            "actions": [
+                {
+                    "name": "Turn",
+                    "type": "Button",
+                    "id": "a90c3bc3-ef2e-4ad8-aa57-22f7709ba572",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Thrust",
+                    "type": "Button",
+                    "id": "f34428c8-771d-4300-bd90-af9bef6371e6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "1D",
+                    "id": "bbec7079-8e28-4253-ac3f-2e1ad448ccaa",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Turn",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "cac3981e-c98b-4914-b392-57f3e7c99eaa",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Turn",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "9fcafcb2-7b90-4bfe-ab90-9f1aae7a7f6c",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Turn",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "e9c167a3-5080-4817-ab70-104894569de7",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "Hold",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Thrust",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
