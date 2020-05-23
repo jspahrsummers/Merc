@@ -14,7 +14,7 @@ public class PlayerShipController : MonoBehaviour
     private float m_Thrusting;
     private Vector3 m_Velocity;
 
-    private new Rigidbody2D rigidbody => gameObject.GetComponent<Rigidbody2D>();
+    private new Rigidbody2D rigidbody => GetComponent<Rigidbody2D>();
 
     public void OnThrust(InputAction.CallbackContext context)
     {
@@ -31,6 +31,8 @@ public class PlayerShipController : MonoBehaviour
         var missile = Instantiate(missilePrefab, transform.position, transform.rotation, transform.parent).GetComponent<Rigidbody2D>();
         missile.velocity = rigidbody.velocity;
         missile.AddRelativeForce(Vector2.up * 10, ForceMode2D.Impulse);
+
+        Physics2D.IgnoreCollision(missile.GetComponent<Collider2D>(), GetComponent<Collider2D>());
     }
 
     // Start is called before the first frame update
