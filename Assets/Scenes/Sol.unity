@@ -396,7 +396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: f77fad57947776a44969cfa3d4d6b87d,
     type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -409,11 +409,33 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1197448422}
+        m_MethodName: OnTurn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: a90c3bc3-ef2e-4ad8-aa57-22f7709ba572
     m_ActionName: Player/Turn[/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1197448422}
+        m_MethodName: OnThrust
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: f34428c8-771d-4300-bd90-af9bef6371e6
     m_ActionName: Player/Thrust[/Keyboard/upArrow]
   m_NeverAutoSwitchControlSchemes: 0
@@ -433,5 +455,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e45a38d90f534a54c85a141943713172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 60
-  thrustAcceleration: 2
+  rotateSpeed: 720
+  thrustAcceleration: 0.5
+  m_Velocity: {x: 0, y: 0, z: 0}
