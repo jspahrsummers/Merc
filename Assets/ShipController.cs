@@ -8,16 +8,18 @@ public class ShipController : MonoBehaviour
     public float rotateSpeed;
     public float thrustAcceleration;
 
-    public Vector3 m_Velocity;
+    private float m_Turning;
+    private float m_Thrusting;
+    private Vector3 m_Velocity;
 
     public void OnThrust(InputAction.CallbackContext context)
     {
-        m_Velocity += transform.up * thrustAcceleration * Time.deltaTime;
+        m_Thrusting = context.ReadValue<float>();
     }
 
     public void OnTurn(InputAction.CallbackContext context)
     {
-        transform.Rotate(0, 0, context.ReadValue<float>() * rotateSpeed * Time.deltaTime);
+        m_Turning = context.ReadValue<float>();
     }
 
     // Start is called before the first frame update
@@ -29,6 +31,9 @@ public class ShipController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.Rotate(0, 0, m_Turning * rotateSpeed * Time.deltaTime);
+
+        m_Velocity += m_Thrusting * transform.up * thrustAcceleration * Time.deltaTime;
         transform.Translate(m_Velocity, Space.World);
     }
 }

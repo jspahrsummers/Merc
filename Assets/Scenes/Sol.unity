@@ -455,6 +455,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e45a38d90f534a54c85a141943713172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 720
-  thrustAcceleration: 0.5
-  m_Velocity: {x: 0, y: 0, z: 0}
+  rotateSpeed: 360
+  thrustAcceleration: 0.1
