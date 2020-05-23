@@ -6,12 +6,43 @@ public class ParallaxController : MonoBehaviour
 {
     private const float BACKGROUND_INCREMENTAL_EXPANSION = 25;
 
-    private ParallaxController m_left;
-    private ParallaxController m_right;
-    private ParallaxController m_top;
-    private ParallaxController m_bottom;
+    private static Dictionary<(int x, int y), ParallaxController> allControllers = new Dictionary<(int x, int y), ParallaxController>();
+    private (int x, int y) m_gridTag;
 
     private SpriteRenderer backgroundRenderer => GetComponent<SpriteRenderer>();
+
+    private ParallaxController GetControllerAtOffset(int xOffset, int yOffset, bool instantiate = false)
+    {
+        var lookupTag = (x: m_gridTag.x + xOffset, y: m_gridTag.y + yOffset);
+        if (allControllers.ContainsKey(lookupTag))
+        {
+            return allControllers[lookupTag];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    private ParallaxController left => GetControllerAtOffset(-1, 0);
+    private ParallaxController right => GetControllerAtOffset(1, 0);
+    private ParallaxController top => GetControllerAtOffset(0, 1);
+    private ParallaxController bottom => GetControllerAtOffset(0, -1);
+
+    private void InstantiateControllerAtOffset(int xOffset, int yOffset)
+    {
+        var newTag = (x: m_gridTag.x + xOffset, y: m_gridTag.y + yOffset);
+
+        var newPosition = transform.position;
+        newPosition.x += backgroundRenderer.sprite.bounds.size.x * xOffset;
+        newPosition.y += backgroundRenderer.sprite.bounds.size.y * yOffset;
+
+        var controller = Instantiate<ParallaxController>(this, newPosition, transform.rotation, transform.parent);
+        controller.m_gridTag = newTag;
+
+        Debug.Assert(!allControllers.ContainsKey(newTag));
+        allControllers[newTag] = controller;
+    }
 
     void OnBecomeInvisible()
     {
@@ -20,30 +51,18 @@ public class ParallaxController : MonoBehaviour
 
     void OnDestroy()
     {
-        if (m_left)
-        {
-            m_left.m_right = null;
-        }
-
-        if (m_right)
-        {
-            m_right.m_left = null;
-        }
-
-        if (m_top)
-        {
-            m_top.m_bottom = null;
-        }
-
-        if (m_bottom)
-        {
-            m_bottom.m_top = null;
-        }
+        Debug.Log($"Removing {m_gridTag}");
+        allControllers.Remove(m_gridTag);
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log($"Spawned {m_gridTag}");
+        if (!allControllers.ContainsKey(m_gridTag))
+        {
+            allControllers[m_gridTag] = this;
+        }
     }
 
     // Update is called once per frame
@@ -52,84 +71,28 @@ public class ParallaxController : MonoBehaviour
         var minPoint = Camera.main.WorldToScreenPoint(backgroundRenderer.bounds.min);
         var maxPoint = Camera.main.WorldToScreenPoint(backgroundRenderer.bounds.max);
 
-        if (minPoint.x >= 0 && !m_left)
+        if (minPoint.x >= 0 && !left)
         {
-            Debug.Log("Found left edge of background!");
-
-            var newPosition = transform.position;
-            newPosition.x -= backgroundRenderer.sprite.bounds.size.x;
-            m_left = Instantiate<ParallaxController>(this, newPosition, transform.rotation, transform.parent);
-            m_left.m_right = this;
-
-            if (m_top)
-            {
-                m_left.m_top = m_top.m_left;
-            }
-
-            if (m_bottom)
-            {
-                m_left.m_bottom = m_bottom.m_left;
-            }
+            Debug.Log($"{m_gridTag} Found left edge of background!");
+            InstantiateControllerAtOffset(-1, 0);
         }
 
-        if (maxPoint.x <= Screen.width && !m_right)
+        if (maxPoint.x <= Screen.width && !right)
         {
-            Debug.Log("Found right edge of background!");
-
-            var newPosition = transform.position;
-            newPosition.x += backgroundRenderer.sprite.bounds.size.x;
-            m_right = Instantiate<ParallaxController>(this, newPosition, transform.rotation, transform.parent);
-            m_right.m_left = this;
-
-            if (m_top)
-            {
-                m_right.m_top = m_top.m_right;
-            }
-
-            if (m_bottom)
-            {
-                m_right.m_bottom = m_bottom.m_right;
-            }
+            Debug.Log($"{m_gridTag} Found right edge of background!");
+            InstantiateControllerAtOffset(1, 0);
         }
 
-        if (minPoint.y >= 0 && !m_bottom)
+        if (minPoint.y >= 0 && !bottom)
         {
-            Debug.Log("Found bottom edge of background!");
-
-            var newPosition = transform.position;
-            newPosition.y -= backgroundRenderer.sprite.bounds.size.y;
-            m_bottom = Instantiate<ParallaxController>(this, newPosition, transform.rotation, transform.parent);
-            m_bottom.m_top = this;
-
-            if (m_left)
-            {
-                m_bottom.m_left = m_left.m_bottom;
-            }
-
-            if (m_right)
-            {
-                m_bottom.m_right = m_right.m_bottom;
-            }
+            Debug.Log($"{m_gridTag} Found bottom edge of background!");
+            InstantiateControllerAtOffset(0, -1);
         }
 
-        if (maxPoint.y <= Screen.height && !m_top)
+        if (maxPoint.y <= Screen.height && !top)
         {
-            Debug.Log("Found top edge of background!");
-
-            var newPosition = transform.position;
-            newPosition.y += backgroundRenderer.sprite.bounds.size.y;
-            m_top = Instantiate<ParallaxController>(this, newPosition, transform.rotation, transform.parent);
-            m_top.m_bottom = this;
-
-            if (m_left)
-            {
-                m_top.m_left = m_left.m_top;
-            }
-
-            if (m_right)
-            {
-                m_top.m_right = m_right.m_top;
-            }
+            Debug.Log($"{m_gridTag} Found top edge of background!");
+            InstantiateControllerAtOffset(0, 1);
         }
     }
 }
