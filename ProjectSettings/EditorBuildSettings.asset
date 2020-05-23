@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/OFFLINE.unity
+    guid: 98cc59f7c8cff514dae67e9dbc269cf8
+  - enabled: 1
+    path: Assets/Scenes/ONLINE.unity
+    guid: 0127257f000ecb145a02e90d11db60e8
+  - enabled: 1
+    path: Assets/Scenes/Star Systems/Sirius B.unity
+    guid: e7a1641d2b39f984e87833867b709c96
+  - enabled: 1
+    path: Assets/Scenes/Star Systems/Alpha Centauri.unity
+    guid: efebdb524095ee741a3a6cd473cf684a
+  - enabled: 1
+    path: Assets/Scenes/Star Systems/Sol.unity
+    guid: 3b8b9a64b47fa6b41bfdd0b2abaaf9e8
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 1b0cbf3c3618e1d4f825b513c9609b14,
+      type: 2}

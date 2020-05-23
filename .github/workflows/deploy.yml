@@ -1,0 +1,203 @@
+name: Deploy
+on:
+  push:
+    tags:
+      - v*
+  pull_request:
+    paths:
+      - ProjectSettings/ProjectVersion.txt
+
+env:
+  # Choose from available tags: https://hub.docker.com/r/gableroux/unity3d
+  UNITY_VERSION: 2019.4.8f1
+
+jobs:
+  # See https://github.com/marketplace/actions/unity-request-activation-file
+  # request_activation:
+  #   name: Request license activation
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Request manual activation file
+  #       id: getManualLicenseFile
+  #       uses: webbertakken/unity-request-manual-activation-file@v1.1
+  #       with:
+  #         unityVersion: ${{ env.UNITY_VERSION }}
+
+  #     - name: Expose as artifact
+  #       uses: actions/upload-artifact@v1
+  #       with:
+  #         name: ${{ steps.getManualLicenseFile.outputs.filePath }}
+  #         path: ${{ steps.getManualLicenseFile.outputs.filePath }}
+
+  check-version:
+    name: Check version matches tag
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set Merc version
+        run: echo "::set-env name=MERC_VERSION::$(<Assets/VERSION.txt)"
+
+      - name: Compare ${{ env.MERC_VERSION }} against ${{ github.ref }}
+        if: github.event_name == 'push'
+        run: |
+          [[ "$MERC_VERSION" == $(basename "$GITHUB_REF") ]]
+
+  build:
+    name: Build for ${{ matrix.targetPlatform }}
+    runs-on: ubuntu-latest
+    needs: [check-version]
+    strategy:
+      fail-fast: true
+      matrix:
+        targetPlatform:
+          - StandaloneOSX
+          - StandaloneWindows64
+          - StandaloneLinux64
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-${{ matrix.targetPlatform }}
+          restore-keys: |
+            Library-
+
+      - name: Set Merc version
+        run: echo "::set-env name=MERC_VERSION::$(<Assets/VERSION.txt)"
+
+      - name: Unity build
+        uses: jspahrsummers/unity-builder@rename-version-flag
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          unityVersion: ${{ env.UNITY_VERSION }}
+          targetPlatform: ${{ matrix.targetPlatform }}
+          versioning: Custom
+          version: ${{ env.MERC_VERSION }}
+
+      - name: Publish to itch.io
+        if: github.event_name == 'push'
+        uses: josephbmanley/butler-publish-itchio-action@v1.0.2
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          CHANNEL: ${{ matrix.targetPlatform }}
+          ITCH_GAME: Merc
+          ITCH_USER: jspahrsummers
+          PACKAGE: build/${{ matrix.targetPlatform }}
+          VERSION: ${{ env.MERC_VERSION }}
+
+  webgl:
+    name: Deploy WebGL
+    runs-on: ubuntu-latest
+    needs: [check-version]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-WebGL
+          restore-keys: |
+            Library-
+
+      - name: Set Merc version
+        run: echo "::set-env name=MERC_VERSION::$(<Assets/VERSION.txt)"
+
+      - name: Unity build
+        uses: jspahrsummers/unity-builder@rename-version-flag
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          unityVersion: ${{ env.UNITY_VERSION }}
+          targetPlatform: WebGL
+          versioning: Custom
+          version: ${{ env.MERC_VERSION }}
+
+      - name: Deploy to GitHub Pages
+        if: github.event_name == 'push'
+        uses: JamesIves/github-pages-deploy-action@3.5.9
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          COMMIT_MESSAGE: Deploying ${{ env.MERC_VERSION }}
+          FOLDER: build/WebGL/WebGL
+
+  deploy-server:
+    name: Deploy server
+    runs-on: ubuntu-latest
+    needs: [check-version]
+    if: github.event_name == 'push'
+    env:
+      DDCLIENT_CONF: ${{ secrets.DDCLIENT_CONF }}
+      GCE_INSTANCE: ${{ secrets.GCE_INSTANCE }}
+      GCE_ZONE: ${{ secrets.GCE_ZONE }}
+      GCLOUD_PROJECT: ${{ secrets.GCLOUD_PROJECT }}
+      IMAGE_NAME: merc-server
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-StandaloneLinux64
+          restore-keys: |
+            Library-
+
+      - name: Set Merc version
+        run: echo "::set-env name=MERC_VERSION::$(<Assets/VERSION.txt)"
+
+      - name: Setup gcloud CLI
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
+        with:
+          version: "297.0.1"
+          service_account_key: ${{ secrets.GCE_SA_KEY }}
+          project_id: ${{ secrets.GCLOUD_PROJECT }}
+
+      - name: Set up gcloud as Docker credential helper
+        run: gcloud --quiet auth configure-docker
+
+      # TODO: Build specifically for headless operation, to cut down size
+      - name: Build headless Linux server
+        uses: jspahrsummers/unity-builder@rename-version-flag
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          unityVersion: ${{ env.UNITY_VERSION }}
+          targetPlatform: StandaloneLinux64
+          versioning: Custom
+          version: ${{ env.MERC_VERSION }}
+
+      - name: Dockerize
+        run: docker build -f Server/Dockerfile --build-arg DDCLIENT_CONF="$DDCLIENT_CONF" --tag merc-server --tag "gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:$MERC_VERSION" .
+
+      - name: Publish to GCR
+        run: docker push "gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:$MERC_VERSION"
+
+      - name: Tag latest
+        if: github.ref == 'refs/heads/master'
+        run: docker tag merc-server "gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:latest" && docker push "gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:latest"
+
+      - name: Deploy to GCE
+        run: gcloud compute instances update-container --zone "$GCE_ZONE" "$GCE_INSTANCE" --container-image="gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:$MERC_VERSION"
+
+  notify:
+    name: Notify Discord server
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    needs: [build, webgl, deploy-server]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set Merc version
+        run: echo "::set-env name=MERC_VERSION::$(<Assets/VERSION.txt)"
+
+      - uses: rjstone/discord-webhook-notify@v1
+        with:
+          severity: info
+          text: |
+            ${{ env.MERC_VERSION }} is now live!
+            Download the latest version: https://jspahrsummers.itch.io/merc?secret=UrpQr2B7iEPyEqjoEf8eWEYNE4w
+            Play in the browser: http://jspahrsummers.com/Merc
+          details: |
+            Release notes: https://github.com/jspahrsummers/Merc/releases/tag/${{ env.MERC_VERSION }}
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
