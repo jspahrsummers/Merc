@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 2486920864415794986}
   - component: {fileID: 2486920864415794987}
   - component: {fileID: 2486920864415794984}
+  - component: {fileID: 6723175925403401147}
   m_Layer: 0
-  m_Name: Drone
+  m_Name: Destructible
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,3 +112,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa9abbda3d841d4fa08207bc81ba835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &6723175925403401147
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2486920864415794989}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 20
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 6200000, guid: db00b6df10fe62745afe798b35adff34, type: 2}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

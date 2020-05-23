@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ShipController : MonoBehaviour
+public class PlayerShipController : MonoBehaviour
 {
     public float rotateSpeed;
     public float thrustAcceleration;
@@ -31,9 +31,8 @@ public class ShipController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(0, 0, m_Turning * rotateSpeed * Time.deltaTime);
-
-        m_Velocity += m_Thrusting * transform.up * thrustAcceleration * Time.deltaTime;
-        transform.Translate(m_Velocity, Space.World);
+        var rigidbody = gameObject.GetComponent<Rigidbody2D>();
+        rigidbody.rotation += m_Turning * rotateSpeed * Time.deltaTime;
+        rigidbody.AddRelativeForce(Vector2.up * m_Thrusting * thrustAcceleration * Time.deltaTime);
     }
 }
