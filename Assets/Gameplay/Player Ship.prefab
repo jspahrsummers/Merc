@@ -176,8 +176,11 @@ MonoBehaviour:
   turnSpeed: 360
   torque: 30
   thrust: 300
+  fuelConsumption: 0.4
+  fuelRegeneration: 0.3
   missilePrefab: {fileID: 9029331948948293236, guid: 11aad2206706e5a4e81b3987991281c3,
     type: 3}
+  fuelBar: {fileID: 0}
 --- !u!50 &7302967399826460537
 Rigidbody2D:
   serializedVersion: 4
