@@ -28,6 +28,11 @@ public class PlayerShipController : MonoBehaviour
 
     public void OnFire(InputAction.CallbackContext context)
     {
+        if (!context.performed)
+        {
+            return;
+        }
+
         var missile = Instantiate(missilePrefab, transform.position, transform.rotation, transform.parent).GetComponent<Rigidbody2D>();
         missile.velocity = rigidbody.velocity;
         missile.AddRelativeForce(Vector2.up * 10, ForceMode2D.Impulse);
