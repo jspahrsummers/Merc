@@ -112,6 +112,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa9abbda3d841d4fa08207bc81ba835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifetime: Infinity
+  explosionPrefab: {fileID: 8360489886650686709, guid: f8b9ce216ab1b29418bc6ece85ede7c6,
+    type: 3}
 --- !u!50 &6723175925403401147
 Rigidbody2D:
   serializedVersion: 4

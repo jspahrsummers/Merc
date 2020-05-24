@@ -119,6 +119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 5
+  explosionPrefab: {fileID: 8360489886650686709, guid: f8b9ce216ab1b29418bc6ece85ede7c6,
+    type: 3}
 --- !u!70 &8285967766790993069
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
