@@ -207,6 +207,21 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4969022978299305479, guid: 25c4edcfb2d2fdb479964c5f9b866119,
+        type: 3}
+      propertyPath: adjacentSystems.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969022978299305479, guid: 25c4edcfb2d2fdb479964c5f9b866119,
+        type: 3}
+      propertyPath: adjacentSystems.Array.data[0].name
+      value: Sol
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969022978299305479, guid: 25c4edcfb2d2fdb479964c5f9b866119,
+        type: 3}
+      propertyPath: adjacentSystems.Array.data[0].angle
+      value: 315
+      objectReference: {fileID: 0}
     - target: {fileID: 6550816121216611794, guid: 25c4edcfb2d2fdb479964c5f9b866119,
         type: 3}
       propertyPath: m_LocalPosition.x

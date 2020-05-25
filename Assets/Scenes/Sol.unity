@@ -342,6 +342,21 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4969022978299305479, guid: 25c4edcfb2d2fdb479964c5f9b866119,
+        type: 3}
+      propertyPath: adjacentSystems.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969022978299305479, guid: 25c4edcfb2d2fdb479964c5f9b866119,
+        type: 3}
+      propertyPath: adjacentSystems.Array.data[0].name
+      value: Alpha Centauri
+      objectReference: {fileID: 0}
+    - target: {fileID: 4969022978299305479, guid: 25c4edcfb2d2fdb479964c5f9b866119,
+        type: 3}
+      propertyPath: adjacentSystems.Array.data[0].angle
+      value: 135
+      objectReference: {fileID: 0}
     - target: {fileID: 6550816121216611794, guid: 25c4edcfb2d2fdb479964c5f9b866119,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -404,29 +419,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25c4edcfb2d2fdb479964c5f9b866119, type: 3}
---- !u!1 &2036987027225918430 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7613566290036415610, guid: 25c4edcfb2d2fdb479964c5f9b866119,
-    type: 3}
-  m_PrefabInstance: {fileID: 2036987027225918429}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2036987027225918431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2036987027225918430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de424094cab177840a4f38e4fde78ccb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  adjacentSystems:
-  - name: Alpha Centauri
-    angle: 135
-  hyperspaceArrivalPrefab: {fileID: 8316166738659039311, guid: 6f5685ad6e9b4764695a9bc1c476f404,
-    type: 3}
 --- !u!1001 &2486920864501439463
 PrefabInstance:
   m_ObjectHideFlags: 0

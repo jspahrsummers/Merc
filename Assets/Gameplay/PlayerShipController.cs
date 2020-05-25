@@ -80,17 +80,20 @@ public class PlayerShipController : MonoBehaviour
         rigidbody.position = entryPoint;
 
         rigidbody.AddRelativeForce(Vector2.up * requiredHyperspaceVelocity * rigidbody.mass, ForceMode2D.Impulse);
+        Debug.Log($"Arrived from hyperspace: rotation {rigidbody.rotation} position {rigidbody.position} velocity: {rigidbody.velocity} (magnitude: {rigidbody.velocity.magnitude})");
     }
 
     private IEnumerator StartHyperspaceJump(StarSystemController.AdjacentSystem system)
     {
-        while (!Mathf.Approximately(rigidbody.rotation, system.angle))
+        while (!Mathf.Approximately(Mathf.Repeat(rigidbody.rotation, 360), system.angle))
         {
             yield return new WaitForFixedUpdate();
 
             var newAngle = Mathf.MoveTowardsAngle(rigidbody.rotation, system.angle, turnSpeed * Time.fixedDeltaTime);
             rigidbody.MoveRotation(newAngle);
         }
+
+        Debug.Log($"Rotation OK for hyperspace: {rigidbody.rotation}");
 
         while (rigidbody.velocity.magnitude < requiredHyperspaceVelocity)
         {
@@ -99,6 +102,7 @@ public class PlayerShipController : MonoBehaviour
             rigidbody.AddRelativeForce(Vector2.up * hyperspaceThrust * Time.fixedDeltaTime);
         }
 
+        Debug.Log($"Velocity OK for hyperspace: {rigidbody.velocity} (magnitude: {rigidbody.velocity.magnitude}");
         starSystemController.JumpToAdjacentSystem(system);
     }
 

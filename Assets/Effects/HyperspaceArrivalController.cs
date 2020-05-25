@@ -16,9 +16,14 @@ public class HyperspaceArrivalController : MonoBehaviour
     private Image image => GetComponentInChildren<Image>();
     private GameObject player => GameObject.FindWithTag("Player");
 
-    void Start()
+    void OnEnable()
     {
         SceneManager.activeSceneChanged += OnChangedActiveScene;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.activeSceneChanged -= OnChangedActiveScene;
     }
 
     private void OnChangedActiveScene(Scene current, Scene next)
