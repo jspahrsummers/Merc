@@ -400,10 +400,31 @@ PrefabInstance:
     - target: {fileID: 7613566290036415610, guid: 25c4edcfb2d2fdb479964c5f9b866119,
         type: 3}
       propertyPath: m_Name
-      value: System Base
+      value: Star System
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25c4edcfb2d2fdb479964c5f9b866119, type: 3}
+--- !u!1 &2036987027225918430 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7613566290036415610, guid: 25c4edcfb2d2fdb479964c5f9b866119,
+    type: 3}
+  m_PrefabInstance: {fileID: 2036987027225918429}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2036987027225918431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036987027225918430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de424094cab177840a4f38e4fde78ccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  adjacentSystems:
+  - name: Alpha Centauri
+    eulerAngle: 135
 --- !u!1001 &2486920864501439463
 PrefabInstance:
   m_ObjectHideFlags: 0

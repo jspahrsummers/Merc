@@ -12,6 +12,7 @@ public class PlayerShipController : MonoBehaviour
     public float fuelConsumption;
     public float fuelRegeneration;
     public GameObject missilePrefab;
+    public GameObject systemBase;
 
     public Slider fuelBar;
 
@@ -31,6 +32,7 @@ public class PlayerShipController : MonoBehaviour
     private Vector3 m_Velocity;
 
     private new Rigidbody2D rigidbody => GetComponent<Rigidbody2D>();
+    private StarSystemController starSystemController => systemBase.GetComponent<StarSystemController>();
 
     public void OnThrust(InputAction.CallbackContext context)
     {
@@ -54,6 +56,11 @@ public class PlayerShipController : MonoBehaviour
         missile.AddRelativeForce(Vector2.up * 10, ForceMode2D.Impulse);
 
         Physics2D.IgnoreCollision(missile.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+    }
+
+    public void OnHyperspaceJump(InputAction.CallbackContext context)
+    {
+        starSystemController.JumpToAdjacentSystem(starSystemController.adjacentSystems[0]);
     }
 
     // Start is called before the first frame update

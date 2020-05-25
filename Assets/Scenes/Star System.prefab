@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6550816121216611794}
   m_Layer: 0
-  m_Name: System Base
+  m_Name: Star System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -253,6 +253,11 @@ PrefabInstance:
       propertyPath: fuelBar
       value: 
       objectReference: {fileID: 177213321008298575}
+    - target: {fileID: 835647410773345079, guid: 3d6586d12838c0242a46092ecdb9f2c2,
+        type: 3}
+      propertyPath: systemBase
+      value: 
+      objectReference: {fileID: 7613566290036415610}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d6586d12838c0242a46092ecdb9f2c2, type: 3}
 --- !u!1 &2036987028381280063 stripped
