@@ -194,6 +194,7 @@ MonoBehaviour:
   fuelConsumption: 0.4
   fuelRegeneration: 0.3
   hyperspaceThrust: 300
+  permittedHyperspaceAngleError: 10
   requiredHyperspaceVelocity: 20
   hyperspaceArrivalDistance: 50
   missilePrefab: {fileID: 9029331948948293236, guid: 11aad2206706e5a4e81b3987991281c3,

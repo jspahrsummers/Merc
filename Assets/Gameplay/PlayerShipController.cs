@@ -95,7 +95,7 @@ public class PlayerShipController : MonoBehaviour
 
         Debug.Log($"Rotation OK for hyperspace: {rigidbody.rotation}");
 
-        while (rigidbody.velocity.magnitude < requiredHyperspaceVelocity)
+        while (Vector2.Dot(rigidbody.velocity, transform.up) < requiredHyperspaceVelocity)
         {
             yield return new WaitForFixedUpdate();
 
