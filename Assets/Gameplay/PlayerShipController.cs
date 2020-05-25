@@ -89,6 +89,7 @@ public class PlayerShipController : MonoBehaviour
             yield return new WaitForFixedUpdate();
 
             float newAngle = Mathf.MoveTowardsAngle(rigidbody.rotation, system.angle, turnSpeed * Time.fixedDeltaTime);
+            rigidbody.angularVelocity = 0;
             rigidbody.MoveRotation(newAngle);
         }
 
