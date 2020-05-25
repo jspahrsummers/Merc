@@ -29,18 +29,21 @@ public class HyperspaceArrivalController : MonoBehaviour
     private void OnChangedActiveScene(Scene current, Scene next)
     {
         startTime = Time.time;
+        StartCoroutine(FadeOut());
+
         player.GetComponent<PlayerShipController>().OnArrivalFromHyperspaceJump(arrivalAngle);
     }
 
-    void Update()
+    private IEnumerator FadeOut()
     {
-        Color color = image.color;
-        color.a -= fadeSpeed * Time.deltaTime;
-        image.color = color;
-
-        if (color.a <= 0)
+        while (image.color.a > 0)
         {
-            Destroy(gameObject);
+            Color color = image.color;
+            color.a -= fadeSpeed * Time.deltaTime;
+            image.color = color;
+            yield return null;
         }
+
+        Destroy(gameObject);
     }
 }
