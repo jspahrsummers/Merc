@@ -36,6 +36,7 @@ public class PlayerShipController : MonoBehaviour
 
     private new Rigidbody2D rigidbody => GetComponent<Rigidbody2D>();
     private StarSystemController starSystemController => systemBase.GetComponent<StarSystemController>();
+    private PlayerInput playerInput => GetComponent<PlayerInput>();
 
     public void OnThrust(InputAction.CallbackContext context)
     {
@@ -84,6 +85,8 @@ public class PlayerShipController : MonoBehaviour
 
     private IEnumerator StartHyperspaceJump(StarSystemController.AdjacentSystem system)
     {
+        playerInput.enabled = false;
+
         while (!Mathf.Approximately(Mathf.Repeat(rigidbody.rotation, 360), system.angle))
         {
             yield return new WaitForFixedUpdate();
