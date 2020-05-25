@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class ParallaxController : MonoBehaviour
 {
-    private const float BACKGROUND_INCREMENTAL_EXPANSION = 25;
-
     private static Dictionary<(int x, int y), ParallaxController> allControllers = new Dictionary<(int x, int y), ParallaxController>();
-    private (int x, int y) m_gridTag;
+    private (int x, int y) gridTag;
 
     private SpriteRenderer backgroundRenderer => GetComponent<SpriteRenderer>();
 
     private ParallaxController GetControllerAtOffset(int xOffset, int yOffset, bool instantiate = false)
     {
-        var lookupTag = (x: m_gridTag.x + xOffset, y: m_gridTag.y + yOffset);
+        var lookupTag = (x: gridTag.x + xOffset, y: gridTag.y + yOffset);
         if (allControllers.ContainsKey(lookupTag))
         {
             return allControllers[lookupTag];
@@ -31,14 +29,14 @@ public class ParallaxController : MonoBehaviour
 
     private void InstantiateControllerAtOffset(int xOffset, int yOffset)
     {
-        var newTag = (x: m_gridTag.x + xOffset, y: m_gridTag.y + yOffset);
+        var newTag = (x: gridTag.x + xOffset, y: gridTag.y + yOffset);
 
-        var newPosition = transform.position;
+        Vector3 newPosition = transform.position;
         newPosition.x += backgroundRenderer.sprite.bounds.size.x * xOffset;
         newPosition.y += backgroundRenderer.sprite.bounds.size.y * yOffset;
 
         var controller = Instantiate<ParallaxController>(this, newPosition, transform.rotation, transform.parent);
-        controller.m_gridTag = newTag;
+        controller.gridTag = newTag;
 
         Debug.Assert(!allControllers.ContainsKey(newTag));
         allControllers[newTag] = controller;
@@ -51,21 +49,21 @@ public class ParallaxController : MonoBehaviour
 
     void OnDestroy()
     {
-        allControllers.Remove(m_gridTag);
+        allControllers.Remove(gridTag);
     }
 
     void Start()
     {
-        if (!allControllers.ContainsKey(m_gridTag))
+        if (!allControllers.ContainsKey(gridTag))
         {
-            allControllers[m_gridTag] = this;
+            allControllers[gridTag] = this;
         }
     }
 
     void Update()
     {
-        var minPoint = Camera.main.WorldToScreenPoint(backgroundRenderer.bounds.min);
-        var maxPoint = Camera.main.WorldToScreenPoint(backgroundRenderer.bounds.max);
+        Vector3 minPoint = Camera.main.WorldToScreenPoint(backgroundRenderer.bounds.min);
+        Vector3 maxPoint = Camera.main.WorldToScreenPoint(backgroundRenderer.bounds.max);
 
         if (minPoint.x >= 0 && !left)
         {

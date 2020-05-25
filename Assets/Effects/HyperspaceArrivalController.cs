@@ -11,7 +11,7 @@ public class HyperspaceArrivalController : MonoBehaviour
     [HideInInspector]
     public float arrivalAngle;
 
-    private float m_startTime;
+    private float startTime;
 
     private Image image => GetComponentInChildren<Image>();
     private GameObject player => GameObject.FindWithTag("Player");
@@ -28,13 +28,13 @@ public class HyperspaceArrivalController : MonoBehaviour
 
     private void OnChangedActiveScene(Scene current, Scene next)
     {
-        m_startTime = Time.time;
+        startTime = Time.time;
         player.GetComponent<PlayerShipController>().OnArrivalFromHyperspaceJump(arrivalAngle);
     }
 
     void Update()
     {
-        var color = image.color;
+        Color color = image.color;
         color.a -= fadeSpeed * Time.deltaTime;
         image.color = color;
 

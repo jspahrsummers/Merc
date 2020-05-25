@@ -7,11 +7,11 @@ public class DestructibleController : MonoBehaviour
     public float lifetime = Mathf.Infinity;
     public GameObject explosionPrefab;
 
-    private float m_startTime;
+    private float startTime;
 
     void Start()
     {
-        m_startTime = Time.time;
+        startTime = Time.time;
     }
 
     private void Explode()
@@ -25,16 +25,15 @@ public class DestructibleController : MonoBehaviour
 
     void Update()
     {
-        if (Time.time - m_startTime > lifetime)
+        if (Time.time - startTime > lifetime)
         {
-            Debug.Log($"Expiring {this}");
             Explode();
         }
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        Debug.Log($"Collision with {other}");
+        Debug.Log($"Collision between {this} and {other}");
         Explode();
     }
 }

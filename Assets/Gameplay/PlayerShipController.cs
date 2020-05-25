@@ -30,22 +30,21 @@ public class PlayerShipController : MonoBehaviour
         }
     }
 
-    private float m_Turning;
-    private float m_Thrusting;
-    private Vector3 m_Velocity;
-    private float? m_TurningToJump;
+    private float turning;
+    private float thrusting;
+    private Vector3 velocity;
 
     private new Rigidbody2D rigidbody => GetComponent<Rigidbody2D>();
     private StarSystemController starSystemController => systemBase.GetComponent<StarSystemController>();
 
     public void OnThrust(InputAction.CallbackContext context)
     {
-        m_Thrusting = context.ReadValue<float>();
+        thrusting = context.ReadValue<float>();
     }
 
     public void OnTurn(InputAction.CallbackContext context)
     {
-        m_Turning = context.ReadValue<float>();
+        turning = context.ReadValue<float>();
     }
 
     public void OnFire(InputAction.CallbackContext context)
@@ -76,7 +75,7 @@ public class PlayerShipController : MonoBehaviour
     {
         rigidbody.rotation = angle;
 
-        var entryPoint = rigidbody.GetRelativePoint(Vector2.down * hyperspaceArrivalDistance);
+        Vector2 entryPoint = rigidbody.GetRelativePoint(Vector2.down * hyperspaceArrivalDistance);
         rigidbody.position = entryPoint;
 
         rigidbody.AddRelativeForce(Vector2.up * requiredHyperspaceVelocity * rigidbody.mass, ForceMode2D.Impulse);
@@ -89,7 +88,7 @@ public class PlayerShipController : MonoBehaviour
         {
             yield return new WaitForFixedUpdate();
 
-            var newAngle = Mathf.MoveTowardsAngle(rigidbody.rotation, system.angle, turnSpeed * Time.fixedDeltaTime);
+            float newAngle = Mathf.MoveTowardsAngle(rigidbody.rotation, system.angle, turnSpeed * Time.fixedDeltaTime);
             rigidbody.MoveRotation(newAngle);
         }
 
@@ -108,27 +107,27 @@ public class PlayerShipController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (m_Turning != 0)
+        if (turning != 0)
         {
             if (Mathf.Abs(rigidbody.angularVelocity) >= torque)
             {
-                rigidbody.AddTorque(m_Turning * torque * Time.fixedDeltaTime);
+                rigidbody.AddTorque(turning * torque * Time.fixedDeltaTime);
             }
             else
             {
                 rigidbody.angularVelocity = 0;
-                rigidbody.MoveRotation(rigidbody.rotation + m_Turning * turnSpeed * Time.fixedDeltaTime);
+                rigidbody.MoveRotation(rigidbody.rotation + turning * turnSpeed * Time.fixedDeltaTime);
             }
         }
 
-        if (m_Thrusting > 0)
+        if (thrusting > 0)
         {
-            var neededFuel = fuelConsumption * Time.fixedDeltaTime;
-            var beforeFuel = fuel;
+            float neededFuel = fuelConsumption * Time.fixedDeltaTime;
+            float beforeFuel = fuel;
             fuel -= neededFuel;
-            var consumedFuel = beforeFuel - fuel;
+            float consumedFuel = beforeFuel - fuel;
 
-            rigidbody.AddRelativeForce(Vector2.up * m_Thrusting * (consumedFuel / neededFuel) * thrust * Time.fixedDeltaTime);
+            rigidbody.AddRelativeForce(Vector2.up * thrusting * (consumedFuel / neededFuel) * thrust * Time.fixedDeltaTime);
         }
         else
         {

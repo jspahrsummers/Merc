@@ -29,7 +29,7 @@ public class StarSystemController : MonoBehaviour
         {
             if (asyncLoad.progress >= 0.9f)
             {
-                var arrival = Instantiate(hyperspaceArrivalPrefab);
+                GameObject arrival = Instantiate(hyperspaceArrivalPrefab);
                 var arrivalController = arrival.GetComponent<HyperspaceArrivalController>();
                 arrivalController.arrivalAngle = system.angle;
                 DontDestroyOnLoad(arrival);
