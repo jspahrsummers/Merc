@@ -13,6 +13,7 @@ public class StarSystemController : MonoBehaviour
     }
 
     public AdjacentSystem[] adjacentSystems;
+    public GameObject hyperspaceFadePrefab;
 
     public void JumpToAdjacentSystem(AdjacentSystem system)
     {
@@ -22,9 +23,16 @@ public class StarSystemController : MonoBehaviour
     private IEnumerator LoadSceneAsync(string sceneName)
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+        asyncLoad.allowSceneActivation = false;
 
         while (!asyncLoad.isDone)
         {
+            if (asyncLoad.progress >= 0.9f)
+            {
+                DontDestroyOnLoad(Instantiate(hyperspaceFadePrefab));
+                asyncLoad.allowSceneActivation = true;
+            }
+
             yield return null;
         }
     }

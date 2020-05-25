@@ -425,6 +425,8 @@ MonoBehaviour:
   adjacentSystems:
   - name: Alpha Centauri
     eulerAngle: 135
+  hyperspaceFadePrefab: {fileID: 8316166738659039311, guid: 6f5685ad6e9b4764695a9bc1c476f404,
+    type: 3}
 --- !u!1001 &2486920864501439463
 PrefabInstance:
   m_ObjectHideFlags: 0
