@@ -9,7 +9,6 @@ public class DestructibleController : MonoBehaviour
 
     private float m_startTime;
 
-    // Start is called before the first frame update
     void Start()
     {
         m_startTime = Time.time;
@@ -24,7 +23,6 @@ public class DestructibleController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Time.time - m_startTime > lifetime)

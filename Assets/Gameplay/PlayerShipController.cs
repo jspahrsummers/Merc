@@ -63,37 +63,33 @@ public class PlayerShipController : MonoBehaviour
         starSystemController.JumpToAdjacentSystem(starSystemController.adjacentSystems[0]);
     }
 
-    // Start is called before the first frame update
-    void Start()
+    void FixedUpdate()
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Mathf.Abs(rigidbody.angularVelocity) >= torque)
+        if (m_Turning != 0)
         {
-            rigidbody.AddTorque(m_Turning * torque * Time.deltaTime);
-        }
-        else
-        {
-            rigidbody.angularVelocity = 0;
-            rigidbody.rotation += m_Turning * turnSpeed * Time.deltaTime;
+            if (Mathf.Abs(rigidbody.angularVelocity) >= torque)
+            {
+                rigidbody.AddTorque(m_Turning * torque * Time.fixedDeltaTime);
+            }
+            else
+            {
+                rigidbody.angularVelocity = 0;
+                rigidbody.MoveRotation(rigidbody.rotation + m_Turning * turnSpeed * Time.fixedDeltaTime);
+            }
         }
 
         if (m_Thrusting > 0)
         {
-            var neededFuel = fuelConsumption * Time.deltaTime;
+            var neededFuel = fuelConsumption * Time.fixedDeltaTime;
             var beforeFuel = fuel;
             fuel -= neededFuel;
             var consumedFuel = beforeFuel - fuel;
 
-            rigidbody.AddRelativeForce(Vector2.up * m_Thrusting * (consumedFuel / neededFuel) * thrust * Time.deltaTime);
+            rigidbody.AddRelativeForce(Vector2.up * m_Thrusting * (consumedFuel / neededFuel) * thrust * Time.fixedDeltaTime);
         }
         else
         {
-            fuel += fuelRegeneration * Time.deltaTime;
+            fuel += fuelRegeneration * Time.fixedDeltaTime;
         }
     }
 }

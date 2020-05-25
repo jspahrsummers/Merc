@@ -55,7 +55,6 @@ public class ParallaxController : MonoBehaviour
         allControllers.Remove(m_gridTag);
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         Debug.Log($"Spawned {m_gridTag}");
@@ -65,7 +64,6 @@ public class ParallaxController : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         var minPoint = Camera.main.WorldToScreenPoint(backgroundRenderer.bounds.min);

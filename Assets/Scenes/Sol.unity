@@ -402,6 +402,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Star System
       objectReference: {fileID: 0}
+    - target: {fileID: 8252105401521826677, guid: 25c4edcfb2d2fdb479964c5f9b866119,
+        type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25c4edcfb2d2fdb479964c5f9b866119, type: 3}
 --- !u!1 &2036987027225918430 stripped
