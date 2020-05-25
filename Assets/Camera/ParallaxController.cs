@@ -51,13 +51,11 @@ public class ParallaxController : MonoBehaviour
 
     void OnDestroy()
     {
-        Debug.Log($"Removing {m_gridTag}");
         allControllers.Remove(m_gridTag);
     }
 
     void Start()
     {
-        Debug.Log($"Spawned {m_gridTag}");
         if (!allControllers.ContainsKey(m_gridTag))
         {
             allControllers[m_gridTag] = this;
@@ -71,25 +69,21 @@ public class ParallaxController : MonoBehaviour
 
         if (minPoint.x >= 0 && !left)
         {
-            Debug.Log($"{m_gridTag} Found left edge of background!");
             InstantiateControllerAtOffset(-1, 0);
         }
 
         if (maxPoint.x <= Screen.width && !right)
         {
-            Debug.Log($"{m_gridTag} Found right edge of background!");
             InstantiateControllerAtOffset(1, 0);
         }
 
         if (minPoint.y >= 0 && !bottom)
         {
-            Debug.Log($"{m_gridTag} Found bottom edge of background!");
             InstantiateControllerAtOffset(0, -1);
         }
 
         if (maxPoint.y <= Screen.height && !top)
         {
-            Debug.Log($"{m_gridTag} Found top edge of background!");
             InstantiateControllerAtOffset(0, 1);
         }
     }

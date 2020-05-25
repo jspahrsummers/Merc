@@ -13,23 +13,27 @@ public class StarSystemController : MonoBehaviour
     }
 
     public AdjacentSystem[] adjacentSystems;
-    public GameObject hyperspaceFadePrefab;
+    public GameObject hyperspaceArrivalPrefab;
 
     public void JumpToAdjacentSystem(AdjacentSystem system)
     {
-        StartCoroutine(LoadSceneAsync(system.name));
+        StartCoroutine(LoadSystemAsync(system));
     }
 
-    private IEnumerator LoadSceneAsync(string sceneName)
+    private IEnumerator LoadSystemAsync(AdjacentSystem system)
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(system.name);
         asyncLoad.allowSceneActivation = false;
 
         while (!asyncLoad.isDone)
         {
             if (asyncLoad.progress >= 0.9f)
             {
-                DontDestroyOnLoad(Instantiate(hyperspaceFadePrefab));
+                var arrival = Instantiate(hyperspaceArrivalPrefab);
+                var arrivalController = arrival.GetComponent<HyperspaceArrivalController>();
+                arrivalController.arrivalAngle = system.angle;
+                DontDestroyOnLoad(arrival);
+
                 asyncLoad.allowSceneActivation = true;
             }
 

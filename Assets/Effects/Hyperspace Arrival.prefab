@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 8316166738018722155}
   - component: {fileID: 8316166738018722153}
   - component: {fileID: 8316166738018722154}
-  - component: {fileID: 8316166738018722152}
   m_Layer: 5
-  m_Name: Hyperspace Fade
+  m_Name: Fade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,19 +74,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &8316166738018722152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8316166738018722148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7da05410cbf31c24db7bb6c00ef9b34a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fadeSpeed: 4
 --- !u!1 &8316166738659039311
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,8 +86,9 @@ GameObject:
   - component: {fileID: 8316166738659039308}
   - component: {fileID: 8316166738659039309}
   - component: {fileID: 8316166738659039310}
+  - component: {fileID: 2879404604402340045}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Hyperspace Arrival
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -187,3 +174,17 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2879404604402340045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8316166738659039311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7da05410cbf31c24db7bb6c00ef9b34a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeSpeed: 4
+  arrivalAngle: 0

@@ -13,6 +13,7 @@ public class PlayerShipController : MonoBehaviour
     public float fuelRegeneration;
     public float hyperspaceThrust;
     public float requiredHyperspaceVelocity;
+    public float hyperspaceArrivalDistance;
     public GameObject missilePrefab;
     public GameObject systemBase;
 
@@ -63,7 +64,22 @@ public class PlayerShipController : MonoBehaviour
 
     public void OnHyperspaceJump(InputAction.CallbackContext context)
     {
+        if (!context.performed)
+        {
+            return;
+        }
+
         StartCoroutine(StartHyperspaceJump(starSystemController.adjacentSystems[0]));
+    }
+
+    public void OnArrivalFromHyperspaceJump(float angle)
+    {
+        rigidbody.rotation = angle;
+
+        var entryPoint = rigidbody.GetRelativePoint(Vector2.down * hyperspaceArrivalDistance);
+        rigidbody.position = entryPoint;
+
+        rigidbody.AddRelativeForce(Vector2.up * requiredHyperspaceVelocity * rigidbody.mass, ForceMode2D.Impulse);
     }
 
     private IEnumerator StartHyperspaceJump(StarSystemController.AdjacentSystem system)

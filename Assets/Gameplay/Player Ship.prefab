@@ -193,8 +193,12 @@ MonoBehaviour:
   thrust: 300
   fuelConsumption: 0.4
   fuelRegeneration: 0.3
+  hyperspaceThrust: 300
+  requiredHyperspaceVelocity: 20
+  hyperspaceArrivalDistance: 50
   missilePrefab: {fileID: 9029331948948293236, guid: 11aad2206706e5a4e81b3987991281c3,
     type: 3}
+  systemBase: {fileID: 0}
   fuelBar: {fileID: 0}
 --- !u!50 &7302967399826460537
 Rigidbody2D:
@@ -213,7 +217,7 @@ Rigidbody2D:
   m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
