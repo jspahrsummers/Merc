@@ -342,6 +342,16 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2036987028381280059, guid: 25c4edcfb2d2fdb479964c5f9b866119,
+        type: 3}
+      propertyPath: hyperspaceThrust
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036987028381280059, guid: 25c4edcfb2d2fdb479964c5f9b866119,
+        type: 3}
+      propertyPath: requiredHyperspaceVelocity
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 6550816121216611794, guid: 25c4edcfb2d2fdb479964c5f9b866119,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -429,7 +439,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   adjacentSystems:
   - name: Alpha Centauri
-    eulerAngle: 135
+    angle: 135
   hyperspaceFadePrefab: {fileID: 8316166738659039311, guid: 6f5685ad6e9b4764695a9bc1c476f404,
     type: 3}
 --- !u!1001 &2486920864501439463

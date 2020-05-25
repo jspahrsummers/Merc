@@ -9,7 +9,7 @@ public class StarSystemController : MonoBehaviour
     public struct AdjacentSystem
     {
         public string name;
-        public float eulerAngle;
+        public float angle;
     }
 
     public AdjacentSystem[] adjacentSystems;

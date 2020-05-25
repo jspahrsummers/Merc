@@ -11,6 +11,8 @@ public class PlayerShipController : MonoBehaviour
     public float thrust;
     public float fuelConsumption;
     public float fuelRegeneration;
+    public float hyperspaceThrust;
+    public float requiredHyperspaceVelocity;
     public GameObject missilePrefab;
     public GameObject systemBase;
 
@@ -30,6 +32,7 @@ public class PlayerShipController : MonoBehaviour
     private float m_Turning;
     private float m_Thrusting;
     private Vector3 m_Velocity;
+    private float? m_TurningToJump;
 
     private new Rigidbody2D rigidbody => GetComponent<Rigidbody2D>();
     private StarSystemController starSystemController => systemBase.GetComponent<StarSystemController>();
@@ -60,7 +63,27 @@ public class PlayerShipController : MonoBehaviour
 
     public void OnHyperspaceJump(InputAction.CallbackContext context)
     {
-        starSystemController.JumpToAdjacentSystem(starSystemController.adjacentSystems[0]);
+        StartCoroutine(StartHyperspaceJump(starSystemController.adjacentSystems[0]));
+    }
+
+    private IEnumerator StartHyperspaceJump(StarSystemController.AdjacentSystem system)
+    {
+        while (!Mathf.Approximately(rigidbody.rotation, system.angle))
+        {
+            yield return new WaitForFixedUpdate();
+
+            var newAngle = Mathf.MoveTowardsAngle(rigidbody.rotation, system.angle, turnSpeed * Time.fixedDeltaTime);
+            rigidbody.MoveRotation(newAngle);
+        }
+
+        while (rigidbody.velocity.magnitude < requiredHyperspaceVelocity)
+        {
+            yield return new WaitForFixedUpdate();
+
+            rigidbody.AddRelativeForce(Vector2.up * hyperspaceThrust * Time.fixedDeltaTime);
+        }
+
+        starSystemController.JumpToAdjacentSystem(system);
     }
 
     void FixedUpdate()
