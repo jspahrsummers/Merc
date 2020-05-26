@@ -6,74 +6,108 @@ public class AIShipController : MonoBehaviour
 {
     public float turnSpeed;
     public float thrust;
+    public Vector2 destination;
     public float destinationTolerance;
     public float speedTolerance;
     public float rotationTolerance;
 
     private new Rigidbody2D rigidbody => GetComponent<Rigidbody2D>();
 
+    private interface IState
+    {
+        IState FixedUpdate();
+    }
+
+    private struct MovingTowardDestinationState : IState
+    {
+        private AIShipController ship;
+
+        public MovingTowardDestinationState(AIShipController ship)
+        {
+            this.ship = ship;
+            Debug.Log($"Starting to move toward destination {this.ship.destination}");
+        }
+
+        public IState FixedUpdate()
+        {
+            if (Vector2.Distance(ship.rigidbody.position, ship.destination) <= ship.destinationTolerance)
+            {
+                Debug.Log("Reached destination");
+                return new DeceleratingAndStoppingState(ship);
+            }
+
+            Vector2 distance = ship.destination - ship.rigidbody.position;
+            float destinationAngle = Mathf.Atan2(distance.y, distance.x) * Mathf.Rad2Deg - 90;
+
+            if (Mathf.Repeat(ship.rigidbody.rotation - destinationAngle, 360) > ship.rotationTolerance)
+            {
+                float newAngle = Mathf.MoveTowardsAngle(ship.rigidbody.rotation, destinationAngle, ship.turnSpeed * Time.fixedDeltaTime);
+                ship.rigidbody.angularVelocity = 0;
+                ship.rigidbody.MoveRotation(newAngle);
+            }
+            else
+            {
+                ship.rigidbody.AddRelativeForce(Vector2.up * ship.thrust * Time.fixedDeltaTime);
+            }
+
+            return this;
+        }
+    }
+
+    private struct DeceleratingAndStoppingState : IState
+    {
+        private AIShipController ship;
+
+        public DeceleratingAndStoppingState(AIShipController ship)
+        {
+            this.ship = ship;
+            Debug.Log("Starting to decelerate to a stop");
+        }
+
+        public IState FixedUpdate()
+        {
+            if (Mathf.Abs(ship.rigidbody.velocity.magnitude) <= ship.speedTolerance)
+            {
+                Debug.Log("Decelerated to a stop");
+                return null;
+            }
+
+            float velocityAngle = Vector2.SignedAngle(Vector2.up, ship.rigidbody.velocity);
+            float desiredAngle = velocityAngle + 180;
+
+            if (Mathf.Repeat(ship.rigidbody.rotation - desiredAngle, 360) > ship.rotationTolerance)
+            {
+                float newAngle = Mathf.MoveTowardsAngle(ship.rigidbody.rotation, desiredAngle, ship.turnSpeed * Time.fixedDeltaTime);
+                ship.rigidbody.angularVelocity = 0;
+                ship.rigidbody.MoveRotation(newAngle);
+            }
+            else
+            {
+                ship.rigidbody.AddRelativeForce(Vector2.up * ship.thrust * Time.fixedDeltaTime);
+            }
+
+            return this;
+        }
+    }
+
+    private IState state;
+
     void Start()
     {
-        StartCoroutine(MoveToward(new Vector2(0, 0)));
+        state = new MovingTowardDestinationState(this);
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
         Debug.Log($"Collision between {this} and {other}");
-        StartCoroutine(DecelerateAndStop());
+        if (state == null)
+        {
+            state = new DeceleratingAndStoppingState(this);
+        }
     }
 
-    private IEnumerator MoveToward(Vector2 destination)
+    void FixedUpdate()
     {
-        Debug.Log($"Starting to move toward {destination}");
-
-        while (Vector2.Distance(rigidbody.position, destination) > destinationTolerance)
-        {
-            yield return new WaitForFixedUpdate();
-
-            Vector2 distance = destination - rigidbody.position;
-            float destinationAngle = Mathf.Atan2(distance.y, distance.x) * Mathf.Rad2Deg - 90;
-
-            if (Mathf.Repeat(rigidbody.rotation - destinationAngle, 360) > rotationTolerance)
-            {
-                float newAngle = Mathf.MoveTowardsAngle(rigidbody.rotation, destinationAngle, turnSpeed * Time.fixedDeltaTime);
-                rigidbody.angularVelocity = 0;
-                rigidbody.MoveRotation(newAngle);
-            }
-            else
-            {
-                rigidbody.AddRelativeForce(Vector2.up * thrust * Time.fixedDeltaTime);
-            }
-        }
-
-        Debug.Log("Reached destination");
-        StartCoroutine(DecelerateAndStop());
-    }
-
-    private IEnumerator DecelerateAndStop()
-    {
-        Debug.Log("Starting to decelerate to a stop");
-
-        while (Mathf.Abs(rigidbody.velocity.magnitude) > speedTolerance)
-        {
-            yield return new WaitForFixedUpdate();
-
-            float velocityAngle = Vector2.SignedAngle(Vector2.up, rigidbody.velocity);
-            float desiredAngle = velocityAngle + 180;
-            Debug.Log($"Velocity angled at {velocityAngle}");
-
-            if (Mathf.Repeat(rigidbody.rotation - desiredAngle, 360) > rotationTolerance)
-            {
-                float newAngle = Mathf.MoveTowardsAngle(rigidbody.rotation, desiredAngle, turnSpeed * Time.fixedDeltaTime);
-                rigidbody.angularVelocity = 0;
-                rigidbody.MoveRotation(newAngle);
-            }
-            else
-            {
-                rigidbody.AddRelativeForce(Vector2.up * thrust * Time.fixedDeltaTime);
-            }
-        }
-
-        Debug.Log("Decelerated to a stop");
+        state = state?.FixedUpdate();
     }
 }
