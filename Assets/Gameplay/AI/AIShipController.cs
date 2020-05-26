@@ -106,8 +106,18 @@ public class AIShipController : MonoBehaviour
         }
     }
 
+    private IState IdleStateFixedUpdate()
+    {
+        if (Vector2.Distance(rigidbody.position, destination) > destinationTolerance)
+        {
+            return new MovingTowardDestinationState(this);
+        }
+
+        return null;
+    }
+
     void FixedUpdate()
     {
-        state = state?.FixedUpdate();
+        state = (state == null ? IdleStateFixedUpdate() : state.FixedUpdate());
     }
 }
