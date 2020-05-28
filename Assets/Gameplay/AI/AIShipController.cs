@@ -41,13 +41,13 @@ public class AIShipController : MonoBehaviour
 
             if (Mathf.Repeat(ship.rigidbody.rotation - destinationAngle, 360) > ship.rotationTolerance)
             {
-                float newAngle = Mathf.MoveTowardsAngle(ship.rigidbody.rotation, destinationAngle, ship.turnSpeed * Time.fixedDeltaTime);
+                float newAngle = Mathf.MoveTowardsAngle(ship.rigidbody.rotation, destinationAngle, ship.turnSpeed * Time.deltaTime);
                 ship.rigidbody.angularVelocity = 0;
                 ship.rigidbody.MoveRotation(newAngle);
             }
             else
             {
-                ship.rigidbody.AddRelativeForce(Vector2.up * ship.thrust * Time.fixedDeltaTime);
+                ship.rigidbody.AddRelativeForce(Vector2.up * ship.thrust * Time.deltaTime);
             }
 
             return this;
@@ -77,13 +77,13 @@ public class AIShipController : MonoBehaviour
 
             if (Mathf.Repeat(ship.rigidbody.rotation - desiredAngle, 360) > ship.rotationTolerance)
             {
-                float newAngle = Mathf.MoveTowardsAngle(ship.rigidbody.rotation, desiredAngle, ship.turnSpeed * Time.fixedDeltaTime);
+                float newAngle = Mathf.MoveTowardsAngle(ship.rigidbody.rotation, desiredAngle, ship.turnSpeed * Time.deltaTime);
                 ship.rigidbody.angularVelocity = 0;
                 ship.rigidbody.MoveRotation(newAngle);
             }
             else
             {
-                ship.rigidbody.AddRelativeForce(Vector2.up * ship.thrust * Time.fixedDeltaTime);
+                ship.rigidbody.AddRelativeForce(Vector2.up * ship.thrust * Time.deltaTime);
             }
 
             return this;

@@ -91,7 +91,7 @@ public class PlayerShipController : MonoBehaviour
         {
             yield return new WaitForFixedUpdate();
 
-            float newAngle = Mathf.MoveTowardsAngle(rigidbody.rotation, system.angle, turnSpeed * Time.fixedDeltaTime);
+            float newAngle = Mathf.MoveTowardsAngle(rigidbody.rotation, system.angle, turnSpeed * Time.deltaTime);
             rigidbody.angularVelocity = 0;
             rigidbody.MoveRotation(newAngle);
         }
@@ -102,7 +102,7 @@ public class PlayerShipController : MonoBehaviour
         {
             yield return new WaitForFixedUpdate();
 
-            rigidbody.AddRelativeForce(Vector2.up * hyperspaceThrust * Time.fixedDeltaTime);
+            rigidbody.AddRelativeForce(Vector2.up * hyperspaceThrust * Time.deltaTime);
         }
 
         Debug.Log($"Velocity OK for hyperspace: {rigidbody.velocity} (magnitude: {rigidbody.velocity.magnitude}");
@@ -115,27 +115,27 @@ public class PlayerShipController : MonoBehaviour
         {
             if (Mathf.Abs(rigidbody.angularVelocity) >= torque)
             {
-                rigidbody.AddTorque(turning * torque * Time.fixedDeltaTime);
+                rigidbody.AddTorque(turning * torque * Time.deltaTime);
             }
             else
             {
                 rigidbody.angularVelocity = 0;
-                rigidbody.MoveRotation(rigidbody.rotation + turning * turnSpeed * Time.fixedDeltaTime);
+                rigidbody.MoveRotation(rigidbody.rotation + turning * turnSpeed * Time.deltaTime);
             }
         }
 
         if (thrusting > 0)
         {
-            float neededFuel = fuelConsumption * Time.fixedDeltaTime;
+            float neededFuel = fuelConsumption * Time.deltaTime;
             float beforeFuel = fuel;
             fuel -= neededFuel;
             float consumedFuel = beforeFuel - fuel;
 
-            rigidbody.AddRelativeForce(Vector2.up * thrusting * (consumedFuel / neededFuel) * thrust * Time.fixedDeltaTime);
+            rigidbody.AddRelativeForce(Vector2.up * thrusting * (consumedFuel / neededFuel) * thrust * Time.deltaTime);
         }
         else
         {
-            fuel += fuelRegeneration * Time.fixedDeltaTime;
+            fuel += fuelRegeneration * Time.deltaTime;
         }
     }
 }
