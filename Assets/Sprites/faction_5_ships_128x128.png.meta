@@ -1,0 +1,2168 @@
+fileFormatVersion: 2
+guid: d1d8cee8ee5ad6843a12bf65dda36a55
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7900994549142977625
+    second: faction_5_ships_128x128_0
+  - first:
+      213: 6348457822193252249
+    second: faction_5_ships_128x128_1
+  - first:
+      213: 6917308680469645576
+    second: faction_5_ships_128x128_2
+  - first:
+      213: 603610248359450594
+    second: faction_5_ships_128x128_3
+  - first:
+      213: -4888935917291788423
+    second: faction_5_ships_128x128_4
+  - first:
+      213: 3587852414636365054
+    second: faction_5_ships_128x128_5
+  - first:
+      213: -5026128573853469858
+    second: faction_5_ships_128x128_6
+  - first:
+      213: -4211235025712485636
+    second: faction_5_ships_128x128_7
+  - first:
+      213: 9137482251243934075
+    second: faction_5_ships_128x128_8
+  - first:
+      213: 21745864946283836
+    second: faction_5_ships_128x128_9
+  - first:
+      213: -7730172550918829307
+    second: faction_5_ships_128x128_10
+  - first:
+      213: 2604504811882495151
+    second: faction_5_ships_128x128_11
+  - first:
+      213: 7030414018277398294
+    second: faction_5_ships_128x128_12
+  - first:
+      213: -9221527121750095846
+    second: faction_5_ships_128x128_13
+  - first:
+      213: -4077749814381985304
+    second: faction_5_ships_128x128_14
+  - first:
+      213: 658321486961148854
+    second: faction_5_ships_128x128_15
+  - first:
+      213: 917509290968965713
+    second: faction_5_ships_128x128_16
+  - first:
+      213: -5011881236846657404
+    second: faction_5_ships_128x128_17
+  - first:
+      213: -3762506415639923956
+    second: faction_5_ships_128x128_18
+  - first:
+      213: 5137118861309444313
+    second: faction_5_ships_128x128_19
+  - first:
+      213: 8961950960115269587
+    second: faction_5_ships_128x128_20
+  - first:
+      213: 2496964372425730971
+    second: faction_5_ships_128x128_21
+  - first:
+      213: 1722553694879855951
+    second: faction_5_ships_128x128_22
+  - first:
+      213: 3703421930446033478
+    second: faction_5_ships_128x128_23
+  - first:
+      213: 8302809845520519529
+    second: faction_5_ships_128x128_24
+  - first:
+      213: -2555354538320450916
+    second: faction_5_ships_128x128_25
+  - first:
+      213: -2490842770296155618
+    second: faction_5_ships_128x128_26
+  - first:
+      213: -3505027452879248333
+    second: faction_5_ships_128x128_27
+  - first:
+      213: -7839778728440879905
+    second: faction_5_ships_128x128_28
+  - first:
+      213: 7661772565069710820
+    second: faction_5_ships_128x128_29
+  - first:
+      213: 8549503155393804938
+    second: faction_5_ships_128x128_30
+  - first:
+      213: -3560923066969625767
+    second: faction_5_ships_128x128_31
+  - first:
+      213: 1854066022454663286
+    second: faction_5_ships_128x128_32
+  - first:
+      213: 712065385897463553
+    second: faction_5_ships_128x128_33
+  - first:
+      213: 872931210246393226
+    second: faction_5_ships_128x128_34
+  - first:
+      213: -6722978920355835190
+    second: faction_5_ships_128x128_35
+  - first:
+      213: -362517935814026282
+    second: faction_5_ships_128x128_36
+  - first:
+      213: 7503277420604200529
+    second: faction_5_ships_128x128_37
+  - first:
+      213: 5787843513099481882
+    second: faction_5_ships_128x128_38
+  - first:
+      213: 6994735900621374937
+    second: faction_5_ships_128x128_39
+  - first:
+      213: 715162283185975696
+    second: faction_5_ships_128x128_40
+  - first:
+      213: 2636203320511287705
+    second: faction_5_ships_128x128_41
+  - first:
+      213: -3065241687869288898
+    second: faction_5_ships_128x128_42
+  - first:
+      213: -4136011346972921659
+    second: faction_5_ships_128x128_43
+  - first:
+      213: -1555229577947478698
+    second: faction_5_ships_128x128_44
+  - first:
+      213: 6224998481656420364
+    second: faction_5_ships_128x128_45
+  - first:
+      213: 2436093981057270999
+    second: faction_5_ships_128x128_46
+  - first:
+      213: -16659984743688618
+    second: faction_5_ships_128x128_47
+  - first:
+      213: -7941050392845843004
+    second: faction_5_ships_128x128_48
+  - first:
+      213: 5719555018006691973
+    second: faction_5_ships_128x128_49
+  - first:
+      213: -7371570041814509454
+    second: faction_5_ships_128x128_50
+  - first:
+      213: -2657738995651107980
+    second: faction_5_ships_128x128_51
+  - first:
+      213: -7526188340056760838
+    second: faction_5_ships_128x128_52
+  - first:
+      213: 7943881685528893590
+    second: faction_5_ships_128x128_53
+  - first:
+      213: -4704045021560314660
+    second: faction_5_ships_128x128_54
+  - first:
+      213: 8059656888087826358
+    second: faction_5_ships_128x128_55
+  - first:
+      213: 1090131510146601326
+    second: faction_5_ships_128x128_56
+  - first:
+      213: -1347284619480844927
+    second: faction_5_ships_128x128_57
+  - first:
+      213: -3341613528408484413
+    second: faction_5_ships_128x128_58
+  - first:
+      213: -513450649974684152
+    second: faction_5_ships_128x128_59
+  - first:
+      213: -4034455566360507591
+    second: faction_5_ships_128x128_60
+  - first:
+      213: -2717705005747694470
+    second: faction_5_ships_128x128_61
+  - first:
+      213: 4453825884214782285
+    second: faction_5_ships_128x128_62
+  - first:
+      213: -3785014832173594898
+    second: faction_5_ships_128x128_63
+  - first:
+      213: -3121180782554829764
+    second: faction_5_ships_128x128_64
+  - first:
+      213: -5904006689032633067
+    second: faction_5_ships_128x128_65
+  - first:
+      213: -6298981408278093152
+    second: faction_5_ships_128x128_66
+  - first:
+      213: 1137234478038496140
+    second: faction_5_ships_128x128_67
+  - first:
+      213: 574119953188235685
+    second: faction_5_ships_128x128_68
+  - first:
+      213: 6658467495830072349
+    second: faction_5_ships_128x128_69
+  - first:
+      213: 8262451996125475925
+    second: faction_5_ships_128x128_70
+  - first:
+      213: -7231294643341269337
+    second: faction_5_ships_128x128_71
+  - first:
+      213: -5606167728648744345
+    second: faction_5_ships_128x128_72
+  - first:
+      213: -9079642671258129368
+    second: faction_5_ships_128x128_73
+  - first:
+      213: -723654586284958139
+    second: faction_5_ships_128x128_74
+  - first:
+      213: -6028388702625519068
+    second: faction_5_ships_128x128_75
+  - first:
+      213: -2670353092263501276
+    second: faction_5_ships_128x128_0
+  - first:
+      213: 8312795222406163265
+    second: faction_5_ships_128x128_1
+  - first:
+      213: -4874392207300026934
+    second: faction_5_ships_128x128_2
+  - first:
+      213: -7323787169065199907
+    second: faction_5_ships_128x128_3
+  - first:
+      213: 833435301164112878
+    second: faction_5_ships_128x128_4
+  - first:
+      213: 7066981696072708367
+    second: faction_5_ships_128x128_5
+  - first:
+      213: 8949235208616823458
+    second: faction_5_ships_128x128_6
+  - first:
+      213: -5314341752209827508
+    second: faction_5_ships_128x128_7
+  - first:
+      213: 588093782001604520
+    second: faction_5_ships_128x128_8
+  - first:
+      213: -1480348946583024001
+    second: faction_5_ships_128x128_9
+  - first:
+      213: 4098097577584121564
+    second: faction_5_ships_128x128_10
+  - first:
+      213: -904825821069196106
+    second: faction_5_ships_128x128_11
+  - first:
+      213: 3929607863376363000
+    second: faction_5_ships_128x128_12
+  - first:
+      213: -3088941657614232259
+    second: faction_5_ships_128x128_13
+  - first:
+      213: -6216813244214320650
+    second: faction_5_ships_128x128_14
+  - first:
+      213: 2159503005144893556
+    second: faction_5_ships_128x128_15
+  - first:
+      213: 8576712986346896665
+    second: faction_5_ships_128x128_16
+  - first:
+      213: -1687415018648270219
+    second: faction_5_ships_128x128_17
+  - first:
+      213: -7116777548884436562
+    second: faction_5_ships_128x128_18
+  - first:
+      213: -4259867100784979492
+    second: faction_5_ships_128x128_19
+  - first:
+      213: 6950560554314728352
+    second: faction_5_ships_128x128_20
+  - first:
+      213: 4024783935306194646
+    second: faction_5_ships_128x128_21
+  - first:
+      213: 5932564160138071292
+    second: faction_5_ships_128x128_22
+  - first:
+      213: 3813854628417481533
+    second: faction_5_ships_128x128_23
+  - first:
+      213: 3171399111919523192
+    second: faction_5_ships_128x128_24
+  - first:
+      213: 1219481098940144621
+    second: faction_5_ships_128x128_25
+  - first:
+      213: -7238135890218068785
+    second: faction_5_ships_128x128_26
+  - first:
+      213: 8806896592419955255
+    second: faction_5_ships_128x128_27
+  - first:
+      213: 2296284875288918865
+    second: faction_5_ships_128x128_28
+  - first:
+      213: 772339632768940983
+    second: faction_5_ships_128x128_29
+  - first:
+      213: -1024612816998255571
+    second: faction_5_ships_128x128_30
+  - first:
+      213: 7404754423907766222
+    second: faction_5_ships_128x128_31
+  - first:
+      213: -391771927071344192
+    second: faction_5_ships_128x128_32
+  - first:
+      213: 9076258402954092045
+    second: faction_5_ships_128x128_33
+  - first:
+      213: 7682668997536145552
+    second: faction_5_ships_128x128_34
+  - first:
+      213: 4841359163071882824
+    second: faction_5_ships_128x128_35
+  - first:
+      213: -6075288827496702243
+    second: faction_5_ships_128x128_36
+  - first:
+      213: 4963150055454337881
+    second: faction_5_ships_128x128_37
+  - first:
+      213: 7729905042178980572
+    second: faction_5_ships_128x128_38
+  - first:
+      213: -3110676719596042518
+    second: faction_5_ships_128x128_39
+  - first:
+      213: -679117641926737403
+    second: faction_5_ships_128x128_40
+  - first:
+      213: -3243361454361607968
+    second: faction_5_ships_128x128_41
+  - first:
+      213: -8757941566798736926
+    second: faction_5_ships_128x128_42
+  - first:
+      213: 9149647421944721749
+    second: faction_5_ships_128x128_43
+  - first:
+      213: -1320954615784540723
+    second: faction_5_ships_128x128_44
+  - first:
+      213: -8600996534767243466
+    second: faction_5_ships_128x128_45
+  - first:
+      213: -6709599220982495554
+    second: faction_5_ships_128x128_46
+  - first:
+      213: -5335315467801785582
+    second: faction_5_ships_128x128_47
+  - first:
+      213: 6405887622377442371
+    second: faction_5_ships_128x128_48
+  - first:
+      213: -498044707869842245
+    second: faction_5_ships_128x128_49
+  - first:
+      213: 2124128430723107334
+    second: faction_5_ships_128x128_50
+  - first:
+      213: 9026722410566635375
+    second: faction_5_ships_128x128_51
+  - first:
+      213: -570936416133061380
+    second: faction_5_ships_128x128_52
+  - first:
+      213: 913460117064849232
+    second: faction_5_ships_128x128_53
+  - first:
+      213: 8135168967409759788
+    second: faction_5_ships_128x128_54
+  - first:
+      213: -7379880982964970709
+    second: faction_5_ships_128x128_55
+  - first:
+      213: 703039792245747590
+    second: faction_5_ships_128x128_56
+  - first:
+      213: -2978346524276365584
+    second: faction_5_ships_128x128_57
+  - first:
+      213: 1840860451666742018
+    second: faction_5_ships_128x128_58
+  - first:
+      213: -4892964922168189890
+    second: faction_5_ships_128x128_59
+  - first:
+      213: -6238316761957813710
+    second: faction_5_ships_128x128_60
+  - first:
+      213: -1552698265592758143
+    second: faction_5_ships_128x128_61
+  - first:
+      213: 6274382703827613279
+    second: faction_5_ships_128x128_62
+  - first:
+      213: -5815100388378704241
+    second: faction_5_ships_128x128_63
+  - first:
+      213: -3355731796420926285
+    second: faction_5_ships_128x128_64
+  - first:
+      213: 5627736244137338320
+    second: faction_5_ships_128x128_65
+  - first:
+      213: -4312890485467235020
+    second: faction_5_ships_128x128_66
+  - first:
+      213: 3192911007707747195
+    second: faction_5_ships_128x128_67
+  - first:
+      213: 990578914035059787
+    second: faction_5_ships_128x128_68
+  - first:
+      213: -3206101662565416684
+    second: faction_5_ships_128x128_69
+  - first:
+      213: 5670556861450850495
+    second: faction_5_ships_128x128_70
+  - first:
+      213: 1531284403580626962
+    second: faction_5_ships_128x128_71
+  - first:
+      213: 7256373703610090099
+    second: faction_5_ships_128x128_72
+  - first:
+      213: -618011912451823795
+    second: faction_5_ships_128x128_73
+  - first:
+      213: -6017884283261532658
+    second: faction_5_ships_128x128_74
+  - first:
+      213: -104241971383172120
+    second: faction_5_ships_128x128_75
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 918
+        width: 118
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 422a4ceb20001fad0800000000000000
+      internalID: -2670353092263501276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_1
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 918
+        width: 118
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14b6512363bfc5370800000000000000
+      internalID: 8312795222406163265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_2
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 918
+        width: 118
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acd13f3fc1eaa5cb0800000000000000
+      internalID: -4874392207300026934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_3
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 918
+        width: 120
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd61e417f5eac5a90800000000000000
+      internalID: -7323787169065199907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_4
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 918
+        width: 120
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eeb582d9df4f09b00800000000000000
+      internalID: 833435301164112878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_5
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 918
+        width: 120
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f01f99cf866f21260800000000000000
+      internalID: 7066981696072708367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_6
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 918
+        width: 118
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2aa4605d102123c70800000000000000
+      internalID: 8949235208616823458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_7
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 918
+        width: 120
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c49918c355aaf36b0800000000000000
+      internalID: -5314341752209827508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_8
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 834
+        width: 49
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a752dacd24592800800000000000000
+      internalID: 588093782001604520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_9
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 830
+        width: 49
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7e8b4fe97eb47be0800000000000000
+      internalID: -1480348946583024001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_10
+      rect:
+        serializedVersion: 2
+        x: 180
+        y: 835
+        width: 53
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd65aceb80e5fd830800000000000000
+      internalID: 4098097577584121564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_11
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 805
+        width: 37
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b4c19fa5b96173f0800000000000000
+      internalID: -904825821069196106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_12
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 776
+        width: 37
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fd31232885c88630800000000000000
+      internalID: 3929607863376363000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_13
+      rect:
+        serializedVersion: 2
+        x: 339
+        y: 801
+        width: 37
+        height: 88
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d355ff5adefd125d0800000000000000
+      internalID: -3088941657614232259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_14
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 797
+        width: 58
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f169afda4179b9a0800000000000000
+      internalID: -6216813244214320650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_15
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 777
+        width: 57
+        height: 94
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 478cc09aa8818fd10800000000000000
+      internalID: 2159503005144893556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_16
+      rect:
+        serializedVersion: 2
+        x: 517
+        y: 774
+        width: 56
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91dbfab050b960770800000000000000
+      internalID: 8576712986346896665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_17
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 807
+        width: 56
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57a8fc81bf81598e0800000000000000
+      internalID: -1687415018648270219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_18
+      rect:
+        serializedVersion: 2
+        x: 650
+        y: 775
+        width: 44
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea9944d86802c3d90800000000000000
+      internalID: -7116777548884436562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_19
+      rect:
+        serializedVersion: 2
+        x: 709
+        y: 787
+        width: 44
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd1965b0179e1e4c0800000000000000
+      internalID: -4259867100784979492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_20
+      rect:
+        serializedVersion: 2
+        x: 759
+        y: 841
+        width: 53
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a385cd9ff9557060800000000000000
+      internalID: 6950560554314728352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_21
+      rect:
+        serializedVersion: 2
+        x: 839
+        y: 822
+        width: 53
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6dedf993aa7ead730800000000000000
+      internalID: 4024783935306194646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_22
+      rect:
+        serializedVersion: 2
+        x: 959
+        y: 807
+        width: 64
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfc4e3ceba3b45250800000000000000
+      internalID: 5932564160138071292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_23
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 775
+        width: 49
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3badcfe3988de430800000000000000
+      internalID: 3813854628417481533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_24
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 774
+        width: 52
+        height: 54
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 875d3f280b2130c20800000000000000
+      internalID: 3171399111919523192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_25
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 775
+        width: 52
+        height: 55
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: deb51a039977ce010800000000000000
+      internalID: 1219481098940144621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_26
+      rect:
+        serializedVersion: 2
+        x: 779
+        y: 757
+        width: 53
+        height: 70
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc4db83d1c9fc8b90800000000000000
+      internalID: -7238135890218068785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_27
+      rect:
+        serializedVersion: 2
+        x: 895
+        y: 749
+        width: 64
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7322ac43ac1683a70800000000000000
+      internalID: 8806896592419955255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_28
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 675
+        width: 119
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15bb2b68dea0edf10800000000000000
+      internalID: 2296284875288918865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_29
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 675
+        width: 120
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bbf521ddc6e7ba00800000000000000
+      internalID: 772339632768940983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_30
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 671
+        width: 119
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d24b1825218d7c1f0800000000000000
+      internalID: -1024612816998255571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_31
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 662
+        width: 119
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecf460e9ae8f2c660800000000000000
+      internalID: 7404754423907766222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_32
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 675
+        width: 119
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c931fd0285209af0800000000000000
+      internalID: -391771927071344192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_33
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 662
+        width: 120
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0e9bbdede855fd70800000000000000
+      internalID: 9076258402954092045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_34
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 671
+        width: 119
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0906c0dafb25e9a60800000000000000
+      internalID: 7682668997536145552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_35
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 662
+        width: 119
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8466bf81286ff2340800000000000000
+      internalID: 4841359163071882824
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_36
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 544
+        width: 120
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dded829effc30bba0800000000000000
+      internalID: -6075288827496702243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_37
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 543
+        width: 120
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95be056fda6a0e440800000000000000
+      internalID: 4963150055454337881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_38
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 543
+        width: 120
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cda349a5ea3264b60800000000000000
+      internalID: 7729905042178980572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_39
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 544
+        width: 120
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae6866d2108a4d4d0800000000000000
+      internalID: -3110676719596042518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_40
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 544
+        width: 120
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50281405a1a4396f0800000000000000
+      internalID: -679117641926737403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_41
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 542
+        width: 120
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e0059af0f34df2d0800000000000000
+      internalID: -3243361454361607968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_42
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 543
+        width: 120
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e1555beb8a857680800000000000000
+      internalID: -8757941566798736926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_43
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 535
+        width: 120
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55175157ad31afe70800000000000000
+      internalID: 9149647421944721749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_44
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 431
+        width: 113
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc5ffb196c60bade0800000000000000
+      internalID: -1320954615784540723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_45
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 423
+        width: 113
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63f25deb83f13a880800000000000000
+      internalID: -8600996534767243466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_46
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 403
+        width: 113
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb6c918be07b2e2a0800000000000000
+      internalID: -6709599220982495554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_47
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 418
+        width: 113
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21b070989d625f5b0800000000000000
+      internalID: -5335315467801785582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_48
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 419
+        width: 113
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34c01ea4ad846e850800000000000000
+      internalID: 6405887622377442371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_49
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 403
+        width: 113
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb4a7291af69619f0800000000000000
+      internalID: -498044707869842245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_50
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 403
+        width: 120
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60a0f8abd8b6a7d10800000000000000
+      internalID: 2124128430723107334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_51
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 403
+        width: 120
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6fc1efe43c554d70800000000000000
+      internalID: 9026722410566635375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_52
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 289
+        width: 120
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf4ed0fba50a318f0800000000000000
+      internalID: -570936416133061380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_53
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 284
+        width: 120
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 057132203234dac00800000000000000
+      internalID: 913460117064849232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_54
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 289
+        width: 120
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c267d3ae21de5e070800000000000000
+      internalID: 8135168967409759788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_55
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 289
+        width: 120
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2b56b5a855659990800000000000000
+      internalID: -7379880982964970709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_56
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 275
+        width: 120
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68fa5c757f2b1c900800000000000000
+      internalID: 703039792245747590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_57
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 275
+        width: 120
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f6ec7abd99caa6d0800000000000000
+      internalID: -2978346524276365584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_58
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 275
+        width: 120
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20b49a6d3dc0c8910800000000000000
+      internalID: 1840860451666742018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_59
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 275
+        width: 120
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3cd7bbc352b81cb0800000000000000
+      internalID: -4892964922168189890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_60
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 164
+        width: 119
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 232b32ff4fb0d69a0800000000000000
+      internalID: -6238316761957813710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_61
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 141
+        width: 119
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1808afb6725b37ae0800000000000000
+      internalID: -1552698265592758143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_62
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 156
+        width: 119
+        height: 72
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f56ff7673d5131750800000000000000
+      internalID: 6274382703827613279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_63
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 152
+        width: 119
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f868379a10d9c4fa0800000000000000
+      internalID: -5815100388378704241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_64
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 141
+        width: 120
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b4e8d8e5bb0e61d0800000000000000
+      internalID: -3355731796420926285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_65
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 141
+        width: 120
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d5a5690c4cb91e40800000000000000
+      internalID: 5627736244137338320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_66
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 141
+        width: 120
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43d309244f88524c0800000000000000
+      internalID: -4312890485467235020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_67
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 141
+        width: 120
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b73dadd05af7f4c20800000000000000
+      internalID: 3192911007707747195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_68
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 32
+        width: 120
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4c4d05264e3fbd00800000000000000
+      internalID: 990578914035059787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_69
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 32
+        width: 120
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 411cff84683a183d0800000000000000
+      internalID: -3206101662565416684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_70
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 32
+        width: 120
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb09e6deb6dd1be40800000000000000
+      internalID: 5670556861450850495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_71
+      rect:
+        serializedVersion: 2
+        x: 388
+        y: 21
+        width: 120
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 218e48d4d07304510800000000000000
+      internalID: 1531284403580626962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_72
+      rect:
+        serializedVersion: 2
+        x: 516
+        y: 21
+        width: 120
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3724a210071d3b460800000000000000
+      internalID: 7256373703610090099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_73
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 21
+        width: 120
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d476953a0716c67f0800000000000000
+      internalID: -618011912451823795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_74
+      rect:
+        serializedVersion: 2
+        x: 772
+        y: 21
+        width: 120
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e064ac4e02e2c7ca0800000000000000
+      internalID: -6017884283261532658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: faction_5_ships_128x128_75
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 21
+        width: 120
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e30505ba78ad8ef0800000000000000
+      internalID: -104241971383172120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
