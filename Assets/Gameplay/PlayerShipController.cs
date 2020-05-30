@@ -23,7 +23,6 @@ public sealed class PlayerShipController : AbstractShipController
 
     private float turning;
     private float thrusting;
-    private Vector3 velocity;
 
     private StarSystemController starSystemController => systemBase.GetComponent<StarSystemController>();
     private PlayerInput playerInput => GetComponent<PlayerInput>();
