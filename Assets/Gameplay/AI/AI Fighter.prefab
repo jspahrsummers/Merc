@@ -129,8 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680e3b48441742443828e6b51b91ad2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnSpeed: 300
-  thrust: 200
+  ship: {fileID: 11400000, guid: ccacc46c4350ed9438299f27d4b0d24d, type: 2}
   destination: {x: 0, y: 0}
   destinationTolerance: 5
   speedTolerance: 0.1
