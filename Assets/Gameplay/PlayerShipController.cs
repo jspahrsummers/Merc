@@ -3,9 +3,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public sealed class PlayerShipController : MonoBehaviour
+public sealed class PlayerShipController : AbstractShipController
 {
-    public ShipScriptableObject ship;
     public GameObject missilePrefab;
     public GameObject systemBase;
 
@@ -26,7 +25,6 @@ public sealed class PlayerShipController : MonoBehaviour
     private float thrusting;
     private Vector3 velocity;
 
-    private new Rigidbody2D rigidbody => GetComponent<Rigidbody2D>();
     private StarSystemController starSystemController => systemBase.GetComponent<StarSystemController>();
     private PlayerInput playerInput => GetComponent<PlayerInput>();
 
@@ -82,10 +80,7 @@ public sealed class PlayerShipController : MonoBehaviour
         while (!Mathf.Approximately(Mathf.Repeat(rigidbody.rotation, 360), system.angle))
         {
             yield return new WaitForFixedUpdate();
-
-            float newAngle = Mathf.MoveTowardsAngle(rigidbody.rotation, system.angle, ship.turnSpeed * Time.deltaTime);
-            rigidbody.angularVelocity = 0;
-            rigidbody.MoveRotation(newAngle);
+            ForciblyRotateToward(system.angle);
         }
 
         Debug.Log($"Rotation OK for hyperspace: {rigidbody.rotation}");

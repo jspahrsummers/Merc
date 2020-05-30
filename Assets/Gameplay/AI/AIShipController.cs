@@ -1,14 +1,11 @@
 ﻿using UnityEngine;
 
-public sealed class AIShipController : MonoBehaviour
+public sealed class AIShipController : AbstractShipController
 {
-    public ShipScriptableObject ship;
     public Vector2 destination;
     public float destinationTolerance;
     public float speedTolerance;
     public float rotationTolerance;
-
-    private new Rigidbody2D rigidbody => GetComponent<Rigidbody2D>();
 
     private interface IState
     {
@@ -36,9 +33,7 @@ public sealed class AIShipController : MonoBehaviour
 
             if (Mathf.Repeat(rigidbody.rotation - destinationAngle, 360) > shipController.rotationTolerance)
             {
-                float newAngle = Mathf.MoveTowardsAngle(rigidbody.rotation, destinationAngle, ship.turnSpeed * Time.deltaTime);
-                rigidbody.angularVelocity = 0;
-                rigidbody.MoveRotation(newAngle);
+                shipController.ForciblyRotateToward(destinationAngle);
             }
             else
             {
@@ -68,9 +63,7 @@ public sealed class AIShipController : MonoBehaviour
 
             if (Mathf.Repeat(rigidbody.rotation - desiredAngle, 360) > shipController.rotationTolerance)
             {
-                float newAngle = Mathf.MoveTowardsAngle(rigidbody.rotation, desiredAngle, ship.turnSpeed * Time.deltaTime);
-                rigidbody.angularVelocity = 0;
-                rigidbody.MoveRotation(newAngle);
+                shipController.ForciblyRotateToward(desiredAngle);
             }
             else
             {
