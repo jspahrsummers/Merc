@@ -530,14 +530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e45a38d90f534a54c85a141943713172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnSpeed: 360
-  torque: 30
-  thrust: 300
-  fuelConsumption: 0.3
-  fuelRegeneration: 0.4
-  hyperspaceThrust: 300
-  requiredHyperspaceVelocity: 20
-  hyperspaceArrivalDistance: 50
+  ship: {fileID: 11400000, guid: e2ec4d7e1bfc6d94e84fef13c3121307, type: 2}
   missilePrefab: {fileID: 9029331948948293236, guid: 11aad2206706e5a4e81b3987991281c3,
     type: 3}
   systemBase: {fileID: 7613566290036415610}

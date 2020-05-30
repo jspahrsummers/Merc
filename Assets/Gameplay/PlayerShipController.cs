@@ -5,14 +5,7 @@ using UnityEngine.UI;
 
 public sealed class PlayerShipController : MonoBehaviour
 {
-    public float turnSpeed;
-    public float torque;
-    public float thrust;
-    public float fuelConsumption;
-    public float fuelRegeneration;
-    public float hyperspaceThrust;
-    public float requiredHyperspaceVelocity;
-    public float hyperspaceArrivalDistance;
+    public ShipScriptableObject ship;
     public GameObject missilePrefab;
     public GameObject systemBase;
 
@@ -75,10 +68,10 @@ public sealed class PlayerShipController : MonoBehaviour
     {
         rigidbody.rotation = angle;
 
-        Vector2 entryPoint = rigidbody.GetRelativePoint(Vector2.down * hyperspaceArrivalDistance);
+        Vector2 entryPoint = rigidbody.GetRelativePoint(Vector2.down * ship.hyperspaceArrivalDistance);
         rigidbody.position = entryPoint;
 
-        rigidbody.AddRelativeForce(Vector2.up * requiredHyperspaceVelocity * rigidbody.mass, ForceMode2D.Impulse);
+        rigidbody.AddRelativeForce(Vector2.up * ship.requiredHyperspaceVelocity * rigidbody.mass, ForceMode2D.Impulse);
         Debug.Log($"Arrived from hyperspace: rotation {rigidbody.rotation} position {rigidbody.position} velocity: {rigidbody.velocity} (magnitude: {rigidbody.velocity.magnitude})");
     }
 
@@ -90,18 +83,18 @@ public sealed class PlayerShipController : MonoBehaviour
         {
             yield return new WaitForFixedUpdate();
 
-            float newAngle = Mathf.MoveTowardsAngle(rigidbody.rotation, system.angle, turnSpeed * Time.deltaTime);
+            float newAngle = Mathf.MoveTowardsAngle(rigidbody.rotation, system.angle, ship.turnSpeed * Time.deltaTime);
             rigidbody.angularVelocity = 0;
             rigidbody.MoveRotation(newAngle);
         }
 
         Debug.Log($"Rotation OK for hyperspace: {rigidbody.rotation}");
 
-        while (Vector2.Dot(rigidbody.velocity, transform.up) < requiredHyperspaceVelocity)
+        while (Vector2.Dot(rigidbody.velocity, transform.up) < ship.requiredHyperspaceVelocity)
         {
             yield return new WaitForFixedUpdate();
 
-            rigidbody.AddRelativeForce(Vector2.up * hyperspaceThrust * Time.deltaTime);
+            rigidbody.AddRelativeForce(Vector2.up * ship.hyperspaceThrust * Time.deltaTime);
         }
 
         Debug.Log($"Velocity OK for hyperspace: {rigidbody.velocity} (magnitude: {rigidbody.velocity.magnitude}");
@@ -112,29 +105,29 @@ public sealed class PlayerShipController : MonoBehaviour
     {
         if (turning != 0)
         {
-            if (Mathf.Abs(rigidbody.angularVelocity) >= torque)
+            if (Mathf.Abs(rigidbody.angularVelocity) >= ship.torque)
             {
-                rigidbody.AddTorque(turning * torque * Time.deltaTime);
+                rigidbody.AddTorque(turning * ship.torque * Time.deltaTime);
             }
             else
             {
                 rigidbody.angularVelocity = 0;
-                rigidbody.MoveRotation(rigidbody.rotation + turning * turnSpeed * Time.deltaTime);
+                rigidbody.MoveRotation(rigidbody.rotation + turning * ship.turnSpeed * Time.deltaTime);
             }
         }
 
         if (thrusting > 0)
         {
-            float neededFuel = fuelConsumption * Time.deltaTime;
+            float neededFuel = ship.fuelConsumption * Time.deltaTime;
             float beforeFuel = fuel;
             fuel -= neededFuel;
             float consumedFuel = beforeFuel - fuel;
 
-            rigidbody.AddRelativeForce(Vector2.up * thrusting * (consumedFuel / neededFuel) * thrust * Time.deltaTime);
+            rigidbody.AddRelativeForce(Vector2.up * thrusting * (consumedFuel / neededFuel) * ship.thrust * Time.deltaTime);
         }
         else
         {
-            fuel += fuelRegeneration * Time.deltaTime;
+            fuel += ship.fuelRegeneration * Time.deltaTime;
         }
     }
 }
