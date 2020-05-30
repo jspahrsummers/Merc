@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class DestructibleController : MonoBehaviour
+public sealed class DestructibleController : MonoBehaviour
 {
     public float lifetime = Mathf.Infinity;
     public GameObject explosionPrefab;

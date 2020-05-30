@@ -1,10 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class HyperspaceArrivalController : MonoBehaviour
+public sealed class HyperspaceArrivalController : MonoBehaviour
 {
     public float fadeSpeed;
 

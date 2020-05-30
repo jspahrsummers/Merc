@@ -1,9 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StarSystemController : MonoBehaviour
+public sealed class StarSystemController : MonoBehaviour
 {
     [System.Serializable]
     public struct AdjacentSystem

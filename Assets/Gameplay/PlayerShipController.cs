@@ -1,10 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class PlayerShipController : MonoBehaviour
+public sealed class PlayerShipController : MonoBehaviour
 {
     public float turnSpeed;
     public float torque;

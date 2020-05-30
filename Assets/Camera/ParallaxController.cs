@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class ParallaxController : MonoBehaviour
+public sealed class ParallaxController : MonoBehaviour
 {
     private static Dictionary<(int x, int y), ParallaxController> allControllers = new Dictionary<(int x, int y), ParallaxController>();
     private (int x, int y) gridTag;
