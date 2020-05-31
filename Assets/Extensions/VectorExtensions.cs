@@ -15,5 +15,11 @@ namespace VectorExtensions
                 return Mathf.Infinity;
             }
         }
+
+        public static float AngleToward(this Vector2 from, Vector2 to)
+        {
+            Vector2 direction = to - from;
+            return Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
+        }
     }
 }

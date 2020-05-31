@@ -23,11 +23,6 @@ namespace RigidbodyExtensions
             return -rigidbody.velocity * rigidbody.mass;
         }
 
-        public static float TimeUntilStoppedByApplyingForceMagnitude(this Rigidbody2D rigidbody, float forceMagnitude)
-        {
-            return rigidbody.ForceRequiredToStop().magnitude / forceMagnitude;
-        }
-
         public static float TimeUntilPosition(this Rigidbody2D rigidbody, Vector2 position)
         {
             Vector2 remaining = position - rigidbody.position;
