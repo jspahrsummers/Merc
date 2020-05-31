@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bdcc5219b7276e844aaa68893d0500ce, type: 3}
-  m_Name: Fighter
+  m_Name: Disabled
   m_EditorClassIdentifier: 
-  initialState: {fileID: 11400000, guid: 1362e75475635ef4391758c4ea3ba7b1, type: 2}
+  initialState: {fileID: 11400000, guid: 6d011d55c4b9d894aa1cae3d27c08e86, type: 2}
   collisionTransition:
-    nextState: {fileID: 11400000, guid: 1362e75475635ef4391758c4ea3ba7b1, type: 2}
+    nextState: {fileID: 0}
     actions: []
