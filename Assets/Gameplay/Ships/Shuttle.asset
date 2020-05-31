@@ -22,5 +22,5 @@ MonoBehaviour:
   fuelConsumption: 0.3
   fuelRegeneration: 0.2
   hyperspaceThrust: 300
-  requiredHyperspaceVelocity: 20
+  requiredHyperspaceVelocity: 15
   hyperspaceArrivalDistance: 50
