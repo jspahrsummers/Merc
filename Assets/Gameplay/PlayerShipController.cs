@@ -110,6 +110,8 @@ public sealed class PlayerShipController : AbstractShipController
             }
         }
 
+        fuel += ship.fuelRegeneration * Time.deltaTime;
+
         if (thrusting > 0)
         {
             float neededFuel = ship.fuelConsumption * Time.deltaTime;
@@ -118,10 +120,6 @@ public sealed class PlayerShipController : AbstractShipController
             float consumedFuel = beforeFuel - fuel;
 
             rigidbody.AddRelativeForce(Vector2.up * thrusting * (consumedFuel / neededFuel) * ship.thrust * Time.deltaTime);
-        }
-        else
-        {
-            fuel += ship.fuelRegeneration * Time.deltaTime;
         }
     }
 }
