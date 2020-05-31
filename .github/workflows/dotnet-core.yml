@@ -17,8 +17,8 @@ jobs:
       with:
         dotnet-version: 3.1.101
     - name: Install dependencies
-      run: dotnet restore "$DOTNET_PROJECT"
+      run: dotnet restore ${{ env.DOTNET_PROJECT }}
     - name: Build
-      run: dotnet build --configuration Release --no-restore "$DOTNET_PROJECT"
+      run: dotnet build --configuration Release --no-restore ${{ env.DOTNET_PROJECT }}
     - name: Test
-      run: dotnet test --no-restore --verbosity normal "$DOTNET_PROJECT"
+      run: dotnet test --no-restore --verbosity normal ${{ env.DOTNET_PROJECT }}
