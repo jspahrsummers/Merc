@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 6517473085439073258}
   - component: {fileID: 6598271084067944935}
   - component: {fileID: 23034213067369533}
+  - component: {fileID: 1957919302827249953}
   m_Layer: 0
   m_Name: AI Fighter
   m_TagString: Untagged
@@ -130,6 +131,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ship: {fileID: 11400000, guid: ccacc46c4350ed9438299f27d4b0d24d, type: 2}
+  destructible:
+    armor: 0
+    shields: 0
   destination: {x: 0, y: 0}
   destinationTolerance: 5
   speedTolerance: 0.1
@@ -171,6 +175,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.3500002
+--- !u!114 &1957919302827249953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046793617268340731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 352670befc69edb44af848db6831deef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion: {fileID: 8360489886650686709, guid: f8b9ce216ab1b29418bc6ece85ede7c6,
+    type: 3}
+  damage:
+    physical: 0
+    energy: 0
 --- !u!1001 &4563218307643110838
 PrefabInstance:
   m_ObjectHideFlags: 0

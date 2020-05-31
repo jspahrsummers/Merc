@@ -3,9 +3,9 @@
 public abstract class AbstractShipController : MonoBehaviour, IDamageable
 {
     public ShipScriptableObject ship;
-    public Destructible destructible;
-    public GameObject explosionPrefab;
 
+    private Destructible destructible;
+    private ExplodableController explodable => GetComponent<ExplodableController>();
     public new Rigidbody2D rigidbody => GetComponent<Rigidbody2D>();
 
     protected void ForciblyRotateToward(float desiredAngle)
@@ -24,24 +24,12 @@ public abstract class AbstractShipController : MonoBehaviour, IDamageable
         Debug.Assert(!destructible.IsDestroyed());
     }
 
-    // TODO: Share code with ProjectileController.Explode
-    private void Explode()
-    {
-        Destroy(gameObject);
-        if (explosionPrefab)
-        {
-            Instantiate(explosionPrefab, transform.position, transform.rotation, transform.parent);
-        }
-
-        // TODO: Damage objects nearby
-    }
-
     public void ApplyDamage(Damage damage)
     {
         destructible.ApplyDamage(damage);
         if (destructible.IsDestroyed())
         {
-            Explode();
+            explodable.Explode();
         }
     }
 }

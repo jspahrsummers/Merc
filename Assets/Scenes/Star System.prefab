@@ -404,6 +404,7 @@ GameObject:
   - component: {fileID: 2036987028381280059}
   - component: {fileID: 8252105401521826677}
   - component: {fileID: 2932868537173483172}
+  - component: {fileID: 3369843087159427757}
   m_Layer: 0
   m_Name: Player Ship
   m_TagString: Player
@@ -534,7 +535,6 @@ MonoBehaviour:
   destructible:
     armor: 0
     shields: 0
-  explosionPrefab: {fileID: 0}
   missilePrefab: {fileID: 9029331948948293236, guid: 11aad2206706e5a4e81b3987991281c3,
     type: 3}
   systemBase: {fileID: 7613566290036415610}
@@ -576,6 +576,23 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.5, y: 0.7}
   m_Direction: 0
+--- !u!114 &3369843087159427757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036987028381280063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 352670befc69edb44af848db6831deef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion: {fileID: 8360489886650686709, guid: f8b9ce216ab1b29418bc6ece85ede7c6,
+    type: 3}
+  damage:
+    physical: 0
+    energy: 0
 --- !u!1 &3834534874986966485
 GameObject:
   m_ObjectHideFlags: 0

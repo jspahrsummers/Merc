@@ -4,8 +4,9 @@ using UnityEngine;
 public sealed class ProjectileController : MonoBehaviour // TODO: IDamageable
 {
     public ProjectileScriptableObject projectile;
+
     // TODO: Destructible
-    public GameObject explosionPrefab;
+    private ExplodableController explodable => GetComponent<ExplodableController>();
     public new Rigidbody2D rigidbody => GetComponent<Rigidbody2D>();
 
     void Start()
@@ -24,24 +25,13 @@ public sealed class ProjectileController : MonoBehaviour // TODO: IDamageable
     private IEnumerator ExplodeAfterLifetime()
     {
         yield return new WaitForSeconds(projectile.lifetime);
-        Explode();
-    }
-
-    private void Explode()
-    {
-        Destroy(gameObject);
-        if (explosionPrefab)
-        {
-            Instantiate(explosionPrefab, transform.position, transform.rotation, transform.parent);
-        }
-
-        // TODO: Damage objects nearby (Collider2.Cast?)
+        explodable.Explode();
     }
 
     void OnCollisionEnter2D(Collision2D other)
     {
         Debug.Log($"Collision between {this} and {other}");
-        Explode();
+        explodable.Explode();
 
         var damageable = other.gameObject.GetComponent<IDamageable>();
         if (damageable != null)

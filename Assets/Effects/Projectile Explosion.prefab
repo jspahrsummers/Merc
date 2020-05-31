@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3337956166155597766}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -7.057495, y: -4.1608205, z: 0}
-  m_LocalScale: {x: 0.18521, y: 0.18521, z: 0.18521}
+  m_LocalScale: {x: 0.18521, y: 0.18520999, z: 0.18520999}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -601,7 +601,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     maxNumParticles: 1000
-    size3D: 0
+    size3D: 1
     rotation3D: 0
     gravityModifier:
       serializedVersion: 2

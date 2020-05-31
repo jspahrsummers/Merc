@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9029331948948293237}
   - component: {fileID: 711350574776029470}
   - component: {fileID: 8285967766790993069}
+  - component: {fileID: 3076231858526781091}
   m_Layer: 0
   m_Name: Missile
   m_TagString: Untagged
@@ -120,8 +121,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 11400000, guid: 655e001b999afdf4ab51592c11c87d52, type: 2}
-  explosionPrefab: {fileID: 8360489886650686709, guid: f8b9ce216ab1b29418bc6ece85ede7c6,
-    type: 3}
 --- !u!70 &8285967766790993069
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -138,6 +137,23 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.1, y: 0.6}
   m_Direction: 0
+--- !u!114 &3076231858526781091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9029331948948293236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 352670befc69edb44af848db6831deef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosion: {fileID: 3337956166155597766, guid: f3b77e3acebf93a46aa3cbf57b2c3da7,
+    type: 3}
+  damage:
+    physical: 0
+    energy: 0
 --- !u!1001 &816992965930427124
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -145,11 +161,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9029331948948293224}
     m_Modifications:
-    - target: {fileID: 3337956166155597760, guid: f3b77e3acebf93a46aa3cbf57b2c3da7,
-        type: 3}
-      propertyPath: looping
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3337956166155597761, guid: f3b77e3acebf93a46aa3cbf57b2c3da7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -204,16 +215,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3337956166155597761, guid: f3b77e3acebf93a46aa3cbf57b2c3da7,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.18520999
-      objectReference: {fileID: 0}
-    - target: {fileID: 3337956166155597761, guid: f3b77e3acebf93a46aa3cbf57b2c3da7,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.18520999
       objectReference: {fileID: 0}
     - target: {fileID: 3337956166155597766, guid: f3b77e3acebf93a46aa3cbf57b2c3da7,
         type: 3}
