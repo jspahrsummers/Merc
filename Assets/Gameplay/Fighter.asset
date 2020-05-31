@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4023c02fea37f340bccb4e95cc5c5f3, type: 3}
   m_Name: Fighter
   m_EditorClassIdentifier: 
+  baseDestructible:
+    armor: 20
+    shields: 50
   mass: 0.5
   turnSpeed: 300
   torque: 30

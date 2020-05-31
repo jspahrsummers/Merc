@@ -3,6 +3,7 @@
 public abstract class AbstractShipController : MonoBehaviour
 {
     public ShipScriptableObject ship;
+    public Destructible destructible;
 
     public new Rigidbody2D rigidbody => GetComponent<Rigidbody2D>();
 
