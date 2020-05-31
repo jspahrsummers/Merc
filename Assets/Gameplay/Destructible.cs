@@ -21,4 +21,9 @@ public struct Destructible : IDamageable
         Debug.Assert(this.armor >= 0);
         return Mathf.Approximately(this.shields, 0) && Mathf.Approximately(this.armor, 0);
     }
+
+    public override string ToString()
+    {
+        return $"Destructible(armor = {armor}, shields = {shields})";
+    }
 }
