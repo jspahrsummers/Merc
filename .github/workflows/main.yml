@@ -51,5 +51,5 @@ jobs:
           targetPlatform: ${{ matrix.targetPlatform }}
       - uses: actions/upload-artifact@v2
         with:
-          name: Build
+          name: Build-${{ matrix.targetPlatform }}
           path: build
