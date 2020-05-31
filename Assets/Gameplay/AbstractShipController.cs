@@ -19,6 +19,9 @@ public abstract class AbstractShipController : MonoBehaviour, IDamageable
     {
         Debug.Log($"Overriding mass to {ship.mass}");
         rigidbody.mass = ship.mass;
+
+        destructible = ship.baseDestructible;
+        Debug.Assert(!destructible.IsDestroyed());
     }
 
     // TODO: Share code with ProjectileController.Explode
