@@ -76,8 +76,9 @@ public sealed class AIShipController : AbstractShipController
 
     private IState state;
 
-    void Start()
+    override protected void Start()
     {
+        base.Start();
         state = new MovingTowardDestinationState() { shipController = this };
     }
 

@@ -12,4 +12,10 @@ public abstract class AbstractShipController : MonoBehaviour
         rigidbody.angularVelocity = 0;
         rigidbody.MoveRotation(newAngle);
     }
+
+    protected virtual void Start()
+    {
+        Debug.Log($"Overriding mass to {ship.mass}");
+        rigidbody.mass = ship.mass;
+    }
 }
