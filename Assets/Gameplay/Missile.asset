@@ -18,7 +18,7 @@ MonoBehaviour:
   mass: 1
   groundZeroDamage:
     physical: 20
-    energy: 0
+    energy: 20
   damageDropoffByDistance:
     physical: 0
     energy: 0
