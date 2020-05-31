@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Projectile", menuName = "Gameplay/Projectile")]
+[CreateAssetMenu(menuName = "Gameplay/Projectile")]
 public class ProjectileScriptableObject : ScriptableObject
 {
     public Destructible baseDestructible;

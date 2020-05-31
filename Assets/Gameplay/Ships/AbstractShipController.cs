@@ -8,16 +8,9 @@ public abstract class AbstractShipController : MonoBehaviour, IDamageable
     private ExplodableController explodable => GetComponent<ExplodableController>();
     public new Rigidbody2D rigidbody => GetComponent<Rigidbody2D>();
 
-    protected void ForciblyRotateToward(float desiredAngle)
-    {
-        float newAngle = Mathf.MoveTowardsAngle(rigidbody.rotation, desiredAngle, ship.turnSpeed * Time.deltaTime);
-        rigidbody.angularVelocity = 0;
-        rigidbody.MoveRotation(newAngle);
-    }
-
     protected virtual void Start()
     {
-        Debug.Log($"Overriding mass to {ship.mass}");
+        Debug.Log($"Overriding {rigidbody} mass to {ship.mass}");
         rigidbody.mass = ship.mass;
 
         destructible = ship.baseDestructible;

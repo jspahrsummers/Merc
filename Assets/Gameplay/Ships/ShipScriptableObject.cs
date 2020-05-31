@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Ship", menuName = "Gameplay/Ship")]
+[CreateAssetMenu(menuName = "Gameplay/Ship")]
 public class ShipScriptableObject : ScriptableObject
 {
     public Destructible baseDestructible;

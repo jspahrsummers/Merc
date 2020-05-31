@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+using RigidbodyExtensions;
+
 public sealed class PlayerShipController : AbstractShipController
 {
     public GameObject missilePrefab;
@@ -79,7 +81,7 @@ public sealed class PlayerShipController : AbstractShipController
         while (!Mathf.Approximately(Mathf.Repeat(rigidbody.rotation, 360), system.angle))
         {
             yield return new WaitForFixedUpdate();
-            ForciblyRotateToward(system.angle);
+            rigidbody.RotateToward(system.angle, ship.turnSpeed * Time.deltaTime);
         }
 
         Debug.Log($"Rotation OK for hyperspace: {rigidbody.rotation}");

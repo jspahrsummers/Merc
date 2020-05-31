@@ -131,13 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ship: {fileID: 11400000, guid: ccacc46c4350ed9438299f27d4b0d24d, type: 2}
-  destructible:
-    armor: 0
-    shields: 0
-  destination: {x: 0, y: 0}
-  destinationTolerance: 5
-  speedTolerance: 0.1
-  rotationTolerance: 1
+  personality: {fileID: 11400000, guid: 3d61bb75cc845d64a99b74235cd285ee, type: 2}
 --- !u!50 &6598271084067944935
 Rigidbody2D:
   serializedVersion: 4
