@@ -7,19 +7,10 @@ env:
   UNITY_VERSION: 2019.3.14f1
 
 jobs:
-  activate:
-    name: Activating Unity license
-    runs-on: ubuntu-latest
-    steps:
-      - name: Activate Unity
-        uses: webbertakken/unity-activate@v1.2
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-
+  # See https://github.com/marketplace/actions/unity-request-activation-file
   request_activation:
     name: Request license activation
     runs-on: ubuntu-latest
-    if: failure()
     steps:
       - name: Request manual activation file
         id: getManualLicenseFile
@@ -32,34 +23,32 @@ jobs:
         with:
           name: ${{ steps.getManualLicenseFile.outputs.filePath }}
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
-
-  build:
-    name: Build for ${{ matrix.targetPlatform }}
-    runs-on: ubuntu-latest
-    needs: activate
-    strategy:
-      fail-fast: false
-      matrix:
-        targetPlatform:
-          - StandaloneOSX
-          - StandaloneWindows
-          - StandaloneWindows64
-          - WebGL
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
-        with:
-          path: Library
-          key: Library-${{ matrix.targetPlatform }}
-          restore-keys: |
-            Library-
-      - uses: webbertakken/unity-builder@v1.0
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-        with:
-          unityVersion: ${{ env.UNITY_VERSION }}
-          targetPlatform: ${{ matrix.targetPlatform }}
-      - uses: actions/upload-artifact@v1
-        with:
-          name: Build
-          path: build
+  # build:
+  #   name: Build for ${{ matrix.targetPlatform }}
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       targetPlatform:
+  #         - StandaloneOSX
+  #         - StandaloneWindows
+  #         - StandaloneWindows64
+  #         - WebGL
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/cache@v2
+  #       with:
+  #         path: Library
+  #         key: Library-${{ matrix.targetPlatform }}
+  #         restore-keys: |
+  #           Library-
+  #     - uses: webbertakken/unity-builder@v1.0
+  #       env:
+  #         UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  #       with:
+  #         unityVersion: ${{ env.UNITY_VERSION }}
+  #         targetPlatform: ${{ matrix.targetPlatform }}
+  #     - uses: actions/upload-artifact@v1
+  #       with:
+  #         name: Build
+  #         path: build
