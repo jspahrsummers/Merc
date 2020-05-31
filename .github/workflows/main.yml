@@ -10,7 +10,6 @@ jobs:
   request_activation:
     name: Request license activation
     runs-on: ubuntu-latest
-    if: secrets.UNITY_LICENSE == ''
     steps:
       - name: Request manual activation file
         id: getManualLicenseFile
@@ -27,7 +26,6 @@ jobs:
   activate:
     name: Activating Unity license
     runs-on: ubuntu-latest
-    if: secrets.UNITY_LICENSE != ''
     steps:
       - name: Activate Unity
         uses: webbertakken/unity-activate@v1.2
@@ -37,7 +35,7 @@ jobs:
   build:
     name: Build for ${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
-    if: secrets.UNITY_LICENSE != ''
+    needs: activate
     strategy:
       fail-fast: false
       matrix:
