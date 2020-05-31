@@ -28,13 +28,17 @@ public sealed class MovingTowardDestinationState : State
             return success;
         }
 
+        // TODO: Handle existing velocity that is contradictory
         float angleTowardDestination = rigidbody.position.AngleToward(destination);
         float remainingTimeUntilDestination = rigidbody.TimeUntilPosition(destination);
 
         float forceWillApply = ship.thrust * Time.deltaTime;
         float forceRequiredToStop = rigidbody.ForceRequiredToStop().magnitude;
 
-        float timeNeededToTurnAround = rigidbody.TimeUntilRotatedToward(angleTowardDestination + 180, ship.turnSpeed);
+        float velocityAngle = Vector2.SignedAngle(Vector2.up, rigidbody.velocity);
+        float oppositeAngle = velocityAngle + 180;
+
+        float timeNeededToTurnAround = rigidbody.TimeUntilRotatedToward(oppositeAngle, ship.turnSpeed);
         float timeNeededToStopWithoutChanges = timeNeededToTurnAround + forceRequiredToStop / forceWillApply;
         float timeNeededToStopWithChanges = timeNeededToTurnAround + (forceRequiredToStop + forceWillApply) / forceWillApply + Time.fixedDeltaTime;
 
@@ -53,8 +57,6 @@ public sealed class MovingTowardDestinationState : State
         else
         {
             // Come to a stop
-            float velocityAngle = Vector2.SignedAngle(Vector2.up, rigidbody.velocity);
-            float oppositeAngle = velocityAngle + 180;
             if (IsRotatedToward(rigidbody, oppositeAngle))
             {
                 rigidbody.AddRelativeForce(Vector2.up * ship.thrust * Time.deltaTime);
