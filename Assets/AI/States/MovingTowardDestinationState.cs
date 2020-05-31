@@ -21,6 +21,14 @@ public sealed class MovingTowardDestinationState : State
         Vector2 distance = destination - rigidbody.position;
         float destinationAngle = Mathf.Atan2(distance.y, distance.x) * Mathf.Rad2Deg - 90;
 
+        float remainingTime = rigidbody.TimeUntilPosition(destination);
+        float timeToStop = rigidbody.TimeUntilRotatedToward(destinationAngle + 180, ship.turnSpeed) + rigidbody.TimeUntilStoppedByApplyingForceMagnitude(ship.thrust);
+        if (remainingTime <= timeToStop)
+        {
+            Debug.Log($"{remainingTime} until destination, will take {timeToStop} to stop");
+            return success;
+        }
+
         if (Mathf.Repeat(rigidbody.rotation - destinationAngle, 360) > rotationTolerance)
         {
             rigidbody.RotateToward(destinationAngle, ship.turnSpeed * Time.deltaTime);
