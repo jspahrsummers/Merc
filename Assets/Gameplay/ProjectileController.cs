@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-public sealed class DestructibleController : MonoBehaviour
+public sealed class ProjectileController : MonoBehaviour
 {
-    public float lifetime = Mathf.Infinity;
+    public ProjectileScriptableObject projectile;
     public GameObject explosionPrefab;
 
     private float startTime;
@@ -23,7 +23,7 @@ public sealed class DestructibleController : MonoBehaviour
 
     void Update()
     {
-        if (Time.time - startTime > lifetime)
+        if (Time.time - startTime > projectile.lifetime)
         {
             Explode();
         }

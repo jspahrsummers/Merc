@@ -4,7 +4,7 @@ using UnityEngine;
 public class ShipScriptableObject : ScriptableObject
 {
     public Destructible baseDestructible;
-    public float mass;
+    public float mass = 1;
     public float turnSpeed;
     public float torque;
     public float thrust;

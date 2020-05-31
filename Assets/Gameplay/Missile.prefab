@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa9abbda3d841d4fa08207bc81ba835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifetime: 5
+  projectile: {fileID: 11400000, guid: 655e001b999afdf4ab51592c11c87d52, type: 2}
   explosionPrefab: {fileID: 8360489886650686709, guid: f8b9ce216ab1b29418bc6ece85ede7c6,
     type: 3}
 --- !u!70 &8285967766790993069
