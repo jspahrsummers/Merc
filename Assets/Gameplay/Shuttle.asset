@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Shuttle
   m_EditorClassIdentifier: 
   mass: 1
-  turnSpeed: 360
+  turnSpeed: 240
   torque: 30
-  thrust: 300
+  thrust: 200
   fuelConsumption: 0.3
-  fuelRegeneration: 0.4
+  fuelRegeneration: 0.2
   hyperspaceThrust: 300
   requiredHyperspaceVelocity: 20
   hyperspaceArrivalDistance: 50
