@@ -7,9 +7,19 @@ env:
   UNITY_VERSION: 2019.3.14f1
 
 jobs:
+  activate:
+    name: Activating Unity license
+    runs-on: ubuntu-latest
+    steps:
+      - name: Activate Unity
+        uses: webbertakken/unity-activate@v1.2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
   request_activation:
     name: Request license activation
     runs-on: ubuntu-latest
+    if: failure()
     steps:
       - name: Request manual activation file
         id: getManualLicenseFile
@@ -22,15 +32,6 @@ jobs:
         with:
           name: ${{ steps.getManualLicenseFile.outputs.filePath }}
           path: ${{ steps.getManualLicenseFile.outputs.filePath }}
-
-  activate:
-    name: Activating Unity license
-    runs-on: ubuntu-latest
-    steps:
-      - name: Activate Unity
-        uses: webbertakken/unity-activate@v1.2
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
   build:
     name: Build for ${{ matrix.targetPlatform }}
