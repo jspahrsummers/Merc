@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [System.Serializable]
-public struct Destructible
+public struct Destructible : IDamageable
 {
     public float armor;
     public float shields;
