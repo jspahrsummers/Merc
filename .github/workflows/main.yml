@@ -43,13 +43,27 @@ jobs:
           key: Library-${{ matrix.targetPlatform }}
           restore-keys: |
             Library-
-      - uses: webbertakken/unity-builder@v1.0
+
+      - name: Unity build
+        uses: webbertakken/unity-builder@v1.0
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: ${{ matrix.targetPlatform }}
-      - uses: actions/upload-artifact@v2
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
         with:
           name: Build-${{ matrix.targetPlatform }}
           path: build
+
+      - name: Publish to itch.io
+        if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')
+        uses: josephbmanley/butler-publish-itchio-action@v1.0.1
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          CHANNEL: ${{ matrix.targetPlatform }}
+          ITCH_GAME: Merc
+          ITCH_USER: jspahrsummers
+          PACKAGE: build/${{ matrix.targetPlatform }}
