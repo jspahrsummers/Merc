@@ -3,10 +3,31 @@ on:
   push:
     branches: [master]
 
+env:
+  UNITY_VERSION: 2019.3.14f1
+
 jobs:
+  activation:
+    name: Request license activation
+    runs-on: ubuntu-latest
+    if: ${{ secrets.UNITY_LICENSE == '' }}
+    steps:
+      - name: Request manual activation file
+        id: getManualLicenseFile
+        uses: webbertakken/unity-request-manual-activation-file@v1.1
+        with:
+          unityVersion: ${{ env.UNITY_VERSION }}
+
+      - name: Expose as artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: ${{ steps.getManualLicenseFile.outputs.filePath }}
+          path: ${{ steps.getManualLicenseFile.outputs.filePath }}
+
   build:
     name: Build for ${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
+    if: ${{ secrets.UNITY_LICENSE != '' }}
     strategy:
       fail-fast: false
       matrix:
@@ -27,7 +48,7 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
-          unityVersion: 2019.3.14f1
+          unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: ${{ matrix.targetPlatform }}
       - uses: actions/upload-artifact@v1
         with:
