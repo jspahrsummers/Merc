@@ -204,5 +204,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Star System
       objectReference: {fileID: 0}
+    - target: {fileID: 8918054863888271040, guid: 25c4edcfb2d2fdb479964c5f9b866119,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.7647059
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25c4edcfb2d2fdb479964c5f9b866119, type: 3}
