@@ -10,16 +10,13 @@ public sealed class PlayerShipController : AbstractShipController
     public GameObject missilePrefab;
     public GameObject systemBase;
 
-    public Slider fuelBar;
-
     private float _fuel = 1;
-    private float fuel
+    public float fuel
     {
         get { return _fuel; }
-        set
+        private set
         {
             _fuel = Mathf.Clamp01(value);
-            fuelBar.value = _fuel;
         }
     }
 

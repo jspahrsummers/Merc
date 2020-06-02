@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 177213321189645330}
   - component: {fileID: 177213321189645329}
   - component: {fileID: 177213321189645328}
+  - component: {fileID: 5251154521504930689}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -188,6 +189,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5251154521504930689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177213321189645335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e96fe33c4f93224a8ccbb48fa19ae13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fuelBar: {fileID: 177213321008298575}
+  creditsText: {fileID: 2255722300230667578}
+  playerState: {fileID: 11400000, guid: c1b4d740570537846a1efebb4d76906e, type: 2}
+  playerShipController: {fileID: 2036987028381280059}
 --- !u!1 &177213321233605799
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,7 +556,6 @@ MonoBehaviour:
   missilePrefab: {fileID: 9029331948948293236, guid: 11aad2206706e5a4e81b3987991281c3,
     type: 3}
   systemBase: {fileID: 7613566290036415610}
-  fuelBar: {fileID: 177213321008298575}
 --- !u!50 &8252105401521826677
 Rigidbody2D:
   serializedVersion: 4
