@@ -4,15 +4,15 @@ using UnityEngine.SceneManagement;
 
 public sealed class StarSystemController : MonoBehaviour
 {
-    public StarSystemStateScriptableObject starSystem;
+    public StarSystemScriptableObject starSystem;
     public GameObject hyperspaceArrivalPrefab;
 
-    public void JumpToSystem(StarSystemStateScriptableObject newSystem)
+    public void JumpToSystem(StarSystemScriptableObject newSystem)
     {
         StartCoroutine(LoadSystemAsync(newSystem));
     }
 
-    private IEnumerator LoadSystemAsync(StarSystemStateScriptableObject newSystem)
+    private IEnumerator LoadSystemAsync(StarSystemScriptableObject newSystem)
     {
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(newSystem.name);
         asyncLoad.allowSceneActivation = false;

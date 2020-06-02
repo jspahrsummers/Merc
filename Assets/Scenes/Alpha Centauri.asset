@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 6084b359b2be92348b5fd9dec4103681, type: 3}
   m_Name: Alpha Centauri
   m_EditorClassIdentifier: Assembly-CSharp::StarSystemStateScriptableObject
   galaxyPosition: {x: -20, y: -20}
   adjacentSystems:
   - {fileID: 11400000, guid: 711624042e8e2894d93d55bea9cfb5ab, type: 2}
+  - {fileID: 11400000, guid: cbc6a4ff8bfc154458a8d58ba3e7a3fb, type: 2}

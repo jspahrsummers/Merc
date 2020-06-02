@@ -4,12 +4,12 @@ using UnityEngine;
 using VectorExtensions;
 
 [CreateAssetMenu(menuName = "Star System")]
-public sealed class StarSystemStateScriptableObject : ScriptableObject
+public sealed class StarSystemScriptableObject : ScriptableObject
 {
     public Vector2 galaxyPosition;
-    public List<StarSystemStateScriptableObject> adjacentSystems;
+    public List<StarSystemScriptableObject> adjacentSystems;
 
-    public float AngleToSystem(StarSystemStateScriptableObject otherSystem)
+    public float AngleToSystem(StarSystemScriptableObject otherSystem)
     {
         float angle = galaxyPosition.AngleToward(otherSystem.galaxyPosition);
         Debug.Log($"Angle from {this} to {otherSystem}: {angle}");

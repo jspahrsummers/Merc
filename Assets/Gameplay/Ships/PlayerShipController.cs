@@ -57,7 +57,7 @@ public sealed class PlayerShipController : AbstractShipController
             return;
         }
 
-        StarSystemStateScriptableObject newSystem = starSystemController.starSystem.adjacentSystems[0];
+        StarSystemScriptableObject newSystem = starSystemController.starSystem.adjacentSystems[0];
         StartCoroutine(StartHyperspaceJump(newSystem));
     }
 
@@ -72,7 +72,7 @@ public sealed class PlayerShipController : AbstractShipController
         Debug.Log($"Arrived from hyperspace: rotation {rigidbody.rotation} position {rigidbody.position} velocity: {rigidbody.velocity} (magnitude: {rigidbody.velocity.magnitude})");
     }
 
-    private IEnumerator StartHyperspaceJump(StarSystemStateScriptableObject system)
+    private IEnumerator StartHyperspaceJump(StarSystemScriptableObject system)
     {
         playerInput.enabled = false;
 

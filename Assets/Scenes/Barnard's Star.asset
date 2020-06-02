@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6084b359b2be92348b5fd9dec4103681, type: 3}
-  m_Name: Sol
+  m_Name: Barnard's Star
   m_EditorClassIdentifier: Assembly-CSharp::StarSystemStateScriptableObject
-  galaxyPosition: {x: 0, y: 0}
+  galaxyPosition: {x: 40, y: 10}
   adjacentSystems:
+  - {fileID: 11400000, guid: 711624042e8e2894d93d55bea9cfb5ab, type: 2}
   - {fileID: 11400000, guid: 0ad0ed77e3563144f92b074e197c72fc, type: 2}
-  - {fileID: 11400000, guid: cbc6a4ff8bfc154458a8d58ba3e7a3fb, type: 2}
