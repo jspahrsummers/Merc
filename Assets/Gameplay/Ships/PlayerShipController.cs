@@ -57,7 +57,8 @@ public sealed class PlayerShipController : AbstractShipController
             return;
         }
 
-        StartCoroutine(StartHyperspaceJump(starSystemController.adjacentSystems[0]));
+        StarSystemStateScriptableObject newSystem = starSystemController.starSystem.adjacentSystems[0];
+        StartCoroutine(StartHyperspaceJump(newSystem));
     }
 
     public void OnArrivalFromHyperspaceJump(float angle)
@@ -71,14 +72,15 @@ public sealed class PlayerShipController : AbstractShipController
         Debug.Log($"Arrived from hyperspace: rotation {rigidbody.rotation} position {rigidbody.position} velocity: {rigidbody.velocity} (magnitude: {rigidbody.velocity.magnitude})");
     }
 
-    private IEnumerator StartHyperspaceJump(StarSystemController.AdjacentSystem system)
+    private IEnumerator StartHyperspaceJump(StarSystemStateScriptableObject system)
     {
         playerInput.enabled = false;
 
-        while (!Mathf.Approximately(Mathf.Repeat(rigidbody.rotation, 360), system.angle))
+        float angle = starSystemController.starSystem.AngleToSystem(system);
+        while (!rigidbody.IsRotatedToward(angle, ship.hyperspaceAngleTolerance))
         {
             yield return new WaitForFixedUpdate();
-            rigidbody.RotateToward(system.angle, ship.turnSpeed * Time.deltaTime);
+            rigidbody.RotateToward(angle, ship.turnSpeed * Time.deltaTime);
         }
 
         Debug.Log($"Rotation OK for hyperspace: {rigidbody.rotation}");
@@ -91,7 +93,7 @@ public sealed class PlayerShipController : AbstractShipController
         }
 
         Debug.Log($"Velocity OK for hyperspace: {rigidbody.velocity} (magnitude: {rigidbody.velocity.magnitude}");
-        starSystemController.JumpToAdjacentSystem(system);
+        starSystemController.JumpToSystem(system);
     }
 
     void FixedUpdate()

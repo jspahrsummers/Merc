@@ -8,14 +8,8 @@ public sealed class MovingTowardDestinationState : State
 {
     public Vector2 destination;
     public float destinationTolerance;
-    public float rotationTolerance;
     public float speedTolerance;
     public Transition success;
-
-    private bool IsRotatedToward(Rigidbody2D rigidbody, float desiredAngle)
-    {
-        return Mathf.Repeat(rigidbody.rotation - desiredAngle, 360) < rotationTolerance;
-    }
 
     public override Transition? ShipFixedUpdate(ShipScriptableObject ship, Rigidbody2D rigidbody)
     {
@@ -45,7 +39,7 @@ public sealed class MovingTowardDestinationState : State
         if (remainingTimeUntilDestination > timeNeededToStopWithoutChanges)
         {
             // Rotate and thrust toward destination
-            if (!IsRotatedToward(rigidbody, angleTowardDestination))
+            if (!rigidbody.IsRotatedToward(angleTowardDestination, ship.hyperspaceAngleTolerance))
             {
                 rigidbody.RotateToward(angleTowardDestination, ship.turnSpeed * Time.deltaTime);
             }
@@ -57,7 +51,7 @@ public sealed class MovingTowardDestinationState : State
         else
         {
             // Come to a stop
-            if (IsRotatedToward(rigidbody, oppositeAngle))
+            if (rigidbody.IsRotatedToward(oppositeAngle, ship.hyperspaceAngleTolerance))
             {
                 rigidbody.AddRelativeForce(Vector2.up * ship.thrust * Time.deltaTime);
             }

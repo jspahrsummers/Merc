@@ -11,6 +11,7 @@ public class ShipScriptableObject : ScriptableObject
     public float fuelConsumption;
     public float fuelRegeneration;
     public float hyperspaceThrust;
+    public float hyperspaceAngleTolerance;
     public float requiredHyperspaceVelocity;
     public float hyperspaceArrivalDistance;
 }

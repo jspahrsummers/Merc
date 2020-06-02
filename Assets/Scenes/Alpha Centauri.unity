@@ -232,6 +232,12 @@ PrefabInstance:
       propertyPath: adjacentSystems.Array.data[0].angle
       value: 315
       objectReference: {fileID: 0}
+    - target: {fileID: 4969022978299305479, guid: 25c4edcfb2d2fdb479964c5f9b866119,
+        type: 3}
+      propertyPath: starSystem
+      value: 
+      objectReference: {fileID: 11400000, guid: 0ad0ed77e3563144f92b074e197c72fc,
+        type: 2}
     - target: {fileID: 6550816121216611794, guid: 25c4edcfb2d2fdb479964c5f9b866119,
         type: 3}
       propertyPath: m_LocalPosition.x

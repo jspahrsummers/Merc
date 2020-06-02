@@ -4,24 +4,17 @@ using UnityEngine.SceneManagement;
 
 public sealed class StarSystemController : MonoBehaviour
 {
-    [System.Serializable]
-    public struct AdjacentSystem
-    {
-        public string name;
-        public float angle;
-    }
-
-    public AdjacentSystem[] adjacentSystems;
+    public StarSystemStateScriptableObject starSystem;
     public GameObject hyperspaceArrivalPrefab;
 
-    public void JumpToAdjacentSystem(AdjacentSystem system)
+    public void JumpToSystem(StarSystemStateScriptableObject newSystem)
     {
-        StartCoroutine(LoadSystemAsync(system));
+        StartCoroutine(LoadSystemAsync(newSystem));
     }
 
-    private IEnumerator LoadSystemAsync(AdjacentSystem system)
+    private IEnumerator LoadSystemAsync(StarSystemStateScriptableObject newSystem)
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(system.name);
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(newSystem.name);
         asyncLoad.allowSceneActivation = false;
 
         while (!asyncLoad.isDone)
@@ -30,7 +23,7 @@ public sealed class StarSystemController : MonoBehaviour
             {
                 GameObject arrival = Instantiate(hyperspaceArrivalPrefab);
                 var arrivalController = arrival.GetComponent<HyperspaceArrivalController>();
-                arrivalController.arrivalAngle = system.angle;
+                arrivalController.arrivalAngle = starSystem.AngleToSystem(newSystem);
                 DontDestroyOnLoad(arrival);
 
                 asyncLoad.allowSceneActivation = true;
