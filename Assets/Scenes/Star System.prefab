@@ -532,6 +532,21 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5409b354-22f2-4489-849b-3c0d83ced097
     m_ActionName: Player/Hyperspace Jump[/Keyboard/j]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2036987028381280059}
+        m_MethodName: OnToggleMap
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a1214cb0-d447-4d31-8ad9-d68470d241d5
+    m_ActionName: Player/Toggle Galaxy Map[/Keyboard/m]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -556,6 +571,7 @@ MonoBehaviour:
   missilePrefab: {fileID: 9029331948948293236, guid: 11aad2206706e5a4e81b3987991281c3,
     type: 3}
   systemBase: {fileID: 7613566290036415610}
+  galaxyMap: {fileID: 4594400027096855168}
 --- !u!50 &8252105401521826677
 Rigidbody2D:
   serializedVersion: 4

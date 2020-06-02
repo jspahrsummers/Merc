@@ -9,6 +9,7 @@ public sealed class PlayerShipController : AbstractShipController
 {
     public GameObject missilePrefab;
     public GameObject systemBase;
+    public GameObject galaxyMap;
 
     private float _fuel = 1;
     public float fuel
@@ -48,6 +49,16 @@ public sealed class PlayerShipController : AbstractShipController
         missile.AddRelativeForce(Vector2.up * 10, ForceMode2D.Impulse);
 
         Physics2D.IgnoreCollision(missile.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+    }
+
+    public void OnToggleMap(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+        {
+            return;
+        }
+
+        galaxyMap.SetActive(!galaxyMap.activeSelf);
     }
 
     public void OnHyperspaceJump(InputAction.CallbackContext context)

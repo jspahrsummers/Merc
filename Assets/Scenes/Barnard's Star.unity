@@ -138,6 +138,21 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2036987028381280056, guid: 25c4edcfb2d2fdb479964c5f9b866119,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036987028381280056, guid: 25c4edcfb2d2fdb479964c5f9b866119,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036987028381280056, guid: 25c4edcfb2d2fdb479964c5f9b866119,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4969022978299305479, guid: 25c4edcfb2d2fdb479964c5f9b866119,
         type: 3}
       propertyPath: starSystem

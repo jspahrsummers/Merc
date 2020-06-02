@@ -13,27 +13,22 @@ public sealed class StarSystemScriptableObject : ScriptableObject
 
     public static IEnumerable<StarSystemScriptableObject> AllSystems()
     {
-        Debug.Log($"AllSystems");
         return allSystems;
     }
 
     public float AngleToSystem(StarSystemScriptableObject otherSystem)
     {
-        float angle = galaxyPosition.AngleToward(otherSystem.galaxyPosition);
-        Debug.Log($"Angle from {this} to {otherSystem}: {angle}");
-        return angle;
+        return galaxyPosition.AngleToward(otherSystem.galaxyPosition);
     }
 
     void OnEnable()
     {
-        Debug.Log($"{this} enable");
-        allSystems.Add(this);
         Debug.Assert(adjacentSystems.TrueForAll(system => system.adjacentSystems.Contains(this)));
+        allSystems.Add(this);
     }
 
     void OnDisable()
     {
-        Debug.Log($"{this} disable");
         allSystems.Remove(this);
     }
 }

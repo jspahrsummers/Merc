@@ -1,5 +1,5 @@
 {
-    "name": "Ship",
+    "name": "Ship Input",
     "maps": [
         {
             "name": "Player",
@@ -33,6 +33,14 @@
                     "name": "Hyperspace Jump",
                     "type": "Button",
                     "id": "5409b354-22f2-4489-849b-3c0d83ced097",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Toggle Galaxy Map",
+                    "type": "Button",
+                    "id": "a1214cb0-d447-4d31-8ad9-d68470d241d5",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -113,6 +121,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Hyperspace Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5f7dd816-bfd3-4396-8aec-dd2d20d1d8e7",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toggle Galaxy Map",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
