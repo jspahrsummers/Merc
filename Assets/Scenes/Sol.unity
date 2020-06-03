@@ -435,6 +435,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2586023136181089731, guid: f463847b9109eb74e8174de5306c27e9,
+        type: 3}
+      propertyPath: planet
+      value: 
+      objectReference: {fileID: 11400000, guid: 76f741274e6bb914290d58cbb170da1a,
+        type: 2}
     - target: {fileID: 2729519622445817882, guid: f463847b9109eb74e8174de5306c27e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -493,7 +499,7 @@ PrefabInstance:
     - target: {fileID: 2729519622445817884, guid: f463847b9109eb74e8174de5306c27e9,
         type: 3}
       propertyPath: m_Name
-      value: Water Planet
+      value: Earth
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f463847b9109eb74e8174de5306c27e9, type: 3}
