@@ -20,11 +20,12 @@ public sealed class GalaxyMapController : MonoBehaviour
 
     void OnEnable()
     {
-        // HACK: We should not do this every time the map is enabled, but for some reason, selection state breaks without it.
+        // HACK: We should not do this every time the map is enabled, but for
+        // some reason, selection state breaks without it. (The button will only
+        // be selected on first appearance, then be un-selectable in code
+        // afterward.)
         foreach (var starSystem in StarSystemScriptableObject.AllSystems())
         {
-            Debug.Log($"Adding {starSystem} to map");
-
             var mapSystem = Instantiate<GameObject>(mapSystemPrefab, panel.transform);
             mapSystems.Add(starSystem.name, mapSystem);
 
@@ -34,11 +35,13 @@ public sealed class GalaxyMapController : MonoBehaviour
             var label = mapSystem.GetComponentInChildren<Text>();
             label.text = starSystem.name;
 
+            var button = mapSystem.GetComponentInChildren<Button>();
             if (starSystem.name == selectedSystem)
             {
-                var button = mapSystem.GetComponentInChildren<Button>();
                 button.Select();
             }
+
+            button.onClick.AddListener(() => SystemClicked(starSystem.name));
         }
 
         Debug.Assert(mapSystems.ContainsKey(selectedSystem));
@@ -52,5 +55,11 @@ public sealed class GalaxyMapController : MonoBehaviour
         }
 
         mapSystems.Clear();
+    }
+
+    private void SystemClicked(string systemName)
+    {
+        Debug.Assert(mapSystems.ContainsKey(systemName));
+        selectedSystem = systemName;
     }
 }
