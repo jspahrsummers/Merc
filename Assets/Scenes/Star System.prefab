@@ -571,7 +571,7 @@ MonoBehaviour:
   missilePrefab: {fileID: 9029331948948293236, guid: 11aad2206706e5a4e81b3987991281c3,
     type: 3}
   systemBase: {fileID: 7613566290036415610}
-  galaxyMap: {fileID: 4594400027096855168}
+  galaxyMapController: {fileID: 5011494091500960672}
 --- !u!50 &8252105401521826677
 Rigidbody2D:
   serializedVersion: 4
@@ -812,7 +812,6 @@ MonoBehaviour:
   panel: {fileID: 8253259692965462559}
   mapSystemPrefab: {fileID: 6614160991745295415, guid: 466d22672b7052e41bbd1f2d373c1b12,
     type: 3}
-  eventSystem: {fileID: 1380083313188121924}
   mapScale: 3
 --- !u!1 &6440656870494664573
 GameObject:

@@ -11,7 +11,7 @@ public sealed class GalaxyMapController : MonoBehaviour
     public float mapScale = 1;
 
     private Dictionary<string, GameObject> mapSystems = new Dictionary<string, GameObject>();
-    private string selectedSystem;
+    public string selectedSystem { get; private set; }
 
     void Awake()
     {

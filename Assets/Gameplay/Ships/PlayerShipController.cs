@@ -9,7 +9,7 @@ public sealed class PlayerShipController : AbstractShipController
 {
     public GameObject missilePrefab;
     public GameObject systemBase;
-    public GameObject galaxyMap;
+    public GalaxyMapController galaxyMapController;
 
     private float _fuel = 1;
     public float fuel
@@ -58,6 +58,7 @@ public sealed class PlayerShipController : AbstractShipController
             return;
         }
 
+        GameObject galaxyMap = galaxyMapController.gameObject;
         galaxyMap.SetActive(!galaxyMap.activeSelf);
     }
 
@@ -68,8 +69,12 @@ public sealed class PlayerShipController : AbstractShipController
             return;
         }
 
-        StarSystemScriptableObject newSystem = starSystemController.starSystem.adjacentSystems[0];
-        StartCoroutine(StartHyperspaceJump(newSystem));
+        string selectedSystem = galaxyMapController.selectedSystem;
+        StarSystemScriptableObject jumpSystem = starSystemController.starSystem.adjacentSystems.Find(candidate => candidate.name == selectedSystem);
+        if (jumpSystem != null)
+        {
+            StartCoroutine(StartHyperspaceJump(jumpSystem));
+        }
     }
 
     public void OnArrivalFromHyperspaceJump(float angle)
