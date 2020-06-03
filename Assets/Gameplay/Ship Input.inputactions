@@ -104,17 +104,6 @@
                 },
                 {
                     "name": "",
-                    "id": "1a3d2882-7668-4b26-9f4e-2b35b01916d8",
-                    "path": "<Mouse>/press",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Fire Primary Weapon",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "ce2cc671-f2fe-49ff-b384-92f0055e44db",
                     "path": "<Keyboard>/j",
                     "interactions": "",

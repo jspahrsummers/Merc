@@ -1,24 +1,31 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GalaxyMapController : MonoBehaviour
+public sealed class GalaxyMapController : MonoBehaviour
 {
     public GameObject panel;
     public GameObject mapSystemPrefab;
     public float mapScale = 1;
 
     private Dictionary<string, GameObject> mapSystems = new Dictionary<string, GameObject>();
+    private string selectedSystem;
 
-    void Start()
+    void Awake()
     {
+        selectedSystem = SceneManager.GetActiveScene().name;
+    }
+
+    void OnEnable()
+    {
+        // HACK: We should not do this every time the map is enabled, but for some reason, selection state breaks without it.
         foreach (var starSystem in StarSystemScriptableObject.AllSystems())
         {
             Debug.Log($"Adding {starSystem} to map");
 
             var mapSystem = Instantiate<GameObject>(mapSystemPrefab, panel.transform);
-            Debug.Assert(!mapSystems.ContainsKey(starSystem.name));
             mapSystems.Add(starSystem.name, mapSystem);
 
             var graphic = mapSystem.GetComponent<Graphic>();
@@ -26,16 +33,24 @@ public class GalaxyMapController : MonoBehaviour
 
             var label = mapSystem.GetComponentInChildren<Text>();
             label.text = starSystem.name;
+
+            if (starSystem.name == selectedSystem)
+            {
+                var button = mapSystem.GetComponentInChildren<Button>();
+                button.Select();
+            }
         }
+
+        Debug.Assert(mapSystems.ContainsKey(selectedSystem));
     }
 
-    void Update()
+    void OnDisable()
     {
-        string currentSystem = SceneManager.GetActiveScene().name;
-        foreach (var mapSystem in mapSystems)
+        foreach (var mapSystem in mapSystems.Values)
         {
-            var label = mapSystem.Value.GetComponentInChildren<Text>();
-            label.color = (mapSystem.Key == currentSystem ? Color.yellow : Color.white);
+            Destroy(mapSystem.gameObject);
         }
+
+        mapSystems.Clear();
     }
 }
