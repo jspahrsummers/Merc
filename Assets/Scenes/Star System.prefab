@@ -995,7 +995,7 @@ GameObject:
   - component: {fileID: 4969022978299305479}
   m_Layer: 0
   m_Name: Star System
-  m_TagString: Untagged
+  m_TagString: StarSystem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
