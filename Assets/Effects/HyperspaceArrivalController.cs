@@ -12,8 +12,14 @@ public sealed class HyperspaceArrivalController : MonoBehaviour
 
     private float startTime;
 
+    // TODO: Can this component be merged?
     private Image image => GetComponentInChildren<Image>();
     private GameObject player => GameObject.FindWithTag("Player");
+
+    void Awake()
+    {
+        MercDebug.Invariant(player != null, "Could not locate player object");
+    }
 
     void OnEnable()
     {

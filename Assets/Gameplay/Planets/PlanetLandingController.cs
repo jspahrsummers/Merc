@@ -11,6 +11,7 @@ public class PlanetLandingController : MonoBehaviour
 
     void OnEnable()
     {
+        MercDebug.Invariant(planet != null, "Planet needs to be set before landing");
         welcomeText.text = $"Welcome to {planet.name}";
     }
 
