@@ -10,6 +10,7 @@ public sealed class PlayerShipController : AbstractShipController
     public GameObject missilePrefab;
     public GameObject systemBase;
     public GalaxyMapController galaxyMapController;
+    public PlanetLandingController planetLandingController;
 
     private float _fuel = 1;
     public float fuel
@@ -84,7 +85,16 @@ public sealed class PlayerShipController : AbstractShipController
             return;
         }
 
-        Debug.Log($"Landing on {starSystemController.selectedPlanet}");
+        PlanetScriptableObject selectedPlanet = starSystemController.selectedPlanet;
+        if (!selectedPlanet)
+        {
+            Debug.Log("No planet selected");
+            return;
+        }
+
+        // TODO: Check distance to planet
+        planetLandingController.planet = selectedPlanet;
+        planetLandingController.gameObject.SetActive(true);
     }
 
     public void OnArrivalFromHyperspaceJump(float angle)
