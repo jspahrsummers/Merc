@@ -547,6 +547,21 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: a1214cb0-d447-4d31-8ad9-d68470d241d5
     m_ActionName: Player/Toggle Galaxy Map[/Keyboard/m]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2036987028381280059}
+        m_MethodName: OnLand
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: dc14edb4-dd9d-4d0f-87e0-5f9e5e9a0952
+    m_ActionName: Player/Land[/Keyboard/l]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

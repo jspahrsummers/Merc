@@ -77,6 +77,16 @@ public sealed class PlayerShipController : AbstractShipController
         }
     }
 
+    public void OnLand(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+        {
+            return;
+        }
+
+        Debug.Log($"Landing on {starSystemController.selectedPlanet}");
+    }
+
     public void OnArrivalFromHyperspaceJump(float angle)
     {
         rigidbody.rotation = angle;

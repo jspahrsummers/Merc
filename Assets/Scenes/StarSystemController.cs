@@ -9,7 +9,8 @@ public sealed class StarSystemController : MonoBehaviour
     public GameObject hyperspaceArrivalPrefab;
 
     private List<PlanetController> planetControllers = new List<PlanetController>();
-    private PlanetController selectedPlanet;
+    private PlanetController selectedPlanetController;
+    public PlanetScriptableObject selectedPlanet => selectedPlanetController?.planet;
 
     public void JumpToSystem(StarSystemScriptableObject newSystem)
     {
@@ -48,7 +49,7 @@ public sealed class StarSystemController : MonoBehaviour
         Debug.Log($"{planetController.planet} clicked");
 
         Debug.Assert(planetControllers.Contains(planetController));
-        selectedPlanet = planetController;
+        selectedPlanetController = planetController;
 
         foreach (var otherController in planetControllers)
         {
