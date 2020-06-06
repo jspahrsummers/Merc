@@ -17,7 +17,7 @@ MonoBehaviour:
     shields: 50
   mass: 100
   turnSpeed: 300
-  torque: 30
+  torque: 6837
   thrust: 6837
   fuelConsumption: 0.3
   fuelRegeneration: 0.4
