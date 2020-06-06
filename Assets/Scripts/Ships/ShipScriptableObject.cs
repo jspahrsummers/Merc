@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Gameplay/Ship")]
@@ -35,4 +36,8 @@ public class ShipScriptableObject : ScriptableObject
 
     [Tooltip("Distance in meters (from system center) that this ship arrives at from hyperspace")]
     public float hyperspaceArrivalDistance;
+
+    [Tooltip("Weapons available on this ship")]
+    // TODO: Replace this with a weapon scriptable object, not that of projectiles.
+    public List<ProjectileScriptableObject> weapons;
 }

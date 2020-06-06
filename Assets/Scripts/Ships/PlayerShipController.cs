@@ -45,9 +45,12 @@ public sealed class PlayerShipController : AbstractShipController
             return;
         }
 
+        ProjectileScriptableObject projectile = ship.weapons[0];
+        // TODO: Connect the prefab with the projectile object.
+
         var missile = Instantiate(missilePrefab, transform.position, transform.rotation, transform.parent).GetComponent<Rigidbody2D>();
         missile.velocity = rigidbody.velocity;
-        missile.AddRelativeForce(Vector2.up * 10, ForceMode2D.Impulse);
+        missile.AddRelativeForce(Vector2.up * projectile.launchForce, ForceMode2D.Impulse);
 
         Physics2D.IgnoreCollision(missile.GetComponent<Collider2D>(), GetComponent<Collider2D>());
     }

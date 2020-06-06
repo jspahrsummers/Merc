@@ -16,4 +16,8 @@ public class ProjectileScriptableObject : ScriptableObject
 
     [Tooltip("Number of seconds before this projectile dies if it has not hit a target")]
     public float lifetime = Mathf.Infinity;
+
+    // TODO: Move this to a weapon definition, not here
+    [Tooltip("How many kilonewtons of force are applied to this projectile when launched")]
+    public float launchForce;
 }
