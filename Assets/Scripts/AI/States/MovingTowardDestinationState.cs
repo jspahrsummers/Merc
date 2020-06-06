@@ -33,8 +33,8 @@ public sealed class MovingTowardDestinationState : State
         float oppositeAngle = velocityAngle + 180;
 
         float timeNeededToTurnAround = rigidbody.TimeUntilRotatedToward(oppositeAngle, ship.turnSpeed);
-        float timeNeededToStopWithoutChanges = timeNeededToTurnAround + forceRequiredToStop / forceWillApply;
-        float timeNeededToStopWithChanges = timeNeededToTurnAround + (forceRequiredToStop + forceWillApply) / forceWillApply + Time.fixedDeltaTime;
+        float timeNeededToStopWithoutChanges = timeNeededToTurnAround + forceRequiredToStop / ship.thrust;
+        float timeNeededToStopWithChanges = timeNeededToTurnAround + (forceRequiredToStop + forceWillApply) / ship.thrust;
 
         if (remainingTimeUntilDestination > timeNeededToStopWithoutChanges)
         {

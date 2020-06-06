@@ -15,13 +15,14 @@ MonoBehaviour:
   baseDestructible:
     armor: 20
     shields: 50
-  mass: 0.5
+  mass: 100
   turnSpeed: 300
   torque: 30
-  thrust: 200
+  thrust: 6837
   fuelConsumption: 0.3
   fuelRegeneration: 0.4
   hyperspaceThrust: 300
   hyperspaceAngleTolerance: 0.1
   requiredHyperspaceVelocity: 20
   hyperspaceArrivalDistance: 50
+  weapons: []

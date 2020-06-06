@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Move Toward Destination
   m_EditorClassIdentifier: 
   destination: {x: 0, y: 0}
-  destinationTolerance: 0.1
-  speedTolerance: 0.1
+  destinationTolerance: 1
+  speedTolerance: 1
   success:
     nextState: {fileID: 11400000, guid: 6d011d55c4b9d894aa1cae3d27c08e86, type: 2}
     actions: []
