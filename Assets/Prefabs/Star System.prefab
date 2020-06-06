@@ -421,8 +421,8 @@ GameObject:
   - component: {fileID: 2036987028381280056}
   - component: {fileID: 2036987028381280059}
   - component: {fileID: 8252105401521826677}
-  - component: {fileID: 2932868537173483172}
   - component: {fileID: 3369843087159427757}
+  - component: {fileID: 1065988808850400947}
   m_Layer: 0
   m_Name: Player Ship
   m_TagString: Player
@@ -438,8 +438,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2036987028381280063}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.196739, y: -3.344963, z: 1.8368089}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 1}
   m_Children:
   - {fileID: 6626961106408808388}
   - {fileID: 8467641669895082954}
@@ -585,6 +585,8 @@ MonoBehaviour:
     shields: 0
   missilePrefab: {fileID: 9029331948948293236, guid: 11aad2206706e5a4e81b3987991281c3,
     type: 3}
+  projectileExplosionPrefab: {fileID: 3337956166155597766, guid: f3b77e3acebf93a46aa3cbf57b2c3da7,
+    type: 3}
   systemBase: {fileID: 7613566290036415610}
   galaxyMapController: {fileID: 5011494091500960672}
   planetLandingController: {fileID: 6814844519385636802}
@@ -609,22 +611,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!70 &2932868537173483172
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2036987028381280063}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 0.7}
-  m_Direction: 0
 --- !u!114 &3369843087159427757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -642,6 +628,22 @@ MonoBehaviour:
   damage:
     physical: 0
     energy: 0
+--- !u!58 &1065988808850400947
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2036987028381280063}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -8}
+  serializedVersion: 2
+  m_Radius: 72
 --- !u!1 &3834534874986966485
 GameObject:
   m_ObjectHideFlags: 0
@@ -1123,7 +1125,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 300
+  orthographic size: 250
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1870,7 +1872,7 @@ PrefabInstance:
     - target: {fileID: 1925571145792591778, guid: a52e073454ad859488e3d57d35c9828c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.00000011921
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1925571145792591778, guid: a52e073454ad859488e3d57d35c9828c,
         type: 3}
@@ -1915,17 +1917,17 @@ PrefabInstance:
     - target: {fileID: 1925571145792591778, guid: a52e073454ad859488e3d57d35c9828c,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 55.102802
+      value: 123.815994
       objectReference: {fileID: 0}
     - target: {fileID: 1925571145792591778, guid: a52e073454ad859488e3d57d35c9828c,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 55.102802
+      value: 123.815994
       objectReference: {fileID: 0}
     - target: {fileID: 1925571145792591778, guid: a52e073454ad859488e3d57d35c9828c,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 55.102802
+      value: 123.815994
       objectReference: {fileID: 0}
     - target: {fileID: 2751572064653943399, guid: a52e073454ad859488e3d57d35c9828c,
         type: 3}

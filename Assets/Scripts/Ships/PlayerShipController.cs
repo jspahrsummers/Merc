@@ -8,6 +8,7 @@ using RigidbodyExtensions;
 public sealed class PlayerShipController : AbstractShipController
 {
     public GameObject missilePrefab;
+    public GameObject projectileExplosionPrefab;
     public GameObject systemBase;
     public GalaxyMapController galaxyMapController;
     public PlanetLandingController planetLandingController;
@@ -46,11 +47,15 @@ public sealed class PlayerShipController : AbstractShipController
         }
 
         ProjectileScriptableObject projectile = ship.weapons[0];
-        // TODO: Connect the prefab with the projectile object.
+        // TODO: Connect the prefab with the projectile object
 
         var missile = Instantiate(missilePrefab, transform.position, transform.rotation, transform.parent).GetComponent<Rigidbody2D>();
         missile.velocity = rigidbody.velocity;
         missile.AddRelativeForce(Vector2.up * projectile.launchForce, ForceMode2D.Impulse);
+
+        // TODO: Hack!
+        var projectileExplosion = Instantiate(projectileExplosionPrefab, transform);
+        projectileExplosion.transform.Translate(Vector3.forward * 10);
 
         Physics2D.IgnoreCollision(missile.GetComponent<Collider2D>(), GetComponent<Collider2D>());
     }

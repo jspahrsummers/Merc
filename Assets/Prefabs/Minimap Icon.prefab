@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1925571145792591778}
   - component: {fileID: 8796317025988805285}
   m_Layer: 8
-  m_Name: Green
+  m_Name: Minimap Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
