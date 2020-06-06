@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public sealed class ParallaxController : MonoBehaviour
 {
+    public GameObject prefab;
+
     private static Dictionary<(int x, int y), ParallaxController> allControllers = new Dictionary<(int x, int y), ParallaxController>();
     private (int x, int y) gridTag;
 
@@ -35,7 +37,7 @@ public sealed class ParallaxController : MonoBehaviour
         newPosition.x += backgroundRenderer.sprite.bounds.size.x * xOffset;
         newPosition.y += backgroundRenderer.sprite.bounds.size.y * yOffset;
 
-        var controller = Instantiate<ParallaxController>(this, newPosition, transform.rotation, transform.parent);
+        var controller = Instantiate(prefab, newPosition, transform.rotation, transform.parent).GetComponent<ParallaxController>();
         controller.gridTag = newTag;
 
         Debug.Assert(!allControllers.ContainsKey(newTag));
