@@ -125,7 +125,7 @@ public sealed class PlayerShipController : AbstractShipController
         {
             yield return new WaitForFixedUpdate();
 
-            rigidbody.AddRelativeForce(Vector2.up * ship.hyperspaceThrust * Time.deltaTime);
+            rigidbody.AddRelativeForce(Vector2.up * ship.hyperspaceThrust);
         }
 
         Debug.Log($"Velocity OK for hyperspace: {rigidbody.velocity} (magnitude: {rigidbody.velocity.magnitude}");
@@ -138,7 +138,7 @@ public sealed class PlayerShipController : AbstractShipController
         {
             if (Mathf.Abs(rigidbody.angularVelocity) >= ship.torque)
             {
-                rigidbody.AddTorque(turning * ship.torque * Time.deltaTime);
+                rigidbody.AddTorque(turning * ship.torque);
             }
             else
             {
@@ -156,7 +156,7 @@ public sealed class PlayerShipController : AbstractShipController
             fuel -= neededFuel;
             float consumedFuel = beforeFuel - fuel;
 
-            rigidbody.AddRelativeForce(Vector2.up * thrusting * (consumedFuel / neededFuel) * ship.thrust * Time.deltaTime);
+            rigidbody.AddRelativeForce(Vector2.up * thrusting * (consumedFuel / neededFuel) * ship.thrust);
         }
     }
 }

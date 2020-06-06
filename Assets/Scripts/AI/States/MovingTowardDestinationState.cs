@@ -45,7 +45,7 @@ public sealed class MovingTowardDestinationState : State
             }
             else if (remainingTimeUntilDestination > timeNeededToStopWithChanges)
             {
-                rigidbody.AddRelativeForce(Vector2.up * ship.thrust * Time.deltaTime);
+                rigidbody.AddRelativeForce(Vector2.up * ship.thrust);
             }
         }
         else
@@ -53,7 +53,7 @@ public sealed class MovingTowardDestinationState : State
             // Come to a stop
             if (rigidbody.IsRotatedToward(oppositeAngle, ship.hyperspaceAngleTolerance))
             {
-                rigidbody.AddRelativeForce(Vector2.up * ship.thrust * Time.deltaTime);
+                rigidbody.AddRelativeForce(Vector2.up * ship.thrust);
             }
             else
             {
