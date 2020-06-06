@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 using RigidbodyExtensions;
 
@@ -27,7 +26,9 @@ public sealed class PlayerShipController : AbstractShipController
     private float thrusting;
 
     private StarSystemController starSystemController => systemBase.GetComponent<StarSystemController>();
-    private PlayerInput playerInput => GetComponent<PlayerInput>();
+
+    // FIXME
+    //private PlayerInput playerInput => GetComponent<PlayerInput>();
 
     public void OnThrust(InputAction.CallbackContext context)
     {
@@ -118,7 +119,8 @@ public sealed class PlayerShipController : AbstractShipController
 
     private IEnumerator StartHyperspaceJump(StarSystemScriptableObject system)
     {
-        playerInput.enabled = false;
+        // FIXME
+        //playerInput.enabled = false;
 
         float angle = starSystemController.starSystem.AngleToSystem(system);
         while (!rigidbody.IsRotatedToward(angle, ship.hyperspaceAngleTolerance))

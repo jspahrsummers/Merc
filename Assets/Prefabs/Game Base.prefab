@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8424484547655992270}
+  - component: {fileID: 6554897444649022291}
+  - component: {fileID: 3878657735669527986}
   m_Layer: 0
   m_Name: Game Base
   m_TagString: Untagged
@@ -39,6 +41,161 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6554897444649022291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5163437109155687014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a0a2791b6b101041bf4460380a9c032, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  galaxyMapController: {fileID: 7749713990945279420}
+  landingScreenController: {fileID: 8112060972156758494}
+--- !u!114 &3878657735669527986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5163437109155687014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: f77fad57947776a44969cfa3d4d6b87d,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 4843705859671868078}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2110208283098636611}
+        m_MethodName: OnTurn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a90c3bc3-ef2e-4ad8-aa57-22f7709ba572
+    m_ActionName: Player/Turn[/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2110208283098636611}
+        m_MethodName: OnThrust
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f34428c8-771d-4300-bd90-af9bef6371e6
+    m_ActionName: Player/Thrust[/Keyboard/upArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2110208283098636611}
+        m_MethodName: OnFire
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 620b6abf-c248-4c09-926e-e87be4f0bfb5
+    m_ActionName: Player/Fire Primary Weapon[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2110208283098636611}
+        m_MethodName: OnHyperspaceJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5409b354-22f2-4489-849b-3c0d83ced097
+    m_ActionName: Player/Hyperspace Jump[/Keyboard/j]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2110208283098636611}
+        m_MethodName: OnLand
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: dc14edb4-dd9d-4d0f-87e0-5f9e5e9a0952
+    m_ActionName: Player/Land[/Keyboard/l]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6554897444649022291}
+        m_MethodName: OnToggleMap
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 01deedd2-79ec-432a-be55-0cd215697ded
+    m_ActionName: UI/Toggle Galaxy Map[/Keyboard/m]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0cd4f5a4-27e4-4843-8a07-e38fd3bc0e53
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 311bde11-894c-45d2-8be2-fcf7ddf7a658
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5ca7d97e-e33b-47e2-a616-ca9f11a2e9b1
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9f74c96e-cb06-4489-891f-5862745e1118
+    m_ActionName: UI/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f80cd802-51c8-4785-9afb-35eacca1a474
+    m_ActionName: UI/Cancel[/Keyboard/escape]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 8602204931023847778}
 --- !u!1 &6485123123197604293
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,28 +257,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
-  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_ActionsAsset: {fileID: -944628639613478452, guid: f77fad57947776a44969cfa3d4d6b87d,
     type: 3}
-  m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_PointAction: {fileID: -5732461003865833377, guid: f77fad57947776a44969cfa3d4d6b87d,
     type: 3}
-  m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_MoveAction: {fileID: 0}
+  m_SubmitAction: {fileID: -206276582318475780, guid: f77fad57947776a44969cfa3d4d6b87d,
     type: 3}
-  m_SubmitAction: {fileID: 2064916234097673511, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_CancelAction: {fileID: 8504157039377575269, guid: f77fad57947776a44969cfa3d4d6b87d,
     type: 3}
-  m_CancelAction: {fileID: -1967631576421560919, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_LeftClickAction: {fileID: 3415662671353520065, guid: f77fad57947776a44969cfa3d4d6b87d,
     type: 3}
-  m_LeftClickAction: {fileID: 8056856818456041789, guid: ca9f5fa95ffab41fb9a615ab714db018,
+  m_MiddleClickAction: {fileID: 0}
+  m_RightClickAction: {fileID: 0}
+  m_ScrollWheelAction: {fileID: -4928966230138516989, guid: f77fad57947776a44969cfa3d4d6b87d,
     type: 3}
-  m_MiddleClickAction: {fileID: 3279352641294131588, guid: ca9f5fa95ffab41fb9a615ab714db018,
-    type: 3}
-  m_RightClickAction: {fileID: 3837173908680883260, guid: ca9f5fa95ffab41fb9a615ab714db018,
-    type: 3}
-  m_ScrollWheelAction: {fileID: 4502412055082496612, guid: ca9f5fa95ffab41fb9a615ab714db018,
-    type: 3}
-  m_TrackedDevicePositionAction: {fileID: 4754684134866288074, guid: ca9f5fa95ffab41fb9a615ab714db018,
-    type: 3}
-  m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018,
-    type: 3}
+  m_TrackedDevicePositionAction: {fileID: 0}
+  m_TrackedDeviceOrientationAction: {fileID: 0}
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
 --- !u!1001 &905793700500575980
@@ -566,6 +718,101 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325876, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325876, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325876, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: m_UIInputModule
+      value: 
+      objectReference: {fileID: 4843705859671868078}
+    - target: {fileID: 2997332787331325876, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnLand
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325876, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
+      value: dc14edb4-dd9d-4d0f-87e0-5f9e5e9a0952
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325876, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
+      value: Player/Land[/Keyboard/l]
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325876, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionId
+      value: 01deedd2-79ec-432a-be55-0cd215697ded
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325876, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionName
+      value: UI/Toggle Galaxy Map[/Keyboard/m]
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325876, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionId
+      value: 0cd4f5a4-27e4-4843-8a07-e38fd3bc0e53
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325876, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionName
+      value: UI/Click[/Mouse/leftButton]
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325876, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_ActionId
+      value: 311bde11-894c-45d2-8be2-fcf7ddf7a658
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325876, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_ActionName
+      value: UI/Point[/Mouse/position]
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325876, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_ActionId
+      value: 5ca7d97e-e33b-47e2-a616-ca9f11a2e9b1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325876, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_ActionName
+      value: UI/ScrollWheel[/Mouse/scroll]
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325876, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[9].m_ActionId
+      value: 9f74c96e-cb06-4489-891f-5862745e1118
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325876, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[9].m_ActionName
+      value: UI/Submit[/Keyboard/enter]
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325876, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[10].m_ActionId
+      value: f80cd802-51c8-4785-9afb-35eacca1a474
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325876, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[10].m_ActionName
+      value: UI/Cancel[/Keyboard/escape]
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325876, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 8602204931023847778}
     - target: {fileID: 2997332787331325877, guid: d9139f64fb29a4c4ca7a3f82347238b6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -623,6 +870,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2997332787331325879, guid: d9139f64fb29a4c4ca7a3f82347238b6,
         type: 3}
+      propertyPath: playerInputMap.m_Actions.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325879, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: playerInputMap.m_Bindings.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325879, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
       propertyPath: systemBase
       value: 
       objectReference: {fileID: 2850901645274468746}
@@ -636,6 +893,46 @@ PrefabInstance:
       propertyPath: planetLandingController
       value: 
       objectReference: {fileID: 8112060972156758494}
+    - target: {fileID: 2997332787331325879, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: playerInputMap.m_Id
+      value: 05e1328a-fff7-427b-a41b-1362e681bdc9
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325879, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: playerInputMap.m_Name
+      value: Player Input Map
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325879, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: playerInputMap.m_Actions.Array.data[0].m_Name
+      value: New action
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325879, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: playerInputMap.m_Actions.Array.data[0].m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325879, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: playerInputMap.m_Actions.Array.data[0].m_ExpectedControlType
+      value: Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325879, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: playerInputMap.m_Actions.Array.data[0].m_Id
+      value: f9ab41c9-01d6-42f5-8a87-6a97c367eb93
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325879, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: playerInputMap.m_Bindings.Array.data[0].m_Id
+      value: 7fa21d04-5c68-42a3-b09f-7c5f43e6602b
+      objectReference: {fileID: 0}
+    - target: {fileID: 2997332787331325879, guid: d9139f64fb29a4c4ca7a3f82347238b6,
+        type: 3}
+      propertyPath: playerInputMap.m_Bindings.Array.data[0].m_Action
+      value: New action
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9139f64fb29a4c4ca7a3f82347238b6, type: 3}
 --- !u!4 &2110208283098636609 stripped
@@ -868,6 +1165,12 @@ PrefabInstance:
 --- !u!4 &8602204931023847837 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4101931273252935837, guid: 868d8e48dea20c84d926cb31f2023a74,
+    type: 3}
+  m_PrefabInstance: {fileID: 5732474349357947136}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &8602204931023847778 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 4101931273252935778, guid: 868d8e48dea20c84d926cb31f2023a74,
     type: 3}
   m_PrefabInstance: {fileID: 5732474349357947136}
   m_PrefabAsset: {fileID: 0}
