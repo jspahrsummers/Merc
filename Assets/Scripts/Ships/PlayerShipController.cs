@@ -8,8 +8,6 @@ public sealed class PlayerShipController : AbstractShipController
 {
     public GameObject missilePrefab;
     public GameObject projectileExplosionPrefab;
-    public GameObject systemBase;
-    public PlanetLandingController planetLandingController;
 
     private float _fuel = 1;
     public float fuel
@@ -23,8 +21,6 @@ public sealed class PlayerShipController : AbstractShipController
 
     private float turning;
     private float thrusting;
-
-    private StarSystemController starSystemController => systemBase.GetComponent<StarSystemController>();
 
     public void OnThrust(InputAction.CallbackContext context)
     {
@@ -55,25 +51,6 @@ public sealed class PlayerShipController : AbstractShipController
         projectileExplosion.transform.Translate(Vector3.forward * 10);
 
         Physics2D.IgnoreCollision(missile.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-    }
-
-    public void OnLand(InputAction.CallbackContext context)
-    {
-        if (!context.performed)
-        {
-            return;
-        }
-
-        PlanetScriptableObject selectedPlanet = starSystemController.selectedPlanet;
-        if (!selectedPlanet)
-        {
-            Debug.Log("No planet selected");
-            return;
-        }
-
-        // TODO: Check distance to planet
-        planetLandingController.planet = selectedPlanet;
-        planetLandingController.gameObject.SetActive(true);
     }
 
     public IEnumerator StartHyperspaceJump(HyperspaceJump hyperspaceJump)

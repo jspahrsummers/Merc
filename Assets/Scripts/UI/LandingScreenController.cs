@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class PlanetLandingController : MonoBehaviour
+public class LandingScreenController : MonoBehaviour
 {
     public Text welcomeText;
 

@@ -147,7 +147,7 @@ MonoBehaviour:
     m_ActionName: Player/Hyperspace Jump[/Keyboard/j]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2110208283098636611}
+      - m_Target: {fileID: 6554897444649022291}
         m_MethodName: OnLand
         m_Mode: 0
         m_Arguments:

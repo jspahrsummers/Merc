@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public sealed class GameController : MonoBehaviour
 {
     public GalaxyMapController galaxyMapController;
-    public PlanetLandingController landingScreenController;
+    public LandingScreenController landingScreenController;
     public StarSystemController starSystemController;
     public PlayerShipController playerShipController;
     public HyperspaceArrivalController hyperspaceArrivalPrefab;
@@ -32,6 +32,25 @@ public sealed class GameController : MonoBehaviour
 
         GameObject galaxyMap = galaxyMapController.gameObject;
         galaxyMap.SetActive(!galaxyMap.activeSelf);
+    }
+
+    public void OnLand(InputAction.CallbackContext context)
+    {
+        if (!context.performed)
+        {
+            return;
+        }
+
+        PlanetScriptableObject selectedPlanet = starSystemController.selectedPlanet;
+        if (!selectedPlanet)
+        {
+            Debug.Log("No planet selected");
+            return;
+        }
+
+        // TODO: Check distance to planet
+        landingScreenController.planet = selectedPlanet;
+        landingScreenController.gameObject.SetActive(true);
     }
 
     public void OnHyperspaceJump(InputAction.CallbackContext context)
