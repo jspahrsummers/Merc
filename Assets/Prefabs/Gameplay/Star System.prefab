@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5471358487589820308}
   m_Layer: 0
   m_Name: Star System
-  m_TagString: StarSystem
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,5 +44,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starSystem: {fileID: 0}
-  hyperspaceArrivalPrefab: {fileID: 2879404604402340045, guid: 6f5685ad6e9b4764695a9bc1c476f404,
-    type: 3}
+  planets: []

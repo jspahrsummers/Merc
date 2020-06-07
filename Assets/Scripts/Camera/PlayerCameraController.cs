@@ -2,11 +2,11 @@
 
 public sealed class PlayerCameraController : MonoBehaviour
 {
-    private GameObject followTarget => GameObject.FindWithTag("Player");
+    public PlayerShipController followTarget;
 
     void Awake()
     {
-        MercDebug.Invariant(followTarget != null, "Could not locate player object");
+        MercDebug.Invariant(followTarget != null, "Player object not set for camera");
     }
 
     void LateUpdate()
