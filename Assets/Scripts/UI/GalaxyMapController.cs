@@ -6,10 +6,9 @@ using UnityEngine.UI;
 public sealed class GalaxyMapController : MonoBehaviour
 {
     public GameObject panel;
-    public GameObject mapSystemPrefab;
-    public float mapScale = 1;
+    public GalaxyMapSystemController mapSystemPrefab;
 
-    private Dictionary<string, GameObject> mapSystems = new Dictionary<string, GameObject>();
+    private Dictionary<string, GalaxyMapSystemController> mapSystems = new Dictionary<string, GalaxyMapSystemController>();
     public string selectedSystem { get; private set; }
 
     void Awake()
@@ -25,22 +24,16 @@ public sealed class GalaxyMapController : MonoBehaviour
         // afterward.)
         foreach (var starSystem in StarSystemScriptableObject.AllSystems())
         {
-            var mapSystem = Instantiate<GameObject>(mapSystemPrefab, panel.transform);
-            mapSystems.Add(starSystem.name, mapSystem);
+            var mapSystemController = Instantiate<GalaxyMapSystemController>(mapSystemPrefab, panel.transform);
+            mapSystems.Add(starSystem.name, mapSystemController);
 
-            var graphic = mapSystem.GetComponent<Graphic>();
-            graphic.rectTransform.anchoredPosition = starSystem.galaxyPosition * mapScale;
-
-            var label = mapSystem.GetComponentInChildren<Text>();
-            label.text = starSystem.name;
-
-            var button = mapSystem.GetComponentInChildren<Button>();
+            mapSystemController.starSystem = starSystem;
             if (starSystem.name == selectedSystem)
             {
-                button.Select();
+                mapSystemController.Select();
             }
 
-            button.onClick.AddListener(() => SystemClicked(starSystem.name));
+            mapSystemController.clickedEvent.AddListener(SystemClicked);
         }
 
         Debug.Assert(mapSystems.ContainsKey(selectedSystem));
@@ -56,9 +49,9 @@ public sealed class GalaxyMapController : MonoBehaviour
         mapSystems.Clear();
     }
 
-    private void SystemClicked(string systemName)
+    private void SystemClicked(StarSystemScriptableObject starSystem)
     {
-        Debug.Assert(mapSystems.ContainsKey(systemName));
-        selectedSystem = systemName;
+        Debug.Assert(mapSystems.ContainsKey(starSystem.name));
+        selectedSystem = starSystem.name;
     }
 }

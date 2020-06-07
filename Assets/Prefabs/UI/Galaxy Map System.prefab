@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 8639341512154015697}
   - component: {fileID: 4126605833083433685}
   - component: {fileID: 4974158319865900975}
+  - component: {fileID: 747608649828840880}
   m_Layer: 5
   m_Name: Galaxy Map System
   m_TagString: Untagged
@@ -195,5 +196,22 @@ MonoBehaviour:
   m_Interactable: 1
   m_TargetGraphic: {fileID: 4126605833083433685}
   m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &747608649828840880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6614160991745295415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d1f1b9acd351f94f9aa303a36a03252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label: {fileID: 6179728116550711002}
+  mapScale: 2
+  clickedEvent:
     m_PersistentCalls:
       m_Calls: []
