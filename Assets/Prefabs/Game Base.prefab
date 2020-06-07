@@ -55,6 +55,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   galaxyMapController: {fileID: 7749713990945279420}
   landingScreenController: {fileID: 8112060972156758494}
+  starSystemController: {fileID: 5151041672582496632}
+  playerShipController: {fileID: 2110208283098636611}
+  hyperspaceArrivalPrefab: {fileID: 2879404604402340045, guid: 6f5685ad6e9b4764695a9bc1c476f404,
+    type: 3}
 --- !u!114 &3878657735669527986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,7 +132,7 @@ MonoBehaviour:
     m_ActionName: Player/Fire Primary Weapon[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2110208283098636611}
+      - m_Target: {fileID: 6554897444649022291}
         m_MethodName: OnHyperspaceJump
         m_Mode: 0
         m_Arguments:
@@ -357,6 +361,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 905793700500575980}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5151041672582496632 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5471358487589820308, guid: 25c4edcfb2d2fdb479964c5f9b866119,
+    type: 3}
+  m_PrefabInstance: {fileID: 905793700500575980}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2850901645274468746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de424094cab177840a4f38e4fde78ccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2930522396681338650
 PrefabInstance:
   m_ObjectHideFlags: 0

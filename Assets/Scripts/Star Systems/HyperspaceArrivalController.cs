@@ -5,20 +5,17 @@ using UnityEngine.SceneManagement;
 
 public sealed class HyperspaceArrivalController : MonoBehaviour
 {
+    public Image image;
     public float fadeSpeed;
 
     [HideInInspector]
-    public float arrivalAngle;
+    public HyperspaceJump hyperspaceJump;
 
     private float startTime;
 
-    // TODO: Can this component be merged?
-    private Image image => GetComponentInChildren<Image>();
-    private GameObject player => GameObject.FindWithTag("Player");
-
     void Awake()
     {
-        MercDebug.Invariant(player != null, "Could not locate player object");
+        MercDebug.Invariant(image != null, "Hyperspace fade image should not be null");
     }
 
     void OnEnable()
@@ -36,7 +33,9 @@ public sealed class HyperspaceArrivalController : MonoBehaviour
         startTime = Time.time;
         StartCoroutine(FadeOut());
 
-        player.GetComponent<PlayerShipController>().OnArrivalFromHyperspaceJump(arrivalAngle);
+        var gameController = FindObjectOfType<GameController>();
+        MercDebug.Invariant(gameController != null, "Could not locate GameController after scene change");
+        gameController.OnCompletedHyperspaceJump(hyperspaceJump);
     }
 
     private IEnumerator FadeOut()

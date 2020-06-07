@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starSystem: {fileID: 0}
-  hyperspaceArrivalPrefab: {fileID: 8316166738659039311, guid: 6f5685ad6e9b4764695a9bc1c476f404,
+  hyperspaceArrivalPrefab: {fileID: 2879404604402340045, guid: 6f5685ad6e9b4764695a9bc1c476f404,
     type: 3}

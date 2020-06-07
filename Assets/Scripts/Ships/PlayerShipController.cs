@@ -9,7 +9,6 @@ public sealed class PlayerShipController : AbstractShipController
     public GameObject missilePrefab;
     public GameObject projectileExplosionPrefab;
     public GameObject systemBase;
-    public GalaxyMapController galaxyMapController;
     public PlanetLandingController planetLandingController;
 
     private float _fuel = 1;
@@ -26,9 +25,6 @@ public sealed class PlayerShipController : AbstractShipController
     private float thrusting;
 
     private StarSystemController starSystemController => systemBase.GetComponent<StarSystemController>();
-
-    // FIXME
-    //private PlayerInput playerInput => GetComponent<PlayerInput>();
 
     public void OnThrust(InputAction.CallbackContext context)
     {
@@ -61,32 +57,6 @@ public sealed class PlayerShipController : AbstractShipController
         Physics2D.IgnoreCollision(missile.GetComponent<Collider2D>(), GetComponent<Collider2D>());
     }
 
-    public void OnToggleMap(InputAction.CallbackContext context)
-    {
-        if (!context.performed)
-        {
-            return;
-        }
-
-        GameObject galaxyMap = galaxyMapController.gameObject;
-        galaxyMap.SetActive(!galaxyMap.activeSelf);
-    }
-
-    public void OnHyperspaceJump(InputAction.CallbackContext context)
-    {
-        if (!context.performed)
-        {
-            return;
-        }
-
-        string selectedSystem = galaxyMapController.selectedSystem;
-        StarSystemScriptableObject jumpSystem = starSystemController.starSystem.adjacentSystems.Find(candidate => candidate.name == selectedSystem);
-        if (jumpSystem != null)
-        {
-            StartCoroutine(StartHyperspaceJump(jumpSystem));
-        }
-    }
-
     public void OnLand(InputAction.CallbackContext context)
     {
         if (!context.performed)
@@ -106,23 +76,11 @@ public sealed class PlayerShipController : AbstractShipController
         planetLandingController.gameObject.SetActive(true);
     }
 
-    public void OnArrivalFromHyperspaceJump(float angle)
+    public IEnumerator StartHyperspaceJump(HyperspaceJump hyperspaceJump)
     {
-        rigidbody.rotation = angle;
+        Debug.Log($"Ship starting jump {hyperspaceJump}");
 
-        Vector2 entryPoint = rigidbody.GetRelativePoint(Vector2.down * ship.hyperspaceArrivalDistance);
-        rigidbody.position = entryPoint;
-
-        rigidbody.AddRelativeForce(Vector2.up * ship.requiredHyperspaceVelocity * rigidbody.mass, ForceMode2D.Impulse);
-        Debug.Log($"Arrived from hyperspace: rotation {rigidbody.rotation} position {rigidbody.position} velocity: {rigidbody.velocity} (magnitude: {rigidbody.velocity.magnitude})");
-    }
-
-    private IEnumerator StartHyperspaceJump(StarSystemScriptableObject system)
-    {
-        // FIXME
-        //playerInput.enabled = false;
-
-        float angle = starSystemController.starSystem.AngleToSystem(system);
+        float angle = hyperspaceJump.angle;
         while (!rigidbody.IsRotatedToward(angle, ship.hyperspaceAngleTolerance))
         {
             yield return new WaitForFixedUpdate();
@@ -139,7 +97,17 @@ public sealed class PlayerShipController : AbstractShipController
         }
 
         Debug.Log($"Velocity OK for hyperspace: {rigidbody.velocity} (magnitude: {rigidbody.velocity.magnitude}");
-        starSystemController.JumpToSystem(system);
+    }
+
+    public void OnCompletedHyperspaceJump(HyperspaceJump hyperspaceJump)
+    {
+        rigidbody.rotation = hyperspaceJump.angle;
+
+        Vector2 entryPoint = rigidbody.GetRelativePoint(Vector2.down * ship.hyperspaceArrivalDistance);
+        rigidbody.position = entryPoint;
+
+        rigidbody.AddRelativeForce(Vector2.up * ship.requiredHyperspaceVelocity * rigidbody.mass, ForceMode2D.Impulse);
+        Debug.Log($"Arrived from hyperspace jump {hyperspaceJump}: rotation {rigidbody.rotation} position {rigidbody.position} velocity: {rigidbody.velocity} (magnitude: {rigidbody.velocity.magnitude})");
     }
 
     void FixedUpdate()

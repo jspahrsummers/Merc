@@ -144,6 +144,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: cbc6a4ff8bfc154458a8d58ba3e7a3fb,
         type: 2}
+    - target: {fileID: 5151041672582496632, guid: 45fd13696295785488ca886445ff27a5,
+        type: 3}
+      propertyPath: hyperspaceArrivalController
+      value: 
+      objectReference: {fileID: 2879404604402340045, guid: 6f5685ad6e9b4764695a9bc1c476f404,
+        type: 3}
     - target: {fileID: 5163437109155687014, guid: 45fd13696295785488ca886445ff27a5,
         type: 3}
       propertyPath: m_Name
