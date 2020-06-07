@@ -259,6 +259,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ebe5fedfff4e454419b0107a90ba8c7d, type: 3}
+--- !u!114 &1818177932 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2586023136181089731, guid: f463847b9109eb74e8174de5306c27e9,
+    type: 3}
+  m_PrefabInstance: {fileID: 2729519622634864974}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c7d9a6da1a94ac4aadda94df7fb1186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1841103926
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -347,10 +359,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5151041672582496632, guid: 45fd13696295785488ca886445ff27a5,
         type: 3}
+      propertyPath: planets.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5151041672582496632, guid: 45fd13696295785488ca886445ff27a5,
+        type: 3}
       propertyPath: starSystem
       value: 
       objectReference: {fileID: 11400000, guid: 711624042e8e2894d93d55bea9cfb5ab,
         type: 2}
+    - target: {fileID: 5151041672582496632, guid: 45fd13696295785488ca886445ff27a5,
+        type: 3}
+      propertyPath: planets.Array.data[0]
+      value: 
+      objectReference: {fileID: 1818177932}
     - target: {fileID: 5163437109155687014, guid: 45fd13696295785488ca886445ff27a5,
         type: 3}
       propertyPath: m_Name

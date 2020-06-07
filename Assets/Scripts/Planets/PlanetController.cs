@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
-public class PlanetController : MonoBehaviour
+public sealed class PlanetController : MonoBehaviour
 {
+
+    [System.Serializable]
+    public sealed class SelectedEvent : UnityEvent<PlanetController> { }
+
     public PlanetScriptableObject planet;
     public GameObject targetSprite;
-
-    private StarSystemController starSystemController => GameObject.FindWithTag("StarSystem").GetComponent<StarSystemController>();
+    public SelectedEvent selectedEvent = new SelectedEvent();
 
     private bool _selected = false;
     public bool selected
@@ -18,14 +22,9 @@ public class PlanetController : MonoBehaviour
 
             if (value)
             {
-                starSystemController.OnPlanetSelected(this);
+                selectedEvent.Invoke(this);
             }
         }
-    }
-
-    void Start()
-    {
-        starSystemController.AddPlanetController(this);
     }
 
     public void OnMouseDown()

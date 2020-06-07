@@ -1,30 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public sealed class StarSystemController : MonoBehaviour
 {
+    [Tooltip("Game object describing this star system")]
     public StarSystemScriptableObject starSystem;
 
-    private List<PlanetController> planetControllers = new List<PlanetController>();
+    [Tooltip("The planet objects in the scene, which must match up with the star system's planets")]
+    public List<PlanetController> planets = new List<PlanetController>();
+
     private PlanetController selectedPlanetController;
     public PlanetScriptableObject selectedPlanet => selectedPlanetController?.planet;
 
-    public void AddPlanetController(PlanetController planetController)
+    void Start()
     {
-        Debug.Assert(!planetControllers.Contains(planetController));
-        planetControllers.Add(planetController);
+        // TODO: Check planet controllers against star system planets
+
+        foreach (var planetController in planets)
+        {
+            planetController.selectedEvent.AddListener(OnPlanetSelected);
+        }
     }
 
     public void OnPlanetSelected(PlanetController planetController)
     {
         Debug.Log($"{planetController.planet} clicked");
 
-        Debug.Assert(planetControllers.Contains(planetController));
+        Debug.Assert(planets.Contains(planetController));
         selectedPlanetController = planetController;
 
-        foreach (var otherController in planetControllers)
+        foreach (var otherController in planets)
         {
             if (otherController == planetController)
             {
