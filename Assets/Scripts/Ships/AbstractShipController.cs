@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(ExplodableController), typeof(Rigidbody2D), typeof(Collider2D))]
 public abstract class AbstractShipController : MonoBehaviour, IDamageable
 {
     public ShipScriptableObject ship;

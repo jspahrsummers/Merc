@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(ExplodableController), typeof(Rigidbody2D), typeof(Collider2D))]
 public sealed class ProjectileController : MonoBehaviour // TODO: IDamageable
 {
     public ProjectileScriptableObject projectile;
