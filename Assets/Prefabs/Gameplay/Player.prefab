@@ -52,13 +52,10 @@ MonoBehaviour:
   destructible:
     armor: 0
     shields: 0
-  missilePrefab: {fileID: 9029331948948293236, guid: 11aad2206706e5a4e81b3987991281c3,
+  missilePrefab: {fileID: 9029331948948293237, guid: 11aad2206706e5a4e81b3987991281c3,
     type: 3}
   projectileExplosionPrefab: {fileID: 3337956166155597766, guid: f3b77e3acebf93a46aa3cbf57b2c3da7,
     type: 3}
-  systemBase: {fileID: 0}
-  galaxyMapController: {fileID: 0}
-  planetLandingController: {fileID: 0}
 --- !u!50 &5141176213057246201
 Rigidbody2D:
   serializedVersion: 4
