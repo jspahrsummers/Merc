@@ -350,6 +350,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Galaxy Map
       objectReference: {fileID: 0}
+    - target: {fileID: 4136904175984999302, guid: 55f135b8fcd0891459e70b0e91ffd0f2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8744608577415537604, guid: 55f135b8fcd0891459e70b0e91ffd0f2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -666,6 +671,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Landing Screen
+      objectReference: {fileID: 0}
+    - target: {fileID: 7133597629128004000, guid: 4346655085d7679448846e8183a79d9a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4346655085d7679448846e8183a79d9a, type: 3}

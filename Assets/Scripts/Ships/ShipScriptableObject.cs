@@ -1,9 +1,17 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
+using DictionaryExtensions;
 
 [CreateAssetMenu(menuName = "Gameplay/Ship")]
 public class ShipScriptableObject : ScriptableObject
 {
+
+    [System.Serializable]
+    public sealed class CargoChangedEvent : UnityEvent<ITransactable, int> { }
+
     public Destructible baseDestructible;
 
     [Tooltip("Mass of this ship in tonnes (used in physics calculations)")]
@@ -40,4 +48,88 @@ public class ShipScriptableObject : ScriptableObject
     [Tooltip("Weapons available on this ship")]
     // TODO: Replace this with a weapon scriptable object, not that of projectiles.
     public List<ProjectileScriptableObject> weapons;
+
+    // FIXME: Unity doesn't serialize dictionaries
+    private Dictionary<ITransactable, int> _allCargo = new Dictionary<ITransactable, int>();
+
+    [SerializeField]
+    private int _cargoCapacity = 0;
+    public int cargoCapacity => _cargoCapacity;
+
+    public IEnumerable<KeyValuePair<ITransactable, int>> allCargo => _allCargo;
+    public int occupiedCargoSpace
+    {
+        get
+        {
+            int total = 0;
+            foreach (var cargo in _allCargo)
+            {
+                total += cargo.Key.cargoSpaceRequired * cargo.Value;
+            }
+
+            return total;
+        }
+    }
+    public int availableCargoSpace => cargoCapacity - occupiedCargoSpace;
+    public CargoChangedEvent cargoChangedEvent = new CargoChangedEvent();
+
+    public int? GetCargo(ITransactable transactable)
+    {
+        int quantity;
+        if (!_allCargo.TryGetValue(transactable, out quantity))
+        {
+            return null;
+        }
+
+        return quantity;
+    }
+
+    // Returns the amount actually added, subject to cargoCapacity.
+    public int AddCargo(ITransactable transactable, int quantityToAdd)
+    {
+        if (quantityToAdd <= 0)
+        {
+            throw new ArgumentException($"Quantity to add should be positive: {quantityToAdd}");
+        }
+
+        int maximumQuantity = availableCargoSpace / transactable.cargoSpaceRequired;
+        quantityToAdd = System.Math.Min(quantityToAdd, maximumQuantity);
+        if (quantityToAdd == 0)
+        {
+            return 0;
+        }
+
+        int requiredSpace = transactable.cargoSpaceRequired * quantityToAdd;
+
+        int updatedQuantity = _allCargo.GetValueOrDefault(transactable, 0) + quantityToAdd;
+        _allCargo[transactable] = updatedQuantity;
+
+        MercDebug.Invariant(availableCargoSpace >= 0, "Available cargo space should never be negative");
+        return quantityToAdd;
+    }
+
+    // Returns the amount actually removed.
+    public int RemoveCargo(ITransactable transactable, int quantityToRemove)
+    {
+        if (quantityToRemove <= 0)
+        {
+            throw new ArgumentException($"Quantity to remove should be positive: {quantityToRemove}");
+        }
+
+        int existingQuantity = _allCargo.GetValueOrDefault(transactable, 0);
+        quantityToRemove = System.Math.Min(existingQuantity, quantityToRemove);
+
+        int remaining = existingQuantity - quantityToRemove;
+        if (remaining == 0)
+        {
+            _allCargo.Remove(transactable);
+        }
+        else
+        {
+            _allCargo[transactable] = remaining;
+        }
+
+        MercDebug.Invariant(availableCargoSpace <= cargoCapacity, "Available cargo space should not exceed cargoCapacity");
+        return quantityToRemove;
+    }
 }

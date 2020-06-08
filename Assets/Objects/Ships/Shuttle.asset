@@ -27,3 +27,7 @@ MonoBehaviour:
   hyperspaceArrivalDistance: 50
   weapons:
   - {fileID: 11400000, guid: 655e001b999afdf4ab51592c11c87d52, type: 2}
+  _cargoCapacity: 50
+  cargoChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
