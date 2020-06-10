@@ -81,7 +81,7 @@ jobs:
         with:
           unityVersion: ${{ env.UNITY_VERSION }}
 
-      - name: Upload build artifacts
+      - name: Upload test artifacts
         uses: actions/upload-artifact@v2
         with:
           name: Test results
