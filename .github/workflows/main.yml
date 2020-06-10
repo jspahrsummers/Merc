@@ -52,12 +52,6 @@ jobs:
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: ${{ matrix.targetPlatform }}
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: Build-${{ matrix.targetPlatform }}
-          path: build
-
       - name: Publish to itch.io
         if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags')
         uses: josephbmanley/butler-publish-itchio-action@v1.0.1
@@ -67,3 +61,28 @@ jobs:
           ITCH_GAME: Merc
           ITCH_USER: jspahrsummers
           PACKAGE: build/${{ matrix.targetPlatform }}
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-Test
+          restore-keys: |
+            Library-
+
+      - name: Unity tests
+        uses: webbertakken/unity-builder@v1.6
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          unityVersion: ${{ env.UNITY_VERSION }}
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Test results
+          path: artifacts
