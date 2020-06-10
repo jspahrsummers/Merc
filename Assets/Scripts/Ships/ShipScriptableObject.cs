@@ -49,12 +49,11 @@ public class ShipScriptableObject : ScriptableObject
     // TODO: Replace this with a weapon scriptable object, not that of projectiles.
     public List<ProjectileScriptableObject> weapons;
 
+    [Tooltip("The total amount of capacity in this ship's cargo hold")]
+    public int cargoCapacity;
+
     // FIXME: Unity doesn't serialize dictionaries
     private Dictionary<ITransactable, int> _allCargo = new Dictionary<ITransactable, int>();
-
-    [SerializeField]
-    private int _cargoCapacity = 0;
-    public int cargoCapacity => _cargoCapacity;
 
     public IEnumerable<KeyValuePair<ITransactable, int>> allCargo => _allCargo;
     public int occupiedCargoSpace
