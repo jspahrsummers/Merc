@@ -13,6 +13,16 @@ public sealed class TradeGoodUIController : MonoBehaviour
     [HideInInspector]
     public ITransactionHandler<TradeGoodScriptableObject> transactionHandler;
 
+    private long marketPrice
+    {
+        get
+        {
+            PlanetScriptableObject.Market market = planet.markets.Find(good => good.Equals(tradeGood));
+            MercDebug.Invariant(market.good.Equals(tradeGood), $"Could not find market on planet {planet} for {tradeGood}");
+            return market.price;
+        }
+    }
+
     void Start()
     {
         MercDebug.Invariant(transactionHandler != null, $"Expected transaction handler to be set for {this}");
@@ -34,19 +44,47 @@ public sealed class TradeGoodUIController : MonoBehaviour
 
     private void OnCargoChanged(ITransactable transactable, int newQuantity)
     {
-        // TODO
+        if (!transactable.Equals(tradeGood))
+        {
+            return;
+        }
+
+        cargoCount.text = newQuantity.ToString();
+    }
+
+    private Transaction<TradeGoodScriptableObject> TransactionForQuantity(int quantity)
+    {
+        return new Transaction<TradeGoodScriptableObject>() { transactable = tradeGood, quantity = quantity, price = marketPrice };
     }
 
     private int AddCargo(int quantity)
     {
-        // TODO
-        return -1;
+        quantity = ship.AddCargo(tradeGood, quantity);
+
+        var fulfilled = transactionHandler.AttemptTransaction(TransactionForQuantity(quantity));
+        int purchasedQuantity = fulfilled?.quantity ?? 0;
+
+        if (purchasedQuantity < quantity)
+        {
+            ship.RemoveCargo(tradeGood, quantity - purchasedQuantity);
+        }
+
+        return purchasedQuantity;
     }
 
     private int RemoveCargo(int quantity)
     {
-        // TODO
-        return -1;
+        quantity = ship.RemoveCargo(tradeGood, quantity);
+
+        var fulfilled = transactionHandler.AttemptTransaction(TransactionForQuantity(-quantity));
+        int soldQuantity = -fulfilled?.quantity ?? 0;
+
+        if (soldQuantity < quantity)
+        {
+            ship.RemoveCargo(tradeGood, quantity - soldQuantity);
+        }
+
+        return soldQuantity;
     }
 
     public void OnBuy()
