@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(ExplodableController), typeof(Rigidbody2D), typeof(Collider2D))]
 public abstract class AbstractShipController : MonoBehaviour, IDamageable
 {
     public ShipScriptableObject ship;
     public Destructible destructible;
-
-    private ExplodableController explodable => GetComponent<ExplodableController>();
-    public new Rigidbody2D rigidbody => GetComponent<Rigidbody2D>();
+    public ExplodableController explodable;
+    public new Rigidbody2D rigidbody;
 
     protected virtual void Start()
     {

@@ -2,7 +2,6 @@
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Graphic), typeof(Button))]
 public sealed class GalaxyMapSystemController : MonoBehaviour
 {
     [System.Serializable]
@@ -10,12 +9,11 @@ public sealed class GalaxyMapSystemController : MonoBehaviour
     {
     }
 
+    public Graphic graphic;
+    public Button button;
     public Text label;
     public float mapScale = 1;
     public ClickedEvent clickedEvent = new ClickedEvent();
-
-    private Graphic graphic => GetComponent<Graphic>();
-    private Button button => GetComponent<Button>();
 
     private StarSystemScriptableObject _starSystem;
     public StarSystemScriptableObject starSystem

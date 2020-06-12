@@ -1,14 +1,13 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(ExplodableController), typeof(Rigidbody2D), typeof(Collider2D))]
 public sealed class ProjectileController : MonoBehaviour // TODO: IDamageable
 {
     public ProjectileScriptableObject projectile;
 
     // TODO: Destructible
-    private ExplodableController explodable => GetComponent<ExplodableController>();
-    public new Rigidbody2D rigidbody => GetComponent<Rigidbody2D>();
+    public ExplodableController explodable;
+    public new Rigidbody2D rigidbody;
 
     void Start()
     {

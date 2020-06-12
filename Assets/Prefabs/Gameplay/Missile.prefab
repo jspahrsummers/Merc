@@ -120,6 +120,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 11400000, guid: 655e001b999afdf4ab51592c11c87d52, type: 2}
+  explodable: {fileID: 3076231858526781091}
+  rigidbody: {fileID: 9029331948948293237}
 --- !u!70 &8285967766790993069
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

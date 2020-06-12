@@ -210,6 +210,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d1f1b9acd351f94f9aa303a36a03252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  graphic: {fileID: 4126605833083433685}
+  button: {fileID: 4974158319865900975}
   label: {fileID: 6179728116550711002}
   mapScale: 2
   clickedEvent:

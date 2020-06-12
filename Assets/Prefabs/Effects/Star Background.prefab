@@ -95,3 +95,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 2252398392940079443}
+  backgroundRenderer: {fileID: 2252398392940079441}

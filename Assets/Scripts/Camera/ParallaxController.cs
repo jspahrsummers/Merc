@@ -1,15 +1,13 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer))]
 public sealed class ParallaxController : MonoBehaviour
 {
     public ParallaxController prefab;
+    public SpriteRenderer backgroundRenderer;
 
     private static Dictionary<(int x, int y), ParallaxController> allControllers = new Dictionary<(int x, int y), ParallaxController>();
     private (int x, int y) gridTag;
-
-    private SpriteRenderer backgroundRenderer => GetComponent<SpriteRenderer>();
 
     private ParallaxController GetControllerAtOffset(int xOffset, int yOffset, bool instantiate = false)
     {

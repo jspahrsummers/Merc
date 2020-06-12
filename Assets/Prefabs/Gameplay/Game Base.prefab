@@ -60,6 +60,7 @@ MonoBehaviour:
   hyperspaceArrivalPrefab: {fileID: 2879404604402340045, guid: 6f5685ad6e9b4764695a9bc1c476f404,
     type: 3}
   playerState: {fileID: 11400000, guid: c1b4d740570537846a1efebb4d76906e, type: 2}
+  playerInput: {fileID: 3878657735669527986}
 --- !u!114 &3878657735669527986
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
-[RequireComponent(typeof(PlayerInput))]
 public sealed class GameController : MonoBehaviour
 {
     public GalaxyMapController galaxyMapController;
@@ -12,8 +11,8 @@ public sealed class GameController : MonoBehaviour
     public PlayerShipController playerShipController;
     public HyperspaceArrivalController hyperspaceArrivalPrefab;
     public PlayerStateScriptableObject playerState;
+    public PlayerInput playerInput;
 
-    private PlayerInput playerInput => GetComponent<PlayerInput>();
     private Coroutine hyperspaceCoroutine;
 
     void Start()

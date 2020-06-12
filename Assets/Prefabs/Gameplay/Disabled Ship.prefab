@@ -134,6 +134,8 @@ MonoBehaviour:
   destructible:
     armor: 30
     shields: 0
+  explodable: {fileID: 1957919302827249953}
+  rigidbody: {fileID: 6598271084067944935}
   personality: {fileID: 11400000, guid: deedb57df3a77264a8c0cbbde204b747, type: 2}
 --- !u!50 &6598271084067944935
 Rigidbody2D:

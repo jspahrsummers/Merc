@@ -52,6 +52,8 @@ MonoBehaviour:
   destructible:
     armor: 0
     shields: 0
+  explodable: {fileID: 1952425664096041505}
+  rigidbody: {fileID: 5141176213057246201}
   missilePrefab: {fileID: 9029331948948293237, guid: 11aad2206706e5a4e81b3987991281c3,
     type: 3}
   projectileExplosionPrefab: {fileID: 3337956166155597766, guid: f3b77e3acebf93a46aa3cbf57b2c3da7,

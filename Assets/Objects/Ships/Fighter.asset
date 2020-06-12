@@ -26,7 +26,7 @@ MonoBehaviour:
   requiredHyperspaceVelocity: 20
   hyperspaceArrivalDistance: 50
   weapons: []
-  _cargoCapacity: 20
+  cargoCapacity: 10
   cargoChangedEvent:
     m_PersistentCalls:
       m_Calls: []
