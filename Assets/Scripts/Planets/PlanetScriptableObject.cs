@@ -11,5 +11,5 @@ public sealed class PlanetScriptableObject : ScriptableObject
         public long price;
     }
 
-    public List<Market> markets = new List<Market>();
+    public List<Market> markets;
 }
