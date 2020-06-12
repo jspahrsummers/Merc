@@ -76,12 +76,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 242417738367265860}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f795e141dfec11b4097d0482b1981a38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tradeGood: {fileID: 0}
   label: {fileID: 620018235809582833}
   price: {fileID: 4959893725354833303}
   cargoCount: {fileID: 8173675053284398106}

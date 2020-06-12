@@ -11,6 +11,7 @@ public sealed class GameController : MonoBehaviour
     public StarSystemController starSystemController;
     public PlayerShipController playerShipController;
     public HyperspaceArrivalController hyperspaceArrivalPrefab;
+    public PlayerStateScriptableObject playerState;
 
     private PlayerInput playerInput => GetComponent<PlayerInput>();
     private Coroutine hyperspaceCoroutine;
@@ -48,8 +49,8 @@ public sealed class GameController : MonoBehaviour
             return;
         }
 
-        // TODO: Check distance to planet
-        landingScreenController.planet = selectedPlanet;
+        var landedState = new LandedState { planet = selectedPlanet, playerState = playerState };
+        landingScreenController.Prepare(landedState);
         landingScreenController.gameObject.SetActive(true);
     }
 

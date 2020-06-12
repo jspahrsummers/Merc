@@ -59,6 +59,7 @@ MonoBehaviour:
   playerShipController: {fileID: 2110208283098636611}
   hyperspaceArrivalPrefab: {fileID: 2879404604402340045, guid: 6f5685ad6e9b4764695a9bc1c476f404,
     type: 3}
+  playerState: {fileID: 11400000, guid: c1b4d740570537846a1efebb4d76906e, type: 2}
 --- !u!114 &3878657735669527986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -667,6 +668,18 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3529071335858051298, guid: 4346655085d7679448846e8183a79d9a,
+        type: 3}
+      propertyPath: ship
+      value: 
+      objectReference: {fileID: 11400000, guid: e2ec4d7e1bfc6d94e84fef13c3121307,
+        type: 2}
+    - target: {fileID: 3529071335858051298, guid: 4346655085d7679448846e8183a79d9a,
+        type: 3}
+      propertyPath: planet
+      value: 
+      objectReference: {fileID: 11400000, guid: 76f741274e6bb914290d58cbb170da1a,
+        type: 2}
     - target: {fileID: 7133597629128004000, guid: 4346655085d7679448846e8183a79d9a,
         type: 3}
       propertyPath: m_Name
@@ -677,6 +690,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7486208653061651302, guid: 4346655085d7679448846e8183a79d9a,
+        type: 3}
+      propertyPath: ship
+      value: 
+      objectReference: {fileID: 11400000, guid: e2ec4d7e1bfc6d94e84fef13c3121307,
+        type: 2}
+    - target: {fileID: 7486208653061651302, guid: 4346655085d7679448846e8183a79d9a,
+        type: 3}
+      propertyPath: planet
+      value: 
+      objectReference: {fileID: 11400000, guid: 76f741274e6bb914290d58cbb170da1a,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4346655085d7679448846e8183a79d9a, type: 3}
 --- !u!224 &4437210024620360340 stripped

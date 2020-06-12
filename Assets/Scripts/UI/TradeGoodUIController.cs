@@ -3,34 +3,32 @@ using UnityEngine.UI;
 
 public sealed class TradeGoodUIController : MonoBehaviour
 {
-    public ShipScriptableObject ship;
-    public PlanetScriptableObject planet;
-    public TradeGoodScriptableObject tradeGood;
     public Text label;
     public Text price;
     public Text cargoCount;
 
-    [HideInInspector]
-    public ITransactionHandler<TradeGoodScriptableObject> transactionHandler;
+    private LandedState? landedState;
+    private PlanetScriptableObject.Market? market;
 
-    private long marketPrice
-    {
-        get
-        {
-            PlanetScriptableObject.Market market = planet.markets.Find(good => good.Equals(tradeGood));
-            MercDebug.Invariant(market.good.Equals(tradeGood), $"Could not find market on planet {planet} for {tradeGood}");
-            return market.price;
-        }
-    }
+    private PlayerStateScriptableObject playerState => landedState.Value.playerState;
+    // TODO: Support a fleet
+    private ShipScriptableObject ship => playerState.flagship;
+    private TradeGoodScriptableObject tradeGood => market.Value.good;
+    private long marketPrice => market.Value.price;
 
-    void Start()
+    public void Prepare(LandedState state, PlanetScriptableObject.Market market)
     {
-        MercDebug.Invariant(transactionHandler != null, $"Expected transaction handler to be set for {this}");
-        label.text = tradeGood.name;
+        this.landedState = state;
+        this.market = market;
     }
 
     void OnEnable()
     {
+        MercDebug.Invariant(landedState != null, $"LandedState not set before trade good UI {this} enabled");
+        MercDebug.Invariant(market != null, $"Market not set before trade good UI {this} enabled");
+
+        label.text = tradeGood.name;
+        price.text = $"{marketPrice} credits";
         ship.cargoChangedEvent.AddListener(OnCargoChanged);
 
         int quantity = ship.GetCargo(tradeGood);
@@ -40,6 +38,9 @@ public sealed class TradeGoodUIController : MonoBehaviour
     void OnDisable()
     {
         ship.cargoChangedEvent.RemoveListener(OnCargoChanged);
+
+        landedState = null;
+        market = null;
     }
 
     private void OnCargoChanged(ITransactable transactable, int newQuantity)
@@ -59,32 +60,14 @@ public sealed class TradeGoodUIController : MonoBehaviour
 
     private int AddCargo(int quantity)
     {
-        quantity = ship.AddCargo(tradeGood, quantity);
-
-        var fulfilled = transactionHandler.AttemptTransaction(TransactionForQuantity(quantity));
-        int purchasedQuantity = fulfilled?.quantity ?? 0;
-
-        if (purchasedQuantity < quantity)
-        {
-            ship.RemoveCargo(tradeGood, quantity - purchasedQuantity);
-        }
-
-        return purchasedQuantity;
+        var fulfilled = playerState.AttemptTransaction(TransactionForQuantity(quantity));
+        return fulfilled?.quantity ?? 0;
     }
 
     private int RemoveCargo(int quantity)
     {
-        quantity = ship.RemoveCargo(tradeGood, quantity);
-
-        var fulfilled = transactionHandler.AttemptTransaction(TransactionForQuantity(-quantity));
-        int soldQuantity = -fulfilled?.quantity ?? 0;
-
-        if (soldQuantity < quantity)
-        {
-            ship.RemoveCargo(tradeGood, quantity - soldQuantity);
-        }
-
-        return soldQuantity;
+        var fulfilled = playerState.AttemptTransaction(TransactionForQuantity(-quantity));
+        return -fulfilled?.quantity ?? 0;
     }
 
     public void OnBuy()

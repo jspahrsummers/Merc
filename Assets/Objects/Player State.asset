@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Player State
   m_EditorClassIdentifier: 
   credits: 100000
+  flagship: {fileID: 11400000, guid: e2ec4d7e1bfc6d94e84fef13c3121307, type: 2}

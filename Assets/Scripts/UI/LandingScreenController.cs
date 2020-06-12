@@ -1,22 +1,37 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class LandingScreenController : MonoBehaviour
+public sealed class LandingScreenController : MonoBehaviour
 {
     public Text welcomeText;
+    public TradingUIController tradingUIController;
 
-    // This is set dynamically based on where the player has chosen to land.
-    [HideInInspector]
-    public PlanetScriptableObject planet;
+    private LandedState? landedState;
 
-    void OnEnable()
+    public void Prepare(LandedState state)
     {
-        MercDebug.Invariant(planet != null, "Planet needs to be set before landing");
-        welcomeText.text = $"Welcome to {planet.name}";
+        landedState = state;
+        tradingUIController.Prepare(state);
     }
 
     public void OnDepart()
     {
         gameObject.SetActive(false);
+    }
+
+    void OnEnable()
+    {
+        MercDebug.Invariant(landedState != null, "Landing state not set before UI controller enabled");
+
+        PlanetScriptableObject planet = landedState.Value.planet;
+        welcomeText.text = $"Welcome to {planet.name}";
+
+        tradingUIController.enabled = true;
+    }
+
+    void OnDisable()
+    {
+        landedState = null;
+        tradingUIController.enabled = false;
     }
 }
