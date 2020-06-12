@@ -3,7 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Gameplay/Player State")]
 public sealed class PlayerStateScriptableObject : ScriptableObject, ITransactionHandler<TradeGoodScriptableObject>
 {
-    public long credits;
+    public long initialCredits;
+
+    private long _credits;
+    public long credits => _credits;
 
     // TODO: Need to support a fleet
     // TODO: This needs to be synchronized with PlayerShipController
@@ -14,9 +17,9 @@ public sealed class PlayerStateScriptableObject : ScriptableObject, ITransaction
         MercDebug.EnforceField(flagship);
     }
 
-    public void Reset()
+    void OnEnable()
     {
-        credits = 100000;
+        _credits = initialCredits;
     }
 
     public Transaction<TradeGoodScriptableObject>? AttemptTransaction(Transaction<TradeGoodScriptableObject> proposed)
@@ -25,7 +28,7 @@ public sealed class PlayerStateScriptableObject : ScriptableObject, ITransaction
 
         if (proposed.quantity > 0)
         {
-            var fundable = (int)(credits / proposed.price);
+            var fundable = (int)(_credits / proposed.price);
             int storable = flagship.availableCargoSpace / proposed.transactable.cargoSpaceRequired;
 
             int maxQuantity = System.Math.Min(fundable, storable);
@@ -55,8 +58,8 @@ public sealed class PlayerStateScriptableObject : ScriptableObject, ITransaction
             MercDebug.Invariant(removed == -proposed.quantity, $"Cargo removed {removed} should match calculated transaction {proposed}");
         }
 
-        credits += proposed.proceeds;
-        MercDebug.Invariant(credits >= 0, $"Credits negative ({credits}) after transaction {proposed}");
+        _credits += proposed.proceeds;
+        MercDebug.Invariant(_credits >= 0, $"Credits negative ({_credits}) after transaction {proposed}");
 
         Debug.Log($"Executed transaction {proposed}");
         return proposed;
