@@ -7,7 +7,7 @@ using VectorExtensions;
 public sealed class StarSystemScriptableObject : ScriptableObject
 {
     public Vector2 galaxyPosition;
-    public List<StarSystemScriptableObject> adjacentSystems;
+    public List<StarSystemScriptableObject> adjacentSystems = new List<StarSystemScriptableObject>();
 
     private static List<StarSystemScriptableObject> allSystems = new List<StarSystemScriptableObject>();
 
