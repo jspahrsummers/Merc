@@ -9,6 +9,11 @@ public sealed class PlayerStateScriptableObject : ScriptableObject, ITransaction
     // TODO: This needs to be synchronized with PlayerShipController
     public ShipScriptableObject flagship;
 
+    void Awake()
+    {
+        MercDebug.EnforceField(flagship);
+    }
+
     public void Reset()
     {
         credits = 100000;

@@ -10,6 +10,14 @@ public class UIController : MonoBehaviour
     // TODO: Reference something else instead of a controller?
     public PlayerShipController playerShipController;
 
+    void Start()
+    {
+        MercDebug.EnforceField(fuelBar);
+        MercDebug.EnforceField(creditsText);
+        MercDebug.EnforceField(playerState);
+        MercDebug.EnforceField(playerShipController);
+    }
+
     void LateUpdate()
     {
         fuelBar.value = playerShipController.fuel;

@@ -29,6 +29,10 @@ public sealed class GalaxyMapSystemController : MonoBehaviour
 
     void Start()
     {
+        MercDebug.EnforceField(graphic);
+        MercDebug.EnforceField(button);
+        MercDebug.EnforceField(label);
+
         button.onClick.AddListener(() => clickedEvent.Invoke(starSystem));
     }
 

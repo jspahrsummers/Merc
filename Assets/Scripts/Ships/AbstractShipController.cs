@@ -9,6 +9,11 @@ public abstract class AbstractShipController : MonoBehaviour, IDamageable
 
     protected virtual void Start()
     {
+        MercDebug.EnforceField(ship);
+        MercDebug.EnforceField(destructible);
+        MercDebug.EnforceField(explodable);
+        MercDebug.EnforceField(rigidbody);
+
         Debug.Log($"Overriding {rigidbody} mass to {ship.mass}");
         rigidbody.mass = ship.mass;
 

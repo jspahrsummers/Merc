@@ -54,6 +54,9 @@ public sealed class ParallaxController : MonoBehaviour
 
     void Start()
     {
+        MercDebug.EnforceField(prefab);
+        MercDebug.EnforceField(backgroundRenderer);
+
         if (!allControllers.ContainsKey(gridTag))
         {
             allControllers[gridTag] = this;

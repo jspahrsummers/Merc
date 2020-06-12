@@ -16,6 +16,12 @@ public sealed class GalaxyMapController : MonoBehaviour
         selectedSystem = SceneManager.GetActiveScene().name;
     }
 
+    void Start()
+    {
+        MercDebug.EnforceField(panel);
+        MercDebug.EnforceField(mapSystemPrefab);
+    }
+
     void OnEnable()
     {
         // HACK: We should not do this every time the map is enabled, but for

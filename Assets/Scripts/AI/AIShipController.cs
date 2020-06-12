@@ -9,6 +9,8 @@ public sealed class AIShipController : AbstractShipController
     override protected void Start()
     {
         base.Start();
+
+        MercDebug.EnforceField(personality);
         state = personality.initialState;
     }
 

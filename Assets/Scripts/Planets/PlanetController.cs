@@ -27,6 +27,12 @@ public sealed class PlanetController : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        MercDebug.EnforceField(planet);
+        MercDebug.EnforceField(targetSprite);
+    }
+
     public void OnMouseDown()
     {
         selected = true;

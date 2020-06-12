@@ -14,6 +14,8 @@ public sealed class StarSystemController : MonoBehaviour
 
     void Start()
     {
+        MercDebug.EnforceField(starSystem);
+
         // TODO: Check planet controllers against star system planets
 
         foreach (var planetController in planets)

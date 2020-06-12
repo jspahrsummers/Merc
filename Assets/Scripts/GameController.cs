@@ -17,6 +17,14 @@ public sealed class GameController : MonoBehaviour
 
     void Start()
     {
+        MercDebug.EnforceField(galaxyMapController);
+        MercDebug.EnforceField(landingScreenController);
+        MercDebug.EnforceField(starSystemController);
+        MercDebug.EnforceField(playerShipController);
+        MercDebug.EnforceField(hyperspaceArrivalPrefab);
+        MercDebug.EnforceField(playerState);
+        MercDebug.EnforceField(playerInput);
+
         foreach (var actionMap in playerInput.actions.actionMaps)
         {
             actionMap.Enable();

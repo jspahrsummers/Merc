@@ -16,6 +16,13 @@ public sealed class TradeGoodUIController : MonoBehaviour
     private TradeGoodScriptableObject tradeGood => market.Value.good;
     private long marketPrice => market.Value.price;
 
+    void Start()
+    {
+        MercDebug.EnforceField(label);
+        MercDebug.EnforceField(price);
+        MercDebug.EnforceField(cargoCount);
+    }
+
     public void Prepare(LandedState state, PlanetScriptableObject.Market market)
     {
         this.landedState = state;

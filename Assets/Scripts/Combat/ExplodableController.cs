@@ -5,9 +5,9 @@ public sealed class ExplodableController : MonoBehaviour
     public GameObject explosion;
     public Damage damage;
 
-    void Awake()
+    void Start()
     {
-        MercDebug.Invariant(explosion != null, "Explodables need an explosion type to create");
+        MercDebug.EnforceField(explosion);
     }
 
     public void Explode()

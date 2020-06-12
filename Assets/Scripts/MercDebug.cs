@@ -13,4 +13,9 @@ public static class MercDebug
         Debug.LogAssertion(message);
         Debug.Break();
     }
+
+    public static void EnforceField<T>(T value)
+    {
+        Invariant(value != null, $"Field of type {typeof(T)} was not initialized");
+    }
 }

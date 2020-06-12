@@ -22,6 +22,13 @@ public sealed class PlayerShipController : AbstractShipController
     private float turning;
     private float thrusting;
 
+    protected override void Start()
+    {
+        base.Start();
+        MercDebug.EnforceField(missilePrefab);
+        MercDebug.EnforceField(projectileExplosionPrefab);
+    }
+
     public void OnThrust(InputAction.CallbackContext context)
     {
         thrusting = context.ReadValue<float>();

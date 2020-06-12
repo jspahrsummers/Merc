@@ -4,9 +4,9 @@ public sealed class PlayerCameraController : MonoBehaviour
 {
     public PlayerShipController followTarget;
 
-    void Awake()
+    void Start()
     {
-        MercDebug.Invariant(followTarget != null, "Player object not set for camera");
+        MercDebug.EnforceField(followTarget);
     }
 
     void LateUpdate()

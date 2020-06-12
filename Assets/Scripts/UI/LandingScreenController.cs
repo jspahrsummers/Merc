@@ -8,6 +8,12 @@ public sealed class LandingScreenController : MonoBehaviour
 
     private LandedState? landedState;
 
+    void Start()
+    {
+        MercDebug.EnforceField(welcomeText);
+        MercDebug.EnforceField(tradingUIController);
+    }
+
     public void Prepare(LandedState state)
     {
         landedState = state;

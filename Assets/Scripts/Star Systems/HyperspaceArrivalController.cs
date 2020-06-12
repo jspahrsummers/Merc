@@ -13,9 +13,9 @@ public sealed class HyperspaceArrivalController : MonoBehaviour
 
     private float startTime;
 
-    void Awake()
+    void Start()
     {
-        MercDebug.Invariant(image != null, "Hyperspace fade image should not be null");
+        MercDebug.EnforceField(image);
     }
 
     void OnEnable()

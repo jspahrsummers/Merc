@@ -11,6 +11,9 @@ public sealed class ProjectileController : MonoBehaviour // TODO: IDamageable
 
     void Start()
     {
+        MercDebug.EnforceField(projectile);
+        MercDebug.EnforceField(explodable);
+
         if (rigidbody)
         {
             rigidbody.mass = projectile.mass;

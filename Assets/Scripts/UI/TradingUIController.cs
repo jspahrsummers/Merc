@@ -10,6 +10,12 @@ public sealed class TradingUIController : MonoBehaviour
     private LandedState? landedState;
     private List<TradeGoodUIController> tradeGoodControllers = new List<TradeGoodUIController>();
 
+    void Start()
+    {
+        MercDebug.EnforceField(tradeGoodPrefab);
+        MercDebug.EnforceField(verticalLayout);
+    }
+
     public void Prepare(LandedState state)
     {
         this.landedState = state;
