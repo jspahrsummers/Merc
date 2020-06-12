@@ -72,15 +72,9 @@ public class ShipScriptableObject : ScriptableObject
     public int availableCargoSpace => cargoCapacity - occupiedCargoSpace;
     public CargoChangedEvent cargoChangedEvent = new CargoChangedEvent();
 
-    public int? GetCargo(ITransactable transactable)
+    public int GetCargo(ITransactable transactable)
     {
-        int quantity;
-        if (!_allCargo.TryGetValue(transactable, out quantity))
-        {
-            return null;
-        }
-
-        return quantity;
+        return _allCargo.GetValueOrDefault(transactable, 0);
     }
 
     // Returns the amount actually added, subject to cargoCapacity.
@@ -100,7 +94,7 @@ public class ShipScriptableObject : ScriptableObject
 
         int requiredSpace = transactable.cargoSpaceRequired * quantityToAdd;
 
-        int updatedQuantity = _allCargo.GetValueOrDefault(transactable, 0) + quantityToAdd;
+        int updatedQuantity = GetCargo(transactable) + quantityToAdd;
         _allCargo[transactable] = updatedQuantity;
 
         MercDebug.Invariant(availableCargoSpace >= 0, "Available cargo space should never be negative");
@@ -115,7 +109,7 @@ public class ShipScriptableObject : ScriptableObject
             throw new ArgumentException($"Quantity to remove should be positive: {quantityToRemove}");
         }
 
-        int existingQuantity = _allCargo.GetValueOrDefault(transactable, 0);
+        int existingQuantity = GetCargo(transactable);
         quantityToRemove = System.Math.Min(existingQuantity, quantityToRemove);
 
         int remaining = existingQuantity - quantityToRemove;

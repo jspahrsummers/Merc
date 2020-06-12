@@ -33,7 +33,7 @@ public sealed class TradeGoodUIController : MonoBehaviour
     {
         ship.cargoChangedEvent.AddListener(OnCargoChanged);
 
-        int quantity = ship.GetCargo(tradeGood) ?? 0;
+        int quantity = ship.GetCargo(tradeGood);
         OnCargoChanged(tradeGood, quantity);
     }
 
