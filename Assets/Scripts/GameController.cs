@@ -43,6 +43,21 @@ public sealed class GameController : MonoBehaviour
         }
     }
 
+    public void OnThrust(InputAction.CallbackContext context)
+    {
+        playerShipController.OnThrust(context);
+    }
+
+    public void OnTurn(InputAction.CallbackContext context)
+    {
+        playerShipController.OnTurn(context);
+    }
+
+    public void OnFire(InputAction.CallbackContext context)
+    {
+        playerShipController.OnFire(context);
+    }
+
     public void OnToggleMap(InputAction.CallbackContext context)
     {
         if (!context.performed)

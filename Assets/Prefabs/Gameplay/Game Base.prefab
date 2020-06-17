@@ -92,7 +92,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6554897444649022291}
         m_MethodName: OnTurn
         m_Mode: 0
         m_Arguments:
@@ -107,7 +107,7 @@ MonoBehaviour:
     m_ActionName: Player/Turn[/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6554897444649022291}
         m_MethodName: OnThrust
         m_Mode: 0
         m_Arguments:
@@ -122,7 +122,7 @@ MonoBehaviour:
     m_ActionName: Player/Thrust[/Keyboard/upArrow]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 6554897444649022291}
         m_MethodName: OnFire
         m_Mode: 0
         m_Arguments:
