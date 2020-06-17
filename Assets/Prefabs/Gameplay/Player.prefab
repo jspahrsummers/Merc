@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 5141176213057246201}
   - component: {fileID: 1952425664096041505}
   - component: {fileID: 4257970441507610175}
+  - component: {fileID: 2488683714574417984}
+  - component: {fileID: 6140394565791613291}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -45,7 +47,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2997332787331325875}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e45a38d90f534a54c85a141943713172, type: 3}
+  m_Script: {fileID: 11500000, guid: 251afd042599d56409101134d43e9437, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ship: {fileID: 11400000, guid: e2ec4d7e1bfc6d94e84fef13c3121307, type: 2}
@@ -112,6 +114,37 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -10}
   serializedVersion: 2
   m_Radius: 72
+--- !u!114 &2488683714574417984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2997332787331325875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!114 &6140394565791613291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2997332787331325875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a013f78aa7caf3e40861b8c5629d0067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  playerShipController: {fileID: 2997332787331325879}
 --- !u!1 &5961992222886679181
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,16 +2,17 @@
 
 public sealed class PlayerCameraController : MonoBehaviour
 {
-    public PlayerShipController followTarget;
-
-    void Start()
-    {
-        MercDebug.EnforceField(followTarget);
-    }
+    [HideInInspector]
+    public PlayerShipController playerShipController;
 
     void LateUpdate()
     {
-        Vector3 followPosition = followTarget.transform.position;
+        if (playerShipController == null)
+        {
+            return;
+        }
+
+        Vector3 followPosition = playerShipController.transform.position;
         transform.position = new Vector3(followPosition.x, followPosition.y, transform.position.z);
     }
 }

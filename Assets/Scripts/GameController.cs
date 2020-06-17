@@ -8,10 +8,23 @@ public sealed class GameController : MonoBehaviour
     public GalaxyMapController galaxyMapController;
     public LandingScreenController landingScreenController;
     public StarSystemController starSystemController;
-    public PlayerShipController playerShipController;
     public HyperspaceArrivalController hyperspaceArrivalPrefab;
     public PlayerStateScriptableObject playerState;
+    public PlayerCameraController playerCameraController;
+    public UIController uiController;
     public PlayerInput playerInput;
+
+    private PlayerShipController _playerShipController;
+    public PlayerShipController playerShipController
+    {
+        get => _playerShipController;
+        set
+        {
+            _playerShipController = value;
+            playerCameraController.playerShipController = value;
+            uiController.playerShipController = value;
+        }
+    }
 
     private Coroutine hyperspaceCoroutine;
 
@@ -20,7 +33,6 @@ public sealed class GameController : MonoBehaviour
         MercDebug.EnforceField(galaxyMapController);
         MercDebug.EnforceField(landingScreenController);
         MercDebug.EnforceField(starSystemController);
-        MercDebug.EnforceField(playerShipController);
         MercDebug.EnforceField(hyperspaceArrivalPrefab);
         MercDebug.EnforceField(playerState);
         MercDebug.EnforceField(playerInput);
