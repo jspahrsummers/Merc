@@ -1,17 +1,34 @@
 ﻿using UnityEngine;
 
-public sealed class AIShipController : AbstractShipController
+public sealed class AIShipController : MonoBehaviour, IDamageable
 {
+    public ShipScriptableObject ship;
+    public Destructible destructible;
+    public ExplodableController explodable;
+    public new Rigidbody2D rigidbody;
     public Personality personality;
 
     private State state;
 
-    override protected void Start()
+    void Start()
     {
-        base.Start();
-
+        MercDebug.EnforceField(ship);
+        MercDebug.EnforceField(destructible);
+        MercDebug.EnforceField(explodable);
+        MercDebug.EnforceField(rigidbody);
         MercDebug.EnforceField(personality);
+
         state = personality.initialState;
+        destructible = ShipUtilities.InitializeShip(ship, rigidbody);
+    }
+
+    public void ApplyDamage(Damage damage)
+    {
+        destructible.ApplyDamage(damage);
+        if (destructible.IsDestroyed())
+        {
+            explodable.Explode();
+        }
     }
 
     void OnCollisionEnter2D(Collision2D other)

@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Mirror;
 
 using RigidbodyExtensions;
 
-public sealed class PlayerShipController : AbstractShipController
+public sealed class PlayerShipController : NetworkBehaviour, IDamageable
 {
+    public ShipScriptableObject ship;
+    public ExplodableController explodable;
+    public new Rigidbody2D rigidbody;
     public Rigidbody2D missilePrefab;
     public GameObject projectileExplosionPrefab;
 
@@ -19,14 +23,39 @@ public sealed class PlayerShipController : AbstractShipController
         }
     }
 
+    private Destructible destructible;
     private float turning;
     private float thrusting;
 
-    protected override void Start()
+    [SyncVar]
+    private SyncedPhysics syncedPhysics;
+
+    public override void OnStartLocalPlayer()
     {
-        base.Start();
+        Debug.Log("OnStartLocalPlayer");
+        var gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
+        gameController.playerShipController = this;
+    }
+
+    void Start()
+    {
+        MercDebug.EnforceField(ship);
+        MercDebug.EnforceField(destructible);
+        MercDebug.EnforceField(explodable);
+        MercDebug.EnforceField(rigidbody);
         MercDebug.EnforceField(missilePrefab);
         MercDebug.EnforceField(projectileExplosionPrefab);
+
+        destructible = ShipUtilities.InitializeShip(ship, rigidbody);
+    }
+
+    public void ApplyDamage(Damage damage)
+    {
+        destructible.ApplyDamage(damage);
+        if (destructible.IsDestroyed())
+        {
+            explodable.Explode();
+        }
     }
 
     public void OnThrust(InputAction.CallbackContext context)
@@ -96,6 +125,11 @@ public sealed class PlayerShipController : AbstractShipController
 
     void FixedUpdate()
     {
+        if (!isLocalPlayer)
+        {
+            syncedPhysics.ApplyToRigidbody(rigidbody);
+        }
+
         if (turning != 0)
         {
             if (Mathf.Abs(rigidbody.angularVelocity) >= ship.torque)
@@ -119,6 +153,11 @@ public sealed class PlayerShipController : AbstractShipController
             float consumedFuel = beforeFuel - fuel;
 
             rigidbody.AddRelativeForce(Vector2.up * thrusting * (consumedFuel / neededFuel) * ship.thrust);
+        }
+
+        if (hasAuthority)
+        {
+            syncedPhysics = new SyncedPhysics(rigidbody);
         }
     }
 }
