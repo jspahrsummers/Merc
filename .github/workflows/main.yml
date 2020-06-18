@@ -85,6 +85,7 @@ jobs:
           unityVersion: ${{ env.UNITY_VERSION }}
 
       - name: Upload test artifacts
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: Test results
