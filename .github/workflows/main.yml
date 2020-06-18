@@ -1,3 +1,5 @@
+name: Main
+
 on:
   pull_request: {}
   push:
@@ -34,6 +36,7 @@ jobs:
           - StandaloneOSX
           - StandaloneWindows
           - StandaloneWindows64
+          - StandaloneLinux64
           - WebGL
     steps:
       - uses: actions/checkout@v2
