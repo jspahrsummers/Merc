@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using Mirror;
 
 public sealed class GameController : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public sealed class GameController : MonoBehaviour
     public PlayerCameraController playerCameraController;
     public UIController uiController;
     public PlayerInput playerInput;
+    public NetworkManager networkManager;
 
     private PlayerShipController _playerShipController;
     public PlayerShipController playerShipController
@@ -40,6 +42,12 @@ public sealed class GameController : MonoBehaviour
         foreach (var actionMap in playerInput.actions.actionMaps)
         {
             actionMap.Enable();
+        }
+
+        if (Application.isBatchMode)
+        {
+            Debug.Log("Running in batch mode; starting server");
+            networkManager.StartServer();
         }
     }
 

@@ -64,6 +64,7 @@ MonoBehaviour:
   playerCameraController: {fileID: 8602204931023847779}
   uiController: {fileID: 7412711361189637533}
   playerInput: {fileID: 3878657735669527986}
+  networkManager: {fileID: 164568331038772508}
 --- !u!114 &3878657735669527986
 MonoBehaviour:
   m_ObjectHideFlags: 0
