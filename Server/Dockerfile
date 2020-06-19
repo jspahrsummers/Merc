@@ -1,0 +1,31 @@
+FROM ubuntu:latest AS builder
+WORKDIR /root
+
+RUN apt-get update
+RUN apt-get install -y unzip dos2unix
+
+COPY merc-standalonelinux64.zip merc.zip
+RUN unzip -d Merc/ merc.zip
+
+COPY run.sh run.sh
+RUN dos2unix run.sh
+
+ARG DDCLIENT_CONF
+RUN echo "$DDCLIENT_CONF" > /etc/ddclient.conf
+
+FROM ubuntu:latest
+WORKDIR /root
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update
+RUN apt-get install -yq ddclient
+
+COPY --from=builder /root/Merc/ Merc/
+COPY --from=builder /root/run.sh run.sh
+COPY --from=builder /etc/ddclient.conf /etc/ddclient.conf
+
+ENV GAME_PORT 7777
+EXPOSE $GAME_PORT
+
+CMD [ "./run.sh" ]
