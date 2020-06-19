@@ -3,7 +3,7 @@
 set -e
 set -o errexit
 
-ddclient -verbose
+ddclient -retry -debug -verbose -noquiet
 
 OUTPUT_FILE=output.log
 
