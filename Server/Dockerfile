@@ -16,7 +16,7 @@ WORKDIR /root
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update
-RUN apt-get install -yq ddclient
+RUN apt-get install -yq ddclient curl
 
 COPY build/StandaloneLinux64 Merc/
 COPY --from=builder /root/run.sh run.sh
