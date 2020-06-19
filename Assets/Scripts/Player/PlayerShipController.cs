@@ -125,7 +125,7 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
 
     void FixedUpdate()
     {
-        if (!isLocalPlayer)
+        if (!hasAuthority)
         {
             syncedPhysics.ApplyToRigidbody(rigidbody);
         }
