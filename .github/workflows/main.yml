@@ -119,7 +119,7 @@ jobs:
         with:
           version: "297.0.1"
           service_account_key: ${{ secrets.GCE_SA_KEY }}
-          project_id: ${{ secrets.GCE_PROJECT }}
+          project_id: ${{ secrets.GCLOUD_PROJECT }}
 
       - name: Set up gcloud as Docker credential helper
         run: gcloud --quiet auth configure-docker
