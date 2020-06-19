@@ -21,6 +21,7 @@ RUN apt-get install -yq ddclient
 COPY build/StandaloneLinux64 Merc/
 COPY --from=builder /root/run.sh run.sh
 COPY --from=builder /etc/ddclient.conf /etc/ddclient.conf
+RUN chmod 0700 /etc/ddclient.conf
 
 ENV GAME_PORT 7778
 EXPOSE $GAME_PORT
