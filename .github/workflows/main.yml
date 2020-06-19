@@ -140,4 +140,4 @@ jobs:
 
       - name: Deploy to GCE
         run: gcloud compute instances update-container "$GCE_INSTANCE" \
-          --container-image "gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:$GITHUB_SHA"
+          --container-image="gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:$GITHUB_SHA"
