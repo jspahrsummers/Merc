@@ -2,10 +2,7 @@ FROM ubuntu:latest AS builder
 WORKDIR /root
 
 RUN apt-get update
-RUN apt-get install -y unzip dos2unix
-
-COPY merc-standalonelinux64.zip merc.zip
-RUN unzip -d Merc/ merc.zip
+RUN apt-get install -y dos2unix
 
 COPY run.sh run.sh
 RUN dos2unix run.sh
@@ -21,7 +18,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
 RUN apt-get install -yq ddclient
 
-COPY --from=builder /root/Merc/ Merc/
+COPY StandaloneLinux64 Merc/StandaloneLinux64
 COPY --from=builder /root/run.sh run.sh
 COPY --from=builder /etc/ddclient.conf /etc/ddclient.conf
 
