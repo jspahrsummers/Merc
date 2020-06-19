@@ -40,7 +40,6 @@ jobs:
           - StandaloneWindows
           - StandaloneWindows64
           - StandaloneLinux64
-          - WebGL
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
@@ -93,6 +92,34 @@ jobs:
         with:
           name: Test results
           path: artifacts
+
+  webgl:
+    name: Deploy WebGL
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-WebGL
+          restore-keys: |
+            Library-
+
+      - name: Unity build
+        uses: webbertakken/unity-builder@v1.0
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          unityVersion: ${{ env.UNITY_VERSION }}
+          targetPlatform: WebGL
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@3.5.5
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: build/WebGL
 
   deploy-server:
     name: Deploy server
