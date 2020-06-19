@@ -119,8 +119,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
-          FOLDER: build/WebGL
-          TARGET_FOLDER: .
+          FOLDER: build/WebGL/WebGL
 
   deploy-server:
     name: Deploy server
