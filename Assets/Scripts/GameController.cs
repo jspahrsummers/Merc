@@ -43,12 +43,6 @@ public sealed class GameController : MonoBehaviour
         {
             actionMap.Enable();
         }
-
-        if (Application.isBatchMode)
-        {
-            Debug.Log("Running in batch mode; starting server");
-            networkManager.StartServer();
-        }
     }
 
     public void OnThrust(InputAction.CallbackContext context)
