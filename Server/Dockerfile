@@ -4,7 +4,7 @@ WORKDIR /root
 RUN apt-get update
 RUN apt-get install -y dos2unix
 
-COPY run.sh run.sh
+COPY Server/run.sh run.sh
 RUN dos2unix run.sh
 
 ARG DDCLIENT_CONF
@@ -18,7 +18,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
 RUN apt-get install -yq ddclient
 
-COPY StandaloneLinux64 Merc/StandaloneLinux64
+COPY build/StandaloneLinux64 Merc/StandaloneLinux64
 COPY --from=builder /root/run.sh run.sh
 COPY --from=builder /etc/ddclient.conf /etc/ddclient.conf
 
