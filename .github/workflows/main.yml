@@ -132,8 +132,11 @@ jobs:
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: StandaloneLinux64
 
+      - name: Relocate build
+        run: mv build/StandaloneLinux64 Server/StandaloneLinux64
+
       - name: Dockerize
-        run: docker build --build-arg DDCLIENT_CONF="$DDCLIENT_CONF" --tag "gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:$GITHUB_SHA" .
+        run: docker build --build-arg DDCLIENT_CONF="$DDCLIENT_CONF" --tag "gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:$GITHUB_SHA" Server/
 
       - name: Publish to GCR
         run: docker push "gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:$GITHUB_SHA"
