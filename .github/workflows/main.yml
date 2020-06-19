@@ -98,7 +98,7 @@ jobs:
     name: Deploy server
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
-    needs: [build, test]
+    #needs: [build, test]
     env:
       DDCLIENT_CONF: ${{ secrets.DDCLIENT_CONF }}
       GCE_INSTANCE: ${{ secrets.GCE_INSTANCE }}
