@@ -18,7 +18,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
 RUN apt-get install -yq ddclient
 
-COPY build/StandaloneLinux64 Merc/StandaloneLinux64
+COPY build/StandaloneLinux64 Merc/
 COPY --from=builder /root/run.sh run.sh
 COPY --from=builder /etc/ddclient.conf /etc/ddclient.conf
 
