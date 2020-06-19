@@ -1,9 +1,12 @@
 name: Main
 
 on:
-  pull_request: {}
   push:
-    branches: [master]
+    branches:
+      - master
+    tags:
+      - v*
+  pull_request:
 
 env:
   UNITY_VERSION: 2019.3.14f1
