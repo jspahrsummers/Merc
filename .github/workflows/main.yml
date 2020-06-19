@@ -29,75 +29,76 @@ jobs:
   #         name: ${{ steps.getManualLicenseFile.outputs.filePath }}
   #         path: ${{ steps.getManualLicenseFile.outputs.filePath }}
 
-  # build:
-  #   name: Build for ${{ matrix.targetPlatform }}
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       targetPlatform:
-  #         - StandaloneOSX
-  #         - StandaloneWindows
-  #         - StandaloneWindows64
-  #         - StandaloneLinux64
-  #         - WebGL
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/cache@v2
-  #       with:
-  #         path: Library
-  #         key: Library-${{ matrix.targetPlatform }}
-  #         restore-keys: |
-  #           Library-
+  build:
+    name: Build for ${{ matrix.targetPlatform }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        targetPlatform:
+          - StandaloneOSX
+          - StandaloneWindows
+          - StandaloneWindows64
+          - StandaloneLinux64
+          - WebGL
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-${{ matrix.targetPlatform }}
+          restore-keys: |
+            Library-
 
-  #     - name: Unity build
-  #       uses: webbertakken/unity-builder@v1.0
-  #       env:
-  #         UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-  #       with:
-  #         unityVersion: ${{ env.UNITY_VERSION }}
-  #         targetPlatform: ${{ matrix.targetPlatform }}
+      - name: Unity build
+        uses: webbertakken/unity-builder@v1.0
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          unityVersion: ${{ env.UNITY_VERSION }}
+          targetPlatform: ${{ matrix.targetPlatform }}
 
-  #     - name: Publish to itch.io
-  #       if: github.event_name == 'push'
-  #       uses: josephbmanley/butler-publish-itchio-action@v1.0.1
-  #       env:
-  #         BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
-  #         CHANNEL: ${{ matrix.targetPlatform }}
-  #         ITCH_GAME: Merc
-  #         ITCH_USER: jspahrsummers
-  #         PACKAGE: build/${{ matrix.targetPlatform }}
+      - name: Publish to itch.io
+        if: github.event_name == 'push'
+        uses: josephbmanley/butler-publish-itchio-action@v1.0.1
+        env:
+          BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
+          CHANNEL: ${{ matrix.targetPlatform }}
+          ITCH_GAME: Merc
+          ITCH_USER: jspahrsummers
+          PACKAGE: build/${{ matrix.targetPlatform }}
 
-  # test:
-  #   name: Test
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/cache@v2
-  #       with:
-  #         path: Library
-  #         key: Library-Test
-  #         restore-keys: |
-  #           Library-
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-Test
+          restore-keys: |
+            Library-
 
-  #     - name: Unity tests
-  #       uses: webbertakken/unity-test-runner@v1.6
-  #       env:
-  #         UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-  #       with:
-  #         unityVersion: ${{ env.UNITY_VERSION }}
+      - name: Unity tests
+        uses: webbertakken/unity-test-runner@v1.6
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          unityVersion: ${{ env.UNITY_VERSION }}
 
-  #     - name: Upload test artifacts
-  #       if: always()
-  #       uses: actions/upload-artifact@v2
-  #       with:
-  #         name: Test results
-  #         path: artifacts
+      - name: Upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v2
+        with:
+          name: Test results
+          path: artifacts
 
   deploy-server:
     name: Deploy server
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
+    needs: [build, test]
     env:
       DDCLIENT_CONF: ${{ secrets.DDCLIENT_CONF }}
       GCE_INSTANCE: ${{ secrets.GCE_INSTANCE }}
