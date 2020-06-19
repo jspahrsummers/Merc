@@ -101,6 +101,7 @@ jobs:
     env:
       DDCLIENT_CONF: ${{ secrets.DDCLIENT_CONF }}
       GCE_INSTANCE: ${{ secrets.GCE_INSTANCE }}
+      GCE_ZONE: ${{ secrets.GCE_ZONE }}
       GCLOUD_PROJECT: ${{ secrets.GCLOUD_PROJECT }}
       IMAGE_NAME: merc-server
 
@@ -139,4 +140,4 @@ jobs:
         run: docker push "gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:$GITHUB_SHA"
 
       - name: Deploy to GCE
-        run: gcloud compute instances update-container "$GCE_INSTANCE" --container-image="gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:$GITHUB_SHA"
+        run: gcloud compute instances update-container --zone "$GCE_ZONE" "$GCE_INSTANCE" --container-image="gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:$GITHUB_SHA"
