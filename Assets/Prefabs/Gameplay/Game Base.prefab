@@ -226,7 +226,7 @@ MonoBehaviour:
   offlineScene: 
   onlineScene: 
   transport: {fileID: 2457056646251664762}
-  networkAddress: localhost
+  networkAddress: merc.jspahrsummers.com
   maxConnections: 4
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
