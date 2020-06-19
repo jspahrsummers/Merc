@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 6554897444649022291}
   - component: {fileID: 3878657735669527986}
   - component: {fileID: 164568331038772508}
-  - component: {fileID: 2457056646251664762}
   - component: {fileID: 3750305202476383877}
+  - component: {fileID: 1813894907311692414}
   m_Layer: 0
   m_Name: Game Base
   m_TagString: GameController
@@ -225,7 +225,7 @@ MonoBehaviour:
   serverTickRate: 30
   offlineScene: 
   onlineScene: 
-  transport: {fileID: 2457056646251664762}
+  transport: {fileID: 1813894907311692414}
   networkAddress: merc.jspahrsummers.com
   maxConnections: 4
   disconnectInactiveConnections: 0
@@ -236,7 +236,7 @@ MonoBehaviour:
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs: []
---- !u!114 &2457056646251664762
+--- !u!114 &3750305202476383877
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -245,7 +245,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 5163437109155687014}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showGUI: 1
+  offsetX: 0
+  offsetY: 0
+--- !u!114 &1813894907311692414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5163437109155687014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f039183eda8945448b822a77e2a9d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   OnClientConnected:
@@ -274,25 +289,9 @@ MonoBehaviour:
       m_Calls: []
   port: 7777
   NoDelay: 1
-  serverMaxMessageSize: 16384
-  serverMaxReceivesPerTick: 10000
-  clientMaxMessageSize: 16384
-  clientMaxReceivesPerTick: 1000
---- !u!114 &3750305202476383877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5163437109155687014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6442dc8070ceb41f094e44de0bf87274, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  showGUI: 1
-  offsetX: 0
-  offsetY: 0
+  Secure: 0
+  CertificatePath: 
+  CertificatePassword: 
 --- !u!1 &6485123123197604293
 GameObject:
   m_ObjectHideFlags: 0
