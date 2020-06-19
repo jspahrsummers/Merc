@@ -22,7 +22,7 @@ COPY build/StandaloneLinux64 Merc/
 COPY --from=builder /root/run.sh run.sh
 COPY --from=builder /etc/ddclient.conf /etc/ddclient.conf
 
-ENV GAME_PORT 7777
+ENV GAME_PORT 7778
 EXPOSE $GAME_PORT
 
 CMD [ "./run.sh" ]
