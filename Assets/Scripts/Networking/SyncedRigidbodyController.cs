@@ -2,20 +2,26 @@ using System.Collections;
 using UnityEngine;
 using Mirror;
 
-// This class assumes that the transform is synced with a NetworkTransform.
-[RequireComponent(typeof(NetworkIdentity))]
 public sealed class SyncedRigidbodyController : NetworkBehaviour
 {
     public new Rigidbody2D rigidbody;
+    public NetworkTransform networkTransform;
 
-    [SyncVar]
-    private SyncedPhysics syncedPhysics;
+    [SyncVar(hook = nameof(OnVelocityChanged))]
+    private Vector2 velocity;
+
+    [SyncVar(hook = nameof(OnAngularVelocityChanged))]
+    private float angularVelocity;
 
     private Coroutine syncPhysicsCoroutine;
 
     void Start()
     {
-        syncedPhysics = new SyncedPhysics(rigidbody);
+        MercDebug.EnforceField(rigidbody);
+        MercDebug.EnforceField(networkTransform);
+
+        velocity = rigidbody.velocity;
+        angularVelocity = rigidbody.angularVelocity;
     }
 
     void OnEnable()
@@ -32,9 +38,14 @@ public sealed class SyncedRigidbodyController : NetworkBehaviour
         }
     }
 
-    void FixedUpdate()
+    private void OnVelocityChanged(Vector2 oldValue, Vector2 newValue)
     {
-        syncedPhysics.ApplyToRigidbody(rigidbody);
+        rigidbody.velocity = newValue;
+    }
+
+    private void OnAngularVelocityChanged(float oldValue, float newValue)
+    {
+        rigidbody.angularVelocity = newValue;
     }
 
     IEnumerator SyncUpdatedPhysics()
@@ -42,7 +53,8 @@ public sealed class SyncedRigidbodyController : NetworkBehaviour
         // Write updates _after_ all other physics calculations
         while (true)
         {
-            syncedPhysics = new SyncedPhysics(rigidbody);
+            velocity = rigidbody.velocity;
+            angularVelocity = rigidbody.angularVelocity;
             yield return new WaitForFixedUpdate();
         }
     }

@@ -122,6 +122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa9abbda3d841d4fa08207bc81ba835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   projectile: {fileID: 11400000, guid: 655e001b999afdf4ab51592c11c87d52, type: 2}
   explodable: {fileID: 3076231858526781091}
   rigidbody: {fileID: 9029331948948293237}
@@ -207,6 +209,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   rigidbody: {fileID: 9029331948948293237}
+  networkTransform: {fileID: -3223952014790018646}
 --- !u!1001 &939847981448537374
 PrefabInstance:
   m_ObjectHideFlags: 0

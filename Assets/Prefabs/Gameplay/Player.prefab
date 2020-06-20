@@ -163,6 +163,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   rigidbody: {fileID: 5141176213057246201}
+  networkTransform: {fileID: 1723294270225424376}
 --- !u!1 &5961992222886679181
 GameObject:
   m_ObjectHideFlags: 0

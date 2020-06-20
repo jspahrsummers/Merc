@@ -243,6 +243,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   rigidbody: {fileID: 6598271084067944935}
+  networkTransform: {fileID: 3372329501286902528}
 --- !u!1001 &4563218307643110838
 PrefabInstance:
   m_ObjectHideFlags: 0
