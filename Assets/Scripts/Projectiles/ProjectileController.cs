@@ -21,6 +21,19 @@ public sealed class ProjectileController : NetworkBehaviour // TODO: IDamageable
         }
     }
 
+    public override void OnStartClient()
+    {
+        if (this.IsServerOrHasAuthority())
+        {
+            return;
+        }
+
+        if (rigidbody)
+        {
+            rigidbody.bodyType = RigidbodyType2D.Kinematic;
+        }
+    }
+
     void Start()
     {
         MercDebug.EnforceField(projectile);
