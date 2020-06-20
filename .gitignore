@@ -60,3 +60,4 @@ crashlytics-build.properties
 
 Recordings/
 *.*~
+enet_log.txt
