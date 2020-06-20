@@ -13,6 +13,12 @@ public sealed class SyncedRigidbodyController : NetworkBehaviour
     [SyncVar(hook = nameof(OnAngularVelocityChanged))]
     private float angularVelocity;
 
+    [SyncVar(hook = nameof(OnPositionChanged))]
+    private Vector2 position;
+
+    [SyncVar(hook = nameof(OnRotationChanged))]
+    private float rotation;
+
     private Coroutine syncPhysicsCoroutine;
 
     void Start()
@@ -22,6 +28,10 @@ public sealed class SyncedRigidbodyController : NetworkBehaviour
 
         velocity = rigidbody.velocity;
         angularVelocity = rigidbody.angularVelocity;
+        position = rigidbody.position;
+        rotation = rigidbody.rotation;
+
+        networkTransform.enabled = false;
     }
 
     void OnEnable()
@@ -40,21 +50,53 @@ public sealed class SyncedRigidbodyController : NetworkBehaviour
 
     private void OnVelocityChanged(Vector2 oldValue, Vector2 newValue)
     {
+        if (hasAuthority)
+        {
+            return;
+        }
+
         rigidbody.velocity = newValue;
     }
 
     private void OnAngularVelocityChanged(float oldValue, float newValue)
     {
+        if (hasAuthority)
+        {
+            return;
+        }
+
         rigidbody.angularVelocity = newValue;
     }
 
-    IEnumerator SyncUpdatedPhysics()
+    private void OnPositionChanged(Vector2 oldValue, Vector2 newValue)
+    {
+        if (hasAuthority)
+        {
+            return;
+        }
+
+        rigidbody.position = newValue;
+    }
+
+    private void OnRotationChanged(float oldValue, float newValue)
+    {
+        if (hasAuthority)
+        {
+            return;
+        }
+
+        rigidbody.rotation = newValue;
+    }
+
+    private IEnumerator SyncUpdatedPhysics()
     {
         // Write updates _after_ all other physics calculations
         while (true)
         {
             velocity = rigidbody.velocity;
             angularVelocity = rigidbody.angularVelocity;
+            rotation = rigidbody.rotation;
+            position = rigidbody.position;
             yield return new WaitForFixedUpdate();
         }
     }
