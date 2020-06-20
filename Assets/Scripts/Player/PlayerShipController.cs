@@ -82,12 +82,15 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
             return;
         }
 
-        CmdFireMissile(transform.position, transform.rotation, rigidbody.velocity);
+        CmdFireMissile(NetworkTime.time, transform.position, transform.rotation, rigidbody.velocity);
     }
 
     [Command]
-    private void CmdFireMissile(Vector3 position, Quaternion rotation, Vector2 velocity)
+    private void CmdFireMissile(double actionTime, Vector3 position, Quaternion rotation, Vector2 velocity)
     {
+        double deltaTime = (NetworkTime.time - actionTime) * 2;
+        position = new Vector3(position.x + (float)(velocity.x * deltaTime), position.y + (float)(velocity.y * deltaTime), position.z);
+
         ProjectileScriptableObject projectile = ship.weapons[0];
         var missile = Instantiate<ProjectileController>(missilePrefab, position, rotation, transform.parent);
         missile.rigidbody.velocity = velocity;
