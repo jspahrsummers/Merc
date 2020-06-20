@@ -4,7 +4,8 @@ set -e
 set -o errexit
 set -x
 
-ddclient -verbose -noquiet -debug
+rm -f /var/cache/ddclient/ddclient.cache
+ddclient -verbose -noquiet -debug -foreground
 
 OUTPUT_FILE=output.log
 
