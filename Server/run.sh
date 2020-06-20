@@ -2,6 +2,7 @@
 
 set -e
 set -o errexit
+set -x
 
 ddclient -verbose -noquiet -debug
 
