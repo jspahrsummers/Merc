@@ -10,7 +10,7 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
     public ShipScriptableObject ship;
     public ExplodableController explodable;
     public new Rigidbody2D rigidbody;
-    public Rigidbody2D missilePrefab;
+    public ProjectileController missilePrefab;
     public GameObject projectileExplosionPrefab;
 
     private float _fuel = 1;
@@ -89,16 +89,15 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
     private void CmdFireMissile()
     {
         ProjectileScriptableObject projectile = ship.weapons[0];
-        var missile = Instantiate<Rigidbody2D>(missilePrefab, transform.position, transform.rotation, transform.parent);
-        missile.velocity = rigidbody.velocity;
-        missile.AddRelativeForce(Vector2.up * projectile.launchForce, ForceMode2D.Impulse);
+        var missile = Instantiate<ProjectileController>(missilePrefab, transform.position, transform.rotation, transform.parent);
+        missile.rigidbody.velocity = rigidbody.velocity;
+        missile.initialForce = Vector2.up * projectile.launchForce;
+        missile.spawnerNetId = netId;
+        NetworkServer.Spawn(missile.gameObject);
 
         // TODO: Hack!
         var projectileExplosion = Instantiate(projectileExplosionPrefab, transform);
         projectileExplosion.transform.Translate(Vector3.forward * 10);
-
-        Physics2D.IgnoreCollision(missile.GetComponent<Collider2D>(), GetComponent<Collider2D>());
-        NetworkServer.Spawn(missile.gameObject);
     }
 
     public IEnumerator StartHyperspaceJump(HyperspaceJump hyperspaceJump)

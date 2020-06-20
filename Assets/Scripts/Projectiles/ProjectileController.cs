@@ -5,10 +5,16 @@ using Mirror;
 public sealed class ProjectileController : NetworkBehaviour // TODO: IDamageable
 {
     public ProjectileScriptableObject projectile;
-
     // TODO: Destructible
     public ExplodableController explodable;
     public new Rigidbody2D rigidbody;
+    public new Collider2D collider;
+
+    [SyncVar]
+    public uint spawnerNetId;
+
+    [SyncVar]
+    public Vector2 initialForce;
 
     public override void OnStartClient()
     {
@@ -28,11 +34,22 @@ public sealed class ProjectileController : NetworkBehaviour // TODO: IDamageable
         if (rigidbody)
         {
             rigidbody.mass = projectile.mass;
+            rigidbody.AddRelativeForce(initialForce, ForceMode2D.Impulse);
         }
 
         if (projectile.lifetime != Mathf.Infinity)
         {
             StartCoroutine(ExplodeAfterLifetime());
+        }
+
+        NetworkIdentity spawner;
+        if (NetworkIdentity.spawned.TryGetValue(spawnerNetId, out spawner))
+        {
+            var spawnerCollider = spawner.GetComponent<Collider2D>();
+            if (spawnerCollider != null)
+            {
+                Physics2D.IgnoreCollision(collider, spawnerCollider);
+            }
         }
     }
 

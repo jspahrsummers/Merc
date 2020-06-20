@@ -55,7 +55,7 @@ MonoBehaviour:
   ship: {fileID: 11400000, guid: e2ec4d7e1bfc6d94e84fef13c3121307, type: 2}
   explodable: {fileID: 1952425664096041505}
   rigidbody: {fileID: 5141176213057246201}
-  missilePrefab: {fileID: 9029331948948293237, guid: 11aad2206706e5a4e81b3987991281c3,
+  missilePrefab: {fileID: 711350574776029470, guid: 11aad2206706e5a4e81b3987991281c3,
     type: 3}
   projectileExplosionPrefab: {fileID: 3337956166155597766, guid: f3b77e3acebf93a46aa3cbf57b2c3da7,
     type: 3}
