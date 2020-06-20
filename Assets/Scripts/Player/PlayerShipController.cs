@@ -27,9 +27,6 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
     private float turning;
     private float thrusting;
 
-    [SyncVar]
-    private SyncedPhysics syncedPhysics;
-
     public override void OnStartLocalPlayer()
     {
         Debug.Log("OnStartLocalPlayer");
@@ -125,11 +122,6 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
 
     void FixedUpdate()
     {
-        if (!hasAuthority)
-        {
-            syncedPhysics.ApplyToRigidbody(rigidbody);
-        }
-
         if (turning != 0)
         {
             if (Mathf.Abs(rigidbody.angularVelocity) >= ship.torque)
@@ -153,11 +145,6 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
             float consumedFuel = beforeFuel - fuel;
 
             rigidbody.AddRelativeForce(Vector2.up * thrusting * (consumedFuel / neededFuel) * ship.thrust);
-        }
-
-        if (hasAuthority)
-        {
-            syncedPhysics = new SyncedPhysics(rigidbody);
         }
     }
 }
