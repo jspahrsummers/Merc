@@ -13,8 +13,13 @@ public sealed class ProjectileController : NetworkBehaviour // TODO: IDamageable
     [SyncVar]
     public uint spawnerNetId;
 
-    [SyncVar]
-    public Vector2 initialForce;
+    void OnEnable()
+    {
+        if (rigidbody)
+        {
+            rigidbody.mass = projectile.mass;
+        }
+    }
 
     public override void OnStartClient()
     {
@@ -23,19 +28,16 @@ public sealed class ProjectileController : NetworkBehaviour // TODO: IDamageable
             return;
         }
 
-        rigidbody.bodyType = RigidbodyType2D.Kinematic;
+        if (rigidbody)
+        {
+            rigidbody.bodyType = RigidbodyType2D.Kinematic;
+        }
     }
 
     void Start()
     {
         MercDebug.EnforceField(projectile);
         MercDebug.EnforceField(explodable);
-
-        if (rigidbody)
-        {
-            rigidbody.mass = projectile.mass;
-            rigidbody.AddRelativeForce(initialForce, ForceMode2D.Impulse);
-        }
 
         if (projectile.lifetime != Mathf.Infinity)
         {
