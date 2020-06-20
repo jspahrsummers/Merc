@@ -11,32 +11,39 @@ public sealed class SyncedRigidbodyController : NetworkBehaviour
     [SyncVar]
     private SyncedPhysics syncedPhysics;
 
+    private Coroutine syncPhysicsCoroutine;
+
+    void Start()
+    {
+        syncedPhysics = new SyncedPhysics(rigidbody);
+    }
+
     void OnEnable()
     {
-        StartCoroutine(SyncUpdatedPhysics());
+        syncPhysicsCoroutine = StartCoroutine(SyncUpdatedPhysics());
     }
 
     void OnDisable()
     {
-        StopAllCoroutines();
+        if (syncPhysicsCoroutine != null)
+        {
+            StopCoroutine(syncPhysicsCoroutine);
+            syncPhysicsCoroutine = null;
+        }
     }
 
     void FixedUpdate()
     {
-        // Sync from server _before_ other physics calculations
-        if (!hasAuthority)
-        {
-            syncedPhysics.ApplyToRigidbody(rigidbody);
-        }
+        syncedPhysics.ApplyToRigidbody(rigidbody);
     }
 
     IEnumerator SyncUpdatedPhysics()
     {
-        // Sync to server _after_ other physics calculations
-        while (hasAuthority)
+        // Write updates _after_ all other physics calculations
+        while (true)
         {
-            yield return new WaitForFixedUpdate();
             syncedPhysics = new SyncedPhysics(rigidbody);
+            yield return new WaitForFixedUpdate();
         }
     }
 }

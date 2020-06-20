@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Mirror;
 
-public sealed class ProjectileController : MonoBehaviour // TODO: IDamageable
+public sealed class ProjectileController : NetworkBehaviour // TODO: IDamageable
 {
     public ProjectileScriptableObject projectile;
 
@@ -33,6 +34,11 @@ public sealed class ProjectileController : MonoBehaviour // TODO: IDamageable
 
     void OnCollisionEnter2D(Collision2D other)
     {
+        if (!isServer)
+        {
+            return;
+        }
+
         Debug.Log($"Collision between {this} and {other}");
         explodable.Explode();
 

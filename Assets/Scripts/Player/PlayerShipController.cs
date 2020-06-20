@@ -72,9 +72,13 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
             return;
         }
 
-        ProjectileScriptableObject projectile = ship.weapons[0];
-        // TODO: Connect the prefab with the projectile object
+        CmdFireMissile();
+    }
 
+    [Command]
+    private void CmdFireMissile()
+    {
+        ProjectileScriptableObject projectile = ship.weapons[0];
         var missile = Instantiate<Rigidbody2D>(missilePrefab, transform.position, transform.rotation, transform.parent);
         missile.velocity = rigidbody.velocity;
         missile.AddRelativeForce(Vector2.up * projectile.launchForce, ForceMode2D.Impulse);
@@ -84,6 +88,7 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
         projectileExplosion.transform.Translate(Vector3.forward * 10);
 
         Physics2D.IgnoreCollision(missile.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        NetworkServer.Spawn(missile.gameObject);
     }
 
     public IEnumerator StartHyperspaceJump(HyperspaceJump hyperspaceJump)
