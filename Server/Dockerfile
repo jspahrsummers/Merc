@@ -23,7 +23,7 @@ COPY --from=builder /root/run.sh run.sh
 COPY --from=builder /etc/ddclient.conf /etc/ddclient.conf
 RUN chmod 0700 /etc/ddclient.conf
 
-ENV GAME_PORT 7778
-EXPOSE $GAME_PORT
+EXPOSE 7777
+EXPOSE 7778
 
 CMD [ "./run.sh" ]

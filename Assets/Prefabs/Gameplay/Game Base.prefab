@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 3750305202476383877}
   - component: {fileID: 1813894907311692414}
   - component: {fileID: 7139211058585673653}
+  - component: {fileID: 8816126376383162622}
+  - component: {fileID: 5762314142289569387}
   m_Layer: 0
   m_Name: Game Base
   m_TagString: GameController
@@ -312,6 +314,87 @@ MonoBehaviour:
   position: {x: 200, y: 0}
   fontSize: 24
   textColor: {r: 1, g: 1, b: 1, a: 0.3137255}
+--- !u!114 &8816126376383162622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5163437109155687014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 929e3234c7db540b899f00183fc2b1fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnClientConnected:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClientDataReceived:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClientError:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClientDisconnected:
+    m_PersistentCalls:
+      m_Calls: []
+  OnServerConnected:
+    m_PersistentCalls:
+      m_Calls: []
+  OnServerDataReceived:
+    m_PersistentCalls:
+      m_Calls: []
+  OnServerError:
+    m_PersistentCalls:
+      m_Calls: []
+  OnServerDisconnected:
+    m_PersistentCalls:
+      m_Calls: []
+  transports:
+  - {fileID: 5762314142289569387}
+  - {fileID: 1813894907311692414}
+--- !u!114 &5762314142289569387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5163437109155687014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnClientConnected:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClientDataReceived:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClientError:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClientDisconnected:
+    m_PersistentCalls:
+      m_Calls: []
+  OnServerConnected:
+    m_PersistentCalls:
+      m_Calls: []
+  OnServerDataReceived:
+    m_PersistentCalls:
+      m_Calls: []
+  OnServerError:
+    m_PersistentCalls:
+      m_Calls: []
+  OnServerDisconnected:
+    m_PersistentCalls:
+      m_Calls: []
+  port: 7777
+  NoDelay: 1
+  serverMaxMessageSize: 16384
+  serverMaxReceivesPerTick: 10000
+  clientMaxMessageSize: 16384
+  clientMaxReceivesPerTick: 1000
 --- !u!1 &6485123123197604293
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,12 +651,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55f135b8fcd0891459e70b0e91ffd0f2, type: 3}
---- !u!224 &5904317776682261726 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8744608577415537604, guid: 55f135b8fcd0891459e70b0e91ffd0f2,
-    type: 3}
-  m_PrefabInstance: {fileID: 2930522396681338650}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7749713990945279420 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4839062031500800678, guid: 55f135b8fcd0891459e70b0e91ffd0f2,
@@ -586,6 +663,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d436e90a49eb18b4d8602c555bc5ba4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &5904317776682261726 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8744608577415537604, guid: 55f135b8fcd0891459e70b0e91ffd0f2,
+    type: 3}
+  m_PrefabInstance: {fileID: 2930522396681338650}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3244298230176751493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -961,12 +1044,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e294de6d2c9339b429e81e039a46156f, type: 3}
---- !u!224 &3203592131481496079 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7313866485714715397, guid: e294de6d2c9339b429e81e039a46156f,
-    type: 3}
-  m_PrefabInstance: {fileID: 5329272114188511498}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7412711361189637533 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3398631630186480791, guid: e294de6d2c9339b429e81e039a46156f,
@@ -979,6 +1056,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e96fe33c4f93224a8ccbb48fa19ae13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &3203592131481496079 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7313866485714715397, guid: e294de6d2c9339b429e81e039a46156f,
+    type: 3}
+  m_PrefabInstance: {fileID: 5329272114188511498}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5732474349357947136
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1053,15 +1136,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 868d8e48dea20c84d926cb31f2023a74, type: 3}
---- !u!4 &8602204931023847837 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4101931273252935837, guid: 868d8e48dea20c84d926cb31f2023a74,
-    type: 3}
-  m_PrefabInstance: {fileID: 5732474349357947136}
-  m_PrefabAsset: {fileID: 0}
 --- !u!20 &8602204931023847778 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 4101931273252935778, guid: 868d8e48dea20c84d926cb31f2023a74,
+    type: 3}
+  m_PrefabInstance: {fileID: 5732474349357947136}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8602204931023847837 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4101931273252935837, guid: 868d8e48dea20c84d926cb31f2023a74,
     type: 3}
   m_PrefabInstance: {fileID: 5732474349357947136}
   m_PrefabAsset: {fileID: 0}
