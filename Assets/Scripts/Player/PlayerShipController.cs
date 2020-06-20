@@ -29,7 +29,7 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
 
     public override void OnStartClient()
     {
-        if (hasAuthority)
+        if (this.IsServerOrHasAuthority())
         {
             return;
         }

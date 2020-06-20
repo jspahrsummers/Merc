@@ -12,7 +12,7 @@ public sealed class ProjectileController : NetworkBehaviour // TODO: IDamageable
 
     public override void OnStartClient()
     {
-        if (hasAuthority || isServer)
+        if (this.IsServerOrHasAuthority())
         {
             return;
         }

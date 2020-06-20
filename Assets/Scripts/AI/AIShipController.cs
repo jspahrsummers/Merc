@@ -13,7 +13,7 @@ public sealed class AIShipController : NetworkBehaviour, IDamageable
 
     public override void OnStartClient()
     {
-        if (hasAuthority || isServer)
+        if (this.IsServerOrHasAuthority())
         {
             return;
         }
