@@ -11,16 +11,6 @@ public sealed class AIShipController : NetworkBehaviour, IDamageable
 
     private State state;
 
-    public override void OnStartClient()
-    {
-        if (this.IsServerOrHasAuthority())
-        {
-            return;
-        }
-
-        rigidbody.bodyType = RigidbodyType2D.Kinematic;
-    }
-
     void Start()
     {
         MercDebug.EnforceField(ship);

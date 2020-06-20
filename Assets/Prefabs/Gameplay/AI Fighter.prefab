@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 23034213067369533}
   - component: {fileID: 1957919302827249953}
   - component: {fileID: 8703526025988226403}
-  - component: {fileID: 4154529975831546530}
+  - component: {fileID: 5950154473055425673}
   m_Layer: 0
   m_Name: AI Fighter
   m_TagString: Untagged
@@ -132,6 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680e3b48441742443828e6b51b91ad2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   ship: {fileID: 11400000, guid: ccacc46c4350ed9438299f27d4b0d24d, type: 2}
   destructible:
     armor: 0
@@ -209,7 +211,7 @@ MonoBehaviour:
   serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
---- !u!114 &4154529975831546530
+--- !u!114 &5950154473055425673
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,15 +220,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2046793617268340731}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Script: {fileID: 11500000, guid: 2257275b920ff17419bd72a38c1a51e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  clientAuthority: 0
-  localPositionSensitivity: 0.01
+  rigidbody: {fileID: 6598271084067944935}
+  localPositionSensitivity: 1
   localRotationSensitivity: 0.01
-  localScaleSensitivity: 0.01
+  localVelocitySensitivity: 1
+  localAngularVelocitySensitivity: 0.01
 --- !u!1001 &4563218307643110838
 PrefabInstance:
   m_ObjectHideFlags: 0
