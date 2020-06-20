@@ -27,6 +27,16 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
     private float turning;
     private float thrusting;
 
+    public override void OnStartClient()
+    {
+        if (hasAuthority)
+        {
+            return;
+        }
+
+        rigidbody.bodyType = RigidbodyType2D.Kinematic;
+    }
+
     public override void OnStartLocalPlayer()
     {
         Debug.Log("OnStartLocalPlayer");

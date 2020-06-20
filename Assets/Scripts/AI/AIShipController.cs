@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using Mirror;
 
-public sealed class AIShipController : MonoBehaviour, IDamageable
+public sealed class AIShipController : NetworkBehaviour, IDamageable
 {
     public ShipScriptableObject ship;
     public Destructible destructible;
@@ -9,6 +10,16 @@ public sealed class AIShipController : MonoBehaviour, IDamageable
     public Personality personality;
 
     private State state;
+
+    public override void OnStartClient()
+    {
+        if (hasAuthority || isServer)
+        {
+            return;
+        }
+
+        rigidbody.bodyType = RigidbodyType2D.Kinematic;
+    }
 
     void Start()
     {
