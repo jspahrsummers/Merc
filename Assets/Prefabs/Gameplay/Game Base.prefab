@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 164568331038772508}
   - component: {fileID: 3750305202476383877}
   - component: {fileID: 1813894907311692414}
+  - component: {fileID: 7139211058585673653}
   m_Layer: 0
   m_Name: Game Base
   m_TagString: GameController
@@ -295,6 +296,22 @@ MonoBehaviour:
   Secure: 0
   CertificatePath: 
   CertificatePassword: 
+--- !u!114 &7139211058585673653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5163437109155687014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc654f29862fc2643b948f772ebb9e68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showPing: 1
+  position: {x: 200, y: 0}
+  fontSize: 24
+  textColor: {r: 1, g: 1, b: 1, a: 0.3137255}
 --- !u!1 &6485123123197604293
 GameObject:
   m_ObjectHideFlags: 0
