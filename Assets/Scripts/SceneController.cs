@@ -15,11 +15,11 @@ public sealed class SceneController : NetworkBehaviour
     [Server]
     private void LoadAllScenes()
     {
-        MercDebug.Invariant(SceneManager.sceneCount == 1, "Expected only one scene to be loaded at server start");
         Scene activeScene = SceneManager.GetActiveScene();
-
         var count = SceneManager.sceneCountInBuildSettings;
-        for (int i = 0; i < count; i++)
+
+        // Skip game base scene at build index 0
+        for (int i = 1; i < count; i++)
         {
             if (i == activeScene.buildIndex)
             {
@@ -47,7 +47,7 @@ public sealed class SceneController : NetworkBehaviour
         starSystemControllers.Remove(scene);
     }
 
-    public StarSystemController starSystemForObject(GameObject gameObject)
+    public StarSystemController StarSystemForObject(GameObject gameObject)
     {
         return starSystemControllers[gameObject.scene];
     }

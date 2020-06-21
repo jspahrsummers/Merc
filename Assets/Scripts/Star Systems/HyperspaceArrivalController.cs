@@ -16,26 +16,8 @@ public sealed class HyperspaceArrivalController : MonoBehaviour
     void Start()
     {
         MercDebug.EnforceField(image);
-    }
-
-    void OnEnable()
-    {
-        SceneManager.activeSceneChanged += OnChangedActiveScene;
-    }
-
-    void OnDisable()
-    {
-        SceneManager.activeSceneChanged -= OnChangedActiveScene;
-    }
-
-    private void OnChangedActiveScene(Scene current, Scene next)
-    {
         startTime = Time.time;
         StartCoroutine(FadeOut());
-
-        var gameController = FindObjectOfType<GameController>();
-        MercDebug.Invariant(gameController != null, "Could not locate GameController after scene change");
-        gameController.OnCompletedHyperspaceJump(hyperspaceJump);
     }
 
     private IEnumerator FadeOut()

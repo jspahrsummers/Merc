@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4257970441507610175}
   - component: {fileID: 2488683714574417984}
   - component: {fileID: 3309026493635778881}
+  - component: {fileID: 5707863369495417475}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -58,6 +59,8 @@ MonoBehaviour:
   missilePrefab: {fileID: 711350574776029470, guid: 11aad2206706e5a4e81b3987991281c3,
     type: 3}
   projectileExplosionPrefab: {fileID: 3337956166155597766, guid: f3b77e3acebf93a46aa3cbf57b2c3da7,
+    type: 3}
+  hyperspaceArrivalPrefab: {fileID: 2879404604402340045, guid: 6f5685ad6e9b4764695a9bc1c476f404,
     type: 3}
 --- !u!50 &5141176213057246201
 Rigidbody2D:
@@ -147,6 +150,21 @@ MonoBehaviour:
   localPositionSensitivity: 1
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
+--- !u!114 &5707863369495417475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2997332787331325875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7fdb599e1359924bad6255660370252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  forceHidden: 0
 --- !u!1 &5961992222886679181
 GameObject:
   m_ObjectHideFlags: 0

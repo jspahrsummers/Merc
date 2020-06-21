@@ -42,7 +42,7 @@ public sealed class GalaxyMapController : MonoBehaviour
             mapSystemController.clickedEvent.AddListener(SystemClicked);
         }
 
-        Debug.Assert(mapSystems.ContainsKey(selectedSystem));
+        MercDebug.Invariant(mapSystems.ContainsKey(selectedSystem), $"Could not find {selectedSystem} in all systems");
     }
 
     void OnDisable()

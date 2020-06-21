@@ -131,7 +131,7 @@ PrefabInstance:
     - target: {fileID: 164568331038772508, guid: 45fd13696295785488ca886445ff27a5,
         type: 3}
       propertyPath: onlineScene
-      value: 
+      value: Assets/Scenes/Sol.unity
       objectReference: {fileID: 0}
     - target: {fileID: 2199278597791567141, guid: 45fd13696295785488ca886445ff27a5,
         type: 3}

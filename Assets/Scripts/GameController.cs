@@ -10,7 +10,6 @@ public sealed class GameController : MonoBehaviour
 {
     public GalaxyMapController galaxyMapController;
     public LandingScreenController landingScreenController;
-    public HyperspaceArrivalController hyperspaceArrivalPrefab;
     public PlayerStateScriptableObject playerState;
     public PlayerCameraController playerCameraController;
     public UIController uiController;
@@ -30,9 +29,7 @@ public sealed class GameController : MonoBehaviour
         }
     }
 
-    private StarSystemController starSystemController => sceneController.starSystemForObject(playerShipController.gameObject);
-
-    private Coroutine hyperspaceCoroutine;
+    private StarSystemController starSystemController => sceneController.StarSystemForObject(playerShipController.gameObject);
 
     public static GameController Find()
     {
@@ -43,7 +40,6 @@ public sealed class GameController : MonoBehaviour
     {
         MercDebug.EnforceField(galaxyMapController);
         MercDebug.EnforceField(landingScreenController);
-        MercDebug.EnforceField(hyperspaceArrivalPrefab);
         MercDebug.EnforceField(playerState);
         MercDebug.EnforceField(playerInput);
 
@@ -105,11 +101,10 @@ public sealed class GameController : MonoBehaviour
             return;
         }
 
-        if (hyperspaceCoroutine != null)
+        if (playerShipController.isJumpingToHyperspace)
         {
-            Debug.Log($"Cancelling jump to hyperspace");
-            StopCoroutine(hyperspaceCoroutine);
-            hyperspaceCoroutine = null;
+            Debug.Log($"Attempting to cancel jump to hyperspace");
+            playerShipController.CancelHyperspaceJump();
             return;
         }
 
@@ -123,38 +118,6 @@ public sealed class GameController : MonoBehaviour
 
         Debug.Log($"Preparing jump to {jumpSystem}");
         var hyperspaceJump = new HyperspaceJump() { fromSystem = starSystemController.starSystem, toSystem = jumpSystem };
-        hyperspaceCoroutine = StartCoroutine(StartHyperspaceJump(hyperspaceJump));
-    }
-
-    private IEnumerator StartHyperspaceJump(HyperspaceJump hyperspaceJump)
-    {
-        yield return playerShipController.StartHyperspaceJump(hyperspaceJump);
-        yield return LoadHyperspaceJumpAsync(hyperspaceJump);
-    }
-
-    private IEnumerator LoadHyperspaceJumpAsync(HyperspaceJump hyperspaceJump)
-    {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(hyperspaceJump.toSystem.name);
-        asyncLoad.allowSceneActivation = false;
-
-        while (!asyncLoad.isDone)
-        {
-            if (asyncLoad.progress >= 0.9f)
-            {
-                var arrivalController = Instantiate<HyperspaceArrivalController>(hyperspaceArrivalPrefab);
-                arrivalController.hyperspaceJump = hyperspaceJump;
-                DontDestroyOnLoad(arrivalController.gameObject);
-
-                asyncLoad.allowSceneActivation = true;
-            }
-
-            yield return null;
-        }
-    }
-
-    public void OnCompletedHyperspaceJump(HyperspaceJump hyperspaceJump)
-    {
-        float arrivalAngle = hyperspaceJump.fromSystem.AngleToSystem(hyperspaceJump.toSystem);
-        playerShipController.OnCompletedHyperspaceJump(hyperspaceJump);
+        playerShipController.StartHyperspaceJump(hyperspaceJump);
     }
 }

@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 8777353309252293412}
   - component: {fileID: 7251438283910398633}
   - component: {fileID: 1979824196687141073}
+  - component: {fileID: 545260630756429573}
   m_Layer: 0
   m_Name: Disabled Ship
   m_TagString: Untagged
@@ -229,6 +230,21 @@ MonoBehaviour:
   localPositionSensitivity: 1
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
+--- !u!114 &545260630756429573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046793617268340731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7fdb599e1359924bad6255660370252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  forceHidden: 0
 --- !u!1001 &4563218307643110838
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 1957919302827249953}
   - component: {fileID: 8703526025988226403}
   - component: {fileID: 4154529975831546530}
+  - component: {fileID: 5163799100658850733}
   m_Layer: 0
   m_Name: AI Fighter
   m_TagString: Untagged
@@ -229,6 +230,21 @@ MonoBehaviour:
   localPositionSensitivity: 1
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
+--- !u!114 &5163799100658850733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046793617268340731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7fdb599e1359924bad6255660370252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  forceHidden: 0
 --- !u!1001 &4563218307643110838
 PrefabInstance:
   m_ObjectHideFlags: 0

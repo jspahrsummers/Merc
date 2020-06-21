@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using Mirror;
 
 using RigidbodyExtensions;
@@ -12,6 +13,7 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
     public new Rigidbody2D rigidbody;
     public ProjectileController missilePrefab;
     public GameObject projectileExplosionPrefab;
+    public HyperspaceArrivalController hyperspaceArrivalPrefab;
 
     private float _fuel = 1;
     public float fuel
@@ -26,6 +28,16 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
     private Destructible destructible;
     private float turning;
     private float thrusting;
+
+    private class InProgressHyperspaceJump
+    {
+        public Coroutine rotationCoroutine;
+        public HyperspaceJump hyperspaceJump;
+        public AsyncOperation sceneLoadOperation;
+    }
+
+    private InProgressHyperspaceJump inProgressHyperspaceJump;
+    public bool isJumpingToHyperspace => inProgressHyperspaceJump != null;
 
     public override void OnStartClient()
     {
@@ -52,6 +64,7 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
         MercDebug.EnforceField(rigidbody);
         MercDebug.EnforceField(missilePrefab);
         MercDebug.EnforceField(projectileExplosionPrefab);
+        MercDebug.EnforceField(hyperspaceArrivalPrefab);
 
         destructible = ShipUtilities.InitializeShip(ship, rigidbody);
     }
@@ -110,7 +123,38 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
         projectileExplosion.transform.Translate(Vector3.forward * 10);
     }
 
-    public IEnumerator StartHyperspaceJump(HyperspaceJump hyperspaceJump)
+    [Client]
+    public void StartHyperspaceJump(HyperspaceJump hyperspaceJump)
+    {
+        MercDebug.Invariant(inProgressHyperspaceJump == null, $"Cannot start new hyperspace jump {hyperspaceJump} while one is in progress: {inProgressHyperspaceJump}");
+
+        inProgressHyperspaceJump = new InProgressHyperspaceJump { hyperspaceJump = hyperspaceJump };
+        inProgressHyperspaceJump.rotationCoroutine = StartCoroutine(PrepareForHyperspaceJump(hyperspaceJump));
+    }
+
+    [Client]
+    public bool CancelHyperspaceJump()
+    {
+        MercDebug.Invariant(inProgressHyperspaceJump != null, "No hyperspace jump in progress");
+
+        if (inProgressHyperspaceJump.sceneLoadOperation != null)
+        {
+            Debug.Log("Cannot cancel hyperspace jump, new scene already loaded");
+            return false;
+        }
+
+        Coroutine coro = inProgressHyperspaceJump.rotationCoroutine;
+        if (coro != null)
+        {
+            StopCoroutine(coro);
+        }
+
+        inProgressHyperspaceJump = null;
+        return true;
+    }
+
+    [Client]
+    public IEnumerator PrepareForHyperspaceJump(HyperspaceJump hyperspaceJump)
     {
         Debug.Log($"Ship starting jump {hyperspaceJump}");
 
@@ -131,10 +175,47 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
         }
 
         Debug.Log($"Velocity OK for hyperspace: {rigidbody.velocity} (magnitude: {rigidbody.velocity.magnitude}");
+        inProgressHyperspaceJump.sceneLoadOperation = SceneManager.LoadSceneAsync(hyperspaceJump.toSystem.name, LoadSceneMode.Additive);
+        inProgressHyperspaceJump.sceneLoadOperation.allowSceneActivation = false;
+        CmdHyperspaceJump(hyperspaceJump.toSystem.name);
     }
 
-    public void OnCompletedHyperspaceJump(HyperspaceJump hyperspaceJump)
+    [Command]
+    private void CmdHyperspaceJump(string destinationSceneName)
     {
+        Scene scene = SceneManager.GetSceneByName(destinationSceneName);
+        MercDebug.Invariant(scene.isLoaded, $"Expected {scene} to already be loaded on server");
+
+        SceneManager.MoveGameObjectToScene(gameObject, scene);
+        RpcFinishHyperspaceJump();
+    }
+
+    [ClientRpc]
+    private void RpcFinishHyperspaceJump()
+    {
+        MercDebug.Invariant(inProgressHyperspaceJump != null, "Server asked to finish hyperspace jump, but none is in progress");
+        StartCoroutine(FinishHyperspaceJump());
+    }
+
+    [Client]
+    private IEnumerator FinishHyperspaceJump()
+    {
+        inProgressHyperspaceJump.sceneLoadOperation.allowSceneActivation = true;
+        yield return inProgressHyperspaceJump.sceneLoadOperation;
+
+        HyperspaceJump hyperspaceJump = inProgressHyperspaceJump.hyperspaceJump;
+
+        Scene newScene = SceneManager.GetSceneByName(hyperspaceJump.toSystem.name);
+        Scene previousScene = SceneManager.GetActiveScene();
+        MercDebug.Invariant(previousScene != newScene, $"Expected hyperspace jump to give different scene, not {newScene} again");
+
+        SceneManager.SetActiveScene(newScene);
+        SceneManager.MoveGameObjectToScene(gameObject, newScene);
+        AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(previousScene);
+
+        var arrivalController = Instantiate<HyperspaceArrivalController>(hyperspaceArrivalPrefab);
+        arrivalController.hyperspaceJump = hyperspaceJump;
+
         rigidbody.rotation = hyperspaceJump.angle;
 
         Vector2 entryPoint = rigidbody.GetRelativePoint(Vector2.down * ship.hyperspaceArrivalDistance);
@@ -142,6 +223,9 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
 
         rigidbody.AddRelativeForce(Vector2.up * ship.requiredHyperspaceVelocity * rigidbody.mass, ForceMode2D.Impulse);
         Debug.Log($"Arrived from hyperspace jump {hyperspaceJump}: rotation {rigidbody.rotation} position {rigidbody.position} velocity: {rigidbody.velocity} (magnitude: {rigidbody.velocity.magnitude})");
+
+        yield return unloadOperation;
+        inProgressHyperspaceJump = null;
     }
 
     void FixedUpdate()
