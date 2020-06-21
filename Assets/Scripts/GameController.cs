@@ -29,7 +29,7 @@ public sealed class GameController : MonoBehaviour
         }
     }
 
-    private StarSystemController starSystemController => sceneController.StarSystemForObject(playerShipController.gameObject);
+    private StarSystemController starSystemController => playerShipController ? sceneController.StarSystemForObject(playerShipController.gameObject) : null;
 
     public static GameController Find()
     {
@@ -82,7 +82,7 @@ public sealed class GameController : MonoBehaviour
             return;
         }
 
-        PlanetScriptableObject selectedPlanet = starSystemController.selectedPlanet;
+        PlanetScriptableObject selectedPlanet = starSystemController?.selectedPlanet;
         if (!selectedPlanet)
         {
             Debug.Log("No planet selected");
@@ -96,7 +96,7 @@ public sealed class GameController : MonoBehaviour
 
     public void OnHyperspaceJump(InputAction.CallbackContext context)
     {
-        if (!context.performed)
+        if (!context.performed || !playerShipController)
         {
             return;
         }
