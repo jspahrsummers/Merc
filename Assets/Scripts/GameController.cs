@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -8,13 +9,14 @@ public sealed class GameController : MonoBehaviour
 {
     public GalaxyMapController galaxyMapController;
     public LandingScreenController landingScreenController;
-    public StarSystemController starSystemController;
     public HyperspaceArrivalController hyperspaceArrivalPrefab;
     public PlayerStateScriptableObject playerState;
     public PlayerCameraController playerCameraController;
     public UIController uiController;
     public PlayerInput playerInput;
     public NetworkManager networkManager;
+
+    private Dictionary<Scene, StarSystemController> starSystemControllers = new Dictionary<Scene, StarSystemController>();
 
     private PlayerShipController _playerShipController;
     public PlayerShipController playerShipController
@@ -28,13 +30,19 @@ public sealed class GameController : MonoBehaviour
         }
     }
 
+    private StarSystemController playerStarSystemController => starSystemForObject(playerShipController.gameObject);
+
     private Coroutine hyperspaceCoroutine;
+
+    public static GameController Find()
+    {
+        return GameObject.FindWithTag("GameController").GetComponent<GameController>();
+    }
 
     void Start()
     {
         MercDebug.EnforceField(galaxyMapController);
         MercDebug.EnforceField(landingScreenController);
-        MercDebug.EnforceField(starSystemController);
         MercDebug.EnforceField(hyperspaceArrivalPrefab);
         MercDebug.EnforceField(playerState);
         MercDebug.EnforceField(playerInput);
@@ -43,6 +51,23 @@ public sealed class GameController : MonoBehaviour
         {
             actionMap.Enable();
         }
+    }
+
+    public void AddStarSystemController(StarSystemController controller)
+    {
+        starSystemControllers.Add(controller.gameObject.scene, controller);
+    }
+
+    public void RemoveStarSystemController(StarSystemController controller)
+    {
+        Scene scene = controller.gameObject.scene;
+        MercDebug.Invariant(starSystemControllers.ContainsKey(scene), $"Controller {controller} was not registered to scene {scene}");
+        starSystemControllers.Remove(scene);
+    }
+
+    private StarSystemController starSystemForObject(GameObject gameObject)
+    {
+        return starSystemControllers[gameObject.scene];
     }
 
     public void OnThrust(InputAction.CallbackContext context)
@@ -78,7 +103,7 @@ public sealed class GameController : MonoBehaviour
             return;
         }
 
-        PlanetScriptableObject selectedPlanet = starSystemController.selectedPlanet;
+        PlanetScriptableObject selectedPlanet = playerStarSystemController.selectedPlanet;
         if (!selectedPlanet)
         {
             Debug.Log("No planet selected");
@@ -106,7 +131,7 @@ public sealed class GameController : MonoBehaviour
         }
 
         string selectedSystem = galaxyMapController.selectedSystem;
-        StarSystemScriptableObject jumpSystem = starSystemController.starSystem.adjacentSystems.Find(candidate => candidate.name == selectedSystem);
+        StarSystemScriptableObject jumpSystem = playerStarSystemController.starSystem.adjacentSystems.Find(candidate => candidate.name == selectedSystem);
         if (jumpSystem == null)
         {
             Debug.Log($"No system selected for hyperspace jump");
@@ -114,7 +139,7 @@ public sealed class GameController : MonoBehaviour
         }
 
         Debug.Log($"Preparing jump to {jumpSystem}");
-        var hyperspaceJump = new HyperspaceJump() { fromSystem = starSystemController.starSystem, toSystem = jumpSystem };
+        var hyperspaceJump = new HyperspaceJump() { fromSystem = playerStarSystemController.starSystem, toSystem = jumpSystem };
         hyperspaceCoroutine = StartCoroutine(StartHyperspaceJump(hyperspaceJump));
     }
 

@@ -24,6 +24,16 @@ public sealed class StarSystemController : MonoBehaviour
         }
     }
 
+    void OnEnable()
+    {
+        GameController.Find().AddStarSystemController(this);
+    }
+
+    void OnDisable()
+    {
+        GameController.Find().RemoveStarSystemController(this);
+    }
+
     public void OnPlanetSelected(PlanetController planetController)
     {
         Debug.Log($"{planetController.planet} clicked");

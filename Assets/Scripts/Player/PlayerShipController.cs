@@ -40,7 +40,7 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
     public override void OnStartLocalPlayer()
     {
         Debug.Log("OnStartLocalPlayer");
-        var gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();
+        var gameController = GameController.Find();
         gameController.playerShipController = this;
     }
 
