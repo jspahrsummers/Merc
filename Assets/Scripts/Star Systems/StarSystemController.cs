@@ -26,7 +26,8 @@ public sealed class StarSystemController : MonoBehaviour
 
     void OnEnable()
     {
-        SceneController.Find().AddStarSystemController(this);
+        SceneController.Find()?.AddStarSystemController(this);
+        GameController.Find().starSystemController = this;
     }
 
     void OnDisable()

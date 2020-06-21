@@ -29,7 +29,7 @@ public sealed class GameController : MonoBehaviour
         }
     }
 
-    private StarSystemController starSystemController => playerShipController ? sceneController.StarSystemForObject(playerShipController.gameObject) : null;
+    public StarSystemController starSystemController;
 
     public static GameController Find()
     {
@@ -47,6 +47,8 @@ public sealed class GameController : MonoBehaviour
         {
             actionMap.Enable();
         }
+
+        DontDestroyOnLoad(gameObject);
     }
 
     public void OnThrust(InputAction.CallbackContext context)

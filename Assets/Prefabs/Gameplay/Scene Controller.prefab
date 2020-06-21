@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6008838599300126969}
   - component: {fileID: 5972191844315042702}
   m_Layer: 0
-  m_Name: Server Scene Controller
+  m_Name: Scene Controller
   m_TagString: SceneController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
