@@ -82,15 +82,25 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
             return;
         }
 
-        CmdFireMissile();
+        CmdFireMissile(NetworkTime.rtt);
     }
 
     [Command]
-    private void CmdFireMissile()
+    private void CmdFireMissile(double rtt)
     {
+        MercDebug.Invariant(rtt >= 0, $"Round-trip time should not be less than zero: {rtt}");
+
+        // Estimate where the player will be by the time the spawn message reaches them
+        double returnTime = rtt / 2;
+        Vector2 velocity = rigidbody.velocity;
+        var position = new Vector3(
+            (float)(transform.position.x + velocity.x * returnTime),
+            (float)(transform.position.y + velocity.y * returnTime),
+            transform.position.z);
+
         ProjectileScriptableObject projectile = ship.weapons[0];
-        var missile = Instantiate<ProjectileController>(missilePrefab, transform.position, transform.rotation, transform.parent);
-        missile.rigidbody.velocity = rigidbody.velocity;
+        var missile = Instantiate<ProjectileController>(missilePrefab, position, transform.rotation, transform.parent);
+        missile.rigidbody.velocity = velocity;
         missile.rigidbody.AddRelativeForce(Vector2.up * projectile.launchForce, ForceMode2D.Impulse);
         missile.spawnerNetId = netId;
         NetworkServer.Spawn(missile.gameObject);
