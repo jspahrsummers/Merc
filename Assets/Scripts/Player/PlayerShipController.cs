@@ -183,10 +183,15 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
     [Command]
     private void CmdHyperspaceJump(string destinationSceneName)
     {
-        Scene scene = SceneManager.GetSceneByName(destinationSceneName);
-        MercDebug.Invariant(scene.isLoaded, $"Expected {scene} to already be loaded on server");
+        // Host mode will just behave like a client
+        if (!isClient)
+        {
+            Scene scene = SceneManager.GetSceneByName(destinationSceneName);
+            MercDebug.Invariant(scene.isLoaded, $"Expected {scene} to already be loaded on server");
 
-        SceneManager.MoveGameObjectToScene(gameObject, scene);
+            SceneManager.MoveGameObjectToScene(gameObject, scene);
+        }
+
         RpcFinishHyperspaceJump();
     }
 

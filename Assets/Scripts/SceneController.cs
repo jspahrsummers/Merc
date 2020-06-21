@@ -32,7 +32,10 @@ public sealed class SceneController : NetworkBehaviour
 
     public override void OnStartServer()
     {
-        LoadAllScenes();
+        if (!isClient)
+        {
+            LoadAllScenes();
+        }
     }
 
     public void AddStarSystemController(StarSystemController controller)
