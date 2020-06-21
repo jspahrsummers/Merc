@@ -132,6 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680e3b48441742443828e6b51b91ad2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   ship: {fileID: 11400000, guid: 8297952de0c8d484fa577cc79c0ed127, type: 2}
   destructible:
     armor: 30
@@ -224,7 +226,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   clientAuthority: 0
-  localPositionSensitivity: 0.01
+  localPositionSensitivity: 1
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
 --- !u!1001 &4563218307643110838
