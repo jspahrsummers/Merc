@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mirror;
@@ -13,7 +14,7 @@ public sealed class SceneController : NetworkBehaviour
     }
 
     [Server]
-    private void LoadAllScenes()
+    private IEnumerator LoadAllScenes()
     {
         Scene activeScene = SceneManager.GetActiveScene();
         var count = SceneManager.sceneCountInBuildSettings;
@@ -26,7 +27,7 @@ public sealed class SceneController : NetworkBehaviour
                 continue;
             }
 
-            SceneManager.LoadSceneAsync(i, LoadSceneMode.Additive);
+            yield return SceneManager.LoadSceneAsync(i, LoadSceneMode.Additive);
         }
     }
 
@@ -34,7 +35,7 @@ public sealed class SceneController : NetworkBehaviour
     {
         if (!isClient)
         {
-            LoadAllScenes();
+            StartCoroutine(LoadAllScenes());
         }
     }
 
