@@ -4,7 +4,6 @@ using System.Collections.Generic;
 public struct Transition
 {
     public State nextState;
-    public List<Action> actions;
 
     public override string ToString()
     {

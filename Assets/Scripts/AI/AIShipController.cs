@@ -52,14 +52,6 @@ public sealed class AIShipController : NetworkBehaviour, IDamageable
     {
         Debug.Log($"AI state transition: {transition}");
 
-        if (transition.actions != null)
-        {
-            foreach (var action in transition.actions)
-            {
-                // TODO: Run actions
-            }
-        }
-
         if (transition.nextState != null)
         {
             state = transition.nextState;
