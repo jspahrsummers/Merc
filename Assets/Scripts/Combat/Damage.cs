@@ -1,8 +1,8 @@
 [System.Serializable]
-public struct Damage
+public readonly struct Damage
 {
-    public float physical;
-    public float energy;
+    public readonly float physical;
+    public readonly float energy;
 
     public override string ToString()
     {
