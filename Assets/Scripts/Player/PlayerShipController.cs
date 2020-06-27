@@ -25,7 +25,7 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
         }
     }
 
-    private Destructible destructible;
+    private ShieldedHull destructible;
     private float turning;
     private float thrusting;
 

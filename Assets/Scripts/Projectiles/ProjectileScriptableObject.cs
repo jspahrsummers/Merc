@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Gameplay/Projectile")]
 public class ProjectileScriptableObject : ScriptableObject
 {
-    public Destructible baseDestructible;
+    public ShieldedHull baseDestructible;
 
     [Tooltip("Mass of this projectile in tonnes (used in physics calculations)")]
     public float mass = 1;

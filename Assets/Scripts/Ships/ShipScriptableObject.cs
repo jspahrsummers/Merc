@@ -12,7 +12,7 @@ public class ShipScriptableObject : ScriptableObject
     [System.Serializable]
     public sealed class CargoChangedEvent : UnityEvent<ITransactable, int> { }
 
-    public Destructible baseDestructible;
+    public ShieldedHull baseDestructible;
 
     [Tooltip("Mass of this ship in tonnes (used in physics calculations)")]
     public float mass = 1;

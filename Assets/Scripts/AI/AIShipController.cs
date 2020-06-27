@@ -4,7 +4,7 @@ using Mirror;
 public sealed class AIShipController : NetworkBehaviour, IDamageable
 {
     public ShipScriptableObject ship;
-    public Destructible destructible;
+    public ShieldedHull destructible;
     public ExplodableController explodable;
     public new Rigidbody2D rigidbody;
     public Personality personality;
