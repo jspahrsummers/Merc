@@ -24,7 +24,7 @@ public sealed class GameController : MonoBehaviour
         set
         {
             _playerShipController = value;
-            playerCameraController.playerShipController = value;
+            playerCameraController.playerObject = value.gameObject;
             uiController.playerShipController = value;
         }
     }

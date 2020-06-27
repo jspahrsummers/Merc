@@ -3,16 +3,16 @@
 public sealed class PlayerCameraController : MonoBehaviour
 {
     [HideInInspector]
-    public PlayerShipController playerShipController;
+    public GameObject playerObject;
 
     void LateUpdate()
     {
-        if (playerShipController == null)
+        if (playerObject == null)
         {
             return;
         }
 
-        Vector3 followPosition = playerShipController.transform.position;
+        Vector3 followPosition = playerObject.transform.position;
         transform.position = new Vector3(followPosition.x, followPosition.y, transform.position.z);
     }
 }
