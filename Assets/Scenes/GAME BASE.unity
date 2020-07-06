@@ -133,6 +133,11 @@ PrefabInstance:
       propertyPath: onlineScene
       value: Assets/Scenes/Sol.unity
       objectReference: {fileID: 0}
+    - target: {fileID: 164568331038772508, guid: 45fd13696295785488ca886445ff27a5,
+        type: 3}
+      propertyPath: authenticator
+      value: 
+      objectReference: {fileID: 1329558999}
     - target: {fileID: 2199278597791567141, guid: 45fd13696295785488ca886445ff27a5,
         type: 3}
       propertyPath: sceneId
@@ -210,3 +215,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45fd13696295785488ca886445ff27a5, type: 3}
+--- !u!1 &1329558998 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5163437109155687014, guid: 45fd13696295785488ca886445ff27a5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1329558997}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1329558999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329558998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 176c335adce057b40bfd6b96c2a84c8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnServerAuthenticated:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClientAuthenticated:
+    m_PersistentCalls:
+      m_Calls: []

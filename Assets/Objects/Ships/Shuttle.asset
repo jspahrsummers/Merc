@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Shuttle
   m_EditorClassIdentifier: 
   baseDestructible:
-    armor: 10
+    hull: 10
     shields: 10
   mass: 78
   turnSpeed: 240

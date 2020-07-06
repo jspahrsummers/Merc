@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Freighter
   m_EditorClassIdentifier: 
   baseDestructible:
-    armor: 100
+    hull: 100
     shields: 0
   mass: 419.7
   turnSpeed: 100

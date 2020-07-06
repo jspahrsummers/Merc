@@ -39,6 +39,17 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
     private InProgressHyperspaceJump inProgressHyperspaceJump;
     public bool isJumpingToHyperspace => inProgressHyperspaceJump != null;
 
+    private PlayerState _playerState;
+    public PlayerState playerState
+    {
+        get => _playerState;
+        private set
+        {
+            Debug.Log($"Received player state {value} for {this}");
+            _playerState = value;
+        }
+    }
+
     public override void OnStartClient()
     {
         if (this.IsServerOrHasAuthority())
@@ -54,6 +65,15 @@ public sealed class PlayerShipController : NetworkBehaviour, IDamageable
         Debug.Log("OnStartLocalPlayer");
         var gameController = GameController.Find();
         gameController.playerShipController = this;
+
+        playerState = (PlayerState)connectionToServer.authenticationData;
+        MercDebug.EnforceField(playerState);
+    }
+
+    public override void OnStartServer()
+    {
+        playerState = (PlayerState)connectionToClient.authenticationData;
+        MercDebug.EnforceField(playerState);
     }
 
     void Start()

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fighter
   m_EditorClassIdentifier: 
   baseDestructible:
-    armor: 20
+    hull: 30
     shields: 50
   mass: 100
   turnSpeed: 300
