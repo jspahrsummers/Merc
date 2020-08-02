@@ -4,3 +4,4 @@ spr_stars02 image created by Bonsaiheldin (http://bonsaiheld.org) and released t
 
 Models and textures created by Viktor Hahn (Viktor.Hahn@web.de), licensed under the Creative Commons Attribution 4.0 International License (http://creativecommons.org/licenses/by/4.0/):
 - corvette01
+- star_white_giant01
