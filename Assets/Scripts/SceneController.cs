@@ -47,7 +47,7 @@ public sealed class SceneController : NetworkBehaviour
     public void RemoveStarSystemController(StarSystemController controller)
     {
         Scene scene = controller.gameObject.scene;
-        MercDebug.Invariant(starSystemControllers.ContainsKey(scene), $"Controller {controller} was not registered to scene {scene}");
+        MercDebug.Invariant(starSystemControllers.ContainsKey(scene), $"Star system controller for {controller.starSystem.name} was not registered to scene {scene.name}");
         starSystemControllers.Remove(scene);
     }
 

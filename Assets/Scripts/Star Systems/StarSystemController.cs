@@ -26,13 +26,19 @@ public sealed class StarSystemController : MonoBehaviour
 
     void OnEnable()
     {
-        SceneController.Find()?.AddStarSystemController(this);
+        var sceneController = SceneController.Find();
+        Debug.Log($"Adding {starSystem.name} to scene controller {sceneController}");
+
+        sceneController.AddStarSystemController(this);
         GameController.Find().starSystemController = this;
     }
 
     void OnDisable()
     {
-        SceneController.Find()?.RemoveStarSystemController(this);
+        var sceneController = SceneController.Find();
+        Debug.Log($"Removing {starSystem.name} from scene controller {sceneController}");
+
+        sceneController.RemoveStarSystemController(this);
     }
 
     public void OnPlanetSelected(PlanetController planetController)
