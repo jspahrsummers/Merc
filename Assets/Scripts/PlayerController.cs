@@ -3,13 +3,16 @@
 /// <summary>Implements the behaviors of a player (whether or not it is the local player).</summary>
 public sealed class PlayerController : MonoBehaviour
 {
+    [Tooltip("The rigidbody of the player ship.")]
     public new Rigidbody rigidbody;
 
-    private float rotationDegrees = 0;
-
+    /// <summary>Input action map for responding to player controls.</summary>
     private Inputs inputs;
 
+    /// <summary>Degrees per second that the ship is able to rotate.</summary>
     const float RotationSpeed = 300f;
+
+    /// <summary>Force applied while thrusting.</summary>
     const float ThrustForce = 20f;
 
     void OnEnable()
