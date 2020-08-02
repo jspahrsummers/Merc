@@ -6,6 +6,9 @@ public sealed class PlayerController : MonoBehaviour
     [Tooltip("The rigidbody of the player ship.")]
     public new Rigidbody rigidbody;
 
+    [Tooltip("Renders the engine glow of the ship while thrusting.")]
+    public GlowController engineGlowController;
+
     /// <summary>Input action map for responding to player controls.</summary>
     private Inputs inputs;
 
@@ -20,6 +23,8 @@ public sealed class PlayerController : MonoBehaviour
         if (inputs == null)
         {
             inputs = new Inputs();
+            inputs.Player.Thrust.started += context => engineGlowController.SetVisible(true);
+            inputs.Player.Thrust.canceled += context => engineGlowController.SetVisible(false);
         }
 
         inputs.Enable();
