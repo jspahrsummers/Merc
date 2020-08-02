@@ -3,6 +3,10 @@
 /// <summary>Implements the behaviors of a player (whether or not it is the local player).</summary>
 public sealed class PlayerController : MonoBehaviour
 {
+    public new Rigidbody rigidbody;
+
+    private float rotationDegrees = 0;
+
     private Inputs inputs;
 
     const float RotationSpeed = 5f;
@@ -25,6 +29,6 @@ public sealed class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         float turn = inputs.Player.Turn.ReadValue<float>() * RotationSpeed;
-        gameObject.transform.Rotate(0, turn, 0);
+        rigidbody.MoveRotation(rigidbody.rotation * Quaternion.AngleAxis(turn, Vector3.up));
     }
 }
