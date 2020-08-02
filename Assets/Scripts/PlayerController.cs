@@ -9,7 +9,8 @@ public sealed class PlayerController : MonoBehaviour
 
     private Inputs inputs;
 
-    const float RotationSpeed = 5f;
+    const float RotationSpeed = 300f;
+    const float ThrustForce = 20f;
 
     void OnEnable()
     {
@@ -28,7 +29,10 @@ public sealed class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        float turn = inputs.Player.Turn.ReadValue<float>() * RotationSpeed;
+        float turn = inputs.Player.Turn.ReadValue<float>() * RotationSpeed * Time.deltaTime;
         rigidbody.MoveRotation(rigidbody.rotation * Quaternion.AngleAxis(turn, Vector3.up));
+
+        float thrust = inputs.Player.Thrust.ReadValue<float>() * ThrustForce;
+        rigidbody.AddRelativeForce(Vector3.forward * thrust);
     }
 }
