@@ -6,6 +6,11 @@ public sealed class MainCameraController : MonoBehaviour
     [Tooltip("The object that the camera should be following.")]
     public GameObject followTarget;
 
+    public static MainCameraController Find()
+    {
+        return Camera.main.GetComponent<MainCameraController>();
+    }
+
     void LateUpdate()
     {
         if (followTarget == null)

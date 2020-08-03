@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using Mirror;
 
 /// <summary>Implements the behaviors of a player (whether or not it is the local player).</summary>
-public sealed class PlayerController : MonoBehaviour
+public sealed class PlayerController : NetworkBehaviour
 {
     [Tooltip("The rigidbody of the player ship.")]
     public new Rigidbody rigidbody;
@@ -18,7 +19,7 @@ public sealed class PlayerController : MonoBehaviour
     /// <summary>Force applied while thrusting.</summary>
     const float ThrustForce = 20f;
 
-    void OnEnable()
+    public override void OnStartLocalPlayer()
     {
         if (inputs == null)
         {
@@ -28,11 +29,13 @@ public sealed class PlayerController : MonoBehaviour
         }
 
         inputs.Enable();
+
+        MainCameraController.Find().followTarget = gameObject;
     }
 
     void OnDisable()
     {
-        inputs.Disable();
+        inputs?.Disable();
     }
 
     void FixedUpdate()
