@@ -40,6 +40,11 @@ public sealed class PlayerController : NetworkBehaviour
 
     void FixedUpdate()
     {
+        if (inputs == null)
+        {
+            return;
+        }
+
         float turn = inputs.Player.Turn.ReadValue<float>() * RotationSpeed * Time.deltaTime;
         rigidbody.MoveRotation(rigidbody.rotation * Quaternion.AngleAxis(turn, Vector3.up));
 
