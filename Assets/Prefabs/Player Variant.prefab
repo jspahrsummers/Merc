@@ -354,6 +354,8 @@ MonoBehaviour:
   syncInterval: 0.1
   rigidbody: {fileID: 1335472616}
   engineGlowController: {fileID: 949026001}
+  blasterFirePrefab: {fileID: -3725528897429129750, guid: 81153c851375b7e43a7281a255e103c5,
+    type: 3}
 --- !u!114 &1335472618
 MonoBehaviour:
   m_ObjectHideFlags: 0
