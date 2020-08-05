@@ -238,7 +238,7 @@ namespace Mirror
             RemoveConnection(0);
         }
 
-        internal static void ActivateHostScene()
+        public static void ActivateHostScene()
         {
             foreach (NetworkIdentity identity in NetworkIdentity.spawned.Values)
             {
@@ -292,7 +292,7 @@ namespace Mirror
         }
 
         /// <summary>
-        /// Send a message to all connected clients, both ready and not-ready.</para>
+        /// Send a message to all connected clients, both ready and not-ready.
         /// <para>See <see cref="NetworkConnection.isReady">NetworkConnection.isReady</see></para>
         /// </summary>
         /// <typeparam name="T">Message type</typeparam>
@@ -472,7 +472,7 @@ namespace Mirror
         }
 
         // The user should never need to pump the update loop manually
-        internal static void Update()
+        public static void Update()
         {
             if (!active)
                 return;

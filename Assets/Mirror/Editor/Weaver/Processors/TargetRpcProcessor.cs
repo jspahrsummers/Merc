@@ -8,8 +8,6 @@ namespace Mirror.Weaver
     /// </summary>
     public static class TargetRpcProcessor
     {
-        const string TargetRpcPrefix = "InvokeTargetRpc";
-
         // helper functions to check if the method has a NetworkConnection parameter
         public static bool HasNetworkConnectionParameter(MethodDefinition md)
         {
@@ -19,7 +17,7 @@ namespace Mirror.Weaver
 
         public static MethodDefinition ProcessTargetRpcInvoke(TypeDefinition td, MethodDefinition md, MethodDefinition rpcCallFunc)
         {
-            MethodDefinition rpc = new MethodDefinition(RpcProcessor.RpcPrefix + md.Name, MethodAttributes.Family |
+            MethodDefinition rpc = new MethodDefinition(Weaver.InvokeRpcPrefix + md.Name, MethodAttributes.Family |
                     MethodAttributes.Static |
                     MethodAttributes.HideBySig,
                     Weaver.voidType);
@@ -81,7 +79,7 @@ namespace Mirror.Weaver
             Originally HLAPI put the send message code inside the Call function
             and then proceeded to replace every call to TargetTest with CallTargetTest
 
-            This method moves all the user's code into the "Call" method
+            This method moves all the user's code into the "CallTargetRpc" method
             and replaces the body of the original method with the send message code.
             This way we do not need to modify the code anywhere else,  and this works
             correctly in dependent assemblies
@@ -89,7 +87,7 @@ namespace Mirror.Weaver
         */
         public static MethodDefinition ProcessTargetRpcCall(TypeDefinition td, MethodDefinition md, CustomAttribute targetRpcAttr)
         {
-            MethodDefinition rpc = MethodProcessor.SubstituteMethod(td, md, "Call" + md.Name);
+            MethodDefinition rpc = MethodProcessor.SubstituteMethod(td, md);
 
             ILProcessor worker = md.Body.GetILProcessor();
 
@@ -103,11 +101,6 @@ namespace Mirror.Weaver
                 return null;
 
             string rpcName = md.Name;
-            int index = rpcName.IndexOf(TargetRpcPrefix);
-            if (index > -1)
-            {
-                rpcName = rpcName.Substring(TargetRpcPrefix.Length);
-            }
 
             // invoke SendInternal and return
             // this
@@ -140,12 +133,6 @@ namespace Mirror.Weaver
 
         public static bool ProcessMethodsValidateTargetRpc(MethodDefinition md)
         {
-            if (!md.Name.StartsWith("Target"))
-            {
-                Weaver.Error($"{md.Name} must start with Target.  Consider renaming it to Target{md.Name}", md);
-                return false;
-            }
-
             if (md.IsStatic)
             {
                 Weaver.Error($"{md.Name} must not be static", md);

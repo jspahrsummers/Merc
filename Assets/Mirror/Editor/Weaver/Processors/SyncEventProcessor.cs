@@ -27,7 +27,7 @@ namespace Mirror.Weaver
                 return null;
             }
 
-            MethodDefinition cmd = new MethodDefinition("InvokeSyncEvent" + ed.Name, MethodAttributes.Family |
+            MethodDefinition cmd = new MethodDefinition(Weaver.InvokeRpcPrefix + ed.Name, MethodAttributes.Family |
                     MethodAttributes.Static |
                     MethodAttributes.HideBySig,
                     Weaver.voidType);
@@ -68,7 +68,7 @@ namespace Mirror.Weaver
         public static MethodDefinition ProcessEventCall(TypeDefinition td, EventDefinition ed, CustomAttribute syncEventAttr)
         {
             MethodReference invoke = Resolvers.ResolveMethod(ed.EventType, Weaver.CurrentAssembly, "Invoke");
-            MethodDefinition evt = new MethodDefinition("Call" + ed.Name, MethodAttributes.Public |
+            MethodDefinition evt = new MethodDefinition(Weaver.SyncEventPrefix + ed.Name, MethodAttributes.Public |
                     MethodAttributes.HideBySig,
                     Weaver.voidType);
             // add paramters
@@ -118,12 +118,6 @@ namespace Mirror.Weaver
 
                 if (syncEventAttr != null)
                 {
-                    if (!ed.Name.StartsWith("Event"))
-                    {
-                        Weaver.Error($"{ed.Name} must start with Event.  Consider renaming it to Event{ed.Name}", ed);
-                        return;
-                    }
-
                     if (ed.EventType.Resolve().HasGenericParameters)
                     {
                         Weaver.Error($"{ed.Name} must not have generic parameters.  Consider creating a new class that inherits from {ed.EventType} instead", ed);
@@ -146,10 +140,9 @@ namespace Mirror.Weaver
                     td.Methods.Add(eventCallFunc);
 
                     // original weaver compares .Name, not EventDefinition.
-                    Weaver.WeaveLists.replaceEvents[ed.Name] = eventCallFunc;
+                    Weaver.WeaveLists.replaceEvents[ed.FullName] = eventCallFunc;
 
                     Weaver.DLog(td, "  Event: " + ed.Name);
-                    break;
                 }
             }
         }

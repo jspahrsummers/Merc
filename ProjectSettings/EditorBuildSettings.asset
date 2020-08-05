@@ -6,15 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/GAME BASE.unity
-    guid: 00cccab2da28a6b42b016c07cd56e537
-  - enabled: 1
-    path: Assets/Scenes/Sol.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
-    path: Assets/Scenes/Alpha Centauri.unity
-    guid: d3b3f2f2f06a67b4e96f8d1337693345
-  - enabled: 1
-    path: Assets/Scenes/Barnard's Star.unity
-    guid: d192be895de5e0d4388bd75dcb92b9cf
+    path: Assets/Scenes/BASE.unity
+    guid: 98cc59f7c8cff514dae67e9dbc269cf8
   m_configObjects: {}

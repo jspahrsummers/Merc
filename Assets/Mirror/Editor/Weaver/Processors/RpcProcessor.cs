@@ -8,12 +8,10 @@ namespace Mirror.Weaver
     /// </summary>
     public static class RpcProcessor
     {
-        public const string RpcPrefix = "InvokeRpc";
-
         public static MethodDefinition ProcessRpcInvoke(TypeDefinition td, MethodDefinition md, MethodDefinition rpcCallFunc)
         {
             MethodDefinition rpc = new MethodDefinition(
-                RpcPrefix + md.Name,
+                Weaver.InvokeRpcPrefix + md.Name,
                 MethodAttributes.Family | MethodAttributes.Static | MethodAttributes.HideBySig,
                 Weaver.voidType);
 
@@ -55,14 +53,14 @@ namespace Mirror.Weaver
             Originally HLAPI put the send message code inside the Call function
             and then proceeded to replace every call to RpcTest with CallRpcTest
 
-            This method moves all the user's code into the "Call" method
+            This method moves all the user's code into the "CallRpc" method
             and replaces the body of the original method with the send message code.
             This way we do not need to modify the code anywhere else,  and this works
             correctly in dependent assemblies
         */
         public static MethodDefinition ProcessRpcCall(TypeDefinition td, MethodDefinition md, CustomAttribute clientRpcAttr)
         {
-            MethodDefinition rpc = MethodProcessor.SubstituteMethod(td, md, "Call" + md.Name);
+            MethodDefinition rpc = MethodProcessor.SubstituteMethod(td, md);
 
             ILProcessor worker = md.Body.GetILProcessor();
 
@@ -81,12 +79,6 @@ namespace Mirror.Weaver
                 return null;
 
             string rpcName = md.Name;
-            int index = rpcName.IndexOf(RpcPrefix);
-            if (index > -1)
-            {
-                rpcName = rpcName.Substring(RpcPrefix.Length);
-            }
-
             int channel = clientRpcAttr.GetField("channel", 0);
             bool excludeOwner = clientRpcAttr.GetField("excludeOwner", false);
 
@@ -112,12 +104,6 @@ namespace Mirror.Weaver
 
         public static bool ProcessMethodsValidateRpc(MethodDefinition md)
         {
-            if (!md.Name.StartsWith("Rpc"))
-            {
-                Weaver.Error($"{md.Name} must start with Rpc.  Consider renaming it to Rpc{md.Name}", md);
-                return false;
-            }
-
             if (md.IsStatic)
             {
                 Weaver.Error($"{md.Name} must not be static", md);

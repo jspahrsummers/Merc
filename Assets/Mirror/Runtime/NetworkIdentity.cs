@@ -215,27 +215,30 @@ namespace Mirror
                 string newAssetIdString = value == Guid.Empty ? string.Empty : value.ToString("N");
                 string oldAssetIdSrting = m_AssetId;
 
-                if (oldAssetIdSrting != newAssetIdString)
+                // they are the same, do nothing
+                if (oldAssetIdSrting == newAssetIdString)
                 {
-                    // new is empty
-                    if (string.IsNullOrEmpty(newAssetIdString))
-                    {
-                        logger.LogError($"Can not set AssetId to empty guid on NetworkIdentity '{name}', old assetId '{oldAssetIdSrting}'");
-                        return;
-                    }
-
-                    // old not empty
-                    if (!string.IsNullOrEmpty(oldAssetIdSrting))
-                    {
-                        logger.LogError($"Can not Set AssetId on NetworkIdentity '{name}' becasue it already had an assetId, current assetId '{oldAssetIdSrting}', attempted new assetId '{newAssetIdString}'");
-                        return;
-                    }
-
-                    // old is empty
-                    m_AssetId = newAssetIdString;
-
-                    if (logger.LogEnabled()) logger.Log($"Settings AssetId on NetworkIdentity '{name}', new assetId '{newAssetIdString}'");
+                    return;
                 }
+
+                // new is empty
+                if (string.IsNullOrEmpty(newAssetIdString))
+                {
+                    logger.LogError($"Can not set AssetId to empty guid on NetworkIdentity '{name}', old assetId '{oldAssetIdSrting}'");
+                    return;
+                }
+
+                // old not empty
+                if (!string.IsNullOrEmpty(oldAssetIdSrting))
+                {
+                    logger.LogError($"Can not Set AssetId on NetworkIdentity '{name}' becasue it already had an assetId, current assetId '{oldAssetIdSrting}', attempted new assetId '{newAssetIdString}'");
+                    return;
+                }
+
+                // old is empty
+                m_AssetId = newAssetIdString;
+
+                if (logger.LogEnabled()) logger.Log($"Settings AssetId on NetworkIdentity '{name}', new assetId '{newAssetIdString}'");
             }
         }
 
@@ -422,7 +425,7 @@ namespace Mirror
                 // => throw an exception to cancel the build and let the user
                 //    know how to fix it!
                 if (BuildPipeline.isBuildingPlayer)
-                    throw new Exception("Scene " + gameObject.scene.path + " needs to be opened and resaved before building, because the scene object " + name + " has no valid sceneId yet.");
+                    throw new InvalidOperationException("Scene " + gameObject.scene.path + " needs to be opened and resaved before building, because the scene object " + name + " has no valid sceneId yet.");
 
                 // if we generate the sceneId then we MUST be sure to set dirty
                 // in order to save the scene object properly. otherwise it

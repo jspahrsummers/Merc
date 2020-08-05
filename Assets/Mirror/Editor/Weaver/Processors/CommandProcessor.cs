@@ -8,8 +8,6 @@ namespace Mirror.Weaver
     /// </summary>
     public static class CommandProcessor
     {
-        const string CmdPrefix = "InvokeCmd";
-
         /*
             // generates code like:
             public void CmdThrust(float thrusting, int spin)
@@ -28,24 +26,18 @@ namespace Mirror.Weaver
             Originally HLAPI put the send message code inside the Call function
             and then proceeded to replace every call to CmdTrust with CallCmdTrust
 
-            This method moves all the user's code into the "Call" method
+            This method moves all the user's code into the "CallCmd" method
             and replaces the body of the original method with the send message code.
             This way we do not need to modify the code anywhere else,  and this works
             correctly in dependent assemblies
         */
         public static MethodDefinition ProcessCommandCall(TypeDefinition td, MethodDefinition md, CustomAttribute commandAttr)
         {
-            MethodDefinition cmd = MethodProcessor.SubstituteMethod(td, md, "Call" + md.Name);
+            MethodDefinition cmd = MethodProcessor.SubstituteMethod(td, md);
 
             ILProcessor worker = md.Body.GetILProcessor();
 
             NetworkBehaviourProcessor.WriteSetupLocals(worker);
-
-            if (Weaver.GenerateLogErrors)
-            {
-                worker.Append(worker.Create(OpCodes.Ldstr, "Call Command function " + md.Name));
-                worker.Append(worker.Create(OpCodes.Call, Weaver.logErrorReference));
-            }
 
             // NetworkWriter writer = new NetworkWriter();
             NetworkBehaviourProcessor.WriteCreateWriter(worker);
@@ -55,15 +47,8 @@ namespace Mirror.Weaver
                 return null;
 
             string cmdName = md.Name;
-            int index = cmdName.IndexOf(CmdPrefix);
-            if (index > -1)
-            {
-                cmdName = cmdName.Substring(CmdPrefix.Length);
-            }
-
             int channel = commandAttr.GetField("channel", 0);
             bool ignoreAuthority = commandAttr.GetField("ignoreAuthority", false);
-
 
             // invoke internal send and return
             // load 'base.' to call the SendCommand function with
@@ -98,7 +83,7 @@ namespace Mirror.Weaver
         */
         public static MethodDefinition ProcessCommandInvoke(TypeDefinition td, MethodDefinition method, MethodDefinition cmdCallFunc)
         {
-            MethodDefinition cmd = new MethodDefinition(CmdPrefix + method.Name,
+            MethodDefinition cmd = new MethodDefinition(Weaver.InvokeRpcPrefix + method.Name,
                 MethodAttributes.Family | MethodAttributes.Static | MethodAttributes.HideBySig,
                 Weaver.voidType);
 
@@ -141,12 +126,6 @@ namespace Mirror.Weaver
 
         public static bool ProcessMethodsValidateCommand(MethodDefinition md)
         {
-            if (!md.Name.StartsWith("Cmd"))
-            {
-                Weaver.Error($"{md.Name} must start with Cmd.  Consider renaming it to Cmd{md.Name}", md);
-                return false;
-            }
-
             if (md.IsStatic)
             {
                 Weaver.Error($"{md.Name} cannot be static", md);
