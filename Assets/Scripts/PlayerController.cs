@@ -28,14 +28,14 @@ public sealed class PlayerController : NetworkBehaviour
             inputs.Player.Thrust.canceled += context => engineGlowController.SetVisible(false);
         }
 
-        inputs.Enable();
+        inputs.Player.Enable();
 
         MainCameraController.Find().followTarget = gameObject;
     }
 
     void OnDisable()
     {
-        inputs?.Disable();
+        inputs?.Player.Disable();
     }
 
     void FixedUpdate()
@@ -45,10 +45,10 @@ public sealed class PlayerController : NetworkBehaviour
             return;
         }
 
-        float turn = inputs.Player.Turn.ReadValue<float>() * RotationSpeed * Time.deltaTime;
+        var turn = inputs.Player.Turn.ReadValue<float>() * RotationSpeed * Time.deltaTime;
         rigidbody.MoveRotation(rigidbody.rotation * Quaternion.AngleAxis(turn, Vector3.up));
 
-        float thrust = inputs.Player.Thrust.ReadValue<float>() * ThrustForce;
+        var thrust = inputs.Player.Thrust.ReadValue<float>() * ThrustForce;
         rigidbody.AddRelativeForce(Vector3.forward * thrust);
     }
 }
