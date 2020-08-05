@@ -94,3 +94,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 4928446968731806371}
   repeatingRenderer: {fileID: 1236362361802477890}
+  baseName: Stars Background

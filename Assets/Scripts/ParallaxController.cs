@@ -10,6 +10,9 @@ public sealed class ParallaxController : MonoBehaviour
     [Tooltip("The renderer, attached to the prefab, which will be repeated infinitely.")]
     public Renderer repeatingRenderer;
 
+    [Tooltip("The base name of this game object when instantiated, which will be prepended to its grid location.")]
+    public string baseName;
+
     /// <summary>Indices into a grid, identifying which parallax controller this is. The origin is (0, 0).</summary>
     private (int x, int y) gridTag;
 
@@ -65,6 +68,8 @@ public sealed class ParallaxController : MonoBehaviour
         {
             allControllers[gridTag] = this;
         }
+
+        gameObject.name = $"{baseName} ({gridTag.x}, {gridTag.y})";
     }
 
     void Update()
