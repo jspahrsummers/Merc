@@ -14,10 +14,10 @@ public sealed class PlayerController : NetworkBehaviour
     private Inputs inputs;
 
     /// <summary>Degrees per second that the ship is able to rotate.</summary>
-    const float RotationSpeed = 300f;
+    const float RotationSpeed = 250f;
 
     /// <summary>Force applied while thrusting.</summary>
-    const float ThrustForce = 20f;
+    const float ThrustForce = 10f;
 
     public override void OnStartLocalPlayer()
     {
