@@ -13,7 +13,7 @@ public sealed class ParallaxController : MonoBehaviour
 
     public static ParallaxController Find()
     {
-        return GameObject.FindWithTag("ParallaxController").GetComponent<ParallaxController>();
+        return GameObject.FindWithTag("ParallaxController")?.GetComponent<ParallaxController>();
     }
 
     public void EnsureInstanceAtLocation((int x, int y) gridLocation)
