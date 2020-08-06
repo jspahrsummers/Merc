@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using Mirror;
+using MercExtensions;
 
 /// <summary>Implements the behaviors of a player (whether or not it is the local player).</summary>
 public sealed class PlayerController : NetworkBehaviour
@@ -26,12 +27,19 @@ public sealed class PlayerController : NetworkBehaviour
     /// <summary>The number of seconds between blaster shots while firing.</summary>
     const float BlasterFireRate = 0.1f;
 
+    /// <summary>How many seconds between informing the server of a new calculated round trip time.</summary>
+    const float RttUpdateInterval = 2f;
+
     /// <summary>Input action map for responding to player controls.</summary>
     private Inputs inputs;
 
     /// <summary>Set on the server while the player is continuously firing.</summary>
     /// <remarks>This will always be null on a client (as long as it is not a host).</remarks>
     private Coroutine firingCoroutine;
+
+    /// <summary>Client-provided round trip time for the server.</summary>
+    /// <remarks>This is spoofable. We should consider how to make this more resilient to hacking.</remarks>
+    private double rtt;
 
     public override void OnStartLocalPlayer()
     {
@@ -47,6 +55,24 @@ public sealed class PlayerController : NetworkBehaviour
         inputs.Player.Enable();
 
         MainCameraController.Find().followTarget = gameObject;
+
+        StartCoroutine(KeepServerInformedOfRtt());
+    }
+
+    [Client]
+    private IEnumerator KeepServerInformedOfRtt()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(RttUpdateInterval);
+            CmdUpdateRtt(NetworkTime.rtt);
+        }
+    }
+
+    [Command(channel = Channels.DefaultUnreliable)]
+    private void CmdUpdateRtt(double rtt)
+    {
+        this.rtt = rtt;
     }
 
     void OnDisable()
@@ -82,7 +108,12 @@ public sealed class PlayerController : NetworkBehaviour
     {
         while (true)
         {
-            var blasterFire = Instantiate<Rigidbody>(blasterFirePrefab, transform.position, transform.rotation, transform.parent);
+            // Assume that the client will have continued moving during the time it takes this spawn message to reach them.
+            var extrapolatedTime = (float)(rtt / 2);
+            Debug.Log($"extrapolated time: {extrapolatedTime}");
+            Vector3 extrapolatedPosition = rigidbody.ExtrapolatePositionAfterTime(extrapolatedTime);
+
+            var blasterFire = Instantiate<Rigidbody>(blasterFirePrefab, extrapolatedPosition, transform.rotation, transform.parent);
             blasterFire.velocity = rigidbody.velocity;
             blasterFire.AddRelativeForce(Vector3.forward * BlasterForce, ForceMode.Impulse);
             NetworkServer.Spawn(blasterFire.gameObject);
