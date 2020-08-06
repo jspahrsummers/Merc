@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6536282927833449270}
   - component: {fileID: 2188041535601824786}
   - component: {fileID: 7237086495266202068}
+  - component: {fileID: -1087490264347856724}
   m_Layer: 0
   m_Name: Blaster Fire
   m_TagString: Untagged
@@ -197,3 +198,25 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   lifetime: 1
+--- !u!114 &-1087490264347856724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3306940280037549854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83392ae5c1b731446909f252fd494ae4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  target: {fileID: -3725528897429129750}
+  clientAuthority: 0
+  syncVelocity: 1
+  clearVelocity: 0
+  velocitySensitivity: 0.1
+  syncAngularVelocity: 0
+  clearAngularVelocity: 0
+  angularVelocitySensitivity: 0.1
