@@ -93,7 +93,7 @@
             "id": "f46fd1ed-4a6d-4655-8c3b-a503575ad715",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Quit",
                     "type": "Button",
                     "id": "9761f0a4-fa83-4736-bd31-8b8d70de8738",
                     "expectedControlType": "Button",
@@ -105,11 +105,11 @@
                 {
                     "name": "",
                     "id": "3b5138c8-d1f4-4f4e-8813-73525f80af50",
-                    "path": "",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "New action",
+                    "groups": "Desktop",
+                    "action": "Quit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
