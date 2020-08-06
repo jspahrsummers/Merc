@@ -1,100 +1,57 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>Repeats a renderer to create an infinite parallax scrolling effect. The renderer is assumed to be fixed on the Z axis, so only X and Y dimensions will be repeated.</summary>
+/// <summary>Repeats objects to create an infinite parallax scrolling effect. The renderer is assumed to be fixed on the Z axis, so only X and Y dimensions will be repeated.</summary>
 public sealed class ParallaxController : MonoBehaviour
 {
-    [Tooltip("A reference to this object's own prefab type, so that it can be spawned to create a repeating background.")]
-    public ParallaxController prefab;
 
-    [Tooltip("The renderer, attached to the prefab, which will be repeated infinitely.")]
-    public Renderer repeatingRenderer;
+    [Tooltip("A prefab for spawning the parallax instances which will be used to create a repeating background.")]
+    public ParallaxInstanceController instancePrefab;
 
-    [Tooltip("The base name of this game object when instantiated, which will be prepended to its grid location.")]
-    public string baseName;
+    /// <summary>Contains a grid of all parallax instances.</summary>
+    private static Dictionary<(int x, int y), ParallaxInstanceController> allControllers = new Dictionary<(int x, int y), ParallaxInstanceController>();
 
-    /// <summary>Indices into a grid, identifying which parallax controller this is. The origin is (0, 0).</summary>
-    private (int x, int y) gridTag;
-
-    /// <summary>Contains a grid of all enabled parallax controllers.</summary>
-    private static Dictionary<(int x, int y), ParallaxController> allControllers = new Dictionary<(int x, int y), ParallaxController>();
-
-    private ParallaxController GetControllerAtOffset(int xOffset, int yOffset, bool instantiate = false)
+    public static ParallaxController Find()
     {
-        var lookupTag = (x: gridTag.x + xOffset, y: gridTag.y + yOffset);
-        if (allControllers.ContainsKey(lookupTag))
+        return GameObject.FindWithTag("ParallaxController").GetComponent<ParallaxController>();
+    }
+
+    public void EnsureInstanceAtLocation((int x, int y) gridLocation)
+    {
+        if (allControllers.ContainsKey(gridLocation))
         {
-            return allControllers[lookupTag];
+            return;
         }
-        else
+
+        Transform rendererTransform = instancePrefab.renderer.transform;
+        var newPosition = new Vector3(rendererTransform.localScale.x * gridLocation.x, rendererTransform.localScale.y * gridLocation.y, 0);
+        var controller = Instantiate<ParallaxInstanceController>(instancePrefab, newPosition, Quaternion.identity, transform);
+
+        controller.gridLocation = gridLocation;
+        controller.gameObject.name = $"{instancePrefab.name} ({gridLocation.x}, {gridLocation.y})";
+
+        Debug.Assert(!allControllers.ContainsKey(gridLocation));
+        allControllers[gridLocation] = controller;
+    }
+
+    public void RemoveInstance((int x, int y) location)
+    {
+        allControllers.Remove(location);
+
+        // Ensures that if the scene resets (or the player teleports to the origin), we always present a background.
+        if (allControllers.Count == 0)
         {
-            return null;
+            CreateRootInstance();
         }
-    }
-
-    private ParallaxController left => GetControllerAtOffset(-1, 0);
-    private ParallaxController right => GetControllerAtOffset(1, 0);
-    private ParallaxController top => GetControllerAtOffset(0, 1);
-    private ParallaxController bottom => GetControllerAtOffset(0, -1);
-
-    private void InstantiateControllerAtOffset(int xOffset, int yOffset)
-    {
-        var newTag = (x: gridTag.x + xOffset, y: gridTag.y + yOffset);
-
-        Vector3 newPosition = transform.position;
-        newPosition.x += repeatingRenderer.transform.localScale.x * xOffset;
-        newPosition.y += repeatingRenderer.transform.localScale.y * yOffset;
-
-        var controller = Instantiate<ParallaxController>(prefab, newPosition, transform.rotation, transform.parent);
-        controller.gridTag = newTag;
-
-        Debug.Assert(!allControllers.ContainsKey(newTag));
-        allControllers[newTag] = controller;
-    }
-
-    void OnBecameInvisible()
-    {
-        Destroy(gameObject);
-    }
-
-    void OnDestroy()
-    {
-        allControllers.Remove(gridTag);
     }
 
     void Start()
     {
-        if (!allControllers.ContainsKey(gridTag))
-        {
-            allControllers[gridTag] = this;
-        }
-
-        gameObject.name = $"{baseName} ({gridTag.x}, {gridTag.y})";
+        CreateRootInstance();
     }
 
-    void Update()
+    private void CreateRootInstance()
     {
-        Vector3 minPoint = Camera.main.WorldToScreenPoint(repeatingRenderer.bounds.min);
-        Vector3 maxPoint = Camera.main.WorldToScreenPoint(repeatingRenderer.bounds.max);
-
-        if (minPoint.x >= 0 && !left)
-        {
-            InstantiateControllerAtOffset(-1, 0);
-        }
-
-        if (maxPoint.x <= Screen.width && !right)
-        {
-            InstantiateControllerAtOffset(1, 0);
-        }
-
-        if (minPoint.y >= 0 && !bottom)
-        {
-            InstantiateControllerAtOffset(0, -1);
-        }
-
-        if (maxPoint.y <= Screen.height && !top)
-        {
-            InstantiateControllerAtOffset(0, 1);
-        }
+        EnsureInstanceAtLocation((0, 0));
     }
 }

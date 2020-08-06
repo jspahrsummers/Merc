@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1236362361802477916}
   - component: {fileID: 1236362361802477891}
   - component: {fileID: 1236362361802477890}
-  - component: {fileID: 4928446968731806371}
+  - component: {fileID: 7084226580106808134}
   m_Layer: 0
   m_Name: Stars Background
   m_TagString: Untagged
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1236362361802477888}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.01}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 20, y: 20, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -80,7 +80,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &4928446968731806371
+--- !u!114 &7084226580106808134
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,9 +89,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1236362361802477888}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 413f37bdae47a1e4abdf81b17ed57572, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e87d803693a9a84fa1fa8e0d6347860, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 4928446968731806371}
-  repeatingRenderer: {fileID: 1236362361802477890}
-  baseName: Stars Background
+  renderer: {fileID: 1236362361802477890}
