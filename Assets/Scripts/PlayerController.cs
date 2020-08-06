@@ -46,8 +46,16 @@ public sealed class PlayerController : NetworkBehaviour
         if (inputs == null)
         {
             inputs = new Inputs();
-            inputs.Player.Thrust.started += context => engineGlowController.SetVisible(true);
-            inputs.Player.Thrust.canceled += context => engineGlowController.SetVisible(false);
+            inputs.Player.Thrust.started += context =>
+            {
+                CmdStartEngineGlow();
+                engineGlowController.SetVisible(true);
+            };
+            inputs.Player.Thrust.canceled += context =>
+            {
+                CmdStopEngineGlow();
+                engineGlowController.SetVisible(false);
+            };
             inputs.Player.Fire.started += context => CmdStartFiring();
             inputs.Player.Fire.canceled += context => CmdStopFiring();
         }
@@ -95,7 +103,7 @@ public sealed class PlayerController : NetworkBehaviour
     }
 
     [Command]
-    void CmdStartFiring()
+    private void CmdStartFiring()
     {
         if (firingCoroutine == null)
         {
@@ -104,7 +112,7 @@ public sealed class PlayerController : NetworkBehaviour
     }
 
     [Server]
-    IEnumerator FireRepeatedly()
+    private IEnumerator FireRepeatedly()
     {
         while (true)
         {
@@ -123,12 +131,36 @@ public sealed class PlayerController : NetworkBehaviour
     }
 
     [Command]
-    void CmdStopFiring()
+    private void CmdStopFiring()
     {
         if (firingCoroutine != null)
         {
             StopCoroutine(firingCoroutine);
             firingCoroutine = null;
         }
+    }
+
+    [Command(channel = Channels.DefaultUnreliable)]
+    private void CmdStartEngineGlow()
+    {
+        RpcStartEngineGlow();
+    }
+
+    [ClientRpc(excludeOwner = true, channel = Channels.DefaultUnreliable)]
+    private void RpcStartEngineGlow()
+    {
+        engineGlowController.SetVisible(true);
+    }
+
+    [Command]
+    private void CmdStopEngineGlow()
+    {
+        RpcStopEngineGlow();
+    }
+
+    [ClientRpc(excludeOwner = true)]
+    private void RpcStopEngineGlow()
+    {
+        engineGlowController.SetVisible(false);
     }
 }
