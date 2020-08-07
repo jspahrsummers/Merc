@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8642139710904579885}
   - component: {fileID: 7400405038615335050}
   - component: {fileID: 7400405038615335049}
+  - component: {fileID: 1478538196907184214}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -104,6 +105,19 @@ MonoBehaviour:
   serverOnly: 0
   m_AssetId: 
   hasSpawned: 0
+--- !u!135 &1478538196907184214
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170407735347887003}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.44
+  m_Center: {x: 0, y: 0, z: 0.04}
 --- !u!1 &7400405036853157292
 GameObject:
   m_ObjectHideFlags: 0
