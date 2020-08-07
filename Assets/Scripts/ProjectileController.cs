@@ -17,6 +17,9 @@ public sealed class ProjectileController : NetworkBehaviour
     [Tooltip("The damage this projectile inflicts if it collides with something that can be damaged.")]
     public Damage damage;
 
+    [Tooltip("If set, an audio clip to play when a collision occurs and the projectile is destroyed.")]
+    public AudioClip collisionAudio;
+
     [SyncVar, Tooltip("Initial velocity to set when this object is spawned.")]
     public Vector3 initialVelocity;
 
@@ -61,6 +64,11 @@ public sealed class ProjectileController : NetworkBehaviour
         if (damageable == null || damageable.netId == creatorNetId)
         {
             return;
+        }
+
+        if (collisionAudio)
+        {
+            AudioSource.PlayClipAtPoint(collisionAudio, rigidbody.position);
         }
 
         damageable.ApplyDamage(damage);

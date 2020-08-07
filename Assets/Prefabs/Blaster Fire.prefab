@@ -185,6 +185,7 @@ MonoBehaviour:
   damage:
     shields: 1
     hull: 1
+  collisionAudio: {fileID: 8300000, guid: 30b305c442ec7bd43b6a5c53355166c7, type: 3}
   initialVelocity: {x: 0, y: 0, z: 0}
   firedForce: 0
   creatorNetId: 0
