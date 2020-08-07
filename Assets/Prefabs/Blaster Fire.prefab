@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -3725528897429129750}
   - component: {fileID: 6536282927833449270}
   - component: {fileID: 7237086495266202068}
+  - component: {fileID: 1269166980827878478}
   m_Layer: 0
   m_Name: Blaster Fire
   m_TagString: Untagged
@@ -181,3 +182,17 @@ MonoBehaviour:
   rigidbody: {fileID: -3725528897429129750}
   initialVelocity: {x: 0, y: 0, z: 0}
   firedForce: 0
+--- !u!136 &1269166980827878478
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3306940280037549854}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.03
+  m_Height: 0.93
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: 0.51}
