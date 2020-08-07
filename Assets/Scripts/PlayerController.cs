@@ -13,7 +13,7 @@ public sealed class PlayerController : NetworkBehaviour
     public GlowController engineGlowController;
 
     [Tooltip("Prefab for an object which represents blaster fire.")]
-    public Rigidbody blasterFirePrefab;
+    public ProjectileController blasterFirePrefab;
 
     /// <summary>Degrees per second that the ship is able to rotate.</summary>
     const float RotationSpeed = 250f;
@@ -116,14 +116,15 @@ public sealed class PlayerController : NetworkBehaviour
     {
         while (true)
         {
-            // Assume that the client will have continued moving during the time it takes this spawn message to reach them.
-            var extrapolatedTime = (float)(rtt / 2);
-            Debug.Log($"extrapolated time: {extrapolatedTime}");
-            Vector3 extrapolatedPosition = rigidbody.ExtrapolatePositionAfterTime(extrapolatedTime);
+            // Assume that the client will have continued moving during the time
+            // it takes this spawn message to reach them. We want to spawn the
+            // projectile at the place _they_ will see themselves once the
+            // message arrives.
+            Vector3 extrapolatedPosition = rigidbody.ExtrapolatePositionAfterTime((float)rtt);
 
-            var blasterFire = Instantiate<Rigidbody>(blasterFirePrefab, extrapolatedPosition, transform.rotation, transform.parent);
-            blasterFire.velocity = rigidbody.velocity;
-            blasterFire.AddRelativeForce(Vector3.forward * BlasterForce, ForceMode.Impulse);
+            var blasterFire = Instantiate<ProjectileController>(blasterFirePrefab, extrapolatedPosition, transform.rotation, transform.parent);
+            blasterFire.initialVelocity = rigidbody.velocity;
+            blasterFire.firedForce = BlasterForce;
             NetworkServer.Spawn(blasterFire.gameObject);
 
             yield return new WaitForSeconds(BlasterFireRate);
