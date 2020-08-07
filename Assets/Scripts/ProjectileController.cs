@@ -11,15 +11,37 @@ public sealed class ProjectileController : NetworkBehaviour
     [Tooltip("The rigidbody of the projectile, for applying initial physics effects.")]
     public new Rigidbody rigidbody;
 
+    [Tooltip("The collider for the projectile, for detecting collisions and applying damage. Automatically enabled on the server.")]
+    public new Collider collider;
+
+    [Tooltip("The damage this projectile inflicts if it collides with something that can be damaged.")]
+    public Damage damage;
+
     [SyncVar, Tooltip("Initial velocity to set when this object is spawned.")]
     public Vector3 initialVelocity;
 
     [SyncVar, Tooltip("Impulse force to apply when this object is spawned.")]
     public float firedForce;
 
+    /// <summary>If set, the NetworkBehaviour.netId of the object which created this projectile (to be ignored in collsions).</summary>
+    [HideInInspector]
+    public uint creatorNetId;
+
     public override void OnStartServer()
     {
         StartCoroutine(DisappearAfterLifetime());
+
+        if (collider)
+        {
+            collider.enabled = true;
+        }
+    }
+
+    [Server]
+    private IEnumerator DisappearAfterLifetime()
+    {
+        yield return new WaitForSeconds(lifetime);
+        Destroy(gameObject);
     }
 
     void Start()
@@ -28,10 +50,20 @@ public sealed class ProjectileController : NetworkBehaviour
         rigidbody.AddRelativeForce(Vector3.forward * firedForce, ForceMode.Impulse);
     }
 
-    [Server]
-    private IEnumerator DisappearAfterLifetime()
+    void OnTriggerEnter(Collider other)
     {
-        yield return new WaitForSeconds(lifetime);
+        if (!damage)
+        {
+            return;
+        }
+
+        var damageable = other.GetComponent<DamageableController>();
+        if (damageable == null || damageable.netId == creatorNetId)
+        {
+            return;
+        }
+
+        damageable.ApplyDamage(damage);
         Destroy(gameObject);
     }
 }

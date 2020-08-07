@@ -125,6 +125,7 @@ public sealed class PlayerController : NetworkBehaviour
             var blasterFire = Instantiate<ProjectileController>(blasterFirePrefab, extrapolatedPosition, transform.rotation, transform.parent);
             blasterFire.initialVelocity = rigidbody.velocity;
             blasterFire.firedForce = BlasterForce;
+            blasterFire.creatorNetId = netId;
             NetworkServer.Spawn(blasterFire.gameObject);
 
             yield return new WaitForSeconds(BlasterFireRate);
