@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using Mirror;
 
 /// <summary>Attached to any object that can be damaged (e.g., by weapons).</summary>
@@ -19,8 +20,16 @@ public sealed class DamageableController : NetworkBehaviour
     [Tooltip("If set, an audio clip to play when the object is destroyed.")]
     public AudioClip explosionAudio;
 
+    [System.Serializable]
+    public sealed class DestroyedEvent : UnityEvent<DamageableController>
+    {
+    }
+
+    /// <summary>An event invoked when this object is destroyed from being damaged.</summary>
+    public DestroyedEvent destroyed = new DestroyedEvent();
+
     /// <summary>Set to true when destruction animations, etc. have already begun, so that we do not perform them multiple times.</summary>
-    private bool destroyed = false;
+    private bool startedDestroying = false;
 
     /// <summary>When animating destruction, the number of additional seconds to wait for all clients to destroy this object before authoritatively destroying it on the server.</summary>
     const float DestroyToleranceForClientLatency = 1;
@@ -44,15 +53,20 @@ public sealed class DamageableController : NetworkBehaviour
         }
     }
 
+    void OnDestroy()
+    {
+        destroyed.Invoke(this);
+    }
+
     [Server]
     private void Explode()
     {
-        if (destroyed)
+        if (startedDestroying)
         {
             return;
         }
 
-        destroyed = true;
+        startedDestroying = true;
 
         float destroyDelay = 0;
         if (explosion)

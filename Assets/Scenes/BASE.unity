@@ -205,7 +205,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1104743581
 MonoBehaviour:
@@ -251,80 +251,70 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!1001 &1171016473
-PrefabInstance:
+--- !u!1 &1453633805
+GameObject:
   m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6038375303701970570, guid: dac480487c267904b8aaeb60d455441d,
-        type: 3}
-      propertyPath: m_Name
-      value: Frigate
-      objectReference: {fileID: 0}
-    - target: {fileID: 6352974983674662634, guid: dac480487c267904b8aaeb60d455441d,
-        type: 3}
-      propertyPath: sceneId
-      value: 629235329
-      objectReference: {fileID: 0}
-    - target: {fileID: 6379154207325676592, guid: dac480487c267904b8aaeb60d455441d,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -6.73
-      objectReference: {fileID: 0}
-    - target: {fileID: 6379154207325676592, guid: dac480487c267904b8aaeb60d455441d,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.83
-      objectReference: {fileID: 0}
-    - target: {fileID: 6379154207325676592, guid: dac480487c267904b8aaeb60d455441d,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6379154207325676592, guid: dac480487c267904b8aaeb60d455441d,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.6557298
-      objectReference: {fileID: 0}
-    - target: {fileID: 6379154207325676592, guid: dac480487c267904b8aaeb60d455441d,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.26096815
-      objectReference: {fileID: 0}
-    - target: {fileID: 6379154207325676592, guid: dac480487c267904b8aaeb60d455441d,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.23531927
-      objectReference: {fileID: 0}
-    - target: {fileID: 6379154207325676592, guid: dac480487c267904b8aaeb60d455441d,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.6682358
-      objectReference: {fileID: 0}
-    - target: {fileID: 6379154207325676592, guid: dac480487c267904b8aaeb60d455441d,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6379154207325676592, guid: dac480487c267904b8aaeb60d455441d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -48.898003
-      objectReference: {fileID: 0}
-    - target: {fileID: 6379154207325676592, guid: dac480487c267904b8aaeb60d455441d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 89.66601
-      objectReference: {fileID: 0}
-    - target: {fileID: 6379154207325676592, guid: dac480487c267904b8aaeb60d455441d,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -87.44701
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: dac480487c267904b8aaeb60d455441d, type: 3}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1453633806}
+  - component: {fileID: 1453633808}
+  - component: {fileID: 1453633807}
+  m_Layer: 0
+  m_Name: Game Controller
+  m_TagString: GameController
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1453633806
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453633805}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1453633807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453633805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 2994272463
+  serverOnly: 1
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!114 &1453633808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453633805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc7dffdcf6576c24bb252b55af55a8f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  frigatePrefab: {fileID: 5934862911930236059, guid: dac480487c267904b8aaeb60d455441d,
+    type: 3}
 --- !u!1 &1466261548
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,7 +358,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1732729938
 GameObject:
@@ -462,7 +452,7 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1732729941
 MeshRenderer:
@@ -704,6 +694,7 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 3306940280037549854, guid: 81153c851375b7e43a7281a255e103c5, type: 3}
+  - {fileID: 6038375303701970570, guid: dac480487c267904b8aaeb60d455441d, type: 3}
 --- !u!4 &1811901590
 Transform:
   m_ObjectHideFlags: 0
@@ -716,7 +707,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1811901591
 MonoBehaviour:
