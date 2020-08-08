@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8727937006749826999
 Transform:
   m_ObjectHideFlags: 0
@@ -40,15 +40,15 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1335036990443452616}
   serializedVersion: 6
-  lengthInSec: 1
+  lengthInSec: 2
   simulationSpeed: 1
-  stopAction: 2
+  stopAction: 1
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -5009,6 +5009,9 @@ MonoBehaviour:
   syncInterval: 0.1
   shields: 10
   hull: 10
+  renderer: {fileID: 5261875330185545910}
+  explosion: {fileID: 2876173464327004555}
+  explosionAudio: {fileID: 8300000, guid: 2e16d774eda5e2d4d95342809bc052b0, type: 3}
 --- !u!65 &2100410724166946350
 BoxCollider:
   m_ObjectHideFlags: 0
