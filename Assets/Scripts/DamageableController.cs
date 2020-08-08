@@ -11,9 +11,6 @@ public sealed class DamageableController : NetworkBehaviour
     [Tooltip("Starting hull for this object.")]
     public float hull;
 
-    [Tooltip("The primary renderer for the object, which will be disabled if it is destroyed but we want to play an animation.")]
-    public new Renderer renderer;
-
     [Tooltip("If set, an explosion particle system to start when the object is destroyed.")]
     public ParticleSystem explosion;
 
@@ -30,9 +27,6 @@ public sealed class DamageableController : NetworkBehaviour
 
     /// <summary>Set to true when destruction animations, etc. have already begun, so that we do not perform them multiple times.</summary>
     private bool startedDestroying = false;
-
-    /// <summary>When animating destruction, the number of additional seconds to wait for all clients to destroy this object before authoritatively destroying it on the server.</summary>
-    const float DestroyToleranceForClientLatency = 1;
 
     /// <summary>Afflicts this object with the specified amount of damage, destroying it if the hull drops to 0 as a result.</summary>
     [Server]
@@ -73,7 +67,7 @@ public sealed class DamageableController : NetworkBehaviour
         {
             Debug.Log($"Telling clients to explode {gameObject}");
             RpcExplode();
-            destroyDelay = explosion.main.duration + DestroyToleranceForClientLatency;
+            destroyDelay = explosion.main.duration;
         }
 
         Destroy(gameObject, destroyDelay);
@@ -89,14 +83,12 @@ public sealed class DamageableController : NetworkBehaviour
             AudioSource.PlayClipAtPoint(explosionAudio, explosion?.transform.position ?? transform.position);
         }
 
-        if (renderer)
-        {
-            renderer.enabled = false;
-        }
-
         if (explosion)
         {
+            explosion.gameObject.transform.SetParent(transform.parent);
             explosion.Play();
         }
+
+        gameObject.SetActive(false);
     }
 }
