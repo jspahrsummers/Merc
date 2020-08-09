@@ -56,21 +56,28 @@ public sealed class MercNetworkAuthenticator : NetworkAuthenticator
     {
         PruneDisconnected();
 
+        AuthResponseMessage errorResponse = null;
         if (msg.nickname.Length == 0)
         {
-            connection.Send(new AuthResponseMessage { success = false, errorMessage = $"Nickname cannot be empty" });
-            return;
+            errorResponse = new AuthResponseMessage { success = false, errorMessage = $"Nickname cannot be empty" };
         }
         else if (nicknames.ContainsValue(msg.nickname))
         {
-            connection.Send(new AuthResponseMessage { success = false, errorMessage = $"Nickname \"{msg.nickname}\" is already taken on this server" });
-            return;
+            errorResponse = new AuthResponseMessage { success = false, errorMessage = $"Nickname \"{msg.nickname}\" is already taken on this server" };
         }
         else if (nicknames.ContainsKey(connection.connectionId))
         {
-            connection.Send(new AuthResponseMessage { success = false, errorMessage = $"Client already connected!" });
+            errorResponse = new AuthResponseMessage { success = false, errorMessage = $"Client already connected!" };
+        }
+
+        if (errorResponse != null)
+        {
+            Debug.Log($"Rejecting attempted auth for \"{msg.nickname}\": {errorResponse.errorMessage}");
+            connection.Send(errorResponse);
             return;
         }
+
+        Debug.Log($"\"{msg.nickname}\" connected");
 
         nicknames.Add(connection.connectionId, msg.nickname);
         connection.Send(new AuthResponseMessage { success = true });
@@ -96,7 +103,7 @@ public sealed class MercNetworkAuthenticator : NetworkAuthenticator
 
     public override void OnClientAuthenticate(NetworkConnection connection)
     {
-        Debug.Log($"Sending authentication request for nickname {nickname}");
+        Debug.Log($"Sending authentication request as \"{nickname}\"");
         AuthRequestMessage authRequestMessage = new AuthRequestMessage { nickname = nickname };
         NetworkClient.Send(authRequestMessage);
     }
