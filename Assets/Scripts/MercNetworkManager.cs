@@ -14,6 +14,7 @@ public sealed class MercNetworkManager : NetworkManager
     [Tooltip("Event invoked when this sever encounters a network error.")]
     public UnityEvent serverError = new UnityEvent();
 
+    // Invoked on the client after authenticating successfully to the server.
     public override void OnClientConnect(NetworkConnection connection)
     {
         base.OnClientConnect(connection);
