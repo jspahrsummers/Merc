@@ -131,6 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 405955187}
   - component: {fileID: 405955188}
+  - component: {fileID: 405955189}
   m_Layer: 5
   m_Name: Ping Display
   m_TagString: Untagged
@@ -170,9 +171,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showPing: 1
-  position: {x: 0, y: 0}
-  fontSize: 24
+  position: {x: 8, y: 8}
+  fontSize: 18
   textColor: {r: 1, g: 1, b: 1, a: 0.3137255}
+--- !u!114 &405955189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405955186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 529fa888d69bcb440a24556ef0d538ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &543553627
 GameObject:
   m_ObjectHideFlags: 0
