@@ -4,6 +4,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using Mirror;
 
+/// <summary>On the server, saved into NetworkConnection.authenticationData for later reference during gameplay.</summary>
+public sealed class MercAuthenticationData
+{
+    /// <summary>The nickname that this user connected with.</summary>
+    public string nickname;
+}
+
 /// <summary>Responsible for authenticating player clients with the server.</summary>
 /// <remarks>Currently, "authentication" is just ensuring non-duplicate nicknames.</remarks>
 public sealed class MercNetworkAuthenticator : NetworkAuthenticator
@@ -77,9 +84,11 @@ public sealed class MercNetworkAuthenticator : NetworkAuthenticator
             return;
         }
 
-        Debug.Log($"\"{msg.nickname}\" connected");
+        var authData = new MercAuthenticationData { nickname = msg.nickname };
+        Debug.Log($"\"{authData.nickname}\" connected");
+        nicknames.Add(connection.connectionId, authData.nickname);
 
-        nicknames.Add(connection.connectionId, msg.nickname);
+        connection.authenticationData = authData;
         connection.Send(new AuthResponseMessage { success = true });
         base.OnServerAuthenticated.Invoke(connection);
     }

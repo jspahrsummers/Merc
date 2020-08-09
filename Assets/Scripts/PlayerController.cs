@@ -15,6 +15,10 @@ public sealed class PlayerController : NetworkBehaviour
     [Tooltip("Prefab for an object which represents blaster fire.")]
     public ProjectileController blasterFirePrefab;
 
+    /// <summary>The nickname that this player chose when connecting.</summary>
+    [SyncVar]
+    public string nickname;
+
     /// <summary>Degrees per second that the ship is able to rotate.</summary>
     const float RotationSpeed = 250f;
 
@@ -65,6 +69,13 @@ public sealed class PlayerController : NetworkBehaviour
         MainCameraController.Find().followTarget = gameObject;
 
         StartCoroutine(KeepServerInformedOfRtt());
+    }
+
+    public override void OnStartServer()
+    {
+        var authData = (MercAuthenticationData)connectionToClient.authenticationData;
+        nickname = authData.nickname;
+        gameObject.name = $"Player ({nickname})";
     }
 
     [Client]
