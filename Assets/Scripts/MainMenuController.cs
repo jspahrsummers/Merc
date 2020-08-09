@@ -33,9 +33,15 @@ public sealed class MainMenuController : NetworkBehaviour
     [Scene, Tooltip("Scene to switch to when authentication completes successfully.")]
     public string onlineScene;
 
+    /// <summary>Key into Unity's PlayerPrefs for remembering the user's nickname.</summary>
+    const string NicknamePlayerPrefsKey = "nickname";
+
     void Start()
     {
         networkAuthenticator.authFailed.AddListener(AuthenticationFailed);
+
+        nicknameInputField.text = PlayerPrefs.GetString(NicknamePlayerPrefsKey);
+        nicknameInputField.onValueChanged.AddListener(NicknameChanged);
     }
 
     /// <summary>Connects to the hostname provided as input by the user.</summary>
@@ -73,6 +79,11 @@ public sealed class MainMenuController : NetworkBehaviour
 
         networkAuthenticator.nickname = nicknameInputField.text;
         NetworkManager.singleton.StartHost();
+    }
+
+    private void NicknameChanged(string value)
+    {
+        PlayerPrefs.SetString(NicknamePlayerPrefsKey, value);
     }
 
     private void ErrorOccurred(string message)
