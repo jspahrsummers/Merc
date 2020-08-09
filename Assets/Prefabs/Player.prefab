@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0
+  syncInterval: 0.02
   clientAuthority: 1
   localPositionSensitivity: 0.01
   localRotationSensitivity: 1
