@@ -4,7 +4,7 @@ using TMPro;
 using Mirror;
 
 /// <summary>Implements the UI for the main menu.</summary>
-public sealed class MainMenuController : MonoBehaviour
+public sealed class MainMenuController : NetworkBehaviour
 {
     [Tooltip("Field to specify a hostname to connect to.")]
     public TMP_InputField hostnameInputField;
@@ -30,14 +30,18 @@ public sealed class MainMenuController : MonoBehaviour
     [Tooltip("The authenticator to set up prior to trying to connect.")]
     public MercNetworkAuthenticator networkAuthenticator;
 
-    void OnEnable()
-    {
-        networkAuthenticator.authFailed.AddListener(ErrorOccurred);
-    }
+    [Scene, Tooltip("Scene to switch to when authentication completes successfully.")]
+    public string onlineScene;
 
-    void OnDisable()
+    /// <summary>Key into Unity's PlayerPrefs for remembering the user's nickname.</summary>
+    const string NicknamePlayerPrefsKey = "nickname";
+
+    void Start()
     {
-        networkAuthenticator.authFailed.RemoveListener(ErrorOccurred);
+        networkAuthenticator.authFailed.AddListener(AuthenticationFailed);
+
+        nicknameInputField.text = PlayerPrefs.GetString(NicknamePlayerPrefsKey);
+        nicknameInputField.onValueChanged.AddListener(NicknameChanged);
     }
 
     /// <summary>Connects to the hostname provided as input by the user.</summary>
@@ -67,10 +71,22 @@ public sealed class MainMenuController : MonoBehaviour
         startGameButton.enabled = false;
         startGameButtonText.text = "Starting...";
 
+        if (nicknameInputField.text.Length == 0)
+        {
+            ErrorOccurred("no nickname specified");
+            return;
+        }
+
+        networkAuthenticator.nickname = nicknameInputField.text;
         NetworkManager.singleton.StartHost();
     }
 
-    public void ErrorOccurred(string message)
+    private void NicknameChanged(string value)
+    {
+        PlayerPrefs.SetString(NicknamePlayerPrefsKey, value);
+    }
+
+    private void ErrorOccurred(string message)
     {
         connectButton.enabled = true;
         connectButtonText.text = "Connect";
@@ -79,5 +95,10 @@ public sealed class MainMenuController : MonoBehaviour
 
         errorLabel.text = $"Error: {message}";
         errorLabel.gameObject.SetActive(true);
+    }
+
+    private void AuthenticationFailed(string message)
+    {
+        ErrorOccurred(message);
     }
 }

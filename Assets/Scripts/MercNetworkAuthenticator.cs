@@ -1,5 +1,15 @@
-﻿using UnityEngine.Events;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.Events;
 using Mirror;
+
+/// <summary>On the server, saved into NetworkConnection.authenticationData for later reference during gameplay.</summary>
+public sealed class MercAuthenticationData
+{
+    /// <summary>The nickname that this user connected with.</summary>
+    public string nickname;
+}
 
 /// <summary>Responsible for authenticating player clients with the server.</summary>
 /// <remarks>Currently, "authentication" is just ensuring non-duplicate nicknames.</remarks>
@@ -7,6 +17,9 @@ public sealed class MercNetworkAuthenticator : NetworkAuthenticator
 {
     /// <summary>The nickname for this client to use with the server. Must be set before authentication begins.</summary>
     public string nickname;
+
+    /// <summary>Invoked on the client if authentication succeeds.</summary>
+    public UnityEvent authSucceeded = new UnityEvent();
 
     [System.Serializable]
     public sealed class AuthFailedEvent : UnityEvent<string>
@@ -32,23 +45,64 @@ public sealed class MercNetworkAuthenticator : NetworkAuthenticator
         public string errorMessage;
     }
 
+    /// <summary>Nicknames by connection ID, tracked on the server.</summary>
+    private Dictionary<int, string> nicknames = new Dictionary<int, string>();
+
     public override void OnStartServer()
     {
         NetworkServer.RegisterHandler<AuthRequestMessage>(RequestAuthForClient, false);
     }
 
-    public override void OnServerAuthenticate(NetworkConnection conn)
+    public override void OnServerAuthenticate(NetworkConnection connection)
     {
         // This is where we could prompt the client for authentication, but in
         // this case, we rely on the client being proactive via OnClientAuthenticate.
     }
 
-    private void RequestAuthForClient(NetworkConnection conn, AuthRequestMessage msg)
+    private void RequestAuthForClient(NetworkConnection connection, AuthRequestMessage msg)
     {
-        AuthResponseMessage authResponseMessage = new AuthResponseMessage { success = true };
-        conn.Send(authResponseMessage);
+        PruneDisconnected();
 
-        base.OnServerAuthenticated.Invoke(conn);
+        AuthResponseMessage errorResponse = null;
+        if (msg.nickname.Length == 0)
+        {
+            errorResponse = new AuthResponseMessage { success = false, errorMessage = $"Nickname cannot be empty" };
+        }
+        else if (nicknames.ContainsValue(msg.nickname))
+        {
+            errorResponse = new AuthResponseMessage { success = false, errorMessage = $"Nickname \"{msg.nickname}\" is already taken on this server" };
+        }
+        else if (nicknames.ContainsKey(connection.connectionId))
+        {
+            errorResponse = new AuthResponseMessage { success = false, errorMessage = $"Client already connected!" };
+        }
+
+        if (errorResponse != null)
+        {
+            Debug.Log($"Rejecting attempted auth for \"{msg.nickname}\": {errorResponse.errorMessage}");
+            connection.Send(errorResponse);
+            return;
+        }
+
+        var authData = new MercAuthenticationData { nickname = msg.nickname };
+        Debug.Log($"\"{authData.nickname}\" connected");
+        nicknames.Add(connection.connectionId, authData.nickname);
+
+        connection.authenticationData = authData;
+        connection.Send(new AuthResponseMessage { success = true });
+        base.OnServerAuthenticated.Invoke(connection);
+    }
+
+    /// <summary>Removes tracked data for client connections that are no longer present.</summary>
+    private void PruneDisconnected()
+    {
+        foreach (var key in nicknames.Keys.ToList())
+        {
+            if (!NetworkServer.connections.ContainsKey(key))
+            {
+                nicknames.Remove(key);
+            }
+        }
     }
 
     public override void OnStartClient()
@@ -56,20 +110,24 @@ public sealed class MercNetworkAuthenticator : NetworkAuthenticator
         NetworkClient.RegisterHandler<AuthResponseMessage>(AuthReceivedFromServer, false);
     }
 
-    public override void OnClientAuthenticate(NetworkConnection conn)
+    public override void OnClientAuthenticate(NetworkConnection connection)
     {
+        Debug.Log($"Sending authentication request as \"{nickname}\"");
         AuthRequestMessage authRequestMessage = new AuthRequestMessage { nickname = nickname };
         NetworkClient.Send(authRequestMessage);
     }
 
-    private void AuthReceivedFromServer(NetworkConnection conn, AuthResponseMessage msg)
+    private void AuthReceivedFromServer(NetworkConnection connection, AuthResponseMessage msg)
     {
         if (!msg.success)
         {
+            Debug.Log($"Authentication failure: {msg.errorMessage}");
             authFailed.Invoke(msg.errorMessage);
+            NetworkManager.singleton.StopClient();
             return;
         }
 
-        base.OnClientAuthenticated.Invoke(conn);
+        Debug.Log($"Authentication succeeded");
+        base.OnClientAuthenticated.Invoke(connection);
     }
 }

@@ -2,6 +2,7 @@
 using UnityEngine;
 using Mirror;
 using MercExtensions;
+using TMPro;
 
 /// <summary>Implements the behaviors of a player (whether or not it is the local player).</summary>
 public sealed class PlayerController : NetworkBehaviour
@@ -14,6 +15,13 @@ public sealed class PlayerController : NetworkBehaviour
 
     [Tooltip("Prefab for an object which represents blaster fire.")]
     public ProjectileController blasterFirePrefab;
+
+    [Tooltip("The element which renders the player's name above their ship.")]
+    public TMP_Text playerNameText;
+
+    /// <summary>The nickname that this player chose when connecting.</summary>
+    [HideInInspector, SyncVar(hook = nameof(SetNickname))]
+    public string nickname;
 
     /// <summary>Degrees per second that the ship is able to rotate.</summary>
     const float RotationSpeed = 250f;
@@ -29,6 +37,12 @@ public sealed class PlayerController : NetworkBehaviour
 
     /// <summary>How many seconds between informing the server of a new calculated round trip time.</summary>
     const float RttUpdateInterval = 2f;
+
+    /// <summary>Saved relative position of the text UI, so the player object's rotation can be counteracted.</summary>
+    private Vector3 relativeTextPosition;
+
+    /// <summary>Saved rotation for text UI, so the player object's rotation can be counteracted.</summary>
+    private Quaternion textRotation;
 
     /// <summary>Input action map for responding to player controls.</summary>
     private Inputs inputs;
@@ -67,6 +81,29 @@ public sealed class PlayerController : NetworkBehaviour
         StartCoroutine(KeepServerInformedOfRtt());
     }
 
+    public override void OnStartServer()
+    {
+        var authData = (MercAuthenticationData)connectionToClient.authenticationData;
+        nickname = authData.nickname;
+    }
+
+    void Awake()
+    {
+        relativeTextPosition = playerNameText.transform.position - transform.position;
+        textRotation = playerNameText.transform.rotation;
+    }
+
+    void OnEnable()
+    {
+        SetNickname("", nickname);
+    }
+
+    private void SetNickname(string oldName, string newName)
+    {
+        playerNameText.text = newName;
+        gameObject.name = $"Player ({nickname})";
+    }
+
     [Client]
     private IEnumerator KeepServerInformedOfRtt()
     {
@@ -100,6 +137,12 @@ public sealed class PlayerController : NetworkBehaviour
 
         var thrust = inputs.Player.Thrust.ReadValue<float>() * ThrustForce;
         rigidbody.AddRelativeForce(Vector3.forward * thrust);
+    }
+
+    void Update()
+    {
+        playerNameText.transform.position = transform.position + relativeTextPosition;
+        playerNameText.transform.rotation = textRotation;
     }
 
     [Command]
