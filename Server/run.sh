@@ -4,6 +4,9 @@ set -e
 set -o errexit
 set -x
 
+service stackdriver-agent start
+service google-fluentd start
+
 rm -f /var/cache/ddclient/ddclient.cache
 ddclient -verbose -noquiet -debug -foreground
 
