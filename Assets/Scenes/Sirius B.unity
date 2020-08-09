@@ -196,7 +196,6 @@ GameObject:
   m_Component:
   - component: {fileID: 543553631}
   - component: {fileID: 543553630}
-  - component: {fileID: 543553629}
   - component: {fileID: 543553628}
   m_Layer: 0
   m_Name: Minimap Camera
@@ -236,14 +235,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!81 &543553629
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 543553627}
-  m_Enabled: 1
 --- !u!20 &543553630
 Camera:
   m_ObjectHideFlags: 0
