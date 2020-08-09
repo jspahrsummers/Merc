@@ -16,16 +16,19 @@ public sealed class MercNetworkManager : NetworkManager
 
     public override void OnClientConnect(NetworkConnection connection)
     {
+        base.OnClientConnect(connection);
         clientConnected.Invoke();
     }
 
     public override void OnClientError(NetworkConnection connection, int errorCode)
     {
+        base.OnClientError(connection, errorCode);
         clientError.Invoke();
     }
 
     public override void OnServerError(NetworkConnection connection, int errorCode)
     {
+        base.OnServerError(connection, errorCode);
         serverError.Invoke();
     }
 }
