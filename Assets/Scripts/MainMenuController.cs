@@ -1,5 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using Mirror;
 
@@ -9,28 +9,61 @@ public sealed class MainMenuController : MonoBehaviour
     [Tooltip("Field to specify a hostname to connect to.")]
     public TMP_InputField hostnameInputField;
 
+    [Tooltip("Button for connecting to the entered hostname.")]
+    public Button connectButton;
+
+    [Tooltip("The text element of the connectButton.")]
+    public TMP_Text connectButtonText;
+
+    [Tooltip("Button for starting to host a game.")]
+    public Button startGameButton;
+
+    [Tooltip("The text element of the startGameButton.")]
+    public TMP_Text startGameButtonText;
+
     [Tooltip("Field for the player to enter the nickname they want to use.")]
     public TMP_InputField nicknameInputField;
+
+    [Tooltip("Label for showing an error, if one occurred.")]
+    public TMP_Text errorLabel;
 
     /// <summary>Connects to the hostname provided as input by the user.</summary>
     public void Connect()
     {
-        Uri uri;
-        try
+        errorLabel.gameObject.SetActive(false);
+        connectButton.enabled = false;
+        connectButtonText.text = "Connecting...";
+        startGameButton.enabled = false;
+
+        if (hostnameInputField.text.Length == 0)
         {
-            uri = new Uri(hostnameInputField.text);
-        }
-        catch (UriFormatException exception)
-        {
+            ErrorOccurred("no hostname specified");
             return;
         }
 
-        NetworkManager.singleton.StartClient(uri);
+        NetworkManager.singleton.networkAddress = hostnameInputField.text;
+        NetworkManager.singleton.StartClient();
     }
 
     /// <summary>Begins hosting a game (i.e., server + client).</summary>
     public void StartHostGame()
     {
+        errorLabel.gameObject.SetActive(false);
+        connectButton.enabled = false;
+        startGameButton.enabled = false;
+        startGameButtonText.text = "Starting...";
+
         NetworkManager.singleton.StartHost();
+    }
+
+    public void ErrorOccurred(string message)
+    {
+        connectButton.enabled = true;
+        connectButtonText.text = "Connect";
+        startGameButton.enabled = true;
+        startGameButtonText.text = "Start Game";
+
+        errorLabel.text = $"Error: {message}";
+        errorLabel.gameObject.SetActive(true);
     }
 }
