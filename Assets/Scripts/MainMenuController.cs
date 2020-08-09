@@ -27,6 +27,19 @@ public sealed class MainMenuController : MonoBehaviour
     [Tooltip("Label for showing an error, if one occurred.")]
     public TMP_Text errorLabel;
 
+    [Tooltip("The authenticator to set up prior to trying to connect.")]
+    public MercNetworkAuthenticator networkAuthenticator;
+
+    void OnEnable()
+    {
+        networkAuthenticator.authFailed.AddListener(ErrorOccurred);
+    }
+
+    void OnDisable()
+    {
+        networkAuthenticator.authFailed.RemoveListener(ErrorOccurred);
+    }
+
     /// <summary>Connects to the hostname provided as input by the user.</summary>
     public void Connect()
     {
@@ -41,6 +54,7 @@ public sealed class MainMenuController : MonoBehaviour
             return;
         }
 
+        networkAuthenticator.nickname = nicknameInputField.text;
         NetworkManager.singleton.networkAddress = hostnameInputField.text;
         NetworkManager.singleton.StartClient();
     }
