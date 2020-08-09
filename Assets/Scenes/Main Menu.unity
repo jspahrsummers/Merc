@@ -1725,7 +1725,7 @@ MonoBehaviour:
   runInBackground: 1
   startOnHeadless: 1
   showDebugMessages: 0
-  serverTickRate: 30
+  serverTickRate: 60
   offlineScene: Assets/Scenes/Main Menu.unity
   onlineScene: Assets/Scenes/Sirius B.unity
   transport: {fileID: 1811901587}
