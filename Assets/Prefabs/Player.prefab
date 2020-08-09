@@ -72,7 +72,7 @@ MonoBehaviour:
   syncInterval: 0.1
   clientAuthority: 1
   localPositionSensitivity: 0.01
-  localRotationSensitivity: 0.01
+  localRotationSensitivity: 1
   localScaleSensitivity: 0.01
 --- !u!114 &7400405038615335050
 MonoBehaviour:
@@ -137,7 +137,6 @@ MonoBehaviour:
   syncInterval: 0.1
   shields: 4
   hull: 1
-  renderer: {fileID: 790221486059933095}
   explosion: {fileID: 5991415718802173235}
   explosionAudio: {fileID: 8300000, guid: 2e16d774eda5e2d4d95342809bc052b0, type: 3}
   destroyed:
