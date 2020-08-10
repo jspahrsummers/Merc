@@ -11,4 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Sirius B.unity
     guid: e7a1641d2b39f984e87833867b709c96
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 1b0cbf3c3618e1d4f825b513c9609b14,
+      type: 2}
