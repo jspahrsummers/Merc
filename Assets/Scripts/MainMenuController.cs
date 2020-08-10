@@ -40,8 +40,37 @@ public sealed class MainMenuController : NetworkBehaviour
     {
         networkAuthenticator.authFailed.AddListener(AuthenticationFailed);
 
-        nicknameInputField.text = PlayerPrefs.GetString(NicknamePlayerPrefsKey);
+        var savedNickname = PlayerPrefs.GetString(NicknamePlayerPrefsKey);
+        if (savedNickname != null && savedNickname.Length > 0)
+        {
+            nicknameInputField.text = savedNickname;
+        }
+        else
+        {
+            nicknameInputField.text = RandomNickname();
+        }
+
         nicknameInputField.onValueChanged.AddListener(NicknameChanged);
+    }
+
+    private string RandomNickname()
+    {
+        var suggestions = new string[] {
+            "Kraken",
+            "Orca",
+            "Bowhead",
+            "Rorqual",
+            "Dolphin",
+            "Narwhal",
+            "Beluga",
+            "Porpoise",
+            "Squid",
+            "Octopus",
+            "Nautilus",
+        };
+
+        var selection = new System.Random().Next(0, suggestions.Length);
+        return suggestions[selection];
     }
 
     /// <summary>Connects to the hostname provided as input by the user.</summary>
