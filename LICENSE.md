@@ -8,6 +8,7 @@ Models and textures created by Viktor Hahn (Viktor.Hahn@web.de), licensed under 
 
 [Star sprites](https://opengameart.org/content/32-star-sprites) created by Viktor Hahn (Viktor.Hahn@web.de), licensed under the [Creative Commons Attribution-ShareAlike 4.0 International License](https://creativecommons.org/licenses/by-sa/4.0/):
 - star_orange01
+- star_red01
 - star_white_giant01
 - star_yellow01
 
