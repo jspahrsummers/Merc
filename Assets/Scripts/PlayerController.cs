@@ -232,14 +232,23 @@ public sealed class PlayerController : NetworkBehaviour
             // message arrives.
             Vector3 extrapolatedPosition = rigidbody.ExtrapolatePositionAfterTime((float)rtt);
 
-            var blasterFire = Instantiate<ProjectileController>(blasterFirePrefab, extrapolatedPosition, transform.rotation, transform.parent);
-            blasterFire.initialVelocity = rigidbody.velocity;
-            blasterFire.firedForce = BlasterForce;
-            blasterFire.creatorNetId = netId;
-            SceneManager.MoveGameObjectToScene(blasterFire.gameObject, gameObject.scene);
-            NetworkServer.Spawn(blasterFire.gameObject);
+            var leftBlasterFire = Instantiate<ProjectileController>(blasterFirePrefab, extrapolatedPosition + rigidbody.transform.TransformDirection(Vector3.left * 0.25f), transform.rotation, transform.parent);
+            leftBlasterFire.initialVelocity = rigidbody.velocity;
+            leftBlasterFire.firedForce = BlasterForce;
+            leftBlasterFire.creatorNetId = netId;
+            SceneManager.MoveGameObjectToScene(leftBlasterFire.gameObject, gameObject.scene);
+            NetworkServer.Spawn(leftBlasterFire.gameObject);
 
-            yield return new WaitForSeconds(BlasterFireRate);
+            yield return new WaitForSeconds(BlasterFireRate / 2);
+
+            var rightBlasterFire = Instantiate<ProjectileController>(blasterFirePrefab, extrapolatedPosition + rigidbody.transform.TransformDirection(Vector3.right * 0.25f), transform.rotation, transform.parent);
+            rightBlasterFire.initialVelocity = rigidbody.velocity;
+            rightBlasterFire.firedForce = BlasterForce;
+            rightBlasterFire.creatorNetId = netId;
+            SceneManager.MoveGameObjectToScene(rightBlasterFire.gameObject, gameObject.scene);
+            NetworkServer.Spawn(rightBlasterFire.gameObject);
+
+            yield return new WaitForSeconds(BlasterFireRate / 2);
         }
     }
 
