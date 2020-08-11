@@ -403,7 +403,7 @@ PrefabInstance:
     - target: {fileID: 3374581316040290732, guid: 07c5b161d3cd06d4e90aabd811120fa0,
         type: 3}
       propertyPath: m_Name
-      value: Proxima Centauri b
+      value: Proxima Centauri b (Planet)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07c5b161d3cd06d4e90aabd811120fa0, type: 3}
