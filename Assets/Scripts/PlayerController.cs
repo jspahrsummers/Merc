@@ -286,6 +286,8 @@ public sealed class PlayerController : NetworkBehaviour
             return;
         }
 
+        inputs.Player.Disable();
+
         var jumpScene = gameObject.scene.name == "Sirius B" ? "Alpha Centauri" : "Sirius B";
         var jump = new HyperspaceJump(gameObject.scene.name, jumpScene);
         inProgressHyperspaceJump = new InProgressHyperspaceJump(jump);
@@ -394,8 +396,9 @@ public sealed class PlayerController : NetworkBehaviour
         rigidbody.constraints = DefaultRigidbodyConstraints;
 
         StopEngineGlow();
-
         inProgressHyperspaceJump = null;
+        inputs.Player.Enable();
+
         if (unloadOperation != null)
         {
             yield return unloadOperation;
