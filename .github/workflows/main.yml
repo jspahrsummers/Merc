@@ -176,7 +176,7 @@ jobs:
   notify:
     name: Notify Discord server
     runs-on: ubuntu-latest
-    if: success()
+    needs: [build, webgl, deploy-server]
     steps:
       - uses: rjstone/discord-webhook-notify@v1.0.4
         with:
