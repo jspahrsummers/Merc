@@ -1609,254 +1609,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 5525515281716732502}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1811901584
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1811901590}
-  - component: {fileID: 1811901588}
-  - component: {fileID: 1811901587}
-  - component: {fileID: 1811901586}
-  - component: {fileID: 1811901585}
-  - component: {fileID: 1811901589}
-  m_Layer: 0
-  m_Name: Network Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1811901585
+--- !u!114 &1811901589 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811901584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f039183eda8945448b822a77e2a9d0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnClientConnected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClientDataReceived:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClientError:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClientDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnServerConnected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnServerDataReceived:
-    m_PersistentCalls:
-      m_Calls: []
-  OnServerError:
-    m_PersistentCalls:
-      m_Calls: []
-  OnServerDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
-  port: 7778
-  NoDelay: 1
-  Secure: 0
-  CertificatePath: 
-  CertificatePassword: 
---- !u!114 &1811901586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811901584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec862738267237f4d91e6454ff15f4ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnClientConnected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClientDataReceived:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClientError:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClientDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnServerConnected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnServerDataReceived:
-    m_PersistentCalls:
-      m_Calls: []
-  OnServerError:
-    m_PersistentCalls:
-      m_Calls: []
-  OnServerDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
-  DebugEnabled: 0
-  ServerBindAll: 1
-  ServerBindAddress: 127.0.0.1
-  CommunicationPort: 7777
-  MaximumPeerCCU: 4095
-  EnetPollTimeout: 1
-  MaxPacketSizeInKb: 16
-  Channels: 0100000002000000
-  StatisticsCalculationInterval: 3
---- !u!114 &1811901587
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811901584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 929e3234c7db540b899f00183fc2b1fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnClientConnected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClientDataReceived:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClientError:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClientDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnServerConnected:
-    m_PersistentCalls:
-      m_Calls: []
-  OnServerDataReceived:
-    m_PersistentCalls:
-      m_Calls: []
-  OnServerError:
-    m_PersistentCalls:
-      m_Calls: []
-  OnServerDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
-  transports:
-  - {fileID: 1811901586}
-  - {fileID: 1811901585}
---- !u!114 &1811901588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811901584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0db83d9f9a2fe3c4ebb41b5be632e1ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 1
-  runInBackground: 1
-  startOnHeadless: 1
-  showDebugMessages: 0
-  serverTickRate: 60
-  offlineScene: Assets/Scenes/Main Menu.unity
-  onlineScene: Assets/Scenes/Sirius B.unity
-  transport: {fileID: 1811901587}
-  networkAddress: merc.jspahrsummers.com
-  maxConnections: 20
-  disconnectInactiveConnections: 0
-  disconnectInactiveTimeout: 60
-  authenticator: {fileID: 1811901589}
-  playerPrefab: {fileID: 1170407735347887003, guid: d83789292be83e148acc6d7cd06c80df,
+  m_CorrespondingSourceObject: {fileID: 6203043623071495514, guid: ad3b87f9655f6ad4d81c7c9b301ce17e,
     type: 3}
-  autoCreatePlayer: 1
-  playerSpawnMethod: 0
-  spawnPrefabs:
-  - {fileID: 6038375303701970570, guid: dac480487c267904b8aaeb60d455441d, type: 3}
-  - {fileID: 3306940280037549854, guid: 81153c851375b7e43a7281a255e103c5, type: 3}
-  clientConnected:
-    m_PersistentCalls:
-      m_Calls: []
-  clientError:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 558129945}
-        m_MethodName: ErrorOccurred
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: could not connect to server
-          m_BoolArgument: 0
-        m_CallState: 2
-  serverError:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 558129945}
-        m_MethodName: ErrorOccurred
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: could not start server
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &1811901589
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_PrefabInstance: {fileID: 6203043622352509391}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811901584}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f797fa9963506ba4a9201cd33b6079ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnServerAuthenticated:
-    m_PersistentCalls:
-      m_Calls: []
-  OnClientAuthenticated:
-    m_PersistentCalls:
-      m_Calls: []
-  nickname: 
-  authSucceeded:
-    m_PersistentCalls:
-      m_Calls: []
-  authFailed:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!4 &1811901590
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1811901584}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2756294330809084493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2172,6 +1936,85 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43ab7d28ffaf5124a9a39562f1f7f7d3, type: 3}
+--- !u!1001 &6203043622352509391
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6203043623071495513, guid: ad3b87f9655f6ad4d81c7c9b301ce17e,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203043623071495513, guid: ad3b87f9655f6ad4d81c7c9b301ce17e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203043623071495513, guid: ad3b87f9655f6ad4d81c7c9b301ce17e,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203043623071495513, guid: ad3b87f9655f6ad4d81c7c9b301ce17e,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203043623071495513, guid: ad3b87f9655f6ad4d81c7c9b301ce17e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203043623071495513, guid: ad3b87f9655f6ad4d81c7c9b301ce17e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203043623071495513, guid: ad3b87f9655f6ad4d81c7c9b301ce17e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203043623071495513, guid: ad3b87f9655f6ad4d81c7c9b301ce17e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203043623071495513, guid: ad3b87f9655f6ad4d81c7c9b301ce17e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203043623071495513, guid: ad3b87f9655f6ad4d81c7c9b301ce17e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203043623071495513, guid: ad3b87f9655f6ad4d81c7c9b301ce17e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6203043623071495515, guid: ad3b87f9655f6ad4d81c7c9b301ce17e,
+        type: 3}
+      propertyPath: clientError.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 558129945}
+    - target: {fileID: 6203043623071495515, guid: ad3b87f9655f6ad4d81c7c9b301ce17e,
+        type: 3}
+      propertyPath: serverError.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 558129945}
+    - target: {fileID: 6203043623071495519, guid: ad3b87f9655f6ad4d81c7c9b301ce17e,
+        type: 3}
+      propertyPath: m_Name
+      value: Network Manager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ad3b87f9655f6ad4d81c7c9b301ce17e, type: 3}
 --- !u!1001 &7569976651887771666
 PrefabInstance:
   m_ObjectHideFlags: 0

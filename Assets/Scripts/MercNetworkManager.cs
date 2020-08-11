@@ -14,6 +14,34 @@ public sealed class MercNetworkManager : NetworkManager
     [Tooltip("Event invoked when this sever encounters a network error.")]
     public UnityEvent serverError = new UnityEvent();
 
+    [Tooltip("The authenticator to use for connections via this network manager.")]
+    public MercNetworkAuthenticator networkAuthenticator;
+
+    /// <summary>The scene that this object was spawned in.</summary>
+    private string spawnScene;
+
+    public override void Awake()
+    {
+        // Retrieve this before moved to special "DontDestroyOnLoad" scene
+        spawnScene = gameObject.scene.path;
+
+        base.Awake();
+    }
+
+    public override void Start()
+    {
+        base.Start();
+
+        // Convenience for testing in the Unity Editor: automatically start host when running any scene different from the default "offline" scene
+        if (spawnScene != offlineScene && mode == NetworkManagerMode.Offline)
+        {
+            Debug.Log($"Automatically starting host for debugging purposes (scene: {spawnScene})");
+            networkAuthenticator.nickname = "Tester";
+            onlineScene = null;
+            StartHost();
+        }
+    }
+
     // Invoked on the client after authenticating successfully to the server.
     public override void OnClientConnect(NetworkConnection connection)
     {
