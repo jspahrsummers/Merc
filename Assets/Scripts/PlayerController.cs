@@ -308,6 +308,7 @@ public sealed class PlayerController : NetworkBehaviour
         Scene destinationScene = SceneManager.GetSceneByName(inProgressHyperspaceJump.jump.toSystem);
         SceneManager.SetActiveScene(destinationScene);
         SceneManager.MoveGameObjectToScene(gameObject, destinationScene);
+        SetUpCamera(MainCameraController.Find());
 
         string originalSceneName = inProgressHyperspaceJump.jump.fromSystem;
         inProgressHyperspaceJump = null;
