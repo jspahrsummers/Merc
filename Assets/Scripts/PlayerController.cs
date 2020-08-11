@@ -76,9 +76,15 @@ public sealed class PlayerController : NetworkBehaviour
 
         inputs.Player.Enable();
 
-        MainCameraController.Find().followTarget = gameObject;
-
+        SetUpCamera(MainCameraController.Find());
         StartCoroutine(KeepServerInformedOfRtt());
+    }
+
+    [Client]
+    private void SetUpCamera(MainCameraController camera)
+    {
+        camera.followTarget = gameObject;
+        camera.audioListener.enabled = true;
     }
 
     public override void OnStartServer()

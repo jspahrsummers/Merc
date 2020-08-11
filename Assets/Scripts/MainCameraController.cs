@@ -7,6 +7,9 @@ public sealed class MainCameraController : MonoBehaviour
     [Tooltip("The object that the camera should be following.")]
     public GameObject followTarget;
 
+    [Tooltip("The audio listener for this camera. Should be disabled by default.")]
+    public AudioListener audioListener;
+
     /// <summary>Input action map for responding to camera controls.</summary>
     private Inputs inputs;
 
