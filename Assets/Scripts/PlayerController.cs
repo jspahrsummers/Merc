@@ -39,6 +39,15 @@ public sealed class PlayerController : NetworkBehaviour
     /// <summary>How many seconds between informing the server of a new calculated round trip time.</summary>
     const float RttUpdateInterval = 2f;
 
+    /// <summary>Normalized tolerance for how close the ship's rotation has to be to the target, in order to jump to hyperspace.</summary>
+    const float HyperspaceRotationTolerance = 0.001f;
+
+    /// <summary>Angle that the ship should rotate toward on the Z axis in order to enter hyperspace.</summary>
+    const float HyperspaceEntryZAngle = -45f;
+
+    /// <summary>Position on the Z axis that the ship must reach before entering hyperspace.</summary>
+    const float HyperspaceEntryZPosition = 50f;
+
     /// <summary>Saved relative position of the text UI, so the player object's rotation can be counteracted.</summary>
     private Vector3 relativeTextPosition;
 
@@ -84,16 +93,8 @@ public sealed class PlayerController : NetworkBehaviour
         if (inputs == null)
         {
             inputs = new Inputs();
-            inputs.Player.Thrust.started += context =>
-            {
-                CmdStartEngineGlow();
-                engineGlowController.SetVisible(true);
-            };
-            inputs.Player.Thrust.canceled += context =>
-            {
-                CmdStopEngineGlow();
-                engineGlowController.SetVisible(false);
-            };
+            inputs.Player.Thrust.started += context => StartEngineGlow();
+            inputs.Player.Thrust.canceled += context => StopEngineGlow();
             inputs.Player.Fire.started += context => CmdStartFiring();
             inputs.Player.Fire.canceled += context => CmdStopFiring();
             inputs.Player.HyperspaceJump.performed += context => StartHyperspaceJump();
@@ -103,13 +104,6 @@ public sealed class PlayerController : NetworkBehaviour
 
         SetUpCamera(MainCameraController.Find());
         StartCoroutine(KeepServerInformedOfRtt());
-    }
-
-    [Client]
-    private void SetUpCamera(MainCameraController camera)
-    {
-        camera.followTarget = gameObject;
-        camera.audioListener.enabled = true;
     }
 
     public override void OnStartServer()
@@ -133,6 +127,27 @@ public sealed class PlayerController : NetworkBehaviour
     {
         playerNameText.text = newName;
         gameObject.name = $"Player ({nickname})";
+    }
+
+    [Client]
+    private void SetUpCamera(MainCameraController camera)
+    {
+        camera.followTarget = gameObject;
+        camera.audioListener.enabled = true;
+    }
+
+    [Client]
+    private void StartEngineGlow()
+    {
+        CmdStartEngineGlow();
+        engineGlowController.SetVisible(true);
+    }
+
+    [Client]
+    private void StopEngineGlow()
+    {
+        CmdStopEngineGlow();
+        engineGlowController.SetVisible(false);
     }
 
     [Client]
@@ -253,22 +268,42 @@ public sealed class PlayerController : NetworkBehaviour
         var jumpScene = gameObject.scene.name == "Sirius B" ? "Alpha Centauri" : "Sirius B";
         var jump = new HyperspaceJump(gameObject.scene.name, jumpScene);
         inProgressHyperspaceJump = new InProgressHyperspaceJump(jump);
-        StartCoroutine(PrepareSceneForHyperspaceJumpThenNotifyServer());
+        StartCoroutine(PrepareForHyperspaceJumpThenNotifyServer());
     }
 
     [Client]
-    private IEnumerator PrepareSceneForHyperspaceJumpThenNotifyServer()
+    private IEnumerator PrepareForHyperspaceJumpThenNotifyServer()
     {
         Debug.Log($"Starting scene load for hyperspace jump {inProgressHyperspaceJump}");
 
         string destinationSceneName = inProgressHyperspaceJump.jump.toSystem;
         if (!SceneManager.GetSceneByName(destinationSceneName).isLoaded)
         {
-            AsyncOperation operation = SceneManager.LoadSceneAsync(destinationSceneName, LoadSceneMode.Additive);
-            operation.allowSceneActivation = false;
-            inProgressHyperspaceJump.sceneLoadOperation = operation;
+            inProgressHyperspaceJump.sceneLoadOperation = SceneManager.LoadSceneAsync(destinationSceneName, LoadSceneMode.Additive);
+            inProgressHyperspaceJump.sceneLoadOperation.allowSceneActivation = false;
+        }
 
-            while (operation.progress < 0.9f)
+        // Disable constraints while animating for hyperspace, as we will now move into the Z axis.
+        rigidbody.constraints = RigidbodyConstraints.None;
+
+        Quaternion targetRotation = Quaternion.Euler(-30, 0, 0);
+        while (!rigidbody.rotation.ApproximatelyEquals(targetRotation, HyperspaceRotationTolerance))
+        {
+            yield return new WaitForFixedUpdate();
+            rigidbody.MoveRotation(Quaternion.RotateTowards(rigidbody.rotation, targetRotation, RotationSpeed * Time.deltaTime));
+        }
+
+        StartEngineGlow();
+
+        while (rigidbody.transform.position.z < HyperspaceEntryZPosition)
+        {
+            yield return new WaitForFixedUpdate();
+            rigidbody.AddRelativeForce(Vector3.forward * ThrustForce);
+        }
+
+        if (inProgressHyperspaceJump.sceneLoadOperation != null)
+        {
+            while (inProgressHyperspaceJump.sceneLoadOperation.progress < 0.9f)
             {
                 yield return null;
             }
@@ -305,17 +340,44 @@ public sealed class PlayerController : NetworkBehaviour
             yield return inProgressHyperspaceJump.sceneLoadOperation;
         }
 
+        rigidbody.velocity = Vector3.zero;
+        rigidbody.rotation = Quaternion.Euler(-90, 0, 0);
+        rigidbody.position = new Vector3(0, -30, HyperspaceEntryZPosition);
+
         Scene destinationScene = SceneManager.GetSceneByName(inProgressHyperspaceJump.jump.toSystem);
-        SceneManager.SetActiveScene(destinationScene);
         SceneManager.MoveGameObjectToScene(gameObject, destinationScene);
+        SceneManager.SetActiveScene(destinationScene);
         SetUpCamera(MainCameraController.Find());
 
-        string originalSceneName = inProgressHyperspaceJump.jump.fromSystem;
-        inProgressHyperspaceJump = null;
+        Quaternion returnAngle = Quaternion.Euler(-30, 180, 180);
 
+        while (rigidbody.position.z > 0)
+        {
+            yield return new WaitForFixedUpdate();
+            rigidbody.AddForce(returnAngle * Vector3.forward * ThrustForce);
+        }
+
+        rigidbody.velocity = Vector3.zero;
+
+        Vector3 position = rigidbody.position;
+        position.z = 0;
+        rigidbody.position = position;
+
+        StopEngineGlow();
+
+        AsyncOperation unloadOperation = null;
         if (!isServer)
         {
-            yield return SceneManager.UnloadSceneAsync(originalSceneName);
+            unloadOperation = SceneManager.UnloadSceneAsync(inProgressHyperspaceJump.jump.fromSystem);
+        }
+
+        // Restore physics constraints
+        rigidbody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX;
+
+        inProgressHyperspaceJump = null;
+        if (unloadOperation != null)
+        {
+            yield return unloadOperation;
         }
     }
 }
