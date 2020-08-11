@@ -48,14 +48,21 @@ public sealed class PlayerController : NetworkBehaviour
     /// <summary>How many seconds between informing the server of a new calculated round trip time.</summary>
     const float RttUpdateInterval = 2f;
 
-    /// <summary>Normalized tolerance for how close the ship's rotation has to be to the target, in order to jump to hyperspace.</summary>
+    /// <summary>Normalized tolerance for how close the ship's rotation has to be to the desired rotation, in order to jump to hyperspace.</summary>
     const float HyperspaceRotationTolerance = 0.001f;
 
     /// <summary>Angle that the ship should rotate toward on the Z axis in order to enter hyperspace.</summary>
-    const float HyperspaceEntryZAngle = -45f;
+    const float HyperspaceEntryZAngle = -30f;
 
     /// <summary>Position on the Z axis that the ship must reach before entering hyperspace.</summary>
     const float HyperspaceEntryZPosition = 50f;
+
+    /// <summary>How far away from the origin to place the ship when arriving from hyperspace, so that it has room to arrive near the system center.</summary>
+    const float HyperspaceArrivalPositionOffset = 30f;
+
+    /// <summary>Constraints to apply to the ship's rigidbody, to prevent undue movement from physics.</summary>
+    /// <remarks>This is set in code rather than the editor, because we need to switch them off and back on during hyperspace jumps.</remarks>
+    const RigidbodyConstraints DefaultRigidbodyConstraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX;
 
     /// <summary>Saved relative position of the text UI, so the player object's rotation can be counteracted.</summary>
     private Vector3 relativeTextPosition;
@@ -125,6 +132,11 @@ public sealed class PlayerController : NetworkBehaviour
     {
         relativeTextPosition = playerNameText.transform.position - transform.position;
         textRotation = playerNameText.transform.rotation;
+    }
+
+    void Start()
+    {
+        rigidbody.constraints = DefaultRigidbodyConstraints;
     }
 
     void OnEnable()
@@ -295,7 +307,7 @@ public sealed class PlayerController : NetworkBehaviour
         // Disable constraints while animating for hyperspace, as we will now move into the Z axis.
         rigidbody.constraints = RigidbodyConstraints.None;
 
-        Quaternion targetRotation = Quaternion.Euler(-30, 0, 0);
+        Quaternion targetRotation = Quaternion.Euler(HyperspaceEntryZAngle, 0, 0);
         while (!rigidbody.rotation.ApproximatelyEquals(targetRotation, HyperspaceRotationTolerance))
         {
             yield return new WaitForFixedUpdate();
@@ -352,7 +364,7 @@ public sealed class PlayerController : NetworkBehaviour
 
         rigidbody.velocity = Vector3.zero;
         rigidbody.rotation = Quaternion.Euler(-90, 0, 0);
-        rigidbody.position = new Vector3(0, -30, HyperspaceEntryZPosition);
+        rigidbody.position = new Vector3(0, -HyperspaceArrivalPositionOffset, HyperspaceEntryZPosition);
 
         Scene destinationScene = SceneManager.GetSceneByName(inProgressHyperspaceJump.jump.toSystem);
         SceneManager.MoveGameObjectToScene(gameObject, destinationScene);
@@ -361,7 +373,14 @@ public sealed class PlayerController : NetworkBehaviour
         Instantiate(hyperspaceArrivalPrefab);
         SetUpCamera(MainCameraController.Find());
 
-        Quaternion returnAngle = Quaternion.Euler(-30, 180, 180);
+        AsyncOperation unloadOperation = null;
+        if (!isServer)
+        {
+            unloadOperation = SceneManager.UnloadSceneAsync(inProgressHyperspaceJump.jump.fromSystem);
+        }
+
+        // Returning thrust is applied in the opposite direction of going out (though we don't render that way, because it Looks Dumb)
+        Quaternion returnAngle = Quaternion.Euler(HyperspaceEntryZAngle, 180, 180);
         hyperspaceJumpInSound.Play();
 
         while (rigidbody.position.z > 0)
@@ -375,17 +394,9 @@ public sealed class PlayerController : NetworkBehaviour
         Vector3 position = rigidbody.position;
         position.z = 0;
         rigidbody.position = position;
+        rigidbody.constraints = DefaultRigidbodyConstraints;
 
         StopEngineGlow();
-
-        AsyncOperation unloadOperation = null;
-        if (!isServer)
-        {
-            unloadOperation = SceneManager.UnloadSceneAsync(inProgressHyperspaceJump.jump.fromSystem);
-        }
-
-        // Restore physics constraints
-        rigidbody.constraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX;
 
         inProgressHyperspaceJump = null;
         if (unloadOperation != null)
