@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Mirror;
 using MercExtensions;
 using TMPro;
@@ -55,6 +56,29 @@ public sealed class PlayerController : NetworkBehaviour
     /// <remarks>This is spoofable. We should consider how to make this more resilient to hacking.</remarks>
     private double rtt;
 
+    /// <summary>On the client, represents a hyperspace jump that is in progress.</summary>
+    private sealed class InProgressHyperspaceJump
+    {
+        /// <summary>A description of the hyperspace jump being performed.</summary>
+        public readonly HyperspaceJump jump;
+
+        /// <summary>When the hyperspace target scene has started loading, this will be the operation for loading it asynchronously.</summary>
+        public AsyncOperation sceneLoadOperation;
+
+        public InProgressHyperspaceJump(HyperspaceJump jump)
+        {
+            this.jump = jump;
+        }
+
+        public override string ToString()
+        {
+            return $"InProgressHyperspaceJump({jump})";
+        }
+    }
+
+    /// <summary>On the client, represents a hyperspace jump that is in progress.</summary>
+    private InProgressHyperspaceJump inProgressHyperspaceJump;
+
     public override void OnStartLocalPlayer()
     {
         if (inputs == null)
@@ -72,6 +96,7 @@ public sealed class PlayerController : NetworkBehaviour
             };
             inputs.Player.Fire.started += context => CmdStartFiring();
             inputs.Player.Fire.canceled += context => CmdStopFiring();
+            inputs.Player.HyperspaceJump.performed += context => StartHyperspaceJump();
         }
 
         inputs.Player.Enable();
@@ -213,5 +238,82 @@ public sealed class PlayerController : NetworkBehaviour
     private void RpcStopEngineGlow()
     {
         engineGlowController.SetVisible(false);
+    }
+
+    [Client]
+    private void StartHyperspaceJump()
+    {
+        if (inProgressHyperspaceJump != null)
+        {
+            Debug.Log($"Hyperspace jump already in progress: {inProgressHyperspaceJump}");
+            return;
+        }
+
+        var jumpScene = gameObject.scene.name == "Sirius B" ? "Alpha Centauri" : "Sirius B";
+        var jump = new HyperspaceJump(gameObject.scene.name, jumpScene);
+        inProgressHyperspaceJump = new InProgressHyperspaceJump(jump);
+        StartCoroutine(PrepareSceneForHyperspaceJumpThenNotifyServer());
+    }
+
+    [Client]
+    private IEnumerator PrepareSceneForHyperspaceJumpThenNotifyServer()
+    {
+        Debug.Log($"Starting scene load for hyperspace jump {inProgressHyperspaceJump}");
+
+        string destinationSceneName = inProgressHyperspaceJump.jump.toSystem;
+        if (!SceneManager.GetSceneByName(destinationSceneName).isLoaded)
+        {
+            AsyncOperation operation = SceneManager.LoadSceneAsync(destinationSceneName, LoadSceneMode.Additive);
+            operation.allowSceneActivation = false;
+            inProgressHyperspaceJump.sceneLoadOperation = operation;
+
+            while (operation.progress < 0.9f)
+            {
+                yield return null;
+            }
+        }
+
+        CmdMovePlayerForHyperspaceJump(inProgressHyperspaceJump.jump);
+    }
+
+    [Command]
+    private void CmdMovePlayerForHyperspaceJump(HyperspaceJump jump)
+    {
+        Debug.Log($"Moving {gameObject.name} for hyperspace jump {jump}");
+
+        Scene destinationScene = SceneManager.GetSceneByName(jump.toSystem);
+        SceneManager.MoveGameObjectToScene(gameObject, destinationScene);
+        TargetFinishHyperspaceJump();
+    }
+
+    [TargetRpc]
+    private void TargetFinishHyperspaceJump()
+    {
+        StartCoroutine(FinishLoadingHyperspaceJumpScene());
+    }
+
+    [Client]
+    private IEnumerator FinishLoadingHyperspaceJumpScene()
+    {
+        Debug.Log($"Finishing hyperspace jump {inProgressHyperspaceJump}");
+
+        AsyncOperation operation = inProgressHyperspaceJump.sceneLoadOperation;
+        if (operation != null)
+        {
+            inProgressHyperspaceJump.sceneLoadOperation.allowSceneActivation = true;
+            yield return inProgressHyperspaceJump.sceneLoadOperation;
+        }
+
+        Scene destinationScene = SceneManager.GetSceneByName(inProgressHyperspaceJump.jump.toSystem);
+        SceneManager.SetActiveScene(destinationScene);
+        SceneManager.MoveGameObjectToScene(gameObject, destinationScene);
+
+        string originalSceneName = inProgressHyperspaceJump.jump.fromSystem;
+        inProgressHyperspaceJump = null;
+
+        if (!isServer)
+        {
+            yield return SceneManager.UnloadSceneAsync(originalSceneName);
+        }
     }
 }
