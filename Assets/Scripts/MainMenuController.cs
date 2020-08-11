@@ -30,9 +30,6 @@ public sealed class MainMenuController : NetworkBehaviour
     [Tooltip("The authenticator to set up prior to trying to connect.")]
     public MercNetworkAuthenticator networkAuthenticator;
 
-    [Scene, Tooltip("Scene to switch to when authentication completes successfully.")]
-    public string onlineScene;
-
     /// <summary>Key into Unity's PlayerPrefs for remembering the user's nickname.</summary>
     const string NicknamePlayerPrefsKey = "nickname";
 
