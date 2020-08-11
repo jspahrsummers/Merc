@@ -150,6 +150,18 @@ public sealed class PlayerController : NetworkBehaviour
         SetNickname("", nickname);
     }
 
+    void OnDestroy()
+    {
+        if (isServer && NetworkServer.active)
+        {
+            var player = Instantiate(NetworkManager.singleton.playerPrefab);
+            if (!NetworkServer.ReplacePlayerForConnection(connectionToClient, player, false))
+            {
+                Debug.Log($"Could not replace player object for {connectionToClient}");
+            }
+        }
+    }
+
     private void SetNickname(string oldName, string newName)
     {
         playerNameText.text = newName;
