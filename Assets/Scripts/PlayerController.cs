@@ -200,6 +200,7 @@ public sealed class PlayerController : NetworkBehaviour
             blasterFire.initialVelocity = rigidbody.velocity;
             blasterFire.firedForce = BlasterForce;
             blasterFire.creatorNetId = netId;
+            SceneManager.MoveGameObjectToScene(blasterFire.gameObject, gameObject.scene);
             NetworkServer.Spawn(blasterFire.gameObject);
 
             yield return new WaitForSeconds(BlasterFireRate);
