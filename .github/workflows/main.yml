@@ -172,3 +172,14 @@ jobs:
 
       - name: Deploy to GCE
         run: gcloud compute instances update-container --zone "$GCE_ZONE" "$GCE_INSTANCE" --container-image="gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:$GITHUB_SHA"
+
+  notify:
+    name: Notify Discord server
+    runs-on: ubuntu-latest
+    steps:
+      - uses: rjstone/discord-webhook-notify@v1.0.4
+        if: success()
+        with:
+          severity: info
+          details: New version live!
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
