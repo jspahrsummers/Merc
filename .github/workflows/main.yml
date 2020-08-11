@@ -9,7 +9,7 @@ on:
   pull_request:
 
 env:
-  UNITY_VERSION: 2019.4.7f1
+  UNITY_VERSION: 2019.3.14f1
 
 jobs:
   # See https://github.com/marketplace/actions/unity-request-activation-file
