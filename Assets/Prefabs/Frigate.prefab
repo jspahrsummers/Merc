@@ -173,6 +173,7 @@ GameObject:
   - component: {fileID: 2577416210064410174}
   - component: {fileID: 5934862911930236059}
   - component: {fileID: 2100410724166946350}
+  - component: {fileID: 1230754323452842667}
   m_Layer: 0
   m_Name: Frigate
   m_TagString: Untagged
@@ -277,7 +278,6 @@ MonoBehaviour:
   syncInterval: 0.1
   shields: 10
   hull: 10
-  renderer: {fileID: 5261875330185545910}
   explosion: {fileID: 2876173464327004555}
   explosionAudio: {fileID: 8300000, guid: 2e16d774eda5e2d4d95342809bc052b0, type: 3}
   destroyed:
@@ -296,6 +296,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6, y: 1, z: 1.2}
   m_Center: {x: 0, y: 0, z: -1.1}
+--- !u!114 &1230754323452842667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6038375303701970570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7fdb599e1359924bad6255660370252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  forceHidden: 0
 --- !u!1001 &618537387787590378
 PrefabInstance:
   m_ObjectHideFlags: 0
