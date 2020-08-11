@@ -19,6 +19,8 @@ Digital sound effects created by [Kenney Vleugels](www.kenney.nl), released into
 
 Digital sound effects created by [rubberduck](https://opengameart.org/users/rubberduck), released into the Public Domain / [CC0](https://creativecommons.org/publicdomain/zero/1.0/):
 - explosion_01
+- misc_03
+- teleport_02
 
 [Chunky Explosion](https://opengameart.org/content/chunky-explosion) sound effect created by [Joth](https://opengameart.org/users/joth), released into the Public Domain / [CC0](https://creativecommons.org/publicdomain/zero/1.0/).
 

@@ -23,6 +23,12 @@ public sealed class PlayerController : NetworkBehaviour
     [Tooltip("The element which renders the player's name above their ship.")]
     public TMP_Text playerNameText;
 
+    [Tooltip("Sound effect to play when jumping to hyperspace.")]
+    public AudioSource hyperspaceJumpOutSound;
+
+    [Tooltip("Sound effect to play when arriving from hyperspace.")]
+    public AudioSource hyperspaceJumpInSound;
+
     /// <summary>The nickname that this player chose when connecting.</summary>
     [HideInInspector, SyncVar(hook = nameof(SetNickname))]
     public string nickname;
@@ -297,6 +303,7 @@ public sealed class PlayerController : NetworkBehaviour
         }
 
         StartEngineGlow();
+        hyperspaceJumpOutSound.Play();
 
         while (rigidbody.transform.position.z < HyperspaceEntryZPosition)
         {
@@ -355,6 +362,7 @@ public sealed class PlayerController : NetworkBehaviour
         SetUpCamera(MainCameraController.Find());
 
         Quaternion returnAngle = Quaternion.Euler(-30, 180, 180);
+        hyperspaceJumpInSound.Play();
 
         while (rigidbody.position.z > 0)
         {
