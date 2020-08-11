@@ -44,8 +44,9 @@ public sealed class GameController : NetworkBehaviour
     {
         var position = new Vector3(Random.Range(-RandomTranslationRange, RandomTranslationRange), Random.Range(-RandomTranslationRange, RandomTranslationRange), 0);
         var rotation = Quaternion.Euler(-90, 0, 0) * Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up);
-        var frigate = Instantiate<DamageableController>(frigatePrefab, position, rotation, transform.parent);
+        var frigate = Instantiate<DamageableController>(frigatePrefab, position, rotation);
         frigate.destroyed.AddListener(FrigateDestroyed);
+        SceneManager.MoveGameObjectToScene(frigate.gameObject, gameObject.scene);
         NetworkServer.Spawn(frigate.gameObject);
     }
 
