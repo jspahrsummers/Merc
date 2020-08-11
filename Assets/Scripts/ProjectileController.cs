@@ -61,7 +61,7 @@ public sealed class ProjectileController : NetworkBehaviour
         }
 
         var damageable = other.GetComponent<DamageableController>();
-        if (damageable == null || damageable.netId == creatorNetId)
+        if (damageable == null || damageable.netId == creatorNetId || gameObject.scene != damageable.gameObject.scene)
         {
             return;
         }
