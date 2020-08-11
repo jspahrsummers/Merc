@@ -37,7 +37,7 @@ jobs:
       matrix:
         targetPlatform:
           - StandaloneOSX
-          - StandaloneWindows
+          # - StandaloneWindows
           - StandaloneWindows64
           - StandaloneLinux64
     steps:
@@ -67,31 +67,31 @@ jobs:
           ITCH_USER: jspahrsummers
           PACKAGE: build/${{ matrix.targetPlatform }}
 
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
-        with:
-          path: Library
-          key: Library-Test
-          restore-keys: |
-            Library-
+  # test:
+  #   name: Test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #     - uses: actions/cache@v2
+  #       with:
+  #         path: Library
+  #         key: Library-Test
+  #         restore-keys: |
+  #           Library-
 
-      - name: Unity tests
-        uses: webbertakken/unity-test-runner@v1.6
-        env:
-          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-        with:
-          unityVersion: ${{ env.UNITY_VERSION }}
+  #     - name: Unity tests
+  #       uses: webbertakken/unity-test-runner@v1.6
+  #       env:
+  #         UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+  #       with:
+  #         unityVersion: ${{ env.UNITY_VERSION }}
 
-      - name: Upload test artifacts
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: Test results
-          path: artifacts
+  #     - name: Upload test artifacts
+  #       if: always()
+  #       uses: actions/upload-artifact@v2
+  #       with:
+  #         name: Test results
+  #         path: artifacts
 
   webgl:
     name: Deploy WebGL
@@ -125,7 +125,6 @@ jobs:
     name: Deploy server
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
-    #needs: [build, test]
     env:
       DDCLIENT_CONF: ${{ secrets.DDCLIENT_CONF }}
       GCE_INSTANCE: ${{ secrets.GCE_INSTANCE }}
