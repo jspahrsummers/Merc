@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 using Mirror;
 
 /// <summary>Controls high-level game behaviors on the server, including functionality that spans multiple scenes and players.</summary>
@@ -13,7 +15,28 @@ public sealed class GameController : NetworkBehaviour
 
     public override void OnStartServer()
     {
+        LoadAllScenes();
         SpawnFrigate();
+    }
+
+    private void LoadAllScenes()
+    {
+        var loadedScenes = new HashSet<int>();
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            var scene = SceneManager.GetSceneAt(i);
+            loadedScenes.Add(scene.buildIndex);
+        }
+
+        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+        {
+            if (loadedScenes.Contains(i))
+            {
+                continue;
+            }
+
+            SceneManager.LoadSceneAsync(i, LoadSceneMode.Additive);
+        }
     }
 
     [Server]
