@@ -58,7 +58,7 @@ public sealed class PlayerController : NetworkBehaviour
     const float HyperspaceEntryZPosition = 50f;
 
     /// <summary>How far away from the origin to place the ship when arriving from hyperspace, so that it has room to arrive near the system center.</summary>
-    const float HyperspaceArrivalPositionOffset = 30f;
+    const float HyperspaceArrivalPositionOffset = 50f;
 
     /// <summary>Constraints to apply to the ship's rigidbody, to prevent undue movement from physics.</summary>
     /// <remarks>This is set in code rather than the editor, because we need to switch them off and back on during hyperspace jumps.</remarks>
@@ -389,11 +389,8 @@ public sealed class PlayerController : NetworkBehaviour
             rigidbody.AddForce(returnAngle * Vector3.forward * ThrustForce);
         }
 
-        rigidbody.velocity = Vector3.zero;
-
-        Vector3 position = rigidbody.position;
-        position.z = 0;
-        rigidbody.position = position;
+        rigidbody.velocity = Vector3.Project(rigidbody.velocity, Vector3.up);
+        rigidbody.position = Vector3.Project(rigidbody.position, Vector3.up);
         rigidbody.constraints = DefaultRigidbodyConstraints;
 
         StopEngineGlow();
