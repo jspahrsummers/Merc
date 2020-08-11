@@ -41,6 +41,14 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Hyperspace Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""543e6f72-5228-4487-9c12-8431a61de47f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -96,6 +104,17 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Desktop"",
                     ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5e55e52c-cca8-45a4-a8ae-5823d5adb52b"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Desktop"",
+                    ""action"": ""Hyperspace Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -180,6 +199,7 @@ public class @Inputs : IInputActionCollection, IDisposable
         m_Player_Turn = m_Player.FindAction("Turn", throwIfNotFound: true);
         m_Player_Thrust = m_Player.FindAction("Thrust", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
+        m_Player_HyperspaceJump = m_Player.FindAction("Hyperspace Jump", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Quit = m_UI.FindAction("Quit", throwIfNotFound: true);
@@ -238,6 +258,7 @@ public class @Inputs : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Turn;
     private readonly InputAction m_Player_Thrust;
     private readonly InputAction m_Player_Fire;
+    private readonly InputAction m_Player_HyperspaceJump;
     public struct PlayerActions
     {
         private @Inputs m_Wrapper;
@@ -245,6 +266,7 @@ public class @Inputs : IInputActionCollection, IDisposable
         public InputAction @Turn => m_Wrapper.m_Player_Turn;
         public InputAction @Thrust => m_Wrapper.m_Player_Thrust;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
+        public InputAction @HyperspaceJump => m_Wrapper.m_Player_HyperspaceJump;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -263,6 +285,9 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @Fire.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
                 @Fire.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
                 @Fire.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnFire;
+                @HyperspaceJump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHyperspaceJump;
+                @HyperspaceJump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHyperspaceJump;
+                @HyperspaceJump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHyperspaceJump;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -276,6 +301,9 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
+                @HyperspaceJump.started += instance.OnHyperspaceJump;
+                @HyperspaceJump.performed += instance.OnHyperspaceJump;
+                @HyperspaceJump.canceled += instance.OnHyperspaceJump;
             }
         }
     }
@@ -360,6 +388,7 @@ public class @Inputs : IInputActionCollection, IDisposable
         void OnTurn(InputAction.CallbackContext context);
         void OnThrust(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
+        void OnHyperspaceJump(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
