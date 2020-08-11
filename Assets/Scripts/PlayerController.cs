@@ -17,6 +17,9 @@ public sealed class PlayerController : NetworkBehaviour
     [Tooltip("Prefab for an object which represents blaster fire.")]
     public ProjectileController blasterFirePrefab;
 
+    [Tooltip("Prefab for a hyperspace arrival effect.")]
+    public HyperspaceArrivalController hyperspaceArrivalPrefab;
+
     [Tooltip("The element which renders the player's name above their ship.")]
     public TMP_Text playerNameText;
 
@@ -347,6 +350,8 @@ public sealed class PlayerController : NetworkBehaviour
         Scene destinationScene = SceneManager.GetSceneByName(inProgressHyperspaceJump.jump.toSystem);
         SceneManager.MoveGameObjectToScene(gameObject, destinationScene);
         SceneManager.SetActiveScene(destinationScene);
+
+        Instantiate(hyperspaceArrivalPrefab);
         SetUpCamera(MainCameraController.Find());
 
         Quaternion returnAngle = Quaternion.Euler(-30, 180, 180);
