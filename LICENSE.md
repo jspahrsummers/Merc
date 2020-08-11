@@ -26,6 +26,8 @@ Digital sound effects created by [rubberduck](https://opengameart.org/users/rubb
 
 [UI Sci-Fi Nesia #04](https://wenrexa.itch.io/nesia04) created by [Wenrexa](https://wenrexa.itch.io/), paid for and used under a Creative Commons Attribution v4.0 International license.
 
+[Sci-Fi Game Icons](https://krukowski.itch.io/free-sci-fi-game-icons) created by [Mark Krukowski](https://krukowski.itch.io/), used under license, "Feel free to use them in your personal and also commercial projects."
+
 [Mirror networking library](https://mirror-networking.com) copyright (c) 2015, Unity Technologies, Copyright (c) 2019, vis2k, Paul and Contributors, released under the MIT license.
 
 [Ignorance](https://github.com/SoftwareGuy/Ignorance) transport for Mirror copyright (c) 2019 Matt Coburn, released under the MIT license.

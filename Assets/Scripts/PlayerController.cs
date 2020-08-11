@@ -29,6 +29,9 @@ public sealed class PlayerController : NetworkBehaviour
     [Tooltip("Sound effect to play when arriving from hyperspace.")]
     public AudioSource hyperspaceJumpInSound;
 
+    [Tooltip("Object which renders a pointer to direct players back to the origin. Rotating this object should produce pointers to different directions around the player.")]
+    public GameObject pointerIcon;
+
     /// <summary>The nickname that this player chose when connecting.</summary>
     [HideInInspector, SyncVar(hook = nameof(SetNickname))]
     public string nickname;
@@ -59,6 +62,9 @@ public sealed class PlayerController : NetworkBehaviour
 
     /// <summary>How far away from the origin to place the ship when arriving from hyperspace, so that it has room to arrive near the system center.</summary>
     const float HyperspaceArrivalPositionOffset = 50f;
+
+    /// <summary>Once the player is this far away from the origin, pointerIcon will be shown to direct them back.</summary>
+    const float DistanceForShowingPointer = 25f;
 
     /// <summary>Constraints to apply to the ship's rigidbody, to prevent undue movement from physics.</summary>
     /// <remarks>This is set in code rather than the editor, because we need to switch them off and back on during hyperspace jumps.</remarks>
@@ -204,6 +210,16 @@ public sealed class PlayerController : NetworkBehaviour
 
         var thrust = inputs.Player.Thrust.ReadValue<float>() * ThrustForce;
         rigidbody.AddRelativeForce(Vector3.forward * thrust);
+
+        bool showPointerIcon = inProgressHyperspaceJump == null && rigidbody.position.magnitude >= DistanceForShowingPointer;
+        if (showPointerIcon)
+        {
+            Vector3 headingTowardOrigin = -rigidbody.position;
+            Vector3 directionTowardOrigin = headingTowardOrigin / headingTowardOrigin.magnitude;
+            pointerIcon.transform.rotation = Quaternion.FromToRotation(Vector3.up, directionTowardOrigin);
+        }
+
+        pointerIcon.SetActive(showPointerIcon);
     }
 
     void Update()
