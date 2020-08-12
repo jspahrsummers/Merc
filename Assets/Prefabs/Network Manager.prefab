@@ -246,6 +246,7 @@ MonoBehaviour:
   authSucceeded:
     m_PersistentCalls:
       m_Calls: []
+  versionText: {fileID: 4900000, guid: 585800e513f8bbe4fa1ffe61de0e6b8f, type: 3}
   authFailed:
     m_PersistentCalls:
       m_Calls: []

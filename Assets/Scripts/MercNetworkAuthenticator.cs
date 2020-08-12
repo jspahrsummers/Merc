@@ -15,11 +15,14 @@ public sealed class MercAuthenticationData
 /// <remarks>Currently, "authentication" is just ensuring non-duplicate nicknames.</remarks>
 public sealed class MercNetworkAuthenticator : NetworkAuthenticator
 {
-    /// <summary>The nickname for this client to use with the server. Must be set before authentication begins.</summary>
+    [Tooltip("The nickname for this client to use with the server. Must be set before authentication begins.")]
     public string nickname;
 
-    /// <summary>Invoked on the client if authentication succeeds.</summary>
+    [Tooltip("Invoked on the client if authentication succeeds.")]
     public UnityEvent authSucceeded = new UnityEvent();
+
+    [Tooltip("A file containing the semantic version of the project.")]
+    public TextAsset versionText;
 
     [System.Serializable]
     public sealed class AuthFailedEvent : UnityEvent<string>
@@ -47,6 +50,14 @@ public sealed class MercNetworkAuthenticator : NetworkAuthenticator
 
     /// <summary>Nicknames by connection ID, tracked on the server.</summary>
     private Dictionary<int, string> nicknames = new Dictionary<int, string>();
+
+    void Start()
+    {
+        if (versionText.text.Trim() != Application.version.Trim())
+        {
+            Debug.LogWarning($"Version file \"{versionText}\" does not match project settings version \"{Application.version}\"");
+        }
+    }
 
     public override void OnStartServer()
     {
