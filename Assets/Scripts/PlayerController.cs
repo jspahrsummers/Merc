@@ -69,15 +69,12 @@ public sealed class PlayerController : NetworkBehaviour
     /// <summary>Once the player is this far away from the origin, pointerIcon will be shown to direct them back.</summary>
     const float DistanceForShowingPointer = 25f;
 
+    /// <summary>Vertical canvas offset at which to position player name text, relative to the ship.</summary>
+    const float PlayerNameTextYOffset = 25 * 0.02f;
+
     /// <summary>Constraints to apply to the ship's rigidbody, to prevent undue movement from physics.</summary>
     /// <remarks>This is set in code rather than the editor, because we need to switch them off and back on during hyperspace jumps.</remarks>
     const RigidbodyConstraints DefaultRigidbodyConstraints = RigidbodyConstraints.FreezePositionZ | RigidbodyConstraints.FreezeRotationX;
-
-    /// <summary>Saved relative position of the text UI, so the player object's rotation can be counteracted.</summary>
-    private Vector3 relativeTextPosition;
-
-    /// <summary>Saved rotation for text UI, so the player object's rotation can be counteracted.</summary>
-    private Quaternion textRotation;
 
     /// <summary>Input action map for responding to player controls.</summary>
     private Inputs inputs;
@@ -139,12 +136,6 @@ public sealed class PlayerController : NetworkBehaviour
     {
         var authData = (MercAuthenticationData)connectionToClient.authenticationData;
         nickname = authData.nickname;
-    }
-
-    void Awake()
-    {
-        relativeTextPosition = playerNameText.transform.position - transform.position;
-        textRotation = playerNameText.transform.rotation;
     }
 
     void Start()
@@ -239,8 +230,8 @@ public sealed class PlayerController : NetworkBehaviour
 
     void Update()
     {
-        playerNameText.transform.position = transform.position + relativeTextPosition;
-        playerNameText.transform.rotation = textRotation;
+        playerNameText.transform.position = transform.position + new Vector3(0, PlayerNameTextYOffset, 0);
+        playerNameText.transform.rotation = Quaternion.identity;
     }
 
     private void SetNickname(string oldName, string newName)
