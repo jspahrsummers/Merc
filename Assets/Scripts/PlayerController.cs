@@ -87,6 +87,9 @@ public sealed class PlayerController : NetworkBehaviour
     /// <remarks>This is spoofable. We should consider how to make this more resilient to hacking.</remarks>
     private double rtt;
 
+    /// <summary>Any planet that the player is touching, or null if the player is not touching any.</summary>
+    private PlanetController touchingPlanet;
+
     /// <summary>On the client, represents a hyperspace jump that is in progress.</summary>
     private sealed class InProgressHyperspaceJump
     {
@@ -159,6 +162,43 @@ public sealed class PlayerController : NetworkBehaviour
             {
                 Debug.Log($"Could not replace player object for {connectionToClient}");
             }
+        }
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
+        var planet = collider.GetComponent<PlanetController>();
+        if (planet == null)
+        {
+            return;
+        }
+
+        Debug.Log($"Started touching {planet}");
+        touchingPlanet = planet;
+    }
+
+    void OnTriggerExit(Collider collider)
+    {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
+        var planet = collider.GetComponent<PlanetController>();
+        if (planet == null)
+        {
+            return;
+        }
+
+        if (touchingPlanet == planet)
+        {
+            Debug.Log($"Stopped touching {planet}");
+            touchingPlanet = null;
         }
     }
 
