@@ -497,12 +497,47 @@ public sealed class PlayerController : NetworkBehaviour
         }
 
         Debug.Log($"Landing on {touchingPlanet}");
+        CmdLand();
 
         var landingScreen = Instantiate<LandingScreenController>(landingScreenPrefab);
         landingScreen.planet = touchingPlanet;
         landingScreen.gameObject.SetActive(true);
+        landingScreen.dismissed.AddListener(CmdDepart);
+    }
 
+    [Command]
+    private void CmdLand()
+    {
+        Debug.Log($"{name} landing");
         gameObject.SetActive(false);
-        landingScreen.dismissed.AddListener(() => gameObject.SetActive(true));
+        RpcLand();
+    }
+
+    [ClientRpc]
+    private void RpcLand()
+    {
+        Debug.Log($"{name} landing");
+        gameObject.SetActive(false);
+    }
+
+    [Command]
+    private void CmdDepart()
+    {
+        Debug.Log($"{name} departing");
+        gameObject.SetActive(true);
+        RpcDepart();
+    }
+
+    [ClientRpc]
+    private void RpcDepart()
+    {
+        Debug.Log($"{name} departing");
+
+        if (isLocalPlayer)
+        {
+            rigidbody.velocity = Vector3.zero;
+        }
+
+        gameObject.SetActive(true);
     }
 }
