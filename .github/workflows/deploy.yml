@@ -1,12 +1,8 @@
-name: Main
-
+name: Deploy
 on:
   push:
-    branches:
-      - master
     tags:
       - v*
-  pull_request:
 
 env:
   UNITY_VERSION: 2019.3.14f1
@@ -29,15 +25,24 @@ jobs:
   #         name: ${{ steps.getManualLicenseFile.outputs.filePath }}
   #         path: ${{ steps.getManualLicenseFile.outputs.filePath }}
 
+  check-version:
+    name: Check version matches tag
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Compare against ${{ github.ref }}
+        run: |
+          [[ $(<VERSION) == $(basename "$GITHUB_REF") ]]
+
   build:
     name: Build for ${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
+    needs: [check-version]
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         targetPlatform:
           - StandaloneOSX
-          # - StandaloneWindows
           - StandaloneWindows64
           - StandaloneLinux64
     steps:
@@ -49,54 +54,34 @@ jobs:
           restore-keys: |
             Library-
 
+      - name: Set Merc version
+        run: echo "::set-env name=MERC_VERSION::$(<VERSION)"
+
       - name: Unity build
-        uses: webbertakken/unity-builder@v1.0
+        uses: webbertakken/unity-builder@v1.1
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: ${{ matrix.targetPlatform }}
+          versioning: Custom
+          version: ${{ env.MERC_VERSION }}
 
       - name: Publish to itch.io
         if: github.event_name == 'push'
-        uses: josephbmanley/butler-publish-itchio-action@v1.0.1
+        uses: josephbmanley/butler-publish-itchio-action@v1.0.2
         env:
           BUTLER_CREDENTIALS: ${{ secrets.BUTLER_API_KEY }}
           CHANNEL: ${{ matrix.targetPlatform }}
           ITCH_GAME: Merc
           ITCH_USER: jspahrsummers
           PACKAGE: build/${{ matrix.targetPlatform }}
-
-  # test:
-  #   name: Test
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - uses: actions/cache@v2
-  #       with:
-  #         path: Library
-  #         key: Library-Test
-  #         restore-keys: |
-  #           Library-
-
-  #     - name: Unity tests
-  #       uses: webbertakken/unity-test-runner@v1.6
-  #       env:
-  #         UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
-  #       with:
-  #         unityVersion: ${{ env.UNITY_VERSION }}
-
-  #     - name: Upload test artifacts
-  #       if: always()
-  #       uses: actions/upload-artifact@v2
-  #       with:
-  #         name: Test results
-  #         path: artifacts
+          VERSION: ${{ env.MERC_VERSION }}
 
   webgl:
     name: Deploy WebGL
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    needs: [check-version]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v2
@@ -106,19 +91,25 @@ jobs:
           restore-keys: |
             Library-
 
+      - name: Set Merc version
+        run: echo "::set-env name=MERC_VERSION::$(<VERSION)"
+
       - name: Unity build
-        uses: webbertakken/unity-builder@v1.0
+        uses: webbertakken/unity-builder@v1.1
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: WebGL
+          versioning: Custom
+          version: ${{ env.MERC_VERSION }}
 
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@3.5.5
+        uses: JamesIves/github-pages-deploy-action@3.5.9
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
+          COMMIT_MESSAGE: Deploying ${{ env.MERC_VERSION }}
           FOLDER: build/WebGL/WebGL
 
   deploy-server:
@@ -141,6 +132,9 @@ jobs:
           restore-keys: |
             Library-
 
+      - name: Set Merc version
+        run: echo "::set-env name=MERC_VERSION::$(<VERSION)"
+
       - name: Setup gcloud CLI
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
         with:
@@ -153,33 +147,41 @@ jobs:
 
       # TODO: Build specifically for headless operation, to cut down size
       - name: Build headless Linux server
-        uses: webbertakken/unity-builder@v1.0
+        uses: webbertakken/unity-builder@v1.1
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         with:
           unityVersion: ${{ env.UNITY_VERSION }}
           targetPlatform: StandaloneLinux64
+          versioning: Custom
+          version: ${{ env.MERC_VERSION }}
 
       - name: Dockerize
-        run: docker build -f Server/Dockerfile --build-arg DDCLIENT_CONF="$DDCLIENT_CONF" --tag merc-server --tag "gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:$GITHUB_SHA" .
+        run: docker build -f Server/Dockerfile --build-arg DDCLIENT_CONF="$DDCLIENT_CONF" --tag merc-server --tag "gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:$MERC_VERSION" .
 
       - name: Publish to GCR
-        run: docker push "gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:$GITHUB_SHA"
+        run: docker push "gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:$MERC_VERSION"
 
       - name: Tag latest
         if: github.ref == 'refs/heads/master'
         run: docker tag merc-server "gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:latest" && docker push "gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:latest"
 
       - name: Deploy to GCE
-        run: gcloud compute instances update-container --zone "$GCE_ZONE" "$GCE_INSTANCE" --container-image="gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:$GITHUB_SHA"
+        run: gcloud compute instances update-container --zone "$GCE_ZONE" "$GCE_INSTANCE" --container-image="gcr.io/$GCLOUD_PROJECT/$IMAGE_NAME:$MERC_VERSION"
 
   notify:
     name: Notify Discord server
     runs-on: ubuntu-latest
     needs: [build, webgl, deploy-server]
     steps:
-      - uses: rjstone/discord-webhook-notify@v1.0.4
+      - name: Set Merc version
+        run: echo "::set-env name=MERC_VERSION::$(<VERSION)"
+
+      - uses: rjstone/discord-webhook-notify@v1
         with:
           severity: info
-          details: New version live!
+          text: |
+            ${{ env.MERC_VERSION }} is now live! Download the latest version from: https://jspahrsummers.itch.io/merc
+          details: |
+            For more information about this release, see https://github.com/jspahrsummers/Merc/releases/tag/${{ env.MERC_VERSION }}
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
