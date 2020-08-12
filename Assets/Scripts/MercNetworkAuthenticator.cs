@@ -35,6 +35,10 @@ public sealed class MercNetworkAuthenticator : NetworkAuthenticator
     /// <summary>Sent from the client to the server to request authentication.</summary>
     public sealed class AuthRequestMessage : MessageBase
     {
+        /// <summary>The Merc version of the client.</summary>
+        public string clientVersion;
+
+        /// <summary>The nickname that the player wants to present.</summary>
         public string nickname;
     }
 
@@ -96,7 +100,7 @@ public sealed class MercNetworkAuthenticator : NetworkAuthenticator
         }
 
         var authData = new MercAuthenticationData { nickname = msg.nickname };
-        Debug.Log($"\"{authData.nickname}\" connected");
+        Debug.Log($"\"{authData.nickname}\" connected (running version {msg.clientVersion})");
         nicknames.Add(connection.connectionId, authData.nickname);
 
         connection.authenticationData = authData;
@@ -124,7 +128,7 @@ public sealed class MercNetworkAuthenticator : NetworkAuthenticator
     public override void OnClientAuthenticate(NetworkConnection connection)
     {
         Debug.Log($"Sending authentication request as \"{nickname}\"");
-        AuthRequestMessage authRequestMessage = new AuthRequestMessage { nickname = nickname };
+        AuthRequestMessage authRequestMessage = new AuthRequestMessage { clientVersion = Application.version, nickname = nickname };
         NetworkClient.Send(authRequestMessage);
     }
 
