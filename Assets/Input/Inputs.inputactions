@@ -36,6 +36,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Land",
+                    "type": "Button",
+                    "id": "e39d86e2-0aae-4ce0-a2d6-0d8d355b4bb2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -102,6 +110,17 @@
                     "processors": "",
                     "groups": "Desktop",
                     "action": "Hyperspace Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9500dc9c-ab88-4a8d-abef-a661c395a47b",
+                    "path": "<Keyboard>/l",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "Land",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

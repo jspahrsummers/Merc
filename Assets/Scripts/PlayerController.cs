@@ -20,6 +20,9 @@ public sealed class PlayerController : NetworkBehaviour
     [Tooltip("Prefab for a hyperspace arrival effect.")]
     public HyperspaceArrivalController hyperspaceArrivalPrefab;
 
+    [Tooltip("Prefab for landing screen UI.")]
+    public LandingScreenController landingScreenPrefab;
+
     [Tooltip("The element which renders the player's name above their ship.")]
     public TMP_Text playerNameText;
 
@@ -123,6 +126,7 @@ public sealed class PlayerController : NetworkBehaviour
             inputs.Player.Fire.started += context => CmdStartFiring();
             inputs.Player.Fire.canceled += context => CmdStopFiring();
             inputs.Player.HyperspaceJump.performed += context => StartHyperspaceJump();
+            inputs.Player.Land.performed += context => Land();
         }
 
         inputs.Player.Enable();
@@ -481,5 +485,24 @@ public sealed class PlayerController : NetworkBehaviour
         {
             yield return unloadOperation;
         }
+    }
+
+    [Client]
+    private void Land()
+    {
+        if (touchingPlanet == null)
+        {
+            Debug.Log($"Cannot land, no planet nearby");
+            return;
+        }
+
+        Debug.Log($"Landing on {touchingPlanet}");
+
+        var landingScreen = Instantiate<LandingScreenController>(landingScreenPrefab);
+        landingScreen.planet = touchingPlanet;
+        landingScreen.gameObject.SetActive(true);
+
+        gameObject.SetActive(false);
+        landingScreen.dismissed.AddListener(() => gameObject.SetActive(true));
     }
 }

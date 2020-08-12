@@ -49,6 +49,14 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Land"",
+                    ""type"": ""Button"",
+                    ""id"": ""e39d86e2-0aae-4ce0-a2d6-0d8d355b4bb2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -115,6 +123,17 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Desktop"",
                     ""action"": ""Hyperspace Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9500dc9c-ab88-4a8d-abef-a661c395a47b"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Desktop"",
+                    ""action"": ""Land"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -200,6 +219,7 @@ public class @Inputs : IInputActionCollection, IDisposable
         m_Player_Thrust = m_Player.FindAction("Thrust", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_HyperspaceJump = m_Player.FindAction("Hyperspace Jump", throwIfNotFound: true);
+        m_Player_Land = m_Player.FindAction("Land", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Quit = m_UI.FindAction("Quit", throwIfNotFound: true);
@@ -259,6 +279,7 @@ public class @Inputs : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Thrust;
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_HyperspaceJump;
+    private readonly InputAction m_Player_Land;
     public struct PlayerActions
     {
         private @Inputs m_Wrapper;
@@ -267,6 +288,7 @@ public class @Inputs : IInputActionCollection, IDisposable
         public InputAction @Thrust => m_Wrapper.m_Player_Thrust;
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @HyperspaceJump => m_Wrapper.m_Player_HyperspaceJump;
+        public InputAction @Land => m_Wrapper.m_Player_Land;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -288,6 +310,9 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @HyperspaceJump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHyperspaceJump;
                 @HyperspaceJump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHyperspaceJump;
                 @HyperspaceJump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHyperspaceJump;
+                @Land.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLand;
+                @Land.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLand;
+                @Land.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLand;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -304,6 +329,9 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @HyperspaceJump.started += instance.OnHyperspaceJump;
                 @HyperspaceJump.performed += instance.OnHyperspaceJump;
                 @HyperspaceJump.canceled += instance.OnHyperspaceJump;
+                @Land.started += instance.OnLand;
+                @Land.performed += instance.OnLand;
+                @Land.canceled += instance.OnLand;
             }
         }
     }
@@ -389,6 +417,7 @@ public class @Inputs : IInputActionCollection, IDisposable
         void OnThrust(InputAction.CallbackContext context);
         void OnFire(InputAction.CallbackContext context);
         void OnHyperspaceJump(InputAction.CallbackContext context);
+        void OnLand(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -99,6 +99,8 @@ MonoBehaviour:
     type: 3}
   hyperspaceArrivalPrefab: {fileID: 7321129617381378951, guid: eb55fb7da1f1dee4eac180e47636a796,
     type: 3}
+  landingScreenPrefab: {fileID: 2759402333311892532, guid: 226f66b95b0124f409c0d67795181e8f,
+    type: 3}
   playerNameText: {fileID: 4089617614058854517}
   hyperspaceJumpOutSound: {fileID: 6741375886418633493}
   hyperspaceJumpInSound: {fileID: 6118248741118154124}
