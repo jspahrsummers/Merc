@@ -151,6 +151,12 @@ public sealed class PlayerController : NetworkBehaviour
     void OnEnable()
     {
         SetNickname("", nickname);
+        inputs?.Player.Enable();
+    }
+
+    void OnDisable()
+    {
+        inputs?.Player.Disable();
     }
 
     void OnDestroy()
@@ -202,6 +208,36 @@ public sealed class PlayerController : NetworkBehaviour
         }
     }
 
+    void FixedUpdate()
+    {
+        if (inputs == null)
+        {
+            return;
+        }
+
+        var turn = inputs.Player.Turn.ReadValue<float>() * RotationSpeed * Time.deltaTime;
+        rigidbody.MoveRotation(rigidbody.rotation * Quaternion.AngleAxis(turn, Vector3.up));
+
+        var thrust = inputs.Player.Thrust.ReadValue<float>() * ThrustForce;
+        rigidbody.AddRelativeForce(Vector3.forward * thrust);
+
+        bool showPointerIcon = inProgressHyperspaceJump == null && rigidbody.position.magnitude >= DistanceForShowingPointer;
+        if (showPointerIcon)
+        {
+            Vector3 headingTowardOrigin = -rigidbody.position;
+            Vector3 directionTowardOrigin = headingTowardOrigin / headingTowardOrigin.magnitude;
+            pointerIcon.transform.rotation = Quaternion.FromToRotation(Vector3.up, directionTowardOrigin);
+        }
+
+        pointerIcon.SetActive(showPointerIcon);
+    }
+
+    void Update()
+    {
+        playerNameText.transform.position = transform.position + relativeTextPosition;
+        playerNameText.transform.rotation = textRotation;
+    }
+
     private void SetNickname(string oldName, string newName)
     {
         playerNameText.text = newName;
@@ -243,41 +279,6 @@ public sealed class PlayerController : NetworkBehaviour
     private void CmdUpdateRtt(double rtt)
     {
         this.rtt = rtt;
-    }
-
-    void OnDisable()
-    {
-        inputs?.Player.Disable();
-    }
-
-    void FixedUpdate()
-    {
-        if (inputs == null)
-        {
-            return;
-        }
-
-        var turn = inputs.Player.Turn.ReadValue<float>() * RotationSpeed * Time.deltaTime;
-        rigidbody.MoveRotation(rigidbody.rotation * Quaternion.AngleAxis(turn, Vector3.up));
-
-        var thrust = inputs.Player.Thrust.ReadValue<float>() * ThrustForce;
-        rigidbody.AddRelativeForce(Vector3.forward * thrust);
-
-        bool showPointerIcon = inProgressHyperspaceJump == null && rigidbody.position.magnitude >= DistanceForShowingPointer;
-        if (showPointerIcon)
-        {
-            Vector3 headingTowardOrigin = -rigidbody.position;
-            Vector3 directionTowardOrigin = headingTowardOrigin / headingTowardOrigin.magnitude;
-            pointerIcon.transform.rotation = Quaternion.FromToRotation(Vector3.up, directionTowardOrigin);
-        }
-
-        pointerIcon.SetActive(showPointerIcon);
-    }
-
-    void Update()
-    {
-        playerNameText.transform.position = transform.position + relativeTextPosition;
-        playerNameText.transform.rotation = textRotation;
     }
 
     [Command]
