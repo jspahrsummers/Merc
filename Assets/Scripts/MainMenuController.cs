@@ -30,6 +30,9 @@ public sealed class MainMenuController : NetworkBehaviour
     [Tooltip("The authenticator to set up prior to trying to connect.")]
     public MercNetworkAuthenticator networkAuthenticator;
 
+    [Tooltip("Displays the version number of the build.")]
+    public TMP_Text versionNumberText;
+
     /// <summary>Key into Unity's PlayerPrefs for remembering the user's nickname.</summary>
     const string NicknamePlayerPrefsKey = "nickname";
 
@@ -48,6 +51,7 @@ public sealed class MainMenuController : NetworkBehaviour
         }
 
         nicknameInputField.onValueChanged.AddListener(NicknameChanged);
+        versionNumberText.text = $"{Application.version}\n(Unity version {Application.unityVersion})";
     }
 
     private string RandomNickname()
