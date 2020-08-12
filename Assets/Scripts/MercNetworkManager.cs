@@ -5,6 +5,9 @@ using Mirror;
 /// <summary>Custom NetworkManager type that supports listeners for the default "callbacks."</summary>
 public sealed class MercNetworkManager : NetworkManager
 {
+    /// <summary>An event tagged with a network connection that it happened to/on.</summary>
+    public sealed class NetworkConnectionEvent : UnityEvent<NetworkConnection> { }
+
     [Tooltip("Event invoked when this client successfully connects to a server.")]
     public UnityEvent clientConnected = new UnityEvent();
 
@@ -13,6 +16,12 @@ public sealed class MercNetworkManager : NetworkManager
 
     [Tooltip("Event invoked when this sever encounters a network error.")]
     public UnityEvent serverError = new UnityEvent();
+
+    [Tooltip("Event invoked when a client successfully connects to this server.")]
+    public NetworkConnectionEvent clientConnectedToServer = new NetworkConnectionEvent();
+
+    [Tooltip("Event invoked when a client disconnects from this server.")]
+    public NetworkConnectionEvent clientDisconnectedFromServer = new NetworkConnectionEvent();
 
     [Tooltip("The authenticator to use for connections via this network manager.")]
     public MercNetworkAuthenticator networkAuthenticator;
@@ -59,5 +68,17 @@ public sealed class MercNetworkManager : NetworkManager
     {
         base.OnServerError(connection, errorCode);
         serverError.Invoke();
+    }
+
+    public override void OnServerConnect(NetworkConnection connection)
+    {
+        base.OnServerConnect(connection);
+        clientConnectedToServer.Invoke(connection);
+    }
+
+    public override void OnServerDisconnect(NetworkConnection connection)
+    {
+        base.OnServerDisconnect(connection);
+        clientDisconnectedFromServer.Invoke(connection);
     }
 }

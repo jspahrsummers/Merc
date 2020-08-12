@@ -13,10 +13,33 @@ public sealed class GameController : NetworkBehaviour
     /// <summary>Spawned objects will be randomly offset between negative and positive values of this number, along X and Y axes.</summary>
     const float RandomTranslationRange = 10;
 
+    /// <summary>The active network manager.</summary>
+    private MercNetworkManager networkManager => (MercNetworkManager)NetworkManager.singleton;
+
+    /// <summary>A list of players, to synchronize to clients.</summary>
+    public sealed class SyncPlayerList : SyncSortedSet<string> { }
+
+    /// <summary>All players currently connected to this server.</summary>
+    public SyncPlayerList onlinePlayerList = new SyncPlayerList();
+
+    public static GameController Find()
+    {
+        return GameObject.FindWithTag("GameController")?.GetComponent<GameController>();
+    }
+
     public override void OnStartServer()
     {
+        networkManager.clientConnectedToServer.AddListener(ClientConnectedToServer);
+        networkManager.clientDisconnectedFromServer.AddListener(ClientDisconnectedFromServer);
+
         LoadAllScenes();
         SpawnFrigate();
+    }
+
+    void OnDestroy()
+    {
+        networkManager?.clientConnectedToServer.RemoveListener(ClientConnectedToServer);
+        networkManager?.clientDisconnectedFromServer.RemoveListener(ClientDisconnectedFromServer);
     }
 
     private void LoadAllScenes()
@@ -37,6 +60,22 @@ public sealed class GameController : NetworkBehaviour
 
             SceneManager.LoadSceneAsync(i, LoadSceneMode.Additive);
         }
+    }
+
+    private void ClientConnectedToServer(NetworkConnection connection)
+    {
+        onlinePlayerList.Add(networkManager.networkAuthenticator.nicknames[connection.connectionId]);
+    }
+
+    private void ClientDisconnectedFromServer(NetworkConnection connection)
+    {
+        string nickname;
+        if (!networkManager.networkAuthenticator.nicknames.TryGetValue(connection.connectionId, out nickname))
+        {
+            return;
+        }
+
+        onlinePlayerList.Remove(nickname);
     }
 
     [Server]

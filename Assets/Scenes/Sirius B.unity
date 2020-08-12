@@ -128,6 +128,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1363055387901848201, guid: 595ada8102d99644bac44f547b650395,
+        type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 1363055387901848202, guid: 595ada8102d99644bac44f547b650395,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -142,6 +147,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AssetId
       value: 595ada8102d99644bac44f547b650395
+      objectReference: {fileID: 0}
+    - target: {fileID: 1363055387959165507, guid: 595ada8102d99644bac44f547b650395,
+        type: 3}
+      propertyPath: serverOnly
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7406876037858577197, guid: 595ada8102d99644bac44f547b650395,
         type: 3}

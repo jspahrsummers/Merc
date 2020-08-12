@@ -53,7 +53,7 @@ public sealed class MercNetworkAuthenticator : NetworkAuthenticator
     }
 
     /// <summary>Nicknames by connection ID, tracked on the server.</summary>
-    private Dictionary<int, string> nicknames = new Dictionary<int, string>();
+    public Dictionary<int, string> nicknames = new Dictionary<int, string>();
 
     void Start()
     {
