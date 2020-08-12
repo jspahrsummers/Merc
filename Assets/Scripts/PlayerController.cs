@@ -167,6 +167,7 @@ public sealed class PlayerController : NetworkBehaviour
     {
         if (isServer && NetworkServer.active)
         {
+            // Respawn
             var player = Instantiate(NetworkManager.singleton.playerPrefab);
             if (!NetworkServer.ReplacePlayerForConnection(connectionToClient, player, false))
             {
@@ -525,6 +526,7 @@ public sealed class PlayerController : NetworkBehaviour
     {
         Debug.Log($"{name} departing");
         gameObject.SetActive(true);
+        NetworkServer.Spawn(gameObject, connectionToClient);
         RpcDepart();
     }
 
