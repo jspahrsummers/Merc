@@ -115,6 +115,7 @@ jobs:
   deploy-server:
     name: Deploy server
     runs-on: ubuntu-latest
+    needs: [check-version]
     if: github.event_name == 'push'
     env:
       DDCLIENT_CONF: ${{ secrets.DDCLIENT_CONF }}
