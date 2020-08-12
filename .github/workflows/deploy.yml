@@ -30,9 +30,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Compare against ${{ github.ref }}
+
+      - name: Set Merc version
+        run: echo "::set-env name=MERC_VERSION::$(<VERSION)"
+
+      - name: Compare ${{ env.MERC_VERSION }} against ${{ github.ref }}
         run: |
-          [[ $(<VERSION) == $(basename "$GITHUB_REF") ]]
+          [[ "$MERC_VERSION" == $(basename "$GITHUB_REF") ]]
 
   build:
     name: Build for ${{ matrix.targetPlatform }}
