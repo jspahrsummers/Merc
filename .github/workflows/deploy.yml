@@ -183,6 +183,6 @@ jobs:
           severity: info
           text: |
             ${{ env.MERC_VERSION }} is now live! Download the latest version from: https://jspahrsummers.itch.io/merc
-          details: |
-            For more information about this release, see https://github.com/jspahrsummers/Merc/releases/tag/${{ env.MERC_VERSION }}
+          description: |
+            For information about what's in this release, see https://github.com/jspahrsummers/Merc/releases/tag/${{ env.MERC_VERSION }}
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
