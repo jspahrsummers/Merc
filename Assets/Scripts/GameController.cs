@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 using Mirror;
 
 /// <summary>Controls high-level game behaviors on the server, including functionality that spans multiple scenes and players.</summary>
-/// <remarks>This class is meant to be server-only, and is effectively a singleton.</remarks>
 public sealed class GameController : NetworkBehaviour
 {
     [Tooltip("A damageable object to automatically spawn repeatedly, for the player(s) to destroy.")]
@@ -29,6 +28,11 @@ public sealed class GameController : NetworkBehaviour
 
     public override void OnStartServer()
     {
+        foreach (var nickname in networkManager.networkAuthenticator.nicknames.Values)
+        {
+            onlinePlayerList.Add(nickname);
+        }
+
         networkManager.clientConnectedToServer.AddListener(ClientConnectedToServer);
         networkManager.clientDisconnectedFromServer.AddListener(ClientDisconnectedFromServer);
 
