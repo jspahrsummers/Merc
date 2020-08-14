@@ -19,6 +19,7 @@ public sealed class StarSystemController : NetworkBehaviour
     {
         if (GameController.Find() == null)
         {
+            Debug.Log($"Spawning game controller for the first time");
             var gameController = Instantiate<GameController>(gameControllerPrefab);
             NetworkServer.Spawn(gameController.gameObject);
         }

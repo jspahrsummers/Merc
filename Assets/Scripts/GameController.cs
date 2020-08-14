@@ -26,6 +26,7 @@ public sealed class GameController : NetworkBehaviour
 
     void Awake()
     {
+        Debug.Log($"GameController awake");
         DontDestroyOnLoad(this);
 
         networkManager = MercNetworkManager.Find();

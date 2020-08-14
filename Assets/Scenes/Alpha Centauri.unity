@@ -146,7 +146,12 @@ PrefabInstance:
     - target: {fileID: 7406876037858577197, guid: 595ada8102d99644bac44f547b650395,
         type: 3}
       propertyPath: m_Name
-      value: System Controller
+      value: System Base
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943964205360138473, guid: 595ada8102d99644bac44f547b650395,
+        type: 3}
+      propertyPath: sceneId
+      value: 3563151439
       objectReference: {fileID: 0}
     - target: {fileID: 8079483879325120073, guid: 595ada8102d99644bac44f547b650395,
         type: 3}
@@ -202,6 +207,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8739227032903644998, guid: 595ada8102d99644bac44f547b650395,
+        type: 3}
+      propertyPath: sceneId
+      value: 2927714148
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 595ada8102d99644bac44f547b650395, type: 3}
