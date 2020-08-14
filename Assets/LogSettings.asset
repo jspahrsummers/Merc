@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loglevels:
   - name: ClientScene
-    logLevel: 2
+    logLevel: 3
   - name: MessagePacker
     logLevel: 2
   - name: NetworkBehaviour
-    logLevel: 2
+    logLevel: 3
   - name: NetworkClient
-    logLevel: 2
+    logLevel: 3
   - name: NetworkConnection
     logLevel: 2
   - name: NetworkConnectionToClient
@@ -30,7 +30,7 @@ MonoBehaviour:
   - name: NetworkIdentity
     logLevel: 2
   - name: NetworkManager
-    logLevel: 2
+    logLevel: 3
   - name: NetworkReaderExtensions
     logLevel: 2
   - name: NetworkReaderPool
