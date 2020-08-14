@@ -4,8 +4,8 @@ on:
     tags:
       - v*
   pull_request:
-    branches:
-      - upgrade-unity
+    paths:
+      - ProjectSettings/ProjectVersion.txt
 
 env:
   # Choose from available tags: https://hub.docker.com/r/gableroux/unity3d
