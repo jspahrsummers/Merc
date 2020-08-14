@@ -11,21 +11,21 @@ env:
 
 jobs:
   # See https://github.com/marketplace/actions/unity-request-activation-file
-  request_activation:
-    name: Request license activation
-    runs-on: ubuntu-latest
-    steps:
-      - name: Request manual activation file
-        id: getManualLicenseFile
-        uses: webbertakken/unity-request-manual-activation-file@v1.1
-        with:
-          unityVersion: ${{ env.UNITY_VERSION }}
+  # request_activation:
+  #   name: Request license activation
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Request manual activation file
+  #       id: getManualLicenseFile
+  #       uses: webbertakken/unity-request-manual-activation-file@v1.1
+  #       with:
+  #         unityVersion: ${{ env.UNITY_VERSION }}
 
-      - name: Expose as artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: ${{ steps.getManualLicenseFile.outputs.filePath }}
-          path: ${{ steps.getManualLicenseFile.outputs.filePath }}
+  #     - name: Expose as artifact
+  #       uses: actions/upload-artifact@v1
+  #       with:
+  #         name: ${{ steps.getManualLicenseFile.outputs.filePath }}
+  #         path: ${{ steps.getManualLicenseFile.outputs.filePath }}
 
   test:
     name: Test
