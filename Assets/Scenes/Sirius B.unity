@@ -153,10 +153,15 @@ PrefabInstance:
       propertyPath: serverOnly
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4733336795804843089, guid: 595ada8102d99644bac44f547b650395,
+        type: 3}
+      propertyPath: sceneId
+      value: 695054204
+      objectReference: {fileID: 0}
     - target: {fileID: 7406876037858577197, guid: 595ada8102d99644bac44f547b650395,
         type: 3}
       propertyPath: m_Name
-      value: System Base
+      value: System Controller
       objectReference: {fileID: 0}
     - target: {fileID: 8079483879325120073, guid: 595ada8102d99644bac44f547b650395,
         type: 3}

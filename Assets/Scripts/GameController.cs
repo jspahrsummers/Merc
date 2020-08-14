@@ -3,17 +3,15 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Mirror;
 
-/// <summary>Controls high-level game behaviors on the server, including functionality that spans multiple scenes and players.</summary>
+/// <summary>Controls high-level game behaviors, including functionality that spans multiple scenes and players.</summary>
+/// <remarks>This class will also spawn a NetworkManager and start it in host mode if one does not exist yet. This is a convenience for dev-time testing, as usually the network manager is created on the main menu before the GameController is instantiated.</remarks>
 public sealed class GameController : NetworkBehaviour
 {
-    [Tooltip("A damageable object to automatically spawn repeatedly, for the player(s) to destroy.")]
-    public DamageableController frigatePrefab;
-
-    /// <summary>Spawned objects will be randomly offset between negative and positive values of this number, along X and Y axes.</summary>
-    const float RandomTranslationRange = 10;
+    [Tooltip("Prefab for spawning the network manager, if it does not already exist.")]
+    public MercNetworkManager networkManagerPrefab;
 
     /// <summary>The active network manager.</summary>
-    private MercNetworkManager networkManager => (MercNetworkManager)NetworkManager.singleton;
+    private MercNetworkManager networkManager;
 
     /// <summary>A list of players, to synchronize to clients.</summary>
     public sealed class SyncPlayerList : SyncSortedSet<string> { }
@@ -24,6 +22,25 @@ public sealed class GameController : NetworkBehaviour
     public static GameController Find()
     {
         return GameObject.FindWithTag("GameController")?.GetComponent<GameController>();
+    }
+
+    void Awake()
+    {
+        DontDestroyOnLoad(this);
+
+        if (NetworkManager.singleton != null)
+        {
+            networkManager = (MercNetworkManager)NetworkManager.singleton;
+        }
+        else
+        {
+            networkManager = Instantiate<MercNetworkManager>(networkManagerPrefab);
+            Debug.Log($"Automatically starting host for debugging purposes (scene: {gameObject.scene})");
+
+            networkManager.networkAuthenticator.nickname = "Tester";
+            networkManager.onlineScene = null;
+            networkManager.StartHost();
+        }
     }
 
     public override void OnStartServer()
@@ -37,7 +54,6 @@ public sealed class GameController : NetworkBehaviour
         networkManager.clientDisconnectedFromServer.AddListener(ClientDisconnectedFromServer);
 
         LoadAllScenes();
-        SpawnFrigate();
     }
 
     void OnDestroy()
@@ -62,6 +78,7 @@ public sealed class GameController : NetworkBehaviour
                 continue;
             }
 
+            Debug.Log($"Preloading scene at build index {i}");
             SceneManager.LoadSceneAsync(i, LoadSceneMode.Additive);
         }
     }
@@ -80,23 +97,5 @@ public sealed class GameController : NetworkBehaviour
         }
 
         onlinePlayerList.Remove(nickname);
-    }
-
-    [Server]
-    private void SpawnFrigate()
-    {
-        var position = new Vector3(Random.Range(-RandomTranslationRange, RandomTranslationRange), Random.Range(-RandomTranslationRange, RandomTranslationRange), 0);
-        var rotation = Quaternion.Euler(-90, 0, 0) * Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up);
-        var frigate = Instantiate<DamageableController>(frigatePrefab, position, rotation);
-        frigate.destroyed.AddListener(FrigateDestroyed);
-        SceneManager.MoveGameObjectToScene(frigate.gameObject, gameObject.scene);
-        NetworkServer.Spawn(frigate.gameObject);
-    }
-
-    /// <summary>Event handler when the spawned frigate has been destroyed by a player.</summary>
-    [Server]
-    public void FrigateDestroyed(DamageableController controller)
-    {
-        SpawnFrigate();
     }
 }
