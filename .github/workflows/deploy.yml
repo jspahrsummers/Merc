@@ -31,7 +31,6 @@ jobs:
 
   check-version:
     name: Check version matches tag
-    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -40,6 +39,7 @@ jobs:
         run: echo "::set-env name=MERC_VERSION::$(<VERSION.txt)"
 
       - name: Compare ${{ env.MERC_VERSION }} against ${{ github.ref }}
+        if: github.event_name == 'push'
         run: |
           [[ "$MERC_VERSION" == $(basename "$GITHUB_REF") ]]
 
