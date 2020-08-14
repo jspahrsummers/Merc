@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2025263457242457250}
   - component: {fileID: 8840425628115749518}
   - component: {fileID: 4815225492458847327}
-  - component: {fileID: 1197096067076258907}
   m_Layer: 0
   m_Name: System Controller
   m_TagString: Untagged
@@ -46,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneId: 0
-  serverOnly: 0
+  serverOnly: 1
   m_AssetId: 
   hasSpawned: 0
 --- !u!114 &4815225492458847327
@@ -67,18 +66,3 @@ MonoBehaviour:
     type: 3}
   frigatePrefab: {fileID: 5934862911930236059, guid: dac480487c267904b8aaeb60d455441d,
     type: 3}
---- !u!114 &1197096067076258907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7620189286366788629}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7fdb599e1359924bad6255660370252, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  forceHidden: 0
