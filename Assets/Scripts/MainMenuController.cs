@@ -4,7 +4,7 @@ using TMPro;
 using Mirror;
 
 /// <summary>Implements the UI for the main menu.</summary>
-public sealed class MainMenuController : NetworkBehaviour
+public sealed class MainMenuController : MonoBehaviour
 {
     [Tooltip("Field to specify a hostname to connect to.")]
     public TMP_InputField hostnameInputField;
@@ -27,8 +27,8 @@ public sealed class MainMenuController : NetworkBehaviour
     [Tooltip("Label for showing an error, if one occurred.")]
     public TMP_Text errorLabel;
 
-    [Tooltip("The authenticator to set up prior to trying to connect.")]
-    public MercNetworkAuthenticator networkAuthenticator;
+    [Tooltip("Prefab for the network manager to instantiate, if one does not already exist.")]
+    public MercNetworkManager networkManagerPrefab;
 
     [Tooltip("Displays the version number of the build.")]
     public TMP_Text versionNumberText;
@@ -36,10 +36,20 @@ public sealed class MainMenuController : NetworkBehaviour
     /// <summary>Key into Unity's PlayerPrefs for remembering the user's nickname.</summary>
     const string NicknamePlayerPrefsKey = "nickname";
 
+    private MercNetworkManager networkManager;
+    private MercNetworkAuthenticator networkAuthenticator => networkManager.networkAuthenticator;
+
+    void Awake()
+    {
+        networkManager = MercNetworkManager.Find();
+        if (networkManager == null)
+        {
+            networkManager = Instantiate<MercNetworkManager>(networkManagerPrefab);
+        }
+    }
+
     void Start()
     {
-        networkAuthenticator.authFailed.AddListener(AuthenticationFailed);
-
         var savedNickname = PlayerPrefs.GetString(NicknamePlayerPrefsKey);
         if (savedNickname != null && savedNickname.Length > 0)
         {
@@ -50,8 +60,23 @@ public sealed class MainMenuController : NetworkBehaviour
             nicknameInputField.text = RandomNickname();
         }
 
-        nicknameInputField.onValueChanged.AddListener(NicknameChanged);
         versionNumberText.text = $"{Application.version}\n(Unity version {Application.unityVersion})";
+    }
+
+    void OnEnable()
+    {
+        networkManager.clientError.AddListener(ClientConnectionErrorOccurred);
+        networkManager.serverError.AddListener(ServerStartErrorOccurred);
+        networkAuthenticator.authFailed.AddListener(AuthenticationFailed);
+        nicknameInputField.onValueChanged.AddListener(NicknameChanged);
+    }
+
+    void OnDisable()
+    {
+        networkManager.clientError.RemoveListener(ClientConnectionErrorOccurred);
+        networkManager.serverError.RemoveListener(ServerStartErrorOccurred);
+        networkAuthenticator.authFailed.RemoveListener(AuthenticationFailed);
+        nicknameInputField.onValueChanged.RemoveListener(NicknameChanged);
     }
 
     private string RandomNickname()
@@ -114,6 +139,16 @@ public sealed class MainMenuController : NetworkBehaviour
     private void NicknameChanged(string value)
     {
         PlayerPrefs.SetString(NicknamePlayerPrefsKey, value);
+    }
+
+    private void ClientConnectionErrorOccurred()
+    {
+        ErrorOccurred("could not connect to server");
+    }
+
+    private void ServerStartErrorOccurred()
+    {
+        ErrorOccurred("could not start server");
     }
 
     private void ErrorOccurred(string message)
