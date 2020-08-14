@@ -28,11 +28,8 @@ public sealed class GameController : NetworkBehaviour
     {
         DontDestroyOnLoad(this);
 
-        if (NetworkManager.singleton != null)
-        {
-            networkManager = (MercNetworkManager)NetworkManager.singleton;
-        }
-        else
+        networkManager = MercNetworkManager.Find();
+        if (networkManager == null)
         {
             networkManager = Instantiate<MercNetworkManager>(networkManagerPrefab);
             Debug.Log($"Automatically starting host for debugging purposes (scene: {gameObject.scene})");

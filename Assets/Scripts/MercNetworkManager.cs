@@ -26,6 +26,11 @@ public sealed class MercNetworkManager : NetworkManager
     [Tooltip("The authenticator to use for connections via this network manager.")]
     public MercNetworkAuthenticator networkAuthenticator;
 
+    public static MercNetworkManager Find()
+    {
+        return (MercNetworkManager)NetworkManager.singleton;
+    }
+
     // Invoked on the client after authenticating successfully to the server.
     public override void OnClientConnect(NetworkConnection connection)
     {
