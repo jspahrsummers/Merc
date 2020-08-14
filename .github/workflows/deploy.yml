@@ -36,7 +36,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Set Merc version
-        run: echo "::set-env name=MERC_VERSION::$(<VERSION.txt)"
+        run: echo "::set-env name=MERC_VERSION::$(<Assets/VERSION.txt)"
 
       - name: Compare ${{ env.MERC_VERSION }} against ${{ github.ref }}
         if: github.event_name == 'push'
@@ -64,7 +64,7 @@ jobs:
             Library-
 
       - name: Set Merc version
-        run: echo "::set-env name=MERC_VERSION::$(<VERSION.txt)"
+        run: echo "::set-env name=MERC_VERSION::$(<Assets/VERSION.txt)"
 
       - name: Unity build
         uses: webbertakken/unity-builder@v1.1
@@ -101,7 +101,7 @@ jobs:
             Library-
 
       - name: Set Merc version
-        run: echo "::set-env name=MERC_VERSION::$(<VERSION.txt)"
+        run: echo "::set-env name=MERC_VERSION::$(<Assets/VERSION.txt)"
 
       - name: Unity build
         uses: webbertakken/unity-builder@v1.1
@@ -144,7 +144,7 @@ jobs:
             Library-
 
       - name: Set Merc version
-        run: echo "::set-env name=MERC_VERSION::$(<VERSION.txt)"
+        run: echo "::set-env name=MERC_VERSION::$(<Assets/VERSION.txt)"
 
       - name: Setup gcloud CLI
         uses: GoogleCloudPlatform/github-actions/setup-gcloud@master
@@ -189,7 +189,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Set Merc version
-        run: echo "::set-env name=MERC_VERSION::$(<VERSION.txt)"
+        run: echo "::set-env name=MERC_VERSION::$(<Assets/VERSION.txt)"
 
       - uses: rjstone/discord-webhook-notify@v1
         with:
