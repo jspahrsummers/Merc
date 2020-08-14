@@ -85,7 +85,7 @@ jobs:
           ITCH_GAME: Merc
           ITCH_USER: jspahrsummers
           PACKAGE: build/${{ matrix.targetPlatform }}
-          VERSION.txt: ${{ env.MERC_VERSION }}
+          VERSION: ${{ env.MERC_VERSION }}
 
   webgl:
     name: Deploy WebGL
