@@ -3,6 +3,9 @@ on:
   push:
     tags:
       - v*
+  pull_request:
+    branches:
+      - upgrade-unity
 
 env:
   # Choose from available tags: https://hub.docker.com/r/gableroux/unity3d
@@ -28,6 +31,7 @@ jobs:
 
   check-version:
     name: Check version matches tag
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -110,6 +114,7 @@ jobs:
           version: ${{ env.MERC_VERSION }}
 
       - name: Deploy to GitHub Pages
+        if: github.event_name == 'push'
         uses: JamesIves/github-pages-deploy-action@3.5.9
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -177,6 +182,7 @@ jobs:
 
   notify:
     name: Notify Discord server
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     needs: [build, webgl, deploy-server]
     steps:
