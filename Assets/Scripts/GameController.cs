@@ -136,6 +136,12 @@ public sealed class GameController : NetworkBehaviour
     }
 
     [Server]
+    private PlayerController PlayerForConnection(NetworkConnection connection)
+    {
+        return connection.identity.GetComponent<PlayerController>();
+    }
+
+    [Server]
     private void ClientSceneReady(NetworkConnection connection, SceneReadyMessage message)
     {
         Scene? scene = SceneManagerExtensions.GetSceneByPathOrName(message.sceneNameOrPath);
@@ -145,9 +151,7 @@ public sealed class GameController : NetworkBehaviour
             return;
         }
 
-        Debug.Log($"Moving {connection} to scene {message.sceneNameOrPath}");
-        SceneManager.MoveGameObjectToScene(connection.identity.gameObject, scene.Value);
-        connection.Send(new ActivateSceneMessage { sceneNameOrPath = message.sceneNameOrPath });
+        PlayerForConnection(connection).MoveToScene(scene.Value);
     }
 
     [Server]

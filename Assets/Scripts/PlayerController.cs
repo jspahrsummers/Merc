@@ -235,6 +235,15 @@ public sealed class PlayerController : NetworkBehaviour
         playerNameText.transform.rotation = Quaternion.identity;
     }
 
+    /// <summary>Invoked to relocate the player object to another scene on the server side. When done, the server should tell the client to activate the same scene using ActivateSceneMessage.</summary>
+    [Server]
+    public void MoveToScene(Scene scene)
+    {
+        Debug.Log($"Moving {this} to scene {scene.path}");
+        SceneManager.MoveGameObjectToScene(gameObject, scene);
+        connectionToClient.Send(new ActivateSceneMessage { sceneNameOrPath = scene.path });
+    }
+
     private void SetNickname(string oldName, string newName)
     {
         playerNameText.text = newName;
