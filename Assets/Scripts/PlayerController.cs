@@ -228,8 +228,17 @@ public sealed class PlayerController : NetworkBehaviour
 
     void Update()
     {
-        playerNameText.transform.position = transform.position + new Vector3(0, PlayerNameTextYOffset, 0);
-        playerNameText.transform.rotation = Quaternion.identity;
+        // If in host mode, and this player should not be visible to the local player, hide the player name text.
+        if (isServer && !isLocalPlayer && gameObject.scene != NetworkClient.connection.identity.gameObject.scene)
+        {
+            playerNameText.enabled = false;
+        }
+        else
+        {
+            playerNameText.enabled = true;
+            playerNameText.transform.position = transform.position + new Vector3(0, PlayerNameTextYOffset, 0);
+            playerNameText.transform.rotation = Quaternion.identity;
+        }
     }
 
     /// <summary>Invoked to relocate the player object to another scene on the server side. When done, the server should tell the client to activate the same scene using ActivateSceneMessage.</summary>
