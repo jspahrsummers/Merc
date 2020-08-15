@@ -38,6 +38,9 @@ public sealed class GameController : NetworkBehaviour
     /// <summary>All players currently connected to this server.</summary>
     public SyncPlayerList onlinePlayerList = new SyncPlayerList();
 
+    /// <summary>On the server, a reference to the coroutine that is responsible for loading all scenes at startup (so that it can be waited for if necessary).</summary>
+    private Coroutine loadAllScenesCoroutine;
+
     /// <summary>On the client, tracks an outstanding scene load operation that the server has not let complete yet.</summary>
     private AsyncOperation clientSceneLoadOperation;
 
@@ -75,7 +78,7 @@ public sealed class GameController : NetworkBehaviour
         networkManager.clientDisconnectedFromServer.AddListener(ClientDisconnectedFromServer);
         networkManager.serverAddedPlayer.AddListener(ServerAddedPlayer);
 
-        StartCoroutine(LoadAllScenes());
+        loadAllScenesCoroutine = StartCoroutine(LoadAllScenes());
     }
 
     public override void OnStartClient()
@@ -167,17 +170,20 @@ public sealed class GameController : NetworkBehaviour
     [Server]
     private IEnumerator WaitForSceneToLoadThenMovePlayer(string sceneNameOrPath, GameObject player)
     {
-        // This scene should be loaded by GameController already.
-        Scene? scene;
-        do
-        {
-            yield return null;
-            scene = SceneManagerExtensions.GetSceneByPathOrName(sceneNameOrPath);
-        } while (scene == null || !scene.Value.isLoaded);
+        yield return loadAllScenesCoroutine;
 
-        SceneManager.SetActiveScene(scene.Value);
-        SceneManager.MoveGameObjectToScene(player, scene.Value);
-        Debug.Log($"Moved host player to {sceneNameOrPath}");
+        // This scene should be loaded by the above.
+        Scene? scene = SceneManagerExtensions.GetSceneByPathOrName(sceneNameOrPath);
+
+        if (SceneManager.SetActiveScene(scene.Value))
+        {
+            SceneManager.MoveGameObjectToScene(player, scene.Value);
+            Debug.Log($"Moved host player to {sceneNameOrPath}");
+        }
+        else
+        {
+            Debug.LogWarning($"Failed to change active scene to {sceneNameOrPath}");
+        }
     }
 
     [Client]
