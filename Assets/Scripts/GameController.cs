@@ -260,11 +260,6 @@ public sealed class GameController : NetworkBehaviour
     [Client]
     private void ActivateScene(NetworkConnection connection, ActivateSceneMessage message)
     {
-        if (clientSceneLoadOperation == null)
-        {
-            Debug.LogWarning($"No in-progress scene load for {message.sceneNameOrPath}");
-        }
-
         Debug.Log($"Activating {message.sceneNameOrPath}");
         StartCoroutine(WaitForSceneActivationThenSetActive(message.sceneNameOrPath));
     }
@@ -274,6 +269,7 @@ public sealed class GameController : NetworkBehaviour
     {
         if (clientSceneLoadOperation != null)
         {
+            clientSceneLoadOperation.allowSceneActivation = true;
             yield return clientSceneLoadOperation;
             clientSceneLoadOperation = null;
         }

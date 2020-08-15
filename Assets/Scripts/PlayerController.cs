@@ -90,14 +90,11 @@ public sealed class PlayerController : NetworkBehaviour
     /// <summary>Any planet that the player is touching, or null if the player is not touching any.</summary>
     private PlanetController touchingPlanet;
 
-    /// <summary>On the client, represents a hyperspace jump that is in progress.</summary>
     private sealed class InProgressHyperspaceJump
     {
-        /// <summary>A description of the hyperspace jump being performed.</summary>
         public readonly HyperspaceJump jump;
-
-        /// <summary>When the hyperspace target scene has started loading, this will be the operation for loading it asynchronously.</summary>
-        public AsyncOperation sceneLoadOperation;
+        public bool clientSceneLoaded = false;
+        public bool clientPlayerReady = false;
 
         public InProgressHyperspaceJump(HyperspaceJump jump)
         {
@@ -106,11 +103,11 @@ public sealed class PlayerController : NetworkBehaviour
 
         public override string ToString()
         {
-            return $"InProgressHyperspaceJump({jump})";
+            return $"InProgressHyperspaceJump(jump = {jump}, clientSceneLoaded = {clientSceneLoaded}, clientPlayerReady = {clientPlayerReady})";
         }
     }
 
-    /// <summary>On the client, represents a hyperspace jump that is in progress.</summary>
+    /// <summary>On the server, represents a hyperspace jump that is in progress.</summary>
     private InProgressHyperspaceJump inProgressHyperspaceJump;
 
     public override void OnStartLocalPlayer()
@@ -122,7 +119,7 @@ public sealed class PlayerController : NetworkBehaviour
             inputs.Player.Thrust.canceled += context => StopEngineGlow();
             inputs.Player.Fire.started += context => CmdStartFiring();
             inputs.Player.Fire.canceled += context => CmdStopFiring();
-            inputs.Player.HyperspaceJump.performed += context => StartHyperspaceJump();
+            inputs.Player.HyperspaceJump.performed += context => CmdStartHyperspaceJump();
             inputs.Player.Land.performed += context => Land();
         }
 
@@ -239,6 +236,13 @@ public sealed class PlayerController : NetworkBehaviour
     [Server]
     public void MoveToScene(Scene scene)
     {
+        if (inProgressHyperspaceJump != null && scene.name == inProgressHyperspaceJump.jump.toSystem)
+        {
+            inProgressHyperspaceJump.clientSceneLoaded = true;
+            FinishHyperspaceJumpIfReady();
+            return;
+        }
+
         Debug.Log($"Moving {this} to scene {scene.path}");
         SceneManager.MoveGameObjectToScene(gameObject, scene);
         connectionToClient.Send(new ActivateSceneMessage { sceneNameOrPath = scene.path });
@@ -361,34 +365,41 @@ public sealed class PlayerController : NetworkBehaviour
         engineGlowController.SetVisible(false);
     }
 
-    [Client]
-    private void StartHyperspaceJump()
+    [Command]
+    private void CmdStartHyperspaceJump()
     {
         if (inProgressHyperspaceJump != null)
         {
-            Debug.Log($"Hyperspace jump already in progress: {inProgressHyperspaceJump}");
+            Debug.Log($"Hyperspace jump for {this} already in progress: {inProgressHyperspaceJump}");
             return;
         }
-
-        inputs.Player.Disable();
 
         var jumpScene = gameObject.scene.name == "Sirius B" ? "Alpha Centauri" : "Sirius B";
         var jump = new HyperspaceJump(gameObject.scene.name, jumpScene);
         inProgressHyperspaceJump = new InProgressHyperspaceJump(jump);
-        StartCoroutine(PrepareForHyperspaceJumpThenNotifyServer());
+        TargetPrepareForHyperspaceJump(jump);
+
+        // In host mode, the target scene should already be loaded.
+        if (isLocalPlayer)
+        {
+            MoveToScene(SceneManager.GetSceneByName(jump.toSystem));
+        }
+        else
+        {
+            connectionToClient.Send(new SceneMessage { sceneName = jumpScene, sceneOperation = SceneOperation.LoadAdditive, customHandling = true });
+        }
+    }
+
+    [TargetRpc]
+    private void TargetPrepareForHyperspaceJump(HyperspaceJump jump)
+    {
+        StartCoroutine(PrepareForHyperspaceJumpThenNotifyServer(jump));
     }
 
     [Client]
-    private IEnumerator PrepareForHyperspaceJumpThenNotifyServer()
+    private IEnumerator PrepareForHyperspaceJumpThenNotifyServer(HyperspaceJump jump)
     {
-        Debug.Log($"Starting scene load for hyperspace jump {inProgressHyperspaceJump}");
-
-        string destinationSceneName = inProgressHyperspaceJump.jump.toSystem;
-        if (!SceneManager.GetSceneByName(destinationSceneName).isLoaded)
-        {
-            inProgressHyperspaceJump.sceneLoadOperation = SceneManager.LoadSceneAsync(destinationSceneName, LoadSceneMode.Additive);
-            inProgressHyperspaceJump.sceneLoadOperation.allowSceneActivation = false;
-        }
+        inputs.Player.Disable();
 
         // Disable constraints while animating for hyperspace, as we will now move into the Z axis.
         rigidbody.constraints = RigidbodyConstraints.None;
@@ -409,69 +420,60 @@ public sealed class PlayerController : NetworkBehaviour
             rigidbody.AddRelativeForce(Vector3.forward * ThrustForce);
         }
 
-        if (inProgressHyperspaceJump.sceneLoadOperation != null)
-        {
-            while (inProgressHyperspaceJump.sceneLoadOperation.progress < 0.9f)
-            {
-                yield return null;
-            }
-        }
-
-        CmdMovePlayerForHyperspaceJump(inProgressHyperspaceJump.jump);
+        CmdReadyForHyperspaceJump();
     }
 
     [Command]
-    private void CmdMovePlayerForHyperspaceJump(HyperspaceJump jump)
+    private void CmdReadyForHyperspaceJump()
     {
-        Debug.Log($"Moving {gameObject.name} for hyperspace jump {jump}");
+        if (inProgressHyperspaceJump == null)
+        {
+            return;
+        }
 
-        // The scene should already be loaded on the client, so this shouldn't cause an issue.
-        // TODO: Start pre-emptive load from the server instead of the client.
-        string sceneName = jump.toSystem;
-        connectionToClient.Send(new SceneMessage { sceneName = sceneName, sceneOperation = SceneOperation.LoadAdditive });
+        inProgressHyperspaceJump.clientPlayerReady = true;
+        FinishHyperspaceJumpIfReady();
+    }
 
-        Scene destinationScene = SceneManager.GetSceneByName(sceneName);
-        SceneManager.MoveGameObjectToScene(gameObject, destinationScene);
-        TargetFinishHyperspaceJump();
+    [Server]
+    private void FinishHyperspaceJumpIfReady()
+    {
+        if (!inProgressHyperspaceJump.clientPlayerReady || !inProgressHyperspaceJump.clientSceneLoaded)
+        {
+            return;
+        }
+
+        HyperspaceJump jump = inProgressHyperspaceJump.jump;
+        Scene scene = SceneManager.GetSceneByName(jump.toSystem);
+        Debug.Assert(scene.IsValid() && scene.isLoaded, $"Scene for hyperspace jump {jump} is invalid");
+
+        // This needs to be cleared before MoveToScene, because it calls back into this method otherwise.
+        inProgressHyperspaceJump = null;
+        MoveToScene(scene);
+
+        TargetArriveFromHyperspaceJump(jump);
     }
 
     [TargetRpc]
-    private void TargetFinishHyperspaceJump()
+    private void TargetArriveFromHyperspaceJump(HyperspaceJump jump)
     {
-        StartCoroutine(FinishLoadingHyperspaceJumpScene());
+        StartCoroutine(ArriveFromHyperspaceJump(jump));
     }
 
     [Client]
-    private IEnumerator FinishLoadingHyperspaceJumpScene()
+    private IEnumerator ArriveFromHyperspaceJump(HyperspaceJump jump)
     {
-        Debug.Log($"Finishing hyperspace jump {inProgressHyperspaceJump}");
+        Debug.Log($"Arriving from hyperspace jump {jump}");
 
-        AsyncOperation operation = inProgressHyperspaceJump.sceneLoadOperation;
-        if (operation != null)
-        {
-            inProgressHyperspaceJump.sceneLoadOperation.allowSceneActivation = true;
-            yield return inProgressHyperspaceJump.sceneLoadOperation;
-        }
+        Instantiate(hyperspaceArrivalPrefab);
+        hyperspaceJumpInSound.Play();
 
         rigidbody.velocity = Vector3.zero;
         rigidbody.rotation = Quaternion.Euler(-90, 0, 0);
         rigidbody.position = new Vector3(0, -HyperspaceArrivalPositionOffset, HyperspaceEntryZPosition);
 
-        Scene destinationScene = SceneManager.GetSceneByName(inProgressHyperspaceJump.jump.toSystem);
-        SceneManager.SetActiveScene(destinationScene);
-
-        Instantiate(hyperspaceArrivalPrefab);
-
-        AsyncOperation unloadOperation = null;
-        if (!isServer)
-        {
-            unloadOperation = SceneManager.UnloadSceneAsync(inProgressHyperspaceJump.jump.fromSystem, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
-        }
-
         // Returning thrust is applied in the opposite direction of going out (though we don't render that way, because it Looks Dumb)
         Quaternion returnAngle = Quaternion.Euler(HyperspaceEntryZAngle, 180, 180);
-        hyperspaceJumpInSound.Play();
-
         while (rigidbody.position.z > 0)
         {
             yield return new WaitForFixedUpdate();
@@ -483,12 +485,18 @@ public sealed class PlayerController : NetworkBehaviour
         rigidbody.constraints = DefaultRigidbodyConstraints;
 
         StopEngineGlow();
-        inProgressHyperspaceJump = null;
         inputs.Player.Enable();
 
-        if (unloadOperation != null)
+        CmdFinishedArrivingFromHyperspaceJump(jump);
+    }
+
+    [Command]
+    private void CmdFinishedArrivingFromHyperspaceJump(HyperspaceJump jump)
+    {
+        // Don't unload any scenes in host mode
+        if (!isLocalPlayer)
         {
-            yield return unloadOperation;
+            connectionToClient.Send(new SceneMessage { sceneName = jump.fromSystem, sceneOperation = SceneOperation.UnloadAdditive, customHandling = true });
         }
     }
 
