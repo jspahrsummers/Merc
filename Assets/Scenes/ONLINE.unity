@@ -731,6 +731,7 @@ MonoBehaviour:
   syncInterval: 0.1
   networkManagerPrefab: {fileID: 6203043623071495515, guid: ad3b87f9655f6ad4d81c7c9b301ce17e,
     type: 3}
+  firstAdditiveScene: Assets/Scenes/Star Systems/Sirius B.unity
 --- !u!114 &5436532962185085440
 MonoBehaviour:
   m_ObjectHideFlags: 0
