@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 633889a39717fde4fa28dd6b948dfac7, type: 3}
+  m_Name: LogSettings
+  m_EditorClassIdentifier: 
+  loglevels:
+  - name: ClientScene
+    logLevel: 2
+  - name: MessagePacker
+    logLevel: 2
+  - name: NetworkBehaviour
+    logLevel: 2
+  - name: NetworkClient
+    logLevel: 2
+  - name: NetworkConnection
+    logLevel: 2
+  - name: NetworkConnectionToClient
+    logLevel: 2
+  - name: NetworkConnectionToServer
+    logLevel: 2
+  - name: NetworkIdentity
+    logLevel: 2
+  - name: NetworkManager
+    logLevel: 2
+  - name: NetworkReaderExtensions
+    logLevel: 2
+  - name: NetworkReaderPool
+    logLevel: 0
+  - name: NetworkSceneChecker
+    logLevel: 2
+  - name: NetworkServer
+    logLevel: 2
+  - name: NetworkTime
+    logLevel: 2
+  - name: NetworkWriterExtensions
+    logLevel: 2
+  - name: NetworkWriterPool
+    logLevel: 0
+  - name: RemoteCallHelper
+    logLevel: 2
+  - name: ULocalConnectionToClient
+    logLevel: 2

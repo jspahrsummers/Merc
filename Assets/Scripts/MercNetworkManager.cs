@@ -1,15 +1,27 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using Mirror;
+
+/// <summary>An event tagged with a network connection that it happened to/on.</summary>
+public sealed class NetworkConnectionEvent : UnityEvent<NetworkConnection> { }
+
+/// <summary>An event requesting or completing a change to the named scene, described by the provided operation.</summary>
+public sealed class SceneChangeEvent : UnityEvent<string, SceneOperation> { }
 
 /// <summary>Custom NetworkManager type that supports listeners for the default "callbacks."</summary>
 public sealed class MercNetworkManager : NetworkManager
 {
-    /// <summary>An event tagged with a network connection that it happened to/on.</summary>
-    public sealed class NetworkConnectionEvent : UnityEvent<NetworkConnection> { }
+    [Tooltip("The authenticator to use for connections via this network manager.")]
+    public MercNetworkAuthenticator networkAuthenticator;
 
     [Tooltip("Event invoked when this client successfully connects to a server.")]
     public UnityEvent clientConnected = new UnityEvent();
+
+    [Tooltip("Event invoked when this client is requested to change scenes using custom handling.")]
+    public SceneChangeEvent clientChangeScene = new SceneChangeEvent();
 
     [Tooltip("Event invoked when this client encounters a network error.")]
     public UnityEvent clientError = new UnityEvent();
@@ -23,32 +35,12 @@ public sealed class MercNetworkManager : NetworkManager
     [Tooltip("Event invoked when a client disconnects from this server.")]
     public NetworkConnectionEvent clientDisconnectedFromServer = new NetworkConnectionEvent();
 
-    [Tooltip("The authenticator to use for connections via this network manager.")]
-    public MercNetworkAuthenticator networkAuthenticator;
+    [Tooltip("Event invoked when the server has added a player object corresponding to a client.")]
+    public NetworkConnectionEvent serverAddedPlayer = new NetworkConnectionEvent();
 
-    /// <summary>The scene that this object was spawned in.</summary>
-    private string spawnScene;
-
-    public override void Awake()
+    public static MercNetworkManager Find()
     {
-        // Retrieve this before moved to special "DontDestroyOnLoad" scene
-        spawnScene = gameObject.scene.path;
-
-        base.Awake();
-    }
-
-    public override void Start()
-    {
-        base.Start();
-
-        // Convenience for testing in the Unity Editor: automatically start host when running any scene different from the default "offline" scene
-        if (spawnScene != offlineScene && mode == NetworkManagerMode.Offline)
-        {
-            Debug.Log($"Automatically starting host for debugging purposes (scene: {spawnScene})");
-            networkAuthenticator.nickname = "Tester";
-            onlineScene = null;
-            StartHost();
-        }
+        return (MercNetworkManager)NetworkManager.singleton;
     }
 
     // Invoked on the client after authenticating successfully to the server.
@@ -58,22 +50,40 @@ public sealed class MercNetworkManager : NetworkManager
         clientConnected.Invoke();
     }
 
+    public override void OnClientChangeScene(string sceneNameOrPath, SceneOperation sceneOperation, bool customHandling)
+    {
+        if (customHandling)
+        {
+            clientChangeScene.Invoke(sceneNameOrPath, sceneOperation);
+        }
+        else
+        {
+            base.OnClientChangeScene(sceneNameOrPath, sceneOperation, customHandling);
+        }
+    }
+
     public override void OnClientError(NetworkConnection connection, int errorCode)
     {
         base.OnClientError(connection, errorCode);
         clientError.Invoke();
     }
 
-    public override void OnServerError(NetworkConnection connection, int errorCode)
-    {
-        base.OnServerError(connection, errorCode);
-        serverError.Invoke();
-    }
-
     public override void OnServerConnect(NetworkConnection connection)
     {
         base.OnServerConnect(connection);
         clientConnectedToServer.Invoke(connection);
+    }
+
+    public override void OnServerAddPlayer(NetworkConnection connection)
+    {
+        base.OnServerAddPlayer(connection);
+        serverAddedPlayer.Invoke(connection);
+    }
+
+    public override void OnServerError(NetworkConnection connection, int errorCode)
+    {
+        base.OnServerError(connection, errorCode);
+        serverError.Invoke();
     }
 
     public override void OnServerDisconnect(NetworkConnection connection)
