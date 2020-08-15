@@ -279,5 +279,7 @@ public sealed class GameController : NetworkBehaviour
         {
             Debug.LogWarning($"Failed to activate scene {sceneNameOrPath}");
         }
+
+        SceneManager.MoveGameObjectToScene(NetworkClient.connection.identity.gameObject, scene);
     }
 }
