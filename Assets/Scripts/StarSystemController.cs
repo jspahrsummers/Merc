@@ -6,9 +6,6 @@ using Mirror;
 /// <remarks>This class is also responsible for spawning the GameController if one does not exist yet.</remarks>
 public sealed class StarSystemController : NetworkBehaviour
 {
-    [Tooltip("Prefab for spawning the game controller, if it does not exist yet.")]
-    public GameController gameControllerPrefab;
-
     [Tooltip("A damageable object to automatically spawn repeatedly, for the player(s) to destroy.")]
     public DamageableController frigatePrefab;
 
@@ -17,13 +14,6 @@ public sealed class StarSystemController : NetworkBehaviour
 
     public override void OnStartServer()
     {
-        if (GameController.Find() == null)
-        {
-            Debug.Log($"Spawning game controller for the first time");
-            var gameController = Instantiate<GameController>(gameControllerPrefab);
-            NetworkServer.Spawn(gameController.gameObject);
-        }
-
         SpawnFrigate();
     }
 

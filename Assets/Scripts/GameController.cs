@@ -27,7 +27,6 @@ public sealed class GameController : NetworkBehaviour
     void Awake()
     {
         Debug.Log($"GameController awake");
-        DontDestroyOnLoad(this);
 
         networkManager = MercNetworkManager.Find();
         if (networkManager == null)
@@ -36,7 +35,6 @@ public sealed class GameController : NetworkBehaviour
             Debug.Log($"Automatically starting host for debugging purposes (scene: {gameObject.scene})");
 
             networkManager.networkAuthenticator.nickname = "Tester";
-            networkManager.onlineScene = null;
             networkManager.StartHost();
         }
     }
@@ -60,6 +58,7 @@ public sealed class GameController : NetworkBehaviour
         networkManager?.clientDisconnectedFromServer.RemoveListener(ClientDisconnectedFromServer);
     }
 
+    [Server]
     private void LoadAllScenes()
     {
         var loadedScenes = new HashSet<int>();
@@ -81,11 +80,13 @@ public sealed class GameController : NetworkBehaviour
         }
     }
 
+    [Server]
     private void ClientConnectedToServer(NetworkConnection connection)
     {
         onlinePlayerList.Add(networkManager.networkAuthenticator.nicknames[connection.connectionId]);
     }
 
+    [Server]
     private void ClientDisconnectedFromServer(NetworkConnection connection)
     {
         string nickname;

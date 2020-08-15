@@ -128,6 +128,7 @@ public sealed class PlayerController : NetworkBehaviour
 
         inputs.Player.Enable();
 
+        SceneManager.SetActiveScene(gameObject.scene);
         SetUpCamera(MainCameraController.Find());
         StartCoroutine(KeepServerInformedOfRtt());
     }

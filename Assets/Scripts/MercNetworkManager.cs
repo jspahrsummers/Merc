@@ -1,10 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using Mirror;
 
 /// <summary>Custom NetworkManager type that supports listeners for the default "callbacks."</summary>
 public sealed class MercNetworkManager : NetworkManager
 {
+    [Scene, Tooltip("Scene to additively load on the client, and move their player object to, after connection and initial load of the online scene.")]
+    public string firstAdditiveScene;
+
+    [Tooltip("The authenticator to use for connections via this network manager.")]
+    public MercNetworkAuthenticator networkAuthenticator;
+
     /// <summary>An event tagged with a network connection that it happened to/on.</summary>
     public sealed class NetworkConnectionEvent : UnityEvent<NetworkConnection> { }
 
@@ -22,9 +30,6 @@ public sealed class MercNetworkManager : NetworkManager
 
     [Tooltip("Event invoked when a client disconnects from this server.")]
     public NetworkConnectionEvent clientDisconnectedFromServer = new NetworkConnectionEvent();
-
-    [Tooltip("The authenticator to use for connections via this network manager.")]
-    public MercNetworkAuthenticator networkAuthenticator;
 
     public static MercNetworkManager Find()
     {
@@ -44,16 +49,38 @@ public sealed class MercNetworkManager : NetworkManager
         clientError.Invoke();
     }
 
-    public override void OnServerError(NetworkConnection connection, int errorCode)
-    {
-        base.OnServerError(connection, errorCode);
-        serverError.Invoke();
-    }
-
     public override void OnServerConnect(NetworkConnection connection)
     {
         base.OnServerConnect(connection);
         clientConnectedToServer.Invoke(connection);
+    }
+
+    public override void OnServerAddPlayer(NetworkConnection connection)
+    {
+        string scenePath = firstAdditiveScene;
+        connection.Send(new SceneMessage { sceneName = scenePath, sceneOperation = SceneOperation.LoadAdditive });
+        StartCoroutine(AddPlayerToSceneOnceLoaded(connection, scenePath));
+    }
+
+    private IEnumerator AddPlayerToSceneOnceLoaded(NetworkConnection connection, string scenePath)
+    {
+        Scene scene;
+        do
+        {
+            yield return null;
+            scene = SceneManager.GetSceneByPath(scenePath);
+        } while (!scene.isLoaded);
+
+        Debug.Log($"Moving player {connection} to {scenePath}");
+
+        base.OnServerAddPlayer(connection);
+        SceneManager.MoveGameObjectToScene(connection.identity.gameObject, scene);
+    }
+
+    public override void OnServerError(NetworkConnection connection, int errorCode)
+    {
+        base.OnServerError(connection, errorCode);
+        serverError.Invoke();
     }
 
     public override void OnServerDisconnect(NetworkConnection connection)
