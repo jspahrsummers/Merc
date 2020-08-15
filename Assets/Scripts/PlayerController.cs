@@ -416,7 +416,12 @@ public sealed class PlayerController : NetworkBehaviour
     {
         Debug.Log($"Moving {gameObject.name} for hyperspace jump {jump}");
 
-        Scene destinationScene = SceneManager.GetSceneByName(jump.toSystem);
+        // The scene should already be loaded on the client, so this shouldn't cause an issue.
+        // TODO: Start pre-emptive load from the server instead of the client.
+        string sceneName = jump.toSystem;
+        connectionToClient.Send(new SceneMessage { sceneName = sceneName, sceneOperation = SceneOperation.LoadAdditive });
+
+        Scene destinationScene = SceneManager.GetSceneByName(sceneName);
         SceneManager.MoveGameObjectToScene(gameObject, destinationScene);
         TargetFinishHyperspaceJump();
     }
@@ -444,16 +449,14 @@ public sealed class PlayerController : NetworkBehaviour
         rigidbody.position = new Vector3(0, -HyperspaceArrivalPositionOffset, HyperspaceEntryZPosition);
 
         Scene destinationScene = SceneManager.GetSceneByName(inProgressHyperspaceJump.jump.toSystem);
-        SceneManager.MoveGameObjectToScene(gameObject, destinationScene);
         SceneManager.SetActiveScene(destinationScene);
 
         Instantiate(hyperspaceArrivalPrefab);
-        SetUpCamera(MainCameraController.Find());
 
         AsyncOperation unloadOperation = null;
         if (!isServer)
         {
-            unloadOperation = SceneManager.UnloadSceneAsync(inProgressHyperspaceJump.jump.fromSystem);
+            unloadOperation = SceneManager.UnloadSceneAsync(inProgressHyperspaceJump.jump.fromSystem, UnloadSceneOptions.UnloadAllEmbeddedSceneObjects);
         }
 
         // Returning thrust is applied in the opposite direction of going out (though we don't render that way, because it Looks Dumb)
