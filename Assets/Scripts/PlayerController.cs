@@ -225,7 +225,7 @@ public sealed class PlayerController : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if (inputs == null)
+        if (!isLocalPlayer)
         {
             return;
         }
@@ -252,12 +252,8 @@ public sealed class PlayerController : NetworkBehaviour
         var thrust = inputs.Player.Thrust.ReadValue<float>() * ThrustForce;
         if (thrust > 0)
         {
-            float fullEnergyUsage = ThrustEnergyConsumption * Time.deltaTime;
-            float originalEnergy = energy;
-            energy = Mathf.Max(energy - fullEnergyUsage, 0);
-            float actualEnergyUsage = originalEnergy - energy;
-
-            rigidbody.AddRelativeForce(Vector3.forward * thrust * (actualEnergyUsage / fullEnergyUsage));
+            float energyFactor = ConsumeEnergy(ThrustEnergyConsumption * Time.deltaTime);
+            rigidbody.AddRelativeForce(Vector3.forward * thrust * energyFactor);
         }
 
         bool showPointerIcon = inProgressHyperspaceJump == null && rigidbody.position.magnitude >= DistanceForShowingPointer;
@@ -291,6 +287,16 @@ public sealed class PlayerController : NetworkBehaviour
             uiController.hullBar.value = damageable.hull / damageable.maxHull;
             uiController.shieldsBar.value = damageable.shields / damageable.maxShields;
         }
+    }
+
+    /// <summary>Attempts to consume the given amount of energy, up to the total remaining amount that the ship has. Returns a percentage [0, 1] of how much of `amount` was actually able to be consumed.</summary>
+    private float ConsumeEnergy(float amount)
+    {
+        float originalEnergy = energy;
+        energy = Mathf.Max(energy - amount, 0);
+        float usage = originalEnergy - energy;
+
+        return usage / amount;
     }
 
     /// <summary>Invoked to relocate the player object to another scene on the server side. When done, the server should tell the client to activate the same scene using ActivateSceneMessage.</summary>
