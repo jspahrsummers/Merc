@@ -5,10 +5,10 @@ using Mirror;
 /// <summary>Attached to any object that can be damaged (e.g., by weapons).</summary>
 public sealed class DamageableController : NetworkBehaviour
 {
-    [Tooltip("Starting shields for this object.")]
+    [SyncVar, Tooltip("Starting shields for this object.")]
     public float shields;
 
-    [Tooltip("Starting hull for this object.")]
+    [SyncVar, Tooltip("Starting hull for this object.")]
     public float hull;
 
     [Tooltip("If set, an explosion particle system to start when the object is destroyed.")]
