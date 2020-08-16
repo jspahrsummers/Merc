@@ -45,11 +45,20 @@ public sealed class PlayerController : NetworkBehaviour
     /// <summary>Force applied while thrusting.</summary>
     const float ThrustForce = 10f;
 
+    /// <summary>How much energy thrusting consumes per second.</summary>
+    const float ThrustEnergyConsumption = 0.2f;
+
     /// <summary>Impulse force applied to blaster shots.</summary>
     const float BlasterForce = 1.5f;
 
     /// <summary>The number of seconds between blaster shots while firing.</summary>
     const float BlasterFireRate = 0.1f;
+
+    /// <summary>How much energy the blaster consumes per second.</summary>
+    const float BlasterEnergyConsumption = 0.4f;
+
+    /// <summary>How much energy regenerates per second.</summary>
+    const float EnergyRegeneration = 0.1f;
 
     /// <summary>How many seconds between informing the server of a new calculated round trip time.</summary>
     const float RttUpdateInterval = 2f;
@@ -83,12 +92,18 @@ public sealed class PlayerController : NetworkBehaviour
     /// <remarks>This will always be null on a client (as long as it is not a host).</remarks>
     private Coroutine firingCoroutine;
 
+    /// <summary>How much energy the local player's ship has, for thrusting, turning, firing, etc.</summary>
+    private float energy = 1f;
+
     /// <summary>Client-provided round trip time for the server.</summary>
     /// <remarks>This is spoofable. We should consider how to make this more resilient to hacking.</remarks>
     private double rtt;
 
     /// <summary>Any planet that the player is touching, or null if the player is not touching any.</summary>
     private PlanetController touchingPlanet;
+
+    /// <summary>The active UIController, set for the local player when created.</summary>
+    private UIController uiController;
 
     private sealed class InProgressHyperspaceJump
     {
@@ -127,6 +142,8 @@ public sealed class PlayerController : NetworkBehaviour
 
         SceneManager.SetActiveScene(gameObject.scene);
         SetUpCamera(MainCameraController.Find());
+        uiController = UIController.Find();
+
         StartCoroutine(KeepServerInformedOfRtt());
     }
 
@@ -209,11 +226,35 @@ public sealed class PlayerController : NetworkBehaviour
             return;
         }
 
+        energy = Mathf.Min(energy + EnergyRegeneration * Time.deltaTime, 1);
+
+        var firing = inputs.Player.Fire.ReadValue<float>();
+        if (firing > 0)
+        {
+            float energyUsage = BlasterEnergyConsumption * Time.deltaTime;
+            if (energyUsage > energy)
+            {
+                CmdStopFiring();
+            }
+            else
+            {
+                energy -= energyUsage;
+            }
+        }
+
         var turn = inputs.Player.Turn.ReadValue<float>() * RotationSpeed * Time.deltaTime;
         rigidbody.MoveRotation(rigidbody.rotation * Quaternion.AngleAxis(turn, Vector3.up));
 
         var thrust = inputs.Player.Thrust.ReadValue<float>() * ThrustForce;
-        rigidbody.AddRelativeForce(Vector3.forward * thrust);
+        if (thrust > 0)
+        {
+            float fullEnergyUsage = ThrustEnergyConsumption * Time.deltaTime;
+            float originalEnergy = energy;
+            energy = Mathf.Max(energy - fullEnergyUsage, 0);
+            float actualEnergyUsage = originalEnergy - energy;
+
+            rigidbody.AddRelativeForce(Vector3.forward * thrust * (actualEnergyUsage / fullEnergyUsage));
+        }
 
         bool showPointerIcon = inProgressHyperspaceJump == null && rigidbody.position.magnitude >= DistanceForShowingPointer;
         if (showPointerIcon)
@@ -238,6 +279,11 @@ public sealed class PlayerController : NetworkBehaviour
             playerNameText.enabled = true;
             playerNameText.transform.position = transform.position + new Vector3(0, PlayerNameTextYOffset, 0);
             playerNameText.transform.rotation = Quaternion.identity;
+        }
+
+        if (isLocalPlayer)
+        {
+            uiController.energyBar.value = energy;
         }
     }
 
