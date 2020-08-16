@@ -58,7 +58,7 @@ public sealed class PlayerController : NetworkBehaviour
     const float BlasterFireRate = 0.1f;
 
     /// <summary>How much energy the blaster consumes per second.</summary>
-    const float BlasterEnergyConsumption = 0.4f;
+    const float BlasterEnergyConsumption = 0.6f;
 
     /// <summary>How much energy regenerates per second.</summary>
     const float EnergyRegeneration = 0.1f;
