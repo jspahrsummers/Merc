@@ -39,6 +39,9 @@ public sealed class MainMenuController : MonoBehaviour
     private MercNetworkManager networkManager;
     private MercNetworkAuthenticator networkAuthenticator => networkManager.networkAuthenticator;
 
+    /// <summary>Input action map for UI controls.</summary>
+    private Inputs inputs;
+
     void Awake()
     {
         networkManager = MercNetworkManager.Find();
@@ -65,14 +68,22 @@ public sealed class MainMenuController : MonoBehaviour
 
     void OnEnable()
     {
+        if (inputs == null)
+        {
+            inputs = new Inputs();
+            inputs.UI.Quit.performed += context => Application.Quit();
+        }
+
         networkManager.clientError.AddListener(ClientConnectionErrorOccurred);
         networkManager.serverError.AddListener(ServerStartErrorOccurred);
         networkAuthenticator.authFailed.AddListener(AuthenticationFailed);
         nicknameInputField.onValueChanged.AddListener(NicknameChanged);
+        inputs.UI.Enable();
     }
 
     void OnDisable()
     {
+        inputs.UI.Disable();
         networkManager.clientError.RemoveListener(ClientConnectionErrorOccurred);
         networkManager.serverError.RemoveListener(ServerStartErrorOccurred);
         networkAuthenticator.authFailed.RemoveListener(AuthenticationFailed);
