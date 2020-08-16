@@ -8,6 +8,9 @@ public sealed class DamageableController : NetworkBehaviour
     [Tooltip("Starting shields for this object.")]
     public float maxShields;
 
+    [Tooltip("How many shield points are recharged per second.")]
+    public float shieldRecharge;
+
     [Tooltip("Starting hull for this object.")]
     public float maxHull;
 
@@ -42,6 +45,24 @@ public sealed class DamageableController : NetworkBehaviour
         hull = Mathf.Max(hull, maxHull);
     }
 
+    void OnDestroy()
+    {
+        destroyed.Invoke(this);
+    }
+
+    void FixedUpdate()
+    {
+        if (!isServer)
+        {
+            return;
+        }
+
+        if (hull >= 0)
+        {
+            shields = Mathf.Min(shields + shieldRecharge * Time.deltaTime, maxShields);
+        }
+    }
+
     /// <summary>Afflicts this object with the specified amount of damage, destroying it if the hull drops to 0 as a result.</summary>
     [Server]
     public void ApplyDamage(Damage damage)
@@ -59,11 +80,6 @@ public sealed class DamageableController : NetworkBehaviour
         {
             Explode();
         }
-    }
-
-    void OnDestroy()
-    {
-        destroyed.Invoke(this);
     }
 
     [Server]

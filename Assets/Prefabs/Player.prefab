@@ -152,6 +152,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   maxShields: 4
+  shieldRecharge: 0.5
   maxHull: 1
   explosion: {fileID: 5991415718802173235}
   explosionAudio: {fileID: 8300000, guid: 2e16d774eda5e2d4d95342809bc052b0, type: 3}
