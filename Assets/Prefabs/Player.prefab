@@ -94,6 +94,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   rigidbody: {fileID: 7400405038615335051}
+  damageable: {fileID: 4634567570844553982}
   engineGlowController: {fileID: 7400405036853157298}
   blasterFirePrefab: {fileID: 7237086495266202068, guid: 81153c851375b7e43a7281a255e103c5,
     type: 3}

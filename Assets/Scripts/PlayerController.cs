@@ -11,6 +11,9 @@ public sealed class PlayerController : NetworkBehaviour
     [Tooltip("The rigidbody of the player ship.")]
     public new Rigidbody rigidbody;
 
+    [Tooltip("The damageable object representing the player's ship.")]
+    public DamageableController damageable;
+
     [Tooltip("Renders the engine glow of the ship while thrusting.")]
     public GlowController engineGlowController;
 
@@ -284,6 +287,8 @@ public sealed class PlayerController : NetworkBehaviour
         if (isLocalPlayer)
         {
             uiController.energyBar.value = energy;
+            uiController.hullBar.value = damageable.hull;
+            uiController.shieldsBar.value = damageable.shields;
         }
     }
 
