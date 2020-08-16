@@ -15,6 +15,12 @@ public sealed class UIController : MonoBehaviour
     /// <summary>Input action map for UI controls.</summary>
     private Inputs inputs;
 
+    /// <summary>Returns the UIController in the current scene, if available.</summary>
+    public static UIController Find()
+    {
+        return GameObject.FindWithTag("UIController")?.GetComponent<UIController>();
+    }
+
     void OnEnable()
     {
         if (inputs == null)

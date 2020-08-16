@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - ParallaxController
+  - UIController
   layers:
   - Default
   - TransparentFX
