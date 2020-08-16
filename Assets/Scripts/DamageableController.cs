@@ -5,17 +5,23 @@ using Mirror;
 /// <summary>Attached to any object that can be damaged (e.g., by weapons).</summary>
 public sealed class DamageableController : NetworkBehaviour
 {
-    [SyncVar, Tooltip("Starting shields for this object.")]
-    public float shields;
+    [Tooltip("Starting shields for this object.")]
+    public float maxShields;
 
-    [SyncVar, Tooltip("Starting hull for this object.")]
-    public float hull;
+    [Tooltip("Starting hull for this object.")]
+    public float maxHull;
 
     [Tooltip("If set, an explosion particle system to start when the object is destroyed.")]
     public ParticleSystem explosion;
 
     [Tooltip("If set, an audio clip to play when the object is destroyed.")]
     public AudioClip explosionAudio;
+
+    [SyncVar, Tooltip("Current shields for this object (reset at creation time).")]
+    public float shields = 0;
+
+    [SyncVar, Tooltip("Current hull for this object (reset at creation time).")]
+    public float hull = 0;
 
     [System.Serializable]
     public sealed class DestroyedEvent : UnityEvent<DamageableController>
@@ -27,6 +33,14 @@ public sealed class DamageableController : NetworkBehaviour
 
     /// <summary>Set to true when destruction animations, etc. have already begun, so that we do not perform them multiple times.</summary>
     private bool startedDestroying = false;
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+
+        shields = Mathf.Max(shields, maxShields);
+        hull = Mathf.Max(hull, maxHull);
+    }
 
     /// <summary>Afflicts this object with the specified amount of damage, destroying it if the hull drops to 0 as a result.</summary>
     [Server]

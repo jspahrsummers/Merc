@@ -107,6 +107,7 @@ MonoBehaviour:
   hyperspaceJumpInSound: {fileID: 6118248741118154124}
   pointerIcon: {fileID: 1733547690327253375}
   nickname: 
+  energy: 1
 --- !u!114 &7400405038615335049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,10 +151,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  shields: 4
-  hull: 1
+  maxShields: 4
+  maxHull: 1
   explosion: {fileID: 5991415718802173235}
   explosionAudio: {fileID: 8300000, guid: 2e16d774eda5e2d4d95342809bc052b0, type: 3}
+  shields: 0
+  hull: 0
   destroyed:
     m_PersistentCalls:
       m_Calls: []

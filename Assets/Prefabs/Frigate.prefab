@@ -276,10 +276,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
-  shields: 10
-  hull: 10
+  maxShields: 10
+  maxHull: 10
   explosion: {fileID: 2876173464327004555}
   explosionAudio: {fileID: 8300000, guid: 2e16d774eda5e2d4d95342809bc052b0, type: 3}
+  shields: 0
+  hull: 0
   destroyed:
     m_PersistentCalls:
       m_Calls: []

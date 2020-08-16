@@ -96,6 +96,7 @@ public sealed class PlayerController : NetworkBehaviour
     private Coroutine firingCoroutine;
 
     /// <summary>How much energy the local player's ship has, for thrusting, turning, firing, etc.</summary>
+    [SerializeField]
     private float energy = 1f;
 
     /// <summary>Client-provided round trip time for the server.</summary>
@@ -287,8 +288,8 @@ public sealed class PlayerController : NetworkBehaviour
         if (isLocalPlayer)
         {
             uiController.energyBar.value = energy;
-            uiController.hullBar.value = damageable.hull;
-            uiController.shieldsBar.value = damageable.shields;
+            uiController.hullBar.value = damageable.hull / damageable.maxHull;
+            uiController.shieldsBar.value = damageable.shields / damageable.maxShields;
         }
     }
 
