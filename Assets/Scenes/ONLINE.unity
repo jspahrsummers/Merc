@@ -121,6 +121,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &849943323 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1267684245646804450, guid: d13ff382469244843bf662ba48cf8c87,
+    type: 3}
+  m_PrefabInstance: {fileID: 1340205055}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1295806877
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -262,6 +274,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1295806877}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1295806879 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1267684245646804450, guid: d13ff382469244843bf662ba48cf8c87,
+    type: 3}
+  m_PrefabInstance: {fileID: 1295806877}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1340205055
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -899,6 +923,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onlinePlayerText: {fileID: 3171192749175645750}
   energyBar: {fileID: 1644294677}
+  hullBar: {fileID: 1295806879}
+  shieldsBar: {fileID: 849943323}
 --- !u!1 &2485850950364362362
 GameObject:
   m_ObjectHideFlags: 0

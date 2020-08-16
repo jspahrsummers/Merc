@@ -12,6 +12,12 @@ public sealed class UIController : MonoBehaviour
     [Tooltip("Displays how much energy the player's ship has.")]
     public Slider energyBar;
 
+    [Tooltip("Displays how much hull strength the player's ship has remaining.")]
+    public Slider hullBar;
+
+    [Tooltip("Displays how much shield strength the player's ship has remaining.")]
+    public Slider shieldsBar;
+
     /// <summary>Input action map for UI controls.</summary>
     private Inputs inputs;
 
