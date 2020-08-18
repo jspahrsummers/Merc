@@ -270,7 +270,7 @@ public sealed class PlayerController : NetworkBehaviour
     void Update()
     {
         // If in host mode, and this player should not be visible to the local player, hide the player name text.
-        if (isServer && !isLocalPlayer && gameObject.scene != NetworkClient.connection.identity.gameObject.scene)
+        if (NetworkManager.singleton.mode == NetworkManagerMode.Host && !isLocalPlayer && gameObject.scene != NetworkClient.connection.identity.gameObject.scene)
         {
             playerNameText.enabled = false;
         }
