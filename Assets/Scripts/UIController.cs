@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -9,6 +10,9 @@ public sealed class UIController : MonoBehaviour
     [Tooltip("Text for displaying all online players' names.")]
     public TMP_Text onlinePlayerText;
 
+    [Tooltip("Frames per second counter.")]
+    public TMP_Text fpsCounter;
+
     [Tooltip("Displays how much energy the player's ship has.")]
     public Slider energyBar;
 
@@ -18,8 +22,14 @@ public sealed class UIController : MonoBehaviour
     [Tooltip("Displays how much shield strength the player's ship has remaining.")]
     public Slider shieldsBar;
 
+    /// <summary>How many seconds should pass between updates to the FPS counter.</summary>
+    const float FPSCounterUpdateRate = 0.5f;
+
     /// <summary>Input action map for UI controls.</summary>
     private Inputs inputs;
+
+    /// <summary>Coroutine for updating the FPS counter.</summary>
+    private Coroutine fpsCounterCoroutine;
 
     /// <summary>Returns the UIController in the current scene, if available.</summary>
     public static UIController Find()
@@ -36,11 +46,20 @@ public sealed class UIController : MonoBehaviour
         }
 
         inputs.UI.Enable();
+
+        fpsCounter.text = "";
+        fpsCounterCoroutine = StartCoroutine(RunFPSCounter());
     }
 
     void OnDisable()
     {
         inputs.UI.Disable();
+
+        if (fpsCounterCoroutine != null)
+        {
+            StopCoroutine(fpsCounterCoroutine);
+            fpsCounterCoroutine = null;
+        }
     }
 
     void Update()
@@ -53,5 +72,22 @@ public sealed class UIController : MonoBehaviour
         }
 
         onlinePlayerText.text = $"Players online:\n{playersString}";
+    }
+
+    private IEnumerator RunFPSCounter()
+    {
+        while (true)
+        {
+            var startFrameCount = Time.frameCount;
+            var startTime = Time.unscaledTime;
+
+            yield return new WaitForSecondsRealtime(FPSCounterUpdateRate);
+
+            var endFrameCount = Time.frameCount;
+            var endTime = Time.unscaledTime;
+
+            int fps = (int)((endFrameCount - startFrameCount) / (endTime - startTime));
+            fpsCounter.text = $"{fps} FPS";
+        }
     }
 }
