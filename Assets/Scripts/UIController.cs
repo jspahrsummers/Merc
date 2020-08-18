@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using Mirror;
 
 /// <summary>Responds to UI events and controls the in-game UI.</summary>
 public sealed class UIController : MonoBehaviour
@@ -10,8 +11,8 @@ public sealed class UIController : MonoBehaviour
     [Tooltip("Text for displaying all online players' names.")]
     public TMP_Text onlinePlayerText;
 
-    [Tooltip("Frames per second counter.")]
-    public TMP_Text fpsCounter;
+    [Tooltip("Frames per second counter and ping text.")]
+    public TMP_Text fpsCounterAndPing;
 
     [Tooltip("Displays how much energy the player's ship has.")]
     public Slider energyBar;
@@ -22,13 +23,13 @@ public sealed class UIController : MonoBehaviour
     [Tooltip("Displays how much shield strength the player's ship has remaining.")]
     public Slider shieldsBar;
 
-    /// <summary>How many seconds should pass between updates to the FPS counter.</summary>
+    /// <summary>How many seconds should pass between updates to the FPS counter and ping text.</summary>
     const float FPSCounterUpdateRate = 0.5f;
 
     /// <summary>Input action map for UI controls.</summary>
     private Inputs inputs;
 
-    /// <summary>Coroutine for updating the FPS counter.</summary>
+    /// <summary>Coroutine for updating the FPS counter and ping text.</summary>
     private Coroutine fpsCounterCoroutine;
 
     /// <summary>Returns the UIController in the current scene, if available.</summary>
@@ -47,7 +48,7 @@ public sealed class UIController : MonoBehaviour
 
         inputs.UI.Enable();
 
-        fpsCounter.text = "";
+        fpsCounterAndPing.text = "";
         fpsCounterCoroutine = StartCoroutine(RunFPSCounter());
     }
 
@@ -87,7 +88,15 @@ public sealed class UIController : MonoBehaviour
             var endTime = Time.unscaledTime;
 
             int fps = (int)((endFrameCount - startFrameCount) / (endTime - startTime));
-            fpsCounter.text = $"{fps} FPS";
+            if (NetworkManager.singleton.mode == NetworkManagerMode.ClientOnly)
+            {
+                int pingMs = (int)Math.Round(NetworkTime.rtt * 1000);
+                fpsCounterAndPing.text = $"{fps} FPS\n{pingMs}ms ping";
+            }
+            else
+            {
+                fpsCounterAndPing.text = $"{fps} FPS";
+            }
         }
     }
 }
