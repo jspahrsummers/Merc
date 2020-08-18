@@ -256,12 +256,14 @@ public sealed class PlayerController : NetworkBehaviour
             rigidbody.AddRelativeForce(Vector3.forward * thrust * energyFactor);
         }
 
-        bool showPointerIcon = inProgressHyperspaceJump == null && rigidbody.position.magnitude >= DistanceForShowingPointer;
+        Vector2 position2D = rigidbody.position;
+        bool showPointerIcon = inProgressHyperspaceJump == null && position2D.magnitude >= DistanceForShowingPointer;
         if (showPointerIcon)
         {
-            Vector3 headingTowardOrigin = -rigidbody.position;
-            Vector3 directionTowardOrigin = headingTowardOrigin / headingTowardOrigin.magnitude;
-            pointerIcon.transform.rotation = Quaternion.FromToRotation(Vector3.up, directionTowardOrigin);
+            Vector2 headingTowardOrigin = -rigidbody.position;
+            Vector2 directionTowardOrigin = headingTowardOrigin / headingTowardOrigin.magnitude;
+            float angle = Vector2.SignedAngle(Vector2.up, directionTowardOrigin);
+            pointerIcon.transform.rotation = Quaternion.Euler(0, 0, angle);
         }
 
         pointerIcon.SetActive(showPointerIcon);
