@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1271,7 +1271,7 @@ MonoBehaviour:
   syncInterval: 0.1
   networkManagerPrefab: {fileID: 6203043623071495515, guid: ad3b87f9655f6ad4d81c7c9b301ce17e,
     type: 3}
-  firstAdditiveScene: Assets/Scenes/Star Systems/Sirius B.unity
+  firstAdditiveScene: Assets/Scenes/Star Systems/Sol.unity
 --- !u!114 &5436532962185085440
 MonoBehaviour:
   m_ObjectHideFlags: 0

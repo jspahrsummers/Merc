@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Star Systems/Alpha Centauri.unity
     guid: efebdb524095ee741a3a6cd473cf684a
+  - enabled: 1
+    path: Assets/Scenes/Star Systems/Sol.unity
+    guid: 3b8b9a64b47fa6b41bfdd0b2abaaf9e8
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 1b0cbf3c3618e1d4f825b513c9609b14,
       type: 2}
