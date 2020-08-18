@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>%UNITY_WEB_NAME%</title>
+  <link rel="shortcut icon" href="TemplateData/favicon.ico">
+  <link rel="stylesheet" href="TemplateData/style.css">
+  <script src="TemplateData/UnityProgress.js"></script>
+  <script src="%UNITY_WEBGL_LOADER_URL%"></script>
+  <script>
+    var unityInstance = UnityLoader.instantiate("unityContainer", "%UNITY_WEBGL_BUILD_URL%", { onProgress: UnityProgress });
+  </script>
+</head>
+
+<body>
+  <div class="webgl-content">
+    <div class="info">
+      <p>Merc is a top-down (2.5D), massively multiplayer space sim inspired by the <a
+          href="https://en.wikipedia.org/wiki/Escape_Velocity_(video_game)">Escape Velocity</a> series of computer
+        games,
+        and more recently <a href="http://endless-sky.github.io/">Endless Sky</a>.<br></p>
+    </div>
+    <div id="unityContainer" style="width: %UNITY_WIDTH%px; height: %UNITY_HEIGHT%px"></div>
+    <div class="footer">
+      <div class="webgl-logo"></div>
+      <div class="fullscreen" onclick="unityInstance.SetFullscreen(1)"></div>
+      <div class="title">%UNITY_WEB_NAME%</div>
+    </div>
+    <div class="info">
+      <p>Instructions:<br></p>
+      <ul>
+        <li>Arrow keys to maneuver</li>
+        <li>Space to fire</li>
+        <li>J to jump to hyperspace</li>
+        <li>L to land on a nearby planet</li>
+        <li>Scroll wheel to zoom in/out</li>
+      </ul>
+      <p>There's a game server that you can connect to at <em>merc.jspahrsummers.com</em>. Try to destroy the idle
+        frigate
+        in the area... or other players. (If the game server is unavailable, it is probably just restarting to update to
+        a
+        new version, and will be up soon.)</p>
+      <p>Windows, Mac, and Linux versions of the game are also <a
+          href="https://jspahrsummers.itch.io/merc?secret=UrpQr2B7iEPyEqjoEf8eWEYNE4w">available for download on
+          itch.io</a>.</p>
+      <p>Join the <a href="https://discord.gg/xtPEP23">Discord server</a>!</p>
+    </div>
+  </div>
+</body>
+
+</html>
