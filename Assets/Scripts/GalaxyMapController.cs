@@ -8,6 +8,22 @@ public sealed class GalaxyMapController : MonoBehaviour
     [Tooltip("The list of systems being presented on the map.")]
     public List<GalaxyMapSystemController> systems;
 
+    private GalaxyMapSystemController _selectedSystem;
+
+    /// <summary>The system in the map that the user has selected, or null if there is no current selection.</summary>
+    public GalaxyMapSystemController selectedSystem
+    {
+        get => _selectedSystem;
+        set
+        {
+            _selectedSystem = value;
+            foreach (var system in systems)
+            {
+                system.selected = system == value;
+            }
+        }
+    }
+
     void Start()
     {
         foreach (var system in systems)
@@ -27,9 +43,6 @@ public sealed class GalaxyMapController : MonoBehaviour
 
     private void SystemClicked(GalaxyMapSystemController clickedSystem)
     {
-        foreach (var system in systems)
-        {
-            system.selected = system == clickedSystem;
-        }
+        selectedSystem = clickedSystem;
     }
 }

@@ -135,7 +135,7 @@ public sealed class PlayerController : NetworkBehaviour
             inputs.Player.Thrust.canceled += context => StopEngineGlow();
             inputs.Player.Fire.started += context => CmdStartFiring();
             inputs.Player.Fire.canceled += context => CmdStopFiring();
-            inputs.Player.HyperspaceJump.performed += context => CmdStartHyperspaceJump();
+            inputs.Player.HyperspaceJump.performed += context => StartHyperspaceJumpFromMapSelection();
             inputs.Player.Land.performed += context => Land();
         }
 
@@ -431,8 +431,8 @@ public sealed class PlayerController : NetworkBehaviour
         engineGlowController.SetVisible(false);
     }
 
-    [Command]
-    private void CmdStartHyperspaceJump()
+    [Client]
+    private void StartHyperspaceJumpFromMapSelection()
     {
         if (inProgressHyperspaceJump != null)
         {
@@ -440,8 +440,33 @@ public sealed class PlayerController : NetworkBehaviour
             return;
         }
 
-        var jumpScene = gameObject.scene.name == "Sirius B" ? "Alpha Centauri" : "Sirius B";
-        var jump = new HyperspaceJump(gameObject.scene.name, jumpScene);
+        var selectedSystem = uiController.galaxyMap.selectedSystem;
+        if (selectedSystem == null)
+        {
+            Debug.Log($"No system has been selected from the galaxy map for a hyperspace jump");
+            return;
+        }
+
+        var jump = new HyperspaceJump(gameObject.scene.name, selectedSystem.name);
+        Debug.Log($"Requesting hyperspace jump {jump}");
+        CmdStartHyperspaceJump(jump);
+    }
+
+    [Command]
+    private void CmdStartHyperspaceJump(HyperspaceJump jump)
+    {
+        if (inProgressHyperspaceJump != null)
+        {
+            Debug.Log($"Hyperspace jump for {this} already in progress: {inProgressHyperspaceJump}");
+            return;
+        }
+
+        if (jump.fromSystem != gameObject.scene.name)
+        {
+            Debug.LogError($"Client requested hyperspace jump from system {jump.fromSystem}, but player is in {gameObject.scene.name}");
+            return;
+        }
+
         inProgressHyperspaceJump = new InProgressHyperspaceJump(jump);
         TargetPrepareForHyperspaceJump(jump);
 
@@ -452,7 +477,7 @@ public sealed class PlayerController : NetworkBehaviour
         }
         else
         {
-            connectionToClient.Send(new SceneMessage { sceneName = jumpScene, sceneOperation = SceneOperation.LoadAdditive, customHandling = true });
+            connectionToClient.Send(new SceneMessage { sceneName = jump.toSystem, sceneOperation = SceneOperation.LoadAdditive, customHandling = true });
         }
     }
 
