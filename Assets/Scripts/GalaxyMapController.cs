@@ -8,6 +8,14 @@ public sealed class GalaxyMapController : MonoBehaviour
     [Tooltip("The list of systems being presented on the map.")]
     public List<GalaxyMapSystemController> systems;
 
+    void Start()
+    {
+        foreach (var system in systems)
+        {
+            system.clicked.AddListener(SystemClicked);
+        }
+    }
+
     void OnEnable()
     {
         Scene activeScene = SceneManager.GetActiveScene();
@@ -15,5 +23,10 @@ public sealed class GalaxyMapController : MonoBehaviour
         {
             system.SetSelected(system.name == activeScene.name);
         }
+    }
+
+    private void SystemClicked(GalaxyMapSystemController system)
+    {
+        Debug.Log($"{system} clicked");
     }
 }
