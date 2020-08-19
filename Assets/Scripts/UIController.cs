@@ -30,6 +30,9 @@ public sealed class UIController : MonoBehaviour
     [Tooltip("Map overlay when the player wants to view nearby systems and hyperspace routes.")]
     public GalaxyMapController galaxyMap;
 
+    [Tooltip("Scrolling game log that any game object can add a message to.")]
+    public GameLogController gameLog;
+
     /// <summary>How many seconds should pass between updates to the FPS counter and ping text.</summary>
     const float FPSCounterUpdateRate = 0.5f;
 

@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2046,6 +2046,7 @@ MonoBehaviour:
   shieldsBar: {fileID: 849943323}
   landingScreen: {fileID: 8919871147354635532}
   galaxyMap: {fileID: 8127660222795523860}
+  gameLog: {fileID: 745740974}
 --- !u!114 &2485850949591059920
 MonoBehaviour:
   m_ObjectHideFlags: 0

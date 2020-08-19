@@ -106,6 +106,9 @@ public sealed class PlayerController : NetworkBehaviour
     /// <summary>The active UIController, set for the local player when created.</summary>
     private UIController uiController;
 
+    /// <summary>Scrolling game log to add messages to.</summary>
+    private GameLogController gameLog => uiController.gameLog;
+
     private sealed class InProgressHyperspaceJump
     {
         public readonly HyperspaceJump jump;
@@ -443,7 +446,7 @@ public sealed class PlayerController : NetworkBehaviour
         var selectedSystem = uiController.galaxyMap.selectedSystem;
         if (selectedSystem == null)
         {
-            Debug.Log($"No system has been selected from the galaxy map for a hyperspace jump");
+            gameLog.AddMessage("Cannot jump to hyperspace, no system selected. Press M to view the map.");
             return;
         }
 
@@ -484,6 +487,7 @@ public sealed class PlayerController : NetworkBehaviour
     [TargetRpc]
     private void TargetPrepareForHyperspaceJump(HyperspaceJump jump)
     {
+        gameLog.AddMessage($"Beginning hyperspace jump to system {jump.toSystem}.");
         StartCoroutine(PrepareForHyperspaceJumpThenNotifyServer(jump));
     }
 
@@ -554,7 +558,7 @@ public sealed class PlayerController : NetworkBehaviour
     [Client]
     private IEnumerator ArriveFromHyperspaceJump(HyperspaceJump jump)
     {
-        Debug.Log($"Arriving from hyperspace jump {jump}");
+        gameLog.AddMessage($"Arriving in system {jump.toSystem}.");
 
         Instantiate(hyperspaceArrivalPrefab);
         hyperspaceJumpInSound.Play();
@@ -596,11 +600,11 @@ public sealed class PlayerController : NetworkBehaviour
     {
         if (touchingPlanet == null)
         {
-            Debug.Log($"Cannot land, no planet nearby");
+            gameLog.AddMessage($"Cannot land, no planet nearby.");
             return;
         }
 
-        Debug.Log($"Landing on {touchingPlanet}");
+        gameLog.AddMessage($"Landing on {touchingPlanet.name}.");
         CmdLand();
         uiController.ShowLandingScreen(touchingPlanet, CmdDepart);
     }
@@ -623,7 +627,7 @@ public sealed class PlayerController : NetworkBehaviour
     [Command]
     private void CmdDepart()
     {
-        Debug.Log($"{name} departing");
+        gameLog.AddMessage($"Departing planet.");
         gameObject.SetActive(true);
         NetworkServer.Spawn(gameObject, connectionToClient);
         RpcDepart();
