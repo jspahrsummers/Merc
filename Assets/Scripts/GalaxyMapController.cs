@@ -21,12 +21,15 @@ public sealed class GalaxyMapController : MonoBehaviour
         Scene activeScene = SceneManager.GetActiveScene();
         foreach (var system in systems)
         {
-            system.SetSelected(system.name == activeScene.name);
+            system.currentSystem = system.name == activeScene.name;
         }
     }
 
-    private void SystemClicked(GalaxyMapSystemController system)
+    private void SystemClicked(GalaxyMapSystemController clickedSystem)
     {
-        Debug.Log($"{system} clicked");
+        foreach (var system in systems)
+        {
+            system.selected = system == clickedSystem;
+        }
     }
 }

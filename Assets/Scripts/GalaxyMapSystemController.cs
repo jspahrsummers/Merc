@@ -18,9 +18,53 @@ public sealed class GalaxyMapSystemController : MonoBehaviour
     [Tooltip("Invoked when this system's UI is clicked by the user.")]
     public GalaxyMapSystemClickedEvent clicked = new GalaxyMapSystemClickedEvent();
 
-    public void SetSelected(bool selected)
+    private bool _currentSystem = false;
+
+    /// <summary>Whether this is the system that the player is currently located in.</summary>
+    public bool currentSystem
     {
-        var color = selected ? Color.yellow : Color.white;
+        get => _currentSystem;
+        set
+        {
+            _currentSystem = value;
+            Rerender();
+        }
+    }
+
+    private bool _selected = false;
+
+    /// <summary>Whether the user has selected this system.</summary>
+    public bool selected
+    {
+        get => _selected;
+        set
+        {
+            _selected = value;
+            Rerender();
+        }
+    }
+
+    void OnEnable()
+    {
+        Rerender();
+    }
+
+    private void Rerender()
+    {
+        Color color;
+        if (currentSystem)
+        {
+            color = Color.cyan;
+        }
+        else if (selected)
+        {
+            color = Color.yellow;
+        }
+        else
+        {
+            color = Color.white;
+        }
+
         icon.color = color;
         nameText.color = color;
     }
