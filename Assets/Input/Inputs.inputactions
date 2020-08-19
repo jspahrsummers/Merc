@@ -44,6 +44,14 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "Galaxy Map",
+                    "type": "Button",
+                    "id": "fdc0c8f4-c3ea-45be-a0c5-1df272461f69",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -121,6 +129,17 @@
                     "processors": "",
                     "groups": "Desktop",
                     "action": "Land",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6fc67571-dada-4451-806a-3184a4fbd48f",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Desktop",
+                    "action": "Galaxy Map",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

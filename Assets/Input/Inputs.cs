@@ -57,6 +57,14 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Galaxy Map"",
+                    ""type"": ""Button"",
+                    ""id"": ""fdc0c8f4-c3ea-45be-a0c5-1df272461f69"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -134,6 +142,17 @@ public class @Inputs : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Desktop"",
                     ""action"": ""Land"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6fc67571-dada-4451-806a-3184a4fbd48f"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Desktop"",
+                    ""action"": ""Galaxy Map"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -220,6 +239,7 @@ public class @Inputs : IInputActionCollection, IDisposable
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
         m_Player_HyperspaceJump = m_Player.FindAction("Hyperspace Jump", throwIfNotFound: true);
         m_Player_Land = m_Player.FindAction("Land", throwIfNotFound: true);
+        m_Player_GalaxyMap = m_Player.FindAction("Galaxy Map", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Quit = m_UI.FindAction("Quit", throwIfNotFound: true);
@@ -280,6 +300,7 @@ public class @Inputs : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Fire;
     private readonly InputAction m_Player_HyperspaceJump;
     private readonly InputAction m_Player_Land;
+    private readonly InputAction m_Player_GalaxyMap;
     public struct PlayerActions
     {
         private @Inputs m_Wrapper;
@@ -289,6 +310,7 @@ public class @Inputs : IInputActionCollection, IDisposable
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         public InputAction @HyperspaceJump => m_Wrapper.m_Player_HyperspaceJump;
         public InputAction @Land => m_Wrapper.m_Player_Land;
+        public InputAction @GalaxyMap => m_Wrapper.m_Player_GalaxyMap;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -313,6 +335,9 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @Land.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLand;
                 @Land.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLand;
                 @Land.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnLand;
+                @GalaxyMap.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGalaxyMap;
+                @GalaxyMap.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGalaxyMap;
+                @GalaxyMap.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGalaxyMap;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -332,6 +357,9 @@ public class @Inputs : IInputActionCollection, IDisposable
                 @Land.started += instance.OnLand;
                 @Land.performed += instance.OnLand;
                 @Land.canceled += instance.OnLand;
+                @GalaxyMap.started += instance.OnGalaxyMap;
+                @GalaxyMap.performed += instance.OnGalaxyMap;
+                @GalaxyMap.canceled += instance.OnGalaxyMap;
             }
         }
     }
@@ -418,6 +446,7 @@ public class @Inputs : IInputActionCollection, IDisposable
         void OnFire(InputAction.CallbackContext context);
         void OnHyperspaceJump(InputAction.CallbackContext context);
         void OnLand(InputAction.CallbackContext context);
+        void OnGalaxyMap(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
