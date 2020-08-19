@@ -27,6 +27,9 @@ public sealed class UIController : MonoBehaviour
     [Tooltip("Activated when the player lands on a planet.")]
     public LandingScreenController landingScreen;
 
+    [Tooltip("Map overlay when the player wants to view nearby systems and hyperspace routes.")]
+    public GalaxyMapController galaxyMap;
+
     /// <summary>How many seconds should pass between updates to the FPS counter and ping text.</summary>
     const float FPSCounterUpdateRate = 0.5f;
 
@@ -56,6 +59,7 @@ public sealed class UIController : MonoBehaviour
         if (inputs == null)
         {
             inputs = new Inputs();
+            inputs.UI.GalaxyMap.performed += context => ToggleGalaxyMap();
             inputs.UI.Quit.performed += context => Application.Quit();
         }
 
@@ -111,5 +115,11 @@ public sealed class UIController : MonoBehaviour
                 fpsCounterAndPing.text = $"{fps} FPS";
             }
         }
+    }
+
+    private void ToggleGalaxyMap()
+    {
+        // Unlike the landing screen, this purposely does not block player input, because the player has not been taken anywhere else--they are still active in exactly the same position as before.
+        galaxyMap.gameObject.SetActive(!galaxyMap.gameObject.activeSelf);
     }
 }

@@ -1170,6 +1170,7 @@ MonoBehaviour:
   hullBar: {fileID: 1295806879}
   shieldsBar: {fileID: 849943323}
   landingScreen: {fileID: 8919871147354635532}
+  galaxyMap: {fileID: 8127660222795523860}
 --- !u!114 &2485850949591059920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2390,6 +2391,7 @@ GameObject:
   - component: {fileID: 8127660222795523857}
   - component: {fileID: 8127660222795523859}
   - component: {fileID: 8127660222795523858}
+  - component: {fileID: 8127660222795523860}
   m_Layer: 5
   m_Name: Galaxy Map Screen
   m_TagString: Untagged
@@ -2456,6 +2458,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8127660222795523856}
   m_CullTransparentMesh: 0
+--- !u!114 &8127660222795523860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8127660222795523856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e71a2cd6149107428f41cb47c73c062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8542360654262895999
 MonoBehaviour:
   m_ObjectHideFlags: 0
