@@ -32,6 +32,9 @@ public sealed class GameController : NetworkBehaviour
     [Scene, Tooltip("Scene to additively load on the client, and move their player object to, after connection and initial load of the online scene.")]
     public string firstAdditiveScene;
 
+    [Tooltip("Scrolling game log, to add messages into.")]
+    public GameLogController gameLog;
+
     /// <summary>The active network manager.</summary>
     private MercNetworkManager networkManager;
 
@@ -64,6 +67,11 @@ public sealed class GameController : NetworkBehaviour
         }
     }
 
+    void Start()
+    {
+        onlinePlayerList.Callback += PlayerListChanged;
+    }
+
     public override void OnStartServer()
     {
         base.OnStartServer();
@@ -79,6 +87,7 @@ public sealed class GameController : NetworkBehaviour
         networkManager.serverAddedPlayer.AddListener(ServerAddedPlayer);
 
         loadAllScenesCoroutine = StartCoroutine(LoadAllScenes());
+        gameLog.AddMessage($"Server started.");
     }
 
     public override void OnStartClient()
@@ -87,6 +96,7 @@ public sealed class GameController : NetworkBehaviour
         NetworkClient.RegisterHandler<ActivateSceneMessage>(ActivateScene);
 
         networkManager.clientChangeScene.AddListener(ClientChangeScene);
+        gameLog.AddMessage($"Connected to server {networkManager.networkAddress}.");
     }
 
     void OnDestroy()
@@ -281,5 +291,19 @@ public sealed class GameController : NetworkBehaviour
         }
 
         SceneManager.MoveGameObjectToScene(NetworkClient.connection.identity.gameObject, scene);
+    }
+
+    private void PlayerListChanged(SyncPlayerList.Operation operation, string playerName)
+    {
+        switch (operation)
+        {
+            case SyncPlayerList.Operation.OP_ADD:
+                gameLog.AddMessage($"Player \"{playerName}\" connected.");
+                break;
+
+            case SyncPlayerList.Operation.OP_REMOVE:
+                gameLog.AddMessage($"Player \"{playerName}\" disconnected.");
+                break;
+        }
     }
 }

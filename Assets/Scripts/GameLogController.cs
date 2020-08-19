@@ -18,16 +18,6 @@ public sealed class GameLogController : MonoBehaviour
     void Start()
     {
         logText.text = "";
-        StartCoroutine(LogRepeatedly());
-    }
-
-    private IEnumerator LogRepeatedly()
-    {
-        for (int i = 0; ; i++)
-        {
-            yield return new WaitForSeconds(0.5f);
-            AddMessage($"Log message {i}");
-        }
     }
 
     /// <summary>Adds a new message to the tip of the log.</summary>
