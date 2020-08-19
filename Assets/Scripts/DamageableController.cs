@@ -45,11 +45,6 @@ public sealed class DamageableController : NetworkBehaviour
         hull = Mathf.Max(hull, maxHull);
     }
 
-    void OnDestroy()
-    {
-        destroyed.Invoke(this);
-    }
-
     void FixedUpdate()
     {
         if (!isServer)
@@ -100,6 +95,7 @@ public sealed class DamageableController : NetworkBehaviour
             destroyDelay = explosion.main.duration;
         }
 
+        destroyed.Invoke(this);
         Destroy(gameObject, destroyDelay);
     }
 
@@ -119,6 +115,7 @@ public sealed class DamageableController : NetworkBehaviour
             explosion.Play();
         }
 
+        destroyed.Invoke(this);
         gameObject.SetActive(false);
     }
 }

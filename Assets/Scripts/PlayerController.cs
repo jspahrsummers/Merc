@@ -144,11 +144,13 @@ public sealed class PlayerController : NetworkBehaviour
 
         inputs.Player.Enable();
 
+        StartCoroutine(KeepServerInformedOfRtt());
+
         SceneManager.SetActiveScene(gameObject.scene);
         SetUpCamera(MainCameraController.Find());
         uiController = UIController.Find();
 
-        StartCoroutine(KeepServerInformedOfRtt());
+        damageable.destroyed.AddListener(controller => gameLog?.AddMessage($"You have died."));
     }
 
     public override void OnStartServer()
