@@ -11,7 +11,7 @@ public sealed class LandingScreenController : MonoBehaviour
     [Tooltip("Title text for the landing screen.")]
     public TMP_Text welcomeText;
 
-    [Tooltip("Invoked when the landing screen is dismissed by the user.")]
+    [Tooltip("Invoked when the landing screen is dismissed by the user. All non-persistent listeners are cleared after every dismissal.")]
     public UnityEvent dismissed = new UnityEvent();
 
     void OnEnable()
@@ -22,6 +22,7 @@ public sealed class LandingScreenController : MonoBehaviour
     public void DepartClicked()
     {
         dismissed.Invoke();
-        Destroy(gameObject);
+        dismissed.RemoveAllListeners();
+        gameObject.SetActive(false);
     }
 }

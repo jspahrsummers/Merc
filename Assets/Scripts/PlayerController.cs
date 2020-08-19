@@ -23,9 +23,6 @@ public sealed class PlayerController : NetworkBehaviour
     [Tooltip("Prefab for a hyperspace arrival effect.")]
     public HyperspaceArrivalController hyperspaceArrivalPrefab;
 
-    [Tooltip("Prefab for landing screen UI.")]
-    public LandingScreenController landingScreenPrefab;
-
     [Tooltip("The element which renders the player's name above their ship.")]
     public TMP_Text playerNameText;
 
@@ -580,11 +577,7 @@ public sealed class PlayerController : NetworkBehaviour
 
         Debug.Log($"Landing on {touchingPlanet}");
         CmdLand();
-
-        var landingScreen = Instantiate<LandingScreenController>(landingScreenPrefab);
-        landingScreen.planet = touchingPlanet;
-        landingScreen.gameObject.SetActive(true);
-        landingScreen.dismissed.AddListener(CmdDepart);
+        uiController.ShowLandingScreen(touchingPlanet, CmdDepart);
     }
 
     [Command]

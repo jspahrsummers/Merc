@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 using Mirror;
@@ -23,6 +24,9 @@ public sealed class UIController : MonoBehaviour
     [Tooltip("Displays how much shield strength the player's ship has remaining.")]
     public Slider shieldsBar;
 
+    [Tooltip("Activated when the player lands on a planet.")]
+    public LandingScreenController landingScreen;
+
     /// <summary>How many seconds should pass between updates to the FPS counter and ping text.</summary>
     const float FPSCounterUpdateRate = 0.5f;
 
@@ -36,6 +40,15 @@ public sealed class UIController : MonoBehaviour
     public static UIController Find()
     {
         return GameObject.FindWithTag("UIController")?.GetComponent<UIController>();
+    }
+
+    public void ShowLandingScreen(PlanetController planet, UnityAction dismissedCallback)
+    {
+        landingScreen.planet = planet;
+        landingScreen.gameObject.SetActive(true);
+
+        // LandingScreenController will clear this listener once it's dismissed.
+        landingScreen.dismissed.AddListener(dismissedCallback);
     }
 
     void OnEnable()
