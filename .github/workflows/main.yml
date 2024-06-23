@@ -1,0 +1,111 @@
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-mac:
+    runs-on: macos-latest
+
+    steps:
+      # See https://docs.github.com/en/actions/deployment/deploying-xcode-applications/installing-an-apple-certificate-on-macos-runners-for-xcode-development
+      - name: Install Apple codesigning certificate
+        env:
+          BUILD_CERTIFICATE_BASE64: ${{ secrets.APPLE_CODESIGNING_CERTIFICATE }}
+          P12_PASSWORD: ${{ secrets.APPLE_CODESIGNING_P12_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          # create variables
+          CERTIFICATE_PATH=$RUNNER_TEMP/build_certificate.p12
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+
+          # import certificate and provisioning profile from secrets
+          echo -n "$BUILD_CERTIFICATE_BASE64" | base64 --decode -o $CERTIFICATE_PATH
+
+          # create temporary keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          # import certificate to keychain
+          security import $CERTIFICATE_PATH -P "$P12_PASSWORD" -A -t cert -f pkcs12 -k $KEYCHAIN_PATH
+          security set-key-partition-list -S apple-tool:,apple: -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+
+      - name: Install Godot
+        working-directory: ${{ env.RUNNER_TEMP }}
+        run: |
+          curl -sL https://github.com/godotengine/godot/releases/download/4.2.2-stable/Godot_v4.2.2-stable_macos.universal.zip -o godot.zip
+          unzip godot.zip
+          mv Godot.app "$RUNNER_TEMP/Godot.app"
+
+      - name: Install butler
+        working-directory: ${{ env.RUNNER_TEMP }}
+        run: |
+          curl -sL https://broth.itch.ovh/butler/darwin-amd64/LATEST/archive/default -o butler.zip
+          unzip butler.zip
+          mv butler "$RUNNER_TEMP/butler"
+
+      - uses: actions/checkout@v4
+
+      - name: Prepare export templates
+        run: |
+          mkdir -p ~/Library/Application\ Support/Godot/export_templates/4.2.2.stable
+          mv build/export_templates/* ~/Library/Application\ Support/Godot/export_templates/4.2.2.stable/
+
+      - name: Export build
+        env:
+          GODOT_MACOS_NOTARIZATION_API_UUID: ${{ secrets.APPLE_NOTARY_ISSUER_ID }}
+          GODOT_MACOS_NOTARIZATION_API_KEY_ID: ${{ secrets.APPLE_NOTARY_KEY_ID }}
+          APPLE_NOTARY_PRIVATE_KEY: ${{ secrets.APPLE_NOTARY_PRIVATE_KEY }}
+        run: |
+          PRIVATE_KEY_FILE=$RUNNER_TEMP/notary_private_key.p8
+          echo -n "$APPLE_NOTARY_PRIVATE_KEY" > "$PRIVATE_KEY_FILE"
+
+          GODOT_MACOS_NOTARIZATION_API_KEY="$PRIVATE_KEY_FILE" "$RUNNER_TEMP/Godot.app/Contents/MacOS/Godot" --headless --export-release macOS
+          # TODO: Staple notarization ticket
+
+      - name: Push to itch.io
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        run: |
+          "$RUNNER_TEMP/butler" push build/mac.zip "jspahrsummers/Merc:mac"
+
+  build-windows:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install Godot
+        working-directory: ${{ env.RUNNER_TEMP }}
+        run: |
+          curl -sL https://github.com/godotengine/godot/releases/download/4.2.2-stable/Godot_v4.2.2-stable_linux.x86_64.zip -o godot.zip
+          unzip godot.zip
+          mv Godot_v4.2.2-stable_linux.x86_64 "$RUNNER_TEMP/godot"
+
+      - name: Install butler
+        working-directory: ${{ env.RUNNER_TEMP }}
+        run: |
+          curl -sL https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default -o butler.zip
+          unzip butler.zip
+          mv butler "$RUNNER_TEMP/butler"
+
+      - uses: actions/checkout@v4
+
+      - name: Prepare export templates
+        run: |
+          mkdir -p ~/.local/share/godot/export_templates/4.2.2.stable
+          mv build/export_templates/* ~/.local/share/godot/export_templates/4.2.2.stable/
+
+      - name: Export build
+        run: |
+          "$RUNNER_TEMP/godot" --headless --export-release Windows
+
+      - name: Push to itch.io
+        env:
+          BUTLER_API_KEY: ${{ secrets.BUTLER_API_KEY }}
+        run: |
+          "$RUNNER_TEMP/butler" push build/Windows "jspahrsummers/Merc:windows"

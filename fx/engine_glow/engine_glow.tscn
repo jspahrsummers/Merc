@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbc2usdmy5wf3"]
+
+[ext_resource type="Material" uid="uid://bekvqqr3ue7vm" path="res://fx/engine_glow/engine_glow_mat.tres" id="1_agefk"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_brk2s"]
+material = ExtResource("1_agefk")
+size = Vector2(1, 2)
+orientation = 1
+
+[node name="EngineGlow" type="MeshInstance3D"]
+transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 0, 0, 0)
+mesh = SubResource("QuadMesh_brk2s")

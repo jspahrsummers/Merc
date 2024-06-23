@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dams48pae18gk"
+path="res://.godot/imported/frigate03.obj-ee3190f2347a2809027c3ccfc66a910d.mesh"
+
+[deps]
+
+files=["res://.godot/imported/frigate03.obj-ee3190f2347a2809027c3ccfc66a910d.mesh"]
+
+source_file="res://ships/frigate03/frigate03.obj"
+dest_files=["res://.godot/imported/frigate03.obj-ee3190f2347a2809027c3ccfc66a910d.mesh", "res://.godot/imported/frigate03.obj-ee3190f2347a2809027c3ccfc66a910d.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
