@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3qpe4ne3bgww"]
+
+[ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://stars/star.tscn" id="1_p0ggc"]
+[ext_resource type="Texture2D" uid="uid://dh0obx8nl0ltx" path="res://stars/sprites/star_red03.png" id="2_sinon"]
+[ext_resource type="PackedScene" uid="uid://bxggrqus7bst5" path="res://ships/frigate03/frigate03.tscn" id="3_1cx0e"]
+[ext_resource type="Script" path="res://actors/pirate.gd" id="4_j6bxn"]
+
+[node name="Wolf 359" type="Node3D" groups=["star_system"]]
+
+[node name="Star" parent="." instance=ExtResource("1_p0ggc")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -7.65186, 2.08165e-12, 2.24275)
+
+[node name="OmniLight3D" parent="Star" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+light_color = Color(1, 0.504962, 0.438302, 1)
+light_energy = 5.0
+omni_range = 10.0
+
+[node name="Sprite3D" parent="Star" index="2"]
+texture = ExtResource("2_sinon")
+
+[node name="Frigate" parent="." instance=ExtResource("3_1cx0e")]
+transform = Transform3D(-0.287762, -2.33666e-16, -0.957702, 3.48787e-16, 1, -3.48787e-16, 0.957702, -4.34402e-16, -0.287762, -7.88217, 0, -3.99797)
+script = ExtResource("4_j6bxn")
+detection_range = 10.0
+preferred_distance = 3.0
+distance_hysteresis = 1.5
+fire_range = 8.0
+direction_tolerance_deg = 10.0
+patrol_radius = 10.0
+patrol_target_tolerance = 1.0
+
+[node name="Frigate2" parent="." instance=ExtResource("3_1cx0e")]
+transform = Transform3D(-0.69814, 4.9322e-16, 0.715961, 3.48787e-16, 1, -3.48787e-16, -0.715961, 6.21555e-18, -0.69814, 5.40376, 0, 0.771966)
+script = ExtResource("4_j6bxn")
+detection_range = 10.0
+preferred_distance = 3.0
+distance_hysteresis = 1.5
+fire_range = 8.0
+direction_tolerance_deg = 10.0
+patrol_radius = 10.0
+patrol_target_tolerance = 1.0
+
+[editable path="Star"]

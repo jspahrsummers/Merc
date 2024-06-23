@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bekvqqr3ue7vm"]
+
+[ext_resource type="Shader" path="res://fx/engine_glow/engine_glow.gdshader" id="1_hf1b4"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_hf1b4")
+shader_parameter/color = Color(0, 0.5, 1, 1)
+shader_parameter/strength = 10.0

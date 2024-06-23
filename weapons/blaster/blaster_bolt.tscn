@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=3 uid="uid://b7tckdwyjwpso"]
+
+[ext_resource type="Script" path="res://weapons/blaster/blaster_bolt.gd" id="1_lhj56"]
+[ext_resource type="PackedScene" uid="uid://cp0b07jvhi5a" path="res://fx/explosions/explosion001.tscn" id="2_lqot8"]
+[ext_resource type="Texture2D" uid="uid://lyur31oafltf" path="res://weapons/blaster/blaster_bolt.png" id="3_c2tch"]
+[ext_resource type="AudioStream" uid="uid://cscjfy7e1dy78" path="res://weapons/blaster/laser4.mp3" id="4_we7w6"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5b1vh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_04jjf"]
+shading_mode = 0
+albedo_color = Color(0.359069, 0.359069, 0.359069, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_fxvid"]
+material = SubResource("StandardMaterial3D_04jjf")
+orientation = 1
+
+[node name="BlasterBolt" type="RigidBody3D"]
+collision_layer = 2
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+mass = 0.1
+gravity_scale = 1.66533e-16
+lock_rotation = true
+continuous_cd = true
+max_contacts_reported = 1
+contact_monitor = true
+angular_velocity = Vector3(3.63316e-14, 3.63316e-14, 3.63316e-14)
+script = ExtResource("1_lhj56")
+explosion = ExtResource("2_lqot8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.3, 0, -4.57379e-24, -4.57379e-24, -1.31134e-08, -0.3, 0, 0.3, -1.31134e-08, 0, 0, -0.510476)
+shape = SubResource("CapsuleShape3D_5b1vh")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(-4.37114e-08, 3.48787e-16, 1, 3.48787e-16, 1, -3.48787e-16, -1, 3.48787e-16, -4.37114e-08, 0, 0, -0.510476)
+gi_mode = 2
+pixel_size = 0.005
+axis = 1
+texture = ExtResource("3_c2tch")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, -0.510476)
+
+[node name="MinimapIcon" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.510476)
+layers = 2
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("QuadMesh_fxvid")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.510476)
+stream = ExtResource("4_we7w6")
+autoplay = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

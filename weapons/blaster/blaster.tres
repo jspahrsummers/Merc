@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="WeaponDef" load_steps=2 format=3 uid="uid://cw1tu3qdxdgfi"]
+
+[ext_resource type="Script" path="res://weapons/weapon_def.gd" id="1_h0068"]
+
+[resource]
+script = ExtResource("1_h0068")
+fire_interval_msec = 200
+fire_force = 2.0
+energy_consumption = 5.0

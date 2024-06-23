@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://bwna41dl1fs1b"]
+
+[ext_resource type="Shader" path="res://fx/shield/shield.gdshader" id="1_mad6o"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_pmc4q"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fkr6y"]
+width = 256
+height = 256
+generate_mipmaps = false
+noise = SubResource("FastNoiseLite_pmc4q")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_81ypg"]
+render_priority = 0
+shader = ExtResource("1_mad6o")
+shader_parameter/speed = Vector2(0.2, 0.2)
+shader_parameter/barrier_color = Color(0.05, 0.8, 1, 1)
+shader_parameter/barrier_force = 1.0
+shader_parameter/barrier_noise_force = 0.3
+shader_parameter/barrier_edge_softness = 1.0
+shader_parameter/barrier_noise = SubResource("NoiseTexture2D_fkr6y")
+
+[sub_resource type="SphereMesh" id="SphereMesh_nruju"]
+material = SubResource("ShaderMaterial_81ypg")
+
+[node name="ShieldEffect" type="MeshInstance3D"]
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("SphereMesh_nruju")

@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://ckdnlnrybk4mh"]
+
+[ext_resource type="Script" path="res://galaxy/map/galaxy_map_system.gd" id="1_jbywj"]
+[ext_resource type="Material" uid="uid://wjykkjty1dt5" path="res://galaxy/map/galaxy_map_current_mat.tres" id="2_ddy2j"]
+[ext_resource type="FontFile" uid="uid://csj4t4r3hegan" path="res://gui/fonts/TitilliumWeb-Regular.ttf" id="3_747hn"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j7i3l"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ojctd"]
+material = SubResource("StandardMaterial3D_j7i3l")
+radius = 0.1
+height = 0.2
+radial_segments = 32
+rings = 16
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_05nlo"]
+radius = 0.2
+
+[node name="System Node" type="StaticBody3D" node_paths=PackedStringArray("name_label", "mesh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+script = ExtResource("1_jbywj")
+name_label = NodePath("NameLabel")
+mesh = NodePath("MeshInstance3D")
+current_node_material = ExtResource("2_ddy2j")
+
+[node name="NameLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22321, 0)
+billboard = 1
+double_sided = false
+text = "Test System"
+font = ExtResource("3_747hn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+mesh = SubResource("SphereMesh_ojctd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_05nlo")
