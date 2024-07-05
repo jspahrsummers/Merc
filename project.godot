@@ -37,9 +37,9 @@ gdscript/warnings/unsafe_call_argument=1
 
 [display]
 
-window/size/viewport_width=3840
-window/size/viewport_height=2160
-window/size/mode=3
+window/size/viewport_width=2560
+window/size/viewport_height=1440
+window/size/mode=4
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
