@@ -18,7 +18,7 @@ func _on_save_button_pressed() -> void:
     UserPreferences.save()
 
 func _on_control_scheme_item_selected(index: int) -> void:
-    UserPreferences.set_control_scheme(index)
+    UserPreferences.control_scheme = index as UserPreferences.ControlScheme
 
 func _on_ui_scale_changed(value: float) -> void:
-    UserPreferences.set_ui_scale(value / 100)
+    UserPreferences.ui_scale = value / 100
