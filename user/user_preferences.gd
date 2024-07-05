@@ -40,19 +40,22 @@ func reload() -> void:
     self._config.clear()
     var load_result := self._config.load(PREFERENCES_PATH)
     
-    if load_result != Error.OK and load_result != Error.ERR_FILE_NOT_FOUND:
-        push_error("Failed to load preferences file ", PREFERENCES_PATH, " with error ", load_result)
+    if load_result == Error.OK:
+        print("User preferences loaded from: ", ProjectSettings.globalize_path(PREFERENCES_PATH))
+    elif load_result == Error.ERR_FILE_NOT_FOUND:
+        print("No user preferences found at: ", ProjectSettings.globalize_path(PREFERENCES_PATH), ", using defaults.")
+    else:
+        push_error("Failed to load user preferences file ", ProjectSettings.globalize_path(PREFERENCES_PATH), " with error ", load_result)
 
     self._updated()
-    print("User preferences loaded")
 
 ## Save user preferences to disk.
 func save() -> void:
     var save_result := self._config.save(PREFERENCES_PATH)
-    if save_result != Error.OK:
-        push_error("Failed to save preferences file ", PREFERENCES_PATH, " with error ", save_result)
-    
-    print("User preferences saved")
+    if save_result == Error.OK:
+        print("User preferences saved to: ", ProjectSettings.globalize_path(PREFERENCES_PATH))
+    else:
+        push_error("Failed to save user preferences file ", ProjectSettings.globalize_path(PREFERENCES_PATH), " with error ", save_result)
 
 ## Reads a custom value previously set with [method set_custom_value].
 func get_custom_value(section: String, key: String, default_value: Variant) -> Variant:
