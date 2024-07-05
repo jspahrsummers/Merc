@@ -216,8 +216,8 @@ func thrust_step(magnitude: float, step_delta: float) -> void:
     if !self.thruster_audio.playing:
         self.thruster_audio.play()
 
-    var desired_energy = self.ship_def.thrust_energy_consumption * magnitude * step_delta
-    var energy_consumed = minf(self.energy, desired_energy)
+    var desired_energy := self.ship_def.thrust_energy_consumption * magnitude * step_delta
+    var energy_consumed := minf(self.energy, desired_energy)
     self.energy -= energy_consumed
     self.apply_central_force(self.transform.basis * Vector3.FORWARD * self.ship_def.thrust * magnitude * (energy_consumed / desired_energy))
     self.emit_signal("ship_energy_changed", self)
@@ -290,7 +290,7 @@ func _recharge_shield(delta: float) -> void:
     if is_zero_approx(self.ship_def.shield_recharge_rate) or is_equal_approx(self.shield, self.ship_def.shield):
         return
     
-    var recharge = self.ship_def.shield_recharge_rate * delta
+    var recharge := self.ship_def.shield_recharge_rate * delta
     if self.energy < recharge:
         return
 

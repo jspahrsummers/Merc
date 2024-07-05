@@ -24,7 +24,7 @@ signal jump_finished(new_system: StarSystem)
 ## Whether a jump is currently being performed.
 ##
 ## This property should not be written to outside the class!
-var jumping = false
+var jumping: bool = false
 
 ## The hyperspace destination that the player currently has selected.
 ##
@@ -32,7 +32,7 @@ var jumping = false
 var jump_destination: StarSystem
 
 ## Used to keep systems around in memory, so their state is remembered.
-var _loaded_system_nodes = {}
+var _loaded_system_nodes: Dictionary = {}
 
 func _ready() -> void:
     self._loaded_system_nodes[self.current_system.name] = get_tree().get_first_node_in_group("star_system")
@@ -63,11 +63,11 @@ func load_jump_destination() -> void:
     assert(current_system != jump_destination, "Current system should not be the same as the jump destination")
 
     # Replace scene
-    for node in self.get_tree().get_nodes_in_group("star_system"):
+    for node: Node3D in self.get_tree().get_nodes_in_group("star_system"):
         node.visible = false
         node.process_mode = Node.PROCESS_MODE_DISABLED
 
-    var node: Node = self._loaded_system_nodes.get(jump_destination.name)
+    var node: Node3D = self._loaded_system_nodes.get(jump_destination.name)
     if node == null:
         print("Instantiating node for system ", jump_destination.name)
         var new_scene := ResourceLoader.load_threaded_get(jump_destination.scene_path()) as PackedScene
