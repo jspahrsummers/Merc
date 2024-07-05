@@ -40,7 +40,7 @@ func _next_system_connection() -> StarSystem:
 func _next_ship_target() -> Ship:
     var ships := get_tree().get_nodes_in_group("ships")
     ships.erase(self)
-    ships = ships.filter(func(ship): return ship.is_visible_in_tree())
+    ships = ships.filter(func(ship: Ship) -> bool: return ship.is_visible_in_tree())
     if ships.size() == 0:
         return null
     
@@ -103,7 +103,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
         UserPreferences.ControlScheme.RELATIVE:
             var turning_left := Input.is_action_pressed("turn_left")
             var turning_right := Input.is_action_pressed("turn_right")
-            var turning_backwards = Input.is_action_pressed("turn_backwards")
+            var turning_backwards := Input.is_action_pressed("turn_backwards")
             if not turning_left and not turning_right and not turning_backwards:
                 return
             
@@ -117,7 +117,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
                 state.angular_velocity = Vector3.ZERO
                 state.transform.basis = state.transform.basis.rotated(Vector3.DOWN, self.ship_def.torque * state.get_step())
             if turning_backwards:
-                var desired_basis = Basis.looking_at( - self.linear_velocity.normalized())
+                var desired_basis := Basis.looking_at( - self.linear_velocity.normalized())
 
                 state.angular_velocity = Vector3.ZERO
                 state.transform.basis = state.transform.basis.slerp(desired_basis, self.ship_def.torque * state.get_step())
@@ -130,5 +130,5 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
             if not self.consume_turning_energy(state.get_step()):
                 return
 
-            var desired_basis = Basis.looking_at(desired_direction)
+            var desired_basis := Basis.looking_at(desired_direction)
             state.transform.basis = state.transform.basis.slerp(desired_basis, self.ship_def.torque * state.get_step())
