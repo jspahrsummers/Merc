@@ -26,9 +26,9 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_dwbyb")
 content_container = NodePath("PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/ContentContainer")
-settings_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/MainMenuButtons/SettingsButton")
+settings_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/SettingsButton")
 settings_scene = ExtResource("2_xomwj")
-licenses_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/MainMenuButtons/LicensesButton")
+licenses_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/LicensesButton")
 licenses_scene = ExtResource("3_bl7ky")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -60,28 +60,38 @@ layout_mode = 2
 size_flags_vertical = 3
 dragger_visibility = 1
 
-[node name="MainMenuButtons" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer"]
-custom_minimum_size = Vector2(400, 2.08165e-12)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 3
-theme_override_constants/separation = 16
-alignment = 1
-
-[node name="NewGameButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/MainMenuButtons" instance=ExtResource("2_kk5nj")]
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer"]
 layout_mode = 2
 
-[node name="SettingsButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/MainMenuButtons" instance=ExtResource("2_kk5nj")]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 36
+theme_override_constants/margin_right = 72
+theme_override_constants/margin_bottom = 36
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 36
+
+[node name="NewGameButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_kk5nj")]
+layout_mode = 2
+
+[node name="SettingsButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_kk5nj")]
 layout_mode = 2
 toggle_mode = true
 text = "SETTINGS"
 
-[node name="LicensesButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/MainMenuButtons" instance=ExtResource("2_kk5nj")]
+[node name="LicensesButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_kk5nj")]
 layout_mode = 2
 toggle_mode = true
 text = "LICENSES"
 
-[node name="ExitButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/MainMenuButtons" instance=ExtResource("2_kk5nj")]
+[node name="ExitButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_kk5nj")]
 layout_mode = 2
 shortcut = SubResource("Shortcut_qfyly")
 text = "EXIT"
@@ -103,7 +113,7 @@ size_flags_horizontal = 10
 text = "(version number)"
 script = ExtResource("6_ucu8b")
 
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/MainMenuButtons/NewGameButton" to="." method="_on_new_game_button_pressed"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/MainMenuButtons/SettingsButton" to="." method="_on_settings_button_pressed"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/MainMenuButtons/LicensesButton" to="." method="_on_licenses_button_pressed"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/MainMenuButtons/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/LicensesButton" to="." method="_on_licenses_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
