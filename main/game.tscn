@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://utils/shader_precompiler.gd" id="1_kgmvv"]
 [ext_resource type="Script" path="res://main/hyperspace_controller.gd" id="2_5gj7y"]
-[ext_resource type="PackedScene" uid="uid://b7tckdwyjwpso" path="res://weapons/blaster/blaster_bolt.tscn" id="2_bp704"]
+[ext_resource type="PackedScene" uid="uid://b7tckdwyjwpso" path="res://combat/weapons/blaster/blaster_bolt.tscn" id="2_bp704"]
 [ext_resource type="Script" path="res://main/main_camera.gd" id="2_v5hns"]
 [ext_resource type="Resource" uid="uid://bcva4l4cpt70c" path="res://galaxy/main_galaxy.tres" id="3_j76v0"]
 [ext_resource type="Material" uid="uid://tpd4rufhhe4h" path="res://main/starfield/starfield.tres" id="3_vksuy"]

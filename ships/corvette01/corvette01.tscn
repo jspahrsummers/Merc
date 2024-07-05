@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://ships/ship.gd" id="1_wioy5"]
 [ext_resource type="ArrayMesh" uid="uid://40a23nnu1j37" path="res://ships/corvette01/corvette01_mesh.tres" id="1_yacfo"]
 [ext_resource type="Resource" uid="uid://dc468i445pkgd" path="res://ships/corvette01/corvette01.tres" id="2_20tol"]
-[ext_resource type="PackedScene" uid="uid://b7tckdwyjwpso" path="res://weapons/blaster/blaster_bolt.tscn" id="2_gae27"]
+[ext_resource type="PackedScene" uid="uid://b7tckdwyjwpso" path="res://combat/weapons/blaster/blaster_bolt.tscn" id="2_gae27"]
 [ext_resource type="PackedScene" uid="uid://cdyo800b83x5i" path="res://fx/explosions/explosion002.tscn" id="2_xcc1t"]
 [ext_resource type="AudioStream" uid="uid://5iqc5o8p02l5" path="res://ships/audio/THRUSTER LOW.wav" id="4_xrdjv"]
 [ext_resource type="Material" uid="uid://cyhh74uif4hp0" path="res://gui/in_game/minimap_target_override_mat.tres" id="6_03mwh"]

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ShipDef" load_steps=3 format=3 uid="uid://dmd83o4ylhb0l"]
 
 [ext_resource type="Script" path="res://ships/ship_def.gd" id="1_6jqep"]
-[ext_resource type="Resource" uid="uid://cw1tu3qdxdgfi" path="res://weapons/blaster/blaster.tres" id="2_r5idh"]
+[ext_resource type="Resource" uid="uid://cw1tu3qdxdgfi" path="res://combat/weapons/blaster/blaster.tres" id="2_r5idh"]
 
 [resource]
 script = ExtResource("1_6jqep")
@@ -16,4 +16,4 @@ energy_recharge_rate = 2.0
 thrust_energy_consumption = 5.0
 turning_energy_consumption = 5.0
 shield_recharge_rate = 10.0
-weapons = Array[Resource("res://weapons/weapon_def.gd")]([ExtResource("2_r5idh")])
+weapons = Array[Resource("res://combat/weapons/weapon_def.gd")]([ExtResource("2_r5idh")])
