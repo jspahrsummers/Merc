@@ -280,14 +280,14 @@ func _physics_process(delta: float) -> void:
     self._recharge_shield(delta)
 
 func _recharge_energy(delta: float) -> void:
-    if is_zero_approx(self.ship_def.energy_recharge_rate) or is_equal_approx(self.energy, self.ship_def.energy):
+    if self.freeze or is_zero_approx(self.ship_def.energy_recharge_rate) or is_equal_approx(self.energy, self.ship_def.energy):
         return
 
     self.energy = minf(self.energy + self.ship_def.energy_recharge_rate * delta, self.ship_def.energy)
     self.emit_signal("ship_energy_changed", self)
 
 func _recharge_shield(delta: float) -> void:
-    if is_zero_approx(self.ship_def.shield_recharge_rate) or is_equal_approx(self.shield, self.ship_def.shield):
+    if self.freeze or is_zero_approx(self.ship_def.shield_recharge_rate) or is_equal_approx(self.shield, self.ship_def.shield):
         return
     
     var recharge := self.ship_def.shield_recharge_rate * delta
