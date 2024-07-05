@@ -118,12 +118,10 @@ func _ready() -> void:
 
     _last_fired_msec.resize(self.ship_def.weapons.size())
 
-## Damage this ship by the [code]shield[/code] and [code]hull[/code] amounts specified in the given dictionary.
+## Damage this ship.
 ##
 ## If the ship has shields up, damage is applied to the shields first, then the hull, in proportion.
-func damage(dmg: Dictionary) -> void:
-    var hull_dmg: float = dmg.get("hull", 0.0)
-    var shield_dmg: float = dmg.get("shield", 0.0)
+func damage(dmg: Damage) -> void:
     var apply_hull_dmg_pct := 1.0
 
     if self.shield > 0.01: # compare with epilson to mitigate floating point rounding issues
@@ -131,15 +129,15 @@ func damage(dmg: Dictionary) -> void:
 
         self._show_shields()
 
-        var actual_shield_dmg := minf(self.shield, shield_dmg)
+        var actual_shield_dmg := minf(self.shield, dmg.shield_damage)
         self.shield -= actual_shield_dmg
         self.emit_signal("ship_shield_changed", self)
 
         # Reduce hull damage proportionally to the shield damage applied
-        apply_hull_dmg_pct -= actual_shield_dmg / shield_dmg
+        apply_hull_dmg_pct -= actual_shield_dmg / dmg.shield_damage
     
     if apply_hull_dmg_pct > 0.0:
-        self.hull -= hull_dmg * apply_hull_dmg_pct
+        self.hull -= dmg.hull_damage * apply_hull_dmg_pct
         self.emit_signal("ship_hull_changed", self)
 
     if self.hull <= 0.01: # compare with epilson to mitigate floating point rounding issues
