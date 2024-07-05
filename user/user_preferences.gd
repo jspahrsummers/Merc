@@ -32,6 +32,14 @@ var ui_scale: float:
         self._config.set_value("display", "ui_scale", value)
         self._updated()
 
+## Whether the game should run in a window (vs. fullscreen).
+var windowed: bool:
+    get:
+        return self._config.get_value("display", "windowed", self._window_mode_is_windowed(ProjectSettings.get_setting_with_override("display/window/size/mode") as Window.Mode))
+    set(value):
+        self._config.set_value("display", "windowed", value)
+        self._updated()
+
 func _ready() -> void:
     self.reload()
 
@@ -74,5 +82,11 @@ func set_custom_value(section: String, key: String, value: Variant) -> void:
 
 ## Call this whenever user preferences change, so the UI can be updated.
 func _updated() -> void:
-    self.get_window().content_scale_factor = self.ui_scale
+    var window := self.get_window()
+    window.content_scale_factor = self.ui_scale
+    window.mode = Window.MODE_WINDOWED if self.windowed else Window.MODE_FULLSCREEN
+
     self.emit_signal("preferences_updated")
+
+func _window_mode_is_windowed(mode: Window.Mode) -> bool:
+    return mode != Window.MODE_FULLSCREEN and mode != Window.MODE_EXCLUSIVE_FULLSCREEN

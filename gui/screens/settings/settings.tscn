@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://gui/screens/settings/settings.gd" id="1_cg0bx"]
 
-[node name="Settings" type="Control" node_paths=PackedStringArray("control_scheme_button", "ui_scale_range")]
+[node name="Settings" type="Control" node_paths=PackedStringArray("control_scheme_button", "ui_scale_range", "windowed_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,6 +12,7 @@ grow_vertical = 2
 script = ExtResource("1_cg0bx")
 control_scheme_button = NodePath("PanelContainer/CenterContainer/VBoxContainer/GridContainer/ControlSchemeButton")
 ui_scale_range = NodePath("PanelContainer/CenterContainer/VBoxContainer/GridContainer/UIScaleSpinBox")
+windowed_button = NodePath("PanelContainer/CenterContainer/VBoxContainer/GridContainer/WindowedCheckButton")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -63,6 +64,14 @@ value = 100.0
 update_on_text_changed = true
 suffix = "%"
 
+[node name="WindowedLabel" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Windowed mode"
+uppercase = true
+
+[node name="WindowedCheckButton" type="CheckButton" parent="PanelContainer/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
@@ -77,5 +86,6 @@ text = "Save"
 
 [connection signal="item_selected" from="PanelContainer/CenterContainer/VBoxContainer/GridContainer/ControlSchemeButton" to="." method="_on_control_scheme_item_selected"]
 [connection signal="value_changed" from="PanelContainer/CenterContainer/VBoxContainer/GridContainer/UIScaleSpinBox" to="." method="_on_ui_scale_changed"]
+[connection signal="toggled" from="PanelContainer/CenterContainer/VBoxContainer/GridContainer/WindowedCheckButton" to="." method="_on_windowed_toggled"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/RevertButton" to="." method="_on_revert_button_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
