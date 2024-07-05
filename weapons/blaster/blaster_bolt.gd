@@ -3,15 +3,8 @@ extends RigidBody3D
 ## How long before the blaster bolt expires (in milliseconds).
 @export var lifetime_msec: int = 2000
 
-## How much damage the blaster bolt does to shields.
-##
-## If a ship has shields, damage is applied to the shields first, then the hull, in proportion.
-@export var damage_shield: float = 80
-
-## How much damage the blaster bolt does to a hull.
-##
-## If a ship has shields, damage is applied to the shields first, then the hull, in proportion.
-@export var damage_hull: float = 40
+## How much damage the blaster bolt does.
+@export var damage: Damage
 
 ## An explosion to instantiate upon collision.
 @export var explosion: PackedScene
@@ -34,9 +27,6 @@ func _on_body_entered(body: Node) -> void:
 
     if body is Ship:
         var ship: Ship = body
-        ship.damage({
-            "shield": self.damage_shield,
-            "hull": self.damage_hull
-        })
+        ship.damage(self.damage)
 
     self.queue_free()

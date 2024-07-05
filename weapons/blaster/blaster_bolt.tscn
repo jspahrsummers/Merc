@@ -1,9 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7tckdwyjwpso"]
+[gd_scene load_steps=10 format=3 uid="uid://b7tckdwyjwpso"]
 
 [ext_resource type="Script" path="res://weapons/blaster/blaster_bolt.gd" id="1_lhj56"]
+[ext_resource type="Script" path="res://weapons/damage.gd" id="2_7b3e6"]
 [ext_resource type="PackedScene" uid="uid://cp0b07jvhi5a" path="res://fx/explosions/explosion001.tscn" id="2_lqot8"]
 [ext_resource type="Texture2D" uid="uid://lyur31oafltf" path="res://weapons/blaster/blaster_bolt.png" id="3_c2tch"]
 [ext_resource type="AudioStream" uid="uid://cscjfy7e1dy78" path="res://weapons/blaster/laser4.mp3" id="4_we7w6"]
+
+[sub_resource type="Resource" id="Resource_a466u"]
+script = ExtResource("2_7b3e6")
+shield_damage = 80.0
+hull_damage = 40.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5b1vh"]
 
@@ -29,6 +35,7 @@ max_contacts_reported = 1
 contact_monitor = true
 angular_velocity = Vector3(3.63316e-14, 3.63316e-14, 3.63316e-14)
 script = ExtResource("1_lhj56")
+damage = SubResource("Resource_a466u")
 explosion = ExtResource("2_lqot8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
