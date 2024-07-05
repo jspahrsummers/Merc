@@ -48,7 +48,8 @@ func _set_currently_toggled(index: ToggleState) -> void:
         self._buttons_by_state[index].button_pressed = true
         self._currently_toggled = index
 
-        var node: Control = self._scenes_by_state[index].instantiate()
+        var scene: PackedScene = self._scenes_by_state[index]
+        var node: Control = scene.instantiate()
         self.content_container.add_child(node)
         self._current_view = node
 

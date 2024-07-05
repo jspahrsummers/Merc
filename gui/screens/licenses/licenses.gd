@@ -19,7 +19,7 @@ func _godot_licenses() -> String:
     for component in copyright_info:
         var component_name: String = component["name"]
         var parts: Array = component["parts"]
-        for part in parts:
+        for part: Dictionary in parts:
             var _files: Array = part["files"]
             var copyright: Array = part["copyright"]
             var license: String = part["license"]
@@ -33,7 +33,7 @@ func _godot_licenses() -> String:
     result += "\n\n# Licenses"
 
     var licenses := Engine.get_license_info()
-    for license_name in licenses:
+    for license_name: String in licenses:
         var text: String = licenses[license_name]
         result += "\n\n## " + license_name + "\n\n" + text.strip_edges()
 
