@@ -15,6 +15,11 @@ extends Node3D
 ## The total duration of the shield flash effect, in seconds.
 @export var shield_flash_duration: float = 0.4
 
+@export var shield_flash_on_transition: Tween.TransitionType = Tween.TRANS_ELASTIC
+@export var shield_flash_on_ease: Tween.EaseType = Tween.EASE_OUT
+@export var shield_flash_off_transition: Tween.TransitionType = Tween.TRANS_CUBIC
+@export var shield_flash_off_ease: Tween.EaseType = Tween.EASE_IN
+
 ## The hull of the object.
 ##
 ## Connect to [signal Hull.hull_destroyed] to be notified when the CombatObject is destroyed.
@@ -74,7 +79,13 @@ func _show_shields() -> void:
         self._shield_tween.kill()
 
     var tween := self.create_tween()
-    tween.tween_property(self.shield_mesh_instance, "transparency", 0.0, self.shield_flash_duration / 2.0)
-    tween.tween_property(self.shield_mesh_instance, "transparency", 1.0, self.shield_flash_duration / 2.0)
+
+    var on_tweener := tween.tween_property(self.shield_mesh_instance, "transparency", 0.0, self.shield_flash_duration / 2.0)
+    on_tweener.set_trans(self.shield_flash_on_transition)
+    on_tweener.set_ease(self.shield_flash_on_ease)
+
+    var off_tweener := tween.tween_property(self.shield_mesh_instance, "transparency", 1.0, self.shield_flash_duration / 2.0)
+    off_tweener.set_trans(self.shield_flash_off_transition)
+    off_tweener.set_ease(self.shield_flash_off_ease)
     
     self._shield_tween = tween
