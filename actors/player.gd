@@ -94,7 +94,7 @@ func _next_system_connection() -> StarSystem:
 ## Cycles through ships in the current system, for picking a target.
 func _next_ship_target() -> Ship:
     var ships := get_tree().get_nodes_in_group("ships")
-    ships.erase(self)
+    ships.erase(self.ship)
     ships = ships.filter(func(s: Ship) -> bool: return s.is_visible_in_tree())
     if ships.size() == 0:
         return null
