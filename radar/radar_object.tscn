@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://dmneg7pw872n2"]
+
+[ext_resource type="Script" path="res://radar/radar_object.gd" id="1_io8dg"]
+[ext_resource type="Texture2D" uid="uid://du58qp0yjl18w" path="res://radar/images/your_vessel.png" id="2_wdmmt"]
+[ext_resource type="Texture2D" uid="uid://ctcdsd6rf0v6d" path="res://radar/images/neutral_vessel.png" id="3_jwj8n"]
+[ext_resource type="Texture2D" uid="uid://celfiy38f3ec5" path="res://radar/images/friendly_vessel.png" id="4_mvbae"]
+[ext_resource type="Texture2D" uid="uid://b6ry6dyft8wrh" path="res://radar/images/hostile_vessel.png" id="5_73qg7"]
+[ext_resource type="Texture2D" uid="uid://ds3ts566ftpw" path="res://radar/images/selector.png" id="6_c63wx"]
+
+[node name="RadarObject" type="Node" node_paths=PackedStringArray("iff_sprite", "targeted_sprite")]
+script = ExtResource("1_io8dg")
+iff_sprite = NodePath("IFFSprite")
+texture_self = ExtResource("2_wdmmt")
+texture_neutral = ExtResource("3_jwj8n")
+texture_friendly = ExtResource("4_mvbae")
+texture_hostile = ExtResource("5_73qg7")
+targeted_sprite = NodePath("TargetedSprite")
+
+[node name="IFFSprite" type="Sprite3D" parent="."]
+layers = 2
+cast_shadow = 0
+gi_mode = 0
+axis = 1
+double_sided = false
+no_depth_test = true
+fixed_size = true
+texture = ExtResource("3_jwj8n")
+
+[node name="TargetedSprite" type="Sprite3D" parent="."]
+layers = 2
+cast_shadow = 0
+gi_mode = 0
+axis = 1
+double_sided = false
+no_depth_test = true
+fixed_size = true
+texture = ExtResource("6_c63wx")
