@@ -12,4 +12,4 @@ class_name Weapon
 ## The amount of energy required to fire the weapon.
 ##
 ## If the containing ship's available energy is less than this amount, the weapon won't be able to fire.
-@export var energy_consumption: float
+@export var power_consumption: float
