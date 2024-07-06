@@ -41,21 +41,26 @@ func _ready() -> void:
     self.ship.power_management_unit.battery.changed.connect(_on_power_changed)
     self.ship.targeting_system.target_changed.connect(_on_target_changed)
 
-func _on_hull_changed(hull: Hull) -> void:
-    self.hull_changed.emit(self, hull)
+    # Initial notifications so the UI can update.
+    self._on_hull_changed()
+    self._on_shield_changed()
+    self._on_power_changed()
 
-func _on_shield_changed(shield: Shield) -> void:
-    self.shield_changed.emit(self, shield)
+func _on_hull_changed() -> void:
+    self.hull_changed.emit(self, self.ship.combat_object.hull)
 
-func _on_power_changed(battery: Battery) -> void:
-    self.power_changed.emit(self, battery)
+func _on_shield_changed() -> void:
+    self.shield_changed.emit(self, self.ship.combat_object.shield)
+
+func _on_power_changed() -> void:
+    self.power_changed.emit(self, self.ship.power_management_unit.battery)
 
 func _on_hull_destroyed(hull: Hull) -> void:
     assert(hull == self.ship.combat_object.hull, "Received hull_destroyed signal from incorrect hull")
     self.ship_destroyed.emit(self)
 
-func _on_target_changed(targeting_system: TargetingSystem) -> void:
-    self.target_changed.emit(self, targeting_system.target)
+func _on_target_changed() -> void:
+    self.target_changed.emit(self, self.ship.targeting_system.target)
 
 # func set_target(targeted_ship: Ship) -> void:
 #     if self.target != null:
@@ -160,4 +165,3 @@ func _physics_process(_delta: float) -> void:
                 self.ship.rigid_body_thruster.throttle = desired_direction.length()
             else:
                 self.ship.rigid_body_thruster.throttle = 0.0
-        
