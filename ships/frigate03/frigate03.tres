@@ -16,4 +16,4 @@ energy_recharge_rate = 2.0
 thrust_energy_consumption = 5.0
 turning_energy_consumption = 5.0
 shield_recharge_rate = 10.0
-weapons = Array[Resource("res://combat/weapons/weapon_def.gd")]([ExtResource("2_r5idh")])
+weapons = Array[Resource("res://combat/weapons/weapon.gd")]([ExtResource("2_r5idh")])

@@ -16,4 +16,4 @@ energy_recharge_rate = 5.0
 thrust_energy_consumption = 8.0
 turning_energy_consumption = 5.0
 shield_recharge_rate = 5.0
-weapons = Array[Resource("res://combat/weapons/weapon_def.gd")]([ExtResource("2_paw6l")])
+weapons = Array[Resource("res://combat/weapons/weapon.gd")]([ExtResource("2_paw6l")])
