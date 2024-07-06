@@ -5,6 +5,9 @@ class_name CombatObject
 ##
 ## CombatObject will automatically remove itself [b]and its parent[/b] from the scene tree when destroyed.
 
+## This object's name when targeted in combat.
+@export var combat_name: String
+
 ## An optional shield protecting the object.
 @export var shield: Shield
 

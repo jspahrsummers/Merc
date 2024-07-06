@@ -8,7 +8,7 @@
 [ext_resource type="Material" uid="uid://tpd4rufhhe4h" path="res://main/starfield/starfield.tres" id="3_vksuy"]
 [ext_resource type="Script" path="res://fx/hyperspace/hyperspace_effect.gd" id="4_bmy66"]
 [ext_resource type="AudioStream" uid="uid://cmjfgigj57eie" path="res://fx/hyperspace/teleport_02_slowed.ogg" id="5_jhe1g"]
-[ext_resource type="PackedScene" uid="uid://cqxv07b8bwiev" path="res://ships/corvette01/corvette01.tscn" id="6_8inyn"]
+[ext_resource type="PackedScene" uid="uid://dsuln1s4j366a" path="res://ships/corvette01/corvette01.tscn" id="6_8inyn"]
 [ext_resource type="Resource" uid="uid://cew4x137v08q" path="res://galaxy/star_systems/sol.tres" id="6_es1br"]
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://main/environment.tres" id="6_srnxb"]
 [ext_resource type="Script" path="res://actors/player.gd" id="7_6citj"]
@@ -126,14 +126,13 @@ cast_shadow = 0
 gi_mode = 0
 mesh = SubResource("QuadMesh_7oe51")
 
-[node name="MainCamera" type="Camera3D" parent="." node_paths=PackedStringArray("follow_target", "starfield_node")]
+[node name="MainCamera" type="Camera3D" parent="." node_paths=PackedStringArray("starfield_node")]
 transform = Transform3D(1, -6.97574e-16, 4.15924e-24, 4.15924e-24, 1.19249e-08, 1, -6.97574e-16, -1, 1.19249e-08, 2.08165e-12, 10, 2.08165e-12)
 cull_mask = 1048565
 current = true
 near = 1.0
 far = 20.0
 script = ExtResource("2_v5hns")
-follow_target = NodePath("../Player")
 starfield_node = NodePath("../Starfield")
 starfield_material = ExtResource("3_vksuy")
 
@@ -155,19 +154,12 @@ stream = ExtResource("5_jhe1g")
 volume_db = 2.0
 mix_target = 1
 
-[node name="Player" parent="." node_paths=PackedStringArray("hyperspace_controller") instance=ExtResource("6_8inyn")]
-gravity_scale = 1.66533e-16
-can_sleep = false
+[node name="Player" type="Node" parent="." node_paths=PackedStringArray("hyperspace_controller", "ship")]
 script = ExtResource("7_6citj")
 hyperspace_controller = NodePath("../HyperspaceController")
-free_when_destroyed = false
+ship = NodePath("Corvette")
 
-[node name="MinimapIcon" parent="Player" index="3"]
-transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, 0, 0, 0)
-
-[node name="AudioListener3D" type="AudioListener3D" parent="Player"]
-transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, 0, 0, 0)
-current = true
+[node name="Corvette" parent="Player" instance=ExtResource("6_8inyn")]
 
 [node name="MinimapViewport" type="SubViewport" parent="."]
 transparent_bg = true
@@ -176,7 +168,7 @@ canvas_item_default_texture_filter = 0
 gui_disable_input = true
 size = Vector2i(200, 200)
 
-[node name="MinimapCamera" type="Camera3D" parent="MinimapViewport" node_paths=PackedStringArray("follow_target")]
+[node name="MinimapCamera" type="Camera3D" parent="MinimapViewport"]
 transform = Transform3D(1, -6.97574e-16, -1.5246e-23, -1.5246e-23, -4.37114e-08, 1, -6.97574e-16, -1, -4.37114e-08, 2.08165e-12, 10, 2.08165e-12)
 keep_aspect = 0
 cull_mask = 2
@@ -187,7 +179,6 @@ size = 150.0
 near = 1.0
 far = 20.0
 script = ExtResource("13_t2gj2")
-follow_target = NodePath("../../Player")
 
 [node name="HyperspaceViewport" type="SubViewport" parent="." groups=["hyperspace"]]
 handle_input_locally = false
@@ -481,15 +472,14 @@ galaxy = ExtResource("3_j76v0")
 [connection signal="jump_finished" from="HyperspaceController" to="InGameGUI/GalaxyMapWindow/SubViewportContainer/SubViewport/GalaxyMap" method="_on_jump_finished"]
 [connection signal="jump_started" from="HyperspaceController" to="MainCamera/HyperspaceEffect" method="_on_jump_started"]
 [connection signal="jump_started" from="HyperspaceController" to="InGameGUI/GalaxyMapWindow/SubViewportContainer/SubViewport/GalaxyMap" method="_on_jump_started"]
+[connection signal="hull_changed" from="Player" to="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_ship_hull_changed"]
+[connection signal="power_changed" from="Player" to="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_ship_power_changed"]
+[connection signal="shield_changed" from="Player" to="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_ship_shield_changed"]
 [connection signal="ship_destroyed" from="Player" to="InGameGUI/GameOverDialog" method="_on_player_ship_destroyed"]
-[connection signal="ship_energy_changed" from="Player" to="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_ship_energy_changed"]
-[connection signal="ship_hull_changed" from="Player" to="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_ship_hull_changed"]
-[connection signal="ship_shield_changed" from="Player" to="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_ship_shield_changed"]
-[connection signal="ship_target_changed" from="Player" to="InGameGUI/Sidebar/TargetInfoContainer" method="_on_player_ship_target_changed"]
+[connection signal="target_changed" from="Player" to="InGameGUI/Sidebar/TargetInfoContainer" method="_on_player_ship_target_changed"]
 [connection signal="confirmed" from="InGameGUI/GameOverDialog" to="InGameGUI/GameOverDialog" method="_on_confirmed"]
 [connection signal="canceled" from="InGameGUI/ExitDialog" to="InGameGUI/ExitDialog" method="_on_canceled"]
 [connection signal="confirmed" from="InGameGUI/ExitDialog" to="InGameGUI/ExitDialog" method="_on_confirmed"]
 [connection signal="close_requested" from="InGameGUI/GalaxyMapWindow" to="InGameGUI/GalaxyMapWindow/SubViewportContainer/SubViewport/GalaxyMap" method="_on_window_close_requested"]
 
-[editable path="Player"]
 [editable path="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer/ShieldBar"]
