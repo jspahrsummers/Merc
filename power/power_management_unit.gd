@@ -1,4 +1,4 @@
-extends Node
+extends Node3D
 class_name PowerManagementUnit
 
 ## Manages power generation and consumption.
@@ -13,4 +13,4 @@ func _ready() -> void:
     self.set_physics_process(self.battery != null and self.power_generator != null)
 
 func _physics_process(delta: float) -> void:
-    self.battery.power += self.power_generator.rate_of_power * delta
+    self.battery.recharge(self.power_generator.rate_of_power * delta)

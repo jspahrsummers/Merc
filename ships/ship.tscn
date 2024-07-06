@@ -27,7 +27,7 @@ script = ExtResource("3_5a5el")
 [node name="RigidBodyThruster" type="Node3D" parent="."]
 script = ExtResource("5_66pr6")
 
-[node name="PowerManagementUnit" type="Node" parent="."]
+[node name="PowerManagementUnit" type="Node3D" parent="."]
 script = ExtResource("6_4hum8")
 
 [node name="RadarObject" parent="." instance=ExtResource("8_lf0ki")]
