@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_h0068")
-fire_interval_msec = 200
+fire_interval = 0.2
 fire_force = 2.0
 energy_consumption = 5.0
