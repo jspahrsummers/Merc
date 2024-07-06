@@ -165,7 +165,7 @@ func _fire_weapon(idx: int) -> void:
     var hardpoint := self.weapon_hardpoints[idx]
 
     var now := Time.get_ticks_msec()
-    if now - self._last_fired_msec[idx] < weapon.fire_interval_msec:
+    if (now - self._last_fired_msec[idx]) / 1000.0 < weapon.fire_interval:
         return
     
     if self.energy < weapon.energy_consumption:
