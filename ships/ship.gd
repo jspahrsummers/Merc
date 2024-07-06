@@ -1,4 +1,5 @@
 extends RigidBody3D
+class_name Ship
 
 @onready var combat_object: CombatObject = $CombatObject
 @onready var targeting_system: TargetingSystem = $TargetingSystem

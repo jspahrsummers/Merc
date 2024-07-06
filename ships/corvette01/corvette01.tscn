@@ -74,6 +74,7 @@ transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, -0.0005
 shape = SubResource("BoxShape3D_28kwx")
 
 [node name="CombatObject" parent="." index="3" node_paths=PackedStringArray("shield_mesh_instance")]
+combat_name = "Corvette"
 shield = SubResource("Resource_alskh")
 shield_mesh_instance = NodePath("ShieldEffect")
 hull = SubResource("Resource_5twpq")
