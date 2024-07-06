@@ -2,7 +2,7 @@ extends GridContainer
 
 @export var hull_bar: VitalsFillBar
 @export var shield_bar: VitalsFillBar
-@export var energy_bar: VitalsFillBar
+@export var power_bar: VitalsFillBar
 
 func _on_player_ship_hull_changed(_player: Player, hull: Hull) -> void:
     self.hull_bar.max_value = hull.max_integrity
@@ -13,5 +13,5 @@ func _on_player_ship_shield_changed(_player: Player, shield: Shield) -> void:
     self.shield_bar.value = shield.integrity
 
 func _on_player_ship_power_changed(_player: Player, battery: Battery) -> void:
-    self.energy_bar.max_value = maxf(1.0, battery.max_power)
-    self.energy_bar.value = battery.power
+    self.power_bar.max_value = maxf(1.0, battery.max_power)
+    self.power_bar.value = battery.power

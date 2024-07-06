@@ -9,9 +9,9 @@ class_name Weapon
 ## The force with which the weapon fires (in N).
 @export var fire_force: float
 
-## The amount of energy required to fire the weapon.
+## The amount of power required to fire the weapon.
 ##
-## If the containing ship's available energy is less than this amount, the weapon won't be able to fire.
+## If the containing ship's available power is less than this amount, the weapon won't be able to fire.
 @export var power_consumption: float
 
 ## The projectile that this weapon fires. The root node [b]must[/b] be a [RigidBody3D].

@@ -292,7 +292,7 @@ theme_override_font_sizes/font_size = 10
 text = "Ship systems"
 uppercase = true
 
-[node name="PlayerVitals" type="GridContainer" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer" node_paths=PackedStringArray("hull_bar", "shield_bar", "energy_bar")]
+[node name="PlayerVitals" type="GridContainer" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer" node_paths=PackedStringArray("hull_bar", "shield_bar", "power_bar")]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/h_separation = 16
@@ -300,7 +300,7 @@ columns = 3
 script = ExtResource("24_7v2ra")
 hull_bar = NodePath("HullBar")
 shield_bar = NodePath("ShieldBar")
-energy_bar = NodePath("EnergyBar")
+power_bar = NodePath("PowerBar")
 
 [node name="HullLabel" type="Label" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals"]
 layout_mode = 2
@@ -314,10 +314,10 @@ theme_type_variation = &"HUDLabel"
 text = "SHLD"
 horizontal_alignment = 1
 
-[node name="EnergyLabel" type="Label" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals"]
+[node name="PowerLabel" type="Label" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals"]
 layout_mode = 2
 theme_type_variation = &"HUDLabel"
-text = "ENRG	"
+text = "PWR"
 horizontal_alignment = 1
 
 [node name="HullBar" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" instance=ExtResource("25_5yuo5")]
@@ -326,7 +326,7 @@ layout_mode = 2
 [node name="ShieldBar" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" instance=ExtResource("25_5yuo5")]
 layout_mode = 2
 
-[node name="EnergyBar" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" instance=ExtResource("25_5yuo5")]
+[node name="PowerBar" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" instance=ExtResource("25_5yuo5")]
 layout_mode = 2
 
 [node name="TargetInfoContainer" type="PanelContainer" parent="InGameGUI/Sidebar" node_paths=PackedStringArray("target_label", "target_view", "target_viewport", "hull_bar", "shield_bar", "pick_sound")]
