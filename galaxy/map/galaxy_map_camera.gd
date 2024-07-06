@@ -40,10 +40,10 @@ var _theta: float = 0.0
 ## How far up or down the camera is tilted.
 var _phi: float = PI / 4 # start at 45 degree inclination
 
-func _ready():
+func _ready() -> void:
     self._update_camera_position()
 
-func _input(event: InputEvent):
+func _input(event: InputEvent) -> void:
     var motion := event as InputEventMouseMotion
     var pan := event as InputEventPanGesture
     if motion != null and Input.is_action_pressed("galaxy_map_camera_rotate"):
@@ -66,14 +66,14 @@ func _input(event: InputEvent):
         self._update_camera_position()
         self.get_viewport().set_input_as_handled()
 
-func _set_radius(value: float):
+func _set_radius(value: float) -> void:
     self.radius = clampf(value, self.min_radius, self.max_radius)
     self._update_camera_position()
 
-func _update_camera_position():
-    var x = self.radius * sin(self._theta) * cos(self._phi)
-    var y = self.radius * sin(self._phi)
-    var z = self.radius * cos(self._theta) * cos(self._phi)
+func _update_camera_position() -> void:
+    var x := self.radius * sin(self._theta) * cos(self._phi)
+    var y := self.radius * sin(self._phi)
+    var z := self.radius * cos(self._theta) * cos(self._phi)
     
     self.transform.origin = Vector3(x, y, z) + self.center
     self.look_at(self.center, Vector3.UP)
