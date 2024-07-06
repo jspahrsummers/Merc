@@ -168,10 +168,10 @@ func _fire_weapon(idx: int) -> void:
     if (now - self._last_fired_msec[idx]) / 1000.0 < weapon.fire_interval:
         return
     
-    if self.energy < weapon.energy_consumption:
+    if self.energy < weapon.power_consumption:
         return
     
-    self.energy -= weapon.energy_consumption
+    self.energy -= weapon.power_consumption
     self.emit_signal("ship_energy_changed", self)
 
     var bullet_instance: RigidBody3D = self.bullet.instantiate()
