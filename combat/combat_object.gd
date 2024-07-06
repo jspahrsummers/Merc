@@ -1,4 +1,5 @@
 extends Node3D
+class_name CombatObject
 
 ## Attaches to an object that can participate in combat, and be damaged or destroyed.
 ##
@@ -29,6 +30,18 @@ extends Node3D
 ##
 ## The root must be a [Node3D].
 @export var destruction: PackedScene
+
+## [TargetingSystem]s that are currently targeting this object.
+@export var targeted_by: Array[TargetingSystem] = []:
+    set(value):
+        if value == targeted_by:
+            return
+
+        targeted_by = value.duplicate()
+        self.targeted_by_changed.emit(self)
+
+## Fires when the [member targeted_by] property changes.
+signal targeted_by_changed(combat_object: CombatObject)
 
 var _shield_tween: Tween
 
