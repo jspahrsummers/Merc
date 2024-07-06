@@ -1,4 +1,4 @@
-extends Node
+extends Node3D
 class_name RigidBodyThruster
 
 ## Attaches to a [RigidBody3D] to implement thrust behaviors.
@@ -44,7 +44,13 @@ var _animation_geometry: Array[GeometryInstance3D]
 
 func _ready() -> void:
     if self.animation_duration > 0.0:
-        self._animation_geometry = self.get_children().filter(func(node: Node) -> bool: return node is GeometryInstance3D)
+        self._animation_geometry = []
+        for child_index in self.get_child_count():
+            var geometry_instance := self.get_child(child_index) as GeometryInstance3D
+            if not geometry_instance:
+                continue
+            
+            self._animation_geometry.push_back(geometry_instance)
         
         for geometry in self._animation_geometry:
             geometry.transparency = 1.0

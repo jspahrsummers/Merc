@@ -25,8 +25,8 @@ func _on_body_entered(body: Node) -> void:
     explosion_instance.global_rotation = self.global_rotation
     explosion_instance.scale = Vector3.ONE * 0.2
 
-    if body is Ship:
-        var ship: Ship = body
-        ship.damage(self.damage)
+    var combat_object := body as CombatObject
+    if combat_object:
+        combat_object.damage(self.damage)
 
     self.queue_free()
