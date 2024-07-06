@@ -1,7 +1,7 @@
 extends Resource
-class_name WeaponDef
+class_name Weapon
 
-## Defines a weapon type and its base properties.
+## Defines the properties of a weapon.
 
 ## The minimum interval (in ms) between the weapon firing successively.
 @export var fire_interval_msec: int
