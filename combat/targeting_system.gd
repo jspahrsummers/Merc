@@ -19,11 +19,11 @@ class_name TargetingSystem
         
         self.target_changed.emit(self)
 
-## Fires when the [member target] changes.
-signal target_changed(targeting_system: TargetingSystem)
-
 ## The [CombatObject] containing this [TargetingSystem].
 @onready var combat_object := get_parent() as CombatObject
+
+## Fires when the [member target] changes.
+signal target_changed(targeting_system: TargetingSystem)
 
 func _notification(what: int) -> void:
     match what:

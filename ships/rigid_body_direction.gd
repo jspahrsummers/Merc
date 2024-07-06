@@ -1,4 +1,5 @@
 extends Node
+class_name RigidBodyDirection
 
 ## Attaches to a [RigidBody3D] to implement rotation toward a specific direction.
 ##

@@ -1,4 +1,5 @@
 extends Node3D
+class_name WeaponMount
 
 ## Physically attaches a weapon to a ship, powering and controlling its firing.
 ##

@@ -1,4 +1,5 @@
 extends Node
+class_name RadarObject
 
 ## An object to be rendered on the player's radar.
 

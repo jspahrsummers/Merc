@@ -1,4 +1,5 @@
 extends Node
+class_name RigidBodyThruster
 
 ## Attaches to a [RigidBody3D] to implement thrust behaviors.
 ##

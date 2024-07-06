@@ -1,4 +1,5 @@
 extends Node
+class_name ShieldRecharger
 
 ## Automatically charges a [Shield] from a [Battery] over time.
 

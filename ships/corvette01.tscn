@@ -1,0 +1,70 @@
+[gd_scene load_steps=20 format=3 uid="uid://bn3df4qstsucv"]
+
+[ext_resource type="PackedScene" uid="uid://c8a5lgba7mbpr" path="res://ships/ship_instance.tscn" id="1_5nycu"]
+[ext_resource type="Script" path="res://ships/physics_properties.gd" id="2_a81ox"]
+[ext_resource type="Script" path="res://power/power_capacity.gd" id="2_ehu71"]
+[ext_resource type="Script" path="res://combat/hull.gd" id="2_feqlr"]
+[ext_resource type="Script" path="res://power/battery.gd" id="3_dkogx"]
+[ext_resource type="Script" path="res://ships/ship.gd" id="3_km20q"]
+[ext_resource type="Script" path="res://combat/shield.gd" id="5_vy2o0"]
+[ext_resource type="Script" path="res://ships/thruster.gd" id="6_1lf0m"]
+[ext_resource type="Script" path="res://power/power_generator.gd" id="6_7i7dr"]
+[ext_resource type="Script" path="res://ships/spin_thruster.gd" id="6_w7o4i"]
+
+[sub_resource type="Resource" id="Resource_jkh8m"]
+script = ExtResource("2_ehu71")
+capacity = 100.0
+
+[sub_resource type="Resource" id="Resource_8ynvk"]
+resource_local_to_scene = true
+script = ExtResource("3_dkogx")
+power_capacity = SubResource("Resource_jkh8m")
+power = 100.0
+
+[sub_resource type="Resource" id="Resource_vx5o5"]
+resource_local_to_scene = true
+script = ExtResource("2_feqlr")
+max_integrity = 40.0
+integrity = 40.0
+
+[sub_resource type="Resource" id="Resource_qp2j2"]
+script = ExtResource("2_a81ox")
+mass = 10.0
+
+[sub_resource type="Resource" id="Resource_x8a1s"]
+script = ExtResource("6_7i7dr")
+rate_of_power = 5.0
+
+[sub_resource type="Resource" id="Resource_m1v1d"]
+resource_local_to_scene = true
+script = ExtResource("5_vy2o0")
+max_integrity = 80.0
+integrity = 80.0
+recharge_rate = 5.0
+power_efficiency = 1.0
+
+[sub_resource type="Resource" id="Resource_vtffk"]
+script = ExtResource("6_w7o4i")
+turning_rate = 8.0
+power_consumption_rate = 5.0
+
+[sub_resource type="Resource" id="Resource_cmu7t"]
+script = ExtResource("6_1lf0m")
+thrust_force = 200.0
+power_consumption_rate = 8.0
+
+[sub_resource type="Resource" id="Resource_paqou"]
+resource_local_to_scene = true
+script = ExtResource("3_km20q")
+physics_properties = SubResource("Resource_qp2j2")
+hull = SubResource("Resource_vx5o5")
+shield = SubResource("Resource_m1v1d")
+thruster = SubResource("Resource_cmu7t")
+spin_thruster = SubResource("Resource_vtffk")
+battery = SubResource("Resource_8ynvk")
+power_generator = SubResource("Resource_x8a1s")
+weapons = Array[Resource("res://combat/weapons/weapon.gd")]([])
+hyperspace_arrival_radius = 0.0
+
+[node name="ShipInstance" instance=ExtResource("1_5nycu")]
+ship = SubResource("Resource_paqou")

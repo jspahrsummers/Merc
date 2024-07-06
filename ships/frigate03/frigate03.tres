@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ShipDef" load_steps=3 format=3 uid="uid://dmd83o4ylhb0l"]
 
-[ext_resource type="Script" path="res://ships/ship_def.gd" id="1_6jqep"]
+[ext_resource type="Script" path="res://ships/ship.gd" id="1_6jqep"]
 [ext_resource type="Resource" uid="uid://cw1tu3qdxdgfi" path="res://combat/weapons/blaster/blaster.tres" id="2_r5idh"]
 
 [resource]
