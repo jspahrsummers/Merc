@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://stars/star.tscn" id="1_dt7yu"]
 [ext_resource type="Texture2D" uid="uid://bsgwmdcreel60" path="res://stars/sprites/star_red02.png" id="2_xr5lq"]
 [ext_resource type="Script" path="res://actors/pirate.gd" id="4_cyjdf"]
-[ext_resource type="PackedScene" uid="uid://bxggrqus7bst5" path="res://ships/frigate03/frigate03.tscn" id="7_lnhbv"]
+[ext_resource type="PackedScene" uid="uid://cdvbol3xj7jr5" path="res://ships/frigate03/frigate03.tscn" id="7_lnhbv"]
 
 [node name="Barnard\'s Star" type="Node3D" groups=["star_system"]]
 
@@ -19,7 +19,7 @@ omni_range = 10.0
 [node name="Sprite3D" parent="Star" index="2"]
 texture = ExtResource("2_xr5lq")
 
-[node name="Frigate" parent="." instance=ExtResource("7_lnhbv")]
+[node name="Frigate" parent="." node_paths=PackedStringArray("weapon_hardpoints", "engine_glow") instance=ExtResource("7_lnhbv")]
 transform = Transform3D(0.866897, -1.28496e-16, 0.498488, 3.48787e-16, 1, -3.48787e-16, -0.498488, 4.76228e-16, 0.866897, -8.39, 2.08165e-12, 1.15)
 script = ExtResource("4_cyjdf")
 detection_range = 10.0
@@ -29,5 +29,14 @@ fire_range = 8.0
 direction_tolerance_deg = 10.0
 patrol_radius = 10.0
 patrol_target_tolerance = 1.0
+ship_def = null
+bullet = null
+explosion = null
+minimap_target_override_material = null
+free_when_destroyed = true
+weapon_hardpoints = []
+engine_glow = []
+engine_glow_tween_duration_sec = 0.4
+shield_effect_duration_sec = 0.4
 
 [editable path="Star"]
