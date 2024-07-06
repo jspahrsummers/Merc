@@ -1,12 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://bxggrqus7bst5"]
+[gd_scene load_steps=17 format=3 uid="uid://bxggrqus7bst5"]
 
-[ext_resource type="Script" path="res://ships/ship.gd" id="1_wioy5"]
-[ext_resource type="PackedScene" uid="uid://b7tckdwyjwpso" path="res://combat/weapons/blaster/blaster_bolt.tscn" id="2_gae27"]
-[ext_resource type="Resource" uid="uid://dmd83o4ylhb0l" path="res://ships/frigate03/frigate03.tres" id="2_lg5km"]
-[ext_resource type="PackedScene" uid="uid://cdyo800b83x5i" path="res://fx/explosions/explosion002.tscn" id="2_xcc1t"]
 [ext_resource type="AudioStream" uid="uid://5iqc5o8p02l5" path="res://ships/audio/THRUSTER LOW.wav" id="4_xrdjv"]
 [ext_resource type="ArrayMesh" uid="uid://c2y60nf8m25ka" path="res://ships/frigate03/frigate03_mesh.tres" id="6_g7bx0"]
-[ext_resource type="Material" uid="uid://cyhh74uif4hp0" path="res://gui/in_game/minimap_target_override_mat.tres" id="6_moja0"]
 [ext_resource type="PackedScene" uid="uid://dbc2usdmy5wf3" path="res://fx/engine_glow/engine_glow.tscn" id="8_ibdmx"]
 [ext_resource type="Shader" path="res://fx/engine_glow/engine_glow.gdshader" id="9_2y7a5"]
 [ext_resource type="PackedScene" uid="uid://bwna41dl1fs1b" path="res://fx/shield/shield_effect.tscn" id="11_lwnic"]
@@ -58,25 +53,12 @@ material = SubResource("ShaderMaterial_81ypg")
 radius = 1.25
 height = 2.5
 
-[node name="Frigate" type="RigidBody3D" node_paths=PackedStringArray("thruster_audio", "mesh_instance", "target_overlay", "minimap_mesh_instance", "weapon_hardpoints", "engine_glow", "shield_effect") groups=["ships"]]
+[node name="Frigate" type="RigidBody3D" groups=["ships"]]
 transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, 0, 0, 0)
 collision_mask = 2
 axis_lock_linear_y = true
 axis_lock_angular_x = true
 axis_lock_angular_z = true
-script = ExtResource("1_wioy5")
-ship_def = ExtResource("2_lg5km")
-bullet = ExtResource("2_gae27")
-explosion = ExtResource("2_xcc1t")
-thruster_audio = NodePath("AudioStreamPlayer3D")
-mesh_instance = NodePath("MeshInstance3D")
-target_overlay = NodePath("TargetOverlay")
-minimap_mesh_instance = NodePath("MinimapIcon")
-minimap_target_override_material = ExtResource("6_moja0")
-weapon_hardpoints = [NodePath("BlasterHardpoint")]
-engine_glow = [NodePath("EngineGlow")]
-engine_glow_tween_duration_sec = 0.6
-shield_effect = NodePath("ShieldEffect")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(-4.63277e-08, 3.48787e-16, 1, 3.48787e-16, 1, -3.48787e-16, -1, 3.48787e-16, -1.07655e-07, 0.00127268, -0.00946045, -0.0920242)

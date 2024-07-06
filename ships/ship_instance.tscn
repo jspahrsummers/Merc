@@ -1,0 +1,30 @@
+[gd_scene load_steps=8 format=3 uid="uid://c8a5lgba7mbpr"]
+
+[ext_resource type="Script" path="res://ships/ship_instance.gd" id="1_nhuri"]
+[ext_resource type="Script" path="res://combat/combat_object.gd" id="2_fkmp7"]
+[ext_resource type="Script" path="res://combat/targeting_system.gd" id="3_g5x5d"]
+[ext_resource type="Script" path="res://ships/rigid_body_direction.gd" id="4_4hyh7"]
+[ext_resource type="Script" path="res://ships/rigid_body_thruster.gd" id="5_4dvbt"]
+[ext_resource type="Script" path="res://power/power_management_unit.gd" id="6_hmhoc"]
+[ext_resource type="Script" path="res://radar/radar_object.gd" id="7_bhoyr"]
+
+[node name="ShipInstance" type="RigidBody3D"]
+script = ExtResource("1_nhuri")
+
+[node name="CombatObject" type="Node3D" parent="."]
+script = ExtResource("2_fkmp7")
+
+[node name="TargetingSystem" type="Node" parent="CombatObject"]
+script = ExtResource("3_g5x5d")
+
+[node name="RigidBodyDirection" type="Node" parent="."]
+script = ExtResource("4_4hyh7")
+
+[node name="RigidBodyThruster" type="Node" parent="."]
+script = ExtResource("5_4dvbt")
+
+[node name="PowerManagementUnit" type="Node" parent="."]
+script = ExtResource("6_hmhoc")
+
+[node name="RadarObject" type="Node" parent="."]
+script = ExtResource("7_bhoyr")

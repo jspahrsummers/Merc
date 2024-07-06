@@ -1,4 +1,5 @@
 extends Node
+class_name RigidBodyTurner
 
 ## Attaches to a [RigidBody3D] to implement turning on demand.
 ##
@@ -10,13 +11,13 @@ extends Node
 ## The [Battery] to power the thruster from.
 @export var battery: Battery
 
-## The [RigidBody3D] to rotate.
-@onready var _rigid_body := get_parent() as RigidBody3D
-
 ## The amount of turning to apply, where 1.0 is full turning clockwise, and -1.0 is full turning counterclockwise.
 var turning: float:
     set(value):
         turning = clampf(value, -1.0, 1.0)
+
+## The [RigidBody3D] to rotate.
+@onready var _rigid_body := get_parent() as RigidBody3D
 
 func _physics_process(delta: float) -> void:
     if is_zero_approx(self.battery.power) or is_zero_approx(self.turning):
