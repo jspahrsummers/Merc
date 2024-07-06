@@ -1,5 +1,11 @@
 extends Node
 
+## Microseconds per second.
+const USEC_PER_SEC = 1000000
+
+## Microseconds per second, floating point.
+const USEC_PER_SEC_F = USEC_PER_SEC as float
+
 ## Returns a unit vector pointing in a random (2D) angle.
 ##
 ## This vector can be multiplied with a desired radius to get a random position within a circle.
