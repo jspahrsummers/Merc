@@ -45,4 +45,4 @@ class_name ShipDef
 @export var shield_recharge_rate: float
 
 ## The built-in weapons of this ship.
-@export var weapons: Array[WeaponDef] = []
+@export var weapons: Array[Weapon] = []
