@@ -92,7 +92,7 @@ func _next_system_connection() -> StarSystem:
     return self.hyperspace_controller.galaxy.get_system(connections[index + 1]) if index + 1 < connections.size() else null
 
 ## Cycles through ships in the current system, for picking a target.
-func _next_ship_target() -> Ship:
+func _next_ship_target() -> CombatObject:
     var ships := get_tree().get_nodes_in_group("ships")
     ships.erase(self.ship)
     ships = ships.filter(func(s: Ship) -> bool: return s.is_visible_in_tree())
@@ -106,7 +106,11 @@ func _next_ship_target() -> Ship:
     var index := ships.find(target)
     assert(index >= 0, "Cannot find targeted ship")
 
-    return ships[index + 1] if index + 1 < ships.size() else null
+    if index + 1 >= ships.size():
+        return null
+
+    var next_ship: Ship = ships[index + 1]
+    return next_ship.combat_object
 
 func _unhandled_input(event: InputEvent) -> void:
     if self.hyperspace_controller.jumping:
@@ -117,7 +121,7 @@ func _unhandled_input(event: InputEvent) -> void:
         self.get_viewport().set_input_as_handled()
 
     if event.is_action_pressed("cycle_target"):
-        self.ship.targeting_system.target = _next_ship_target().combat_object
+        self.ship.targeting_system.target = _next_ship_target()
         self.get_viewport().set_input_as_handled()
     
     if UserPreferences.control_scheme == UserPreferences.ControlScheme.RELATIVE:

@@ -1,6 +1,9 @@
-extends Ship
+extends Node
+class_name Pirate
 
 ## AI for a ship that behaves like a pirate, attacking nearby ships on sight.
+##
+## [b]This script expects the parent node to be a [Ship].[/b]
 
 ## The range (in m) in which other ships will be detected by the pirate.
 @export var detection_range: float = 10.0
@@ -35,24 +38,27 @@ enum State {
     RETREAT,
 }
 
+@onready var _ship := self.get_parent() as Ship
 var _current_state := State.PATROL
 var _direction_tolerance_rad: float
 var _patrol_target := Vector3.ZERO
 
 func _ready() -> void:
-    super()
     self._direction_tolerance_rad = deg_to_rad(self.direction_tolerance_deg)
     self._select_new_patrol_target()
-    self.ship_hull_changed.connect(_on_damage_received)
-    self.ship_shield_changed.connect(_on_damage_received)
+
+    # Have to wait for the ship to be ready before we can start listening for damage events.
+    self.call_deferred("_connect_notifications")
+
+func _connect_notifications() -> void:
+    self._ship.combat_object.hull.changed.connect(_on_damage_received)
+    self._ship.combat_object.shield.changed.connect(_on_damage_received)
 
 func _select_new_patrol_target() -> void:
     self._patrol_target = MathUtils.random_unit_vector() * self.patrol_radius
 
 func _physics_process(delta: float) -> void:
-    super(delta)
-
-    if self.target == null:
+    if not self._ship.targeting_system.target:
         self._current_state = State.PATROL
 
     match _current_state:
@@ -63,104 +69,95 @@ func _physics_process(delta: float) -> void:
         State.RETREAT:
             self._retreat_behavior(delta)
 
+    self._ship.rigid_body_direction.direction = self._desired_direction()
+
 func _desired_direction() -> Vector3:
-    if self.target == null:
-        return (self._patrol_target - self.global_transform.origin).normalized()
-    else:
-        var target_direction := (self.target.global_transform.origin - self.global_transform.origin).normalized()
+    var target := self._ship.targeting_system.target
+    if target:
+        var target_direction := (target.global_transform.origin - self._ship.global_transform.origin).normalized()
         return target_direction if self._current_state != State.RETREAT else - target_direction
+    else:
+        return (self._patrol_target - self._ship.global_transform.origin).normalized()
 
 func _pointing_in_direction(direction: Vector3) -> bool:
-    var current_direction := - self.global_transform.basis.z
+    var current_direction := - self._ship.global_transform.basis.z
     return current_direction.angle_to(direction) <= self._direction_tolerance_rad
 
-func _patrol_behavior(delta: float) -> void:
-    self.set_target(self._find_closest_ship())
-    if self.target != null:
+func _patrol_behavior(_delta: float) -> void:
+    var target := self._find_closest_ship()
+    self._ship.targeting_system.target = target
+    if target != null:
         self._current_state = State.ENGAGE
         return
 
-    var direction_to_target := self._patrol_target - self.global_transform.origin
+    var direction_to_target := self._patrol_target - self._ship.global_transform.origin
     if direction_to_target.length() < self.patrol_target_tolerance: # Close enough to current patrol point
         self._select_new_patrol_target()
     elif self._pointing_in_direction(direction_to_target.normalized()):
-        self.thrust_step(1.0, delta)
-        return
-    
-    self.thrust_stopped()
+        self._ship.rigid_body_thruster.throttle = 1.0
+    else:
+        self._ship.rigid_body_thruster.throttle = 0.0
 
-func _engage_behavior(delta: float) -> void:
-    if self.target == null:
+func _engage_behavior(_delta: float) -> void:
+    var target := self._ship.targeting_system.target
+    if not target:
         self._current_state = State.PATROL
         return
 
-    var distance := self.global_transform.origin.distance_to(self.target.global_transform.origin)
-    var desired_direction := self._desired_direction()
-
-    if not self._pointing_in_direction(desired_direction):
-        return
-
+    var distance := self._ship.global_transform.origin.distance_to(target.global_transform.origin)
     if distance > self.preferred_distance + self.distance_hysteresis:
-        self.thrust_step(1.0, delta)
+        self._ship.rigid_body_thruster.throttle = 1.0
     elif distance < self.preferred_distance - self.distance_hysteresis:
-        self.thrust_stopped()
+        self._ship.rigid_body_thruster.throttle = 0.0
         self._current_state = State.RETREAT
     else:
         # Maintain distance
         if abs(distance - self.preferred_distance) > self.distance_hysteresis / 2:
-            self.thrust_step(0.5, delta) # Use half thrust for small adjustments
+            self._ship.rigid_body_thruster.throttle = 0.5 # Use half thrust for small adjustments
         else:
-            self.thrust_stopped()
+            self._ship.rigid_body_thruster.throttle = 0.0
     
     if distance <= self.fire_range:
-        self.fire()
+        for weapon_mount in self._ship.weapon_mounts:
+            weapon_mount.fire()
 
-func _retreat_behavior(delta: float) -> void:
-    if self.target == null:
+func _retreat_behavior(_delta: float) -> void:
+    var target := self._ship.targeting_system.target
+    if not target:
         self._current_state = State.PATROL
         return
 
-    var distance := self.global_transform.origin.distance_to(self.target.global_transform.origin)
+    var distance := self._ship.global_transform.origin.distance_to(target.global_transform.origin)
     if self._pointing_in_direction(self._desired_direction()):
-        self.thrust_step(1.0, delta)
+        self._ship.rigid_body_thruster.throttle = 1.0
     else:
-        self.thrust_stopped()
+        self._ship.rigid_body_thruster.throttle = 0.0
     
     if distance >= self.preferred_distance:
         self._current_state = State.ENGAGE
 
-func _find_closest_ship() -> Ship:
+func _find_closest_ship() -> CombatObject:
     var ships := self.get_tree().get_nodes_in_group("ships")
     ships.erase(self)
 
-    var closest_ship: Ship = null
+    var closest_ship: CombatObject = null
     var closest_distance := self.detection_range
 
     for ship: Ship in ships:
-        var distance := self.global_transform.origin.distance_to(ship.global_transform.origin)
+        var distance := self._ship.global_transform.origin.distance_to(ship.global_transform.origin)
         if distance < closest_distance:
             closest_distance = distance
-            closest_ship = ship
+            closest_ship = ship.combat_object
 
     return closest_ship
 
-func _on_damage_received(_ship: Ship) -> void:
+func _on_damage_received() -> void:
     # TODO: This isn't necessarily the actual attacker. Need to implement a way
     # to figure out who fired a weapon.
     var attacker := self._find_closest_ship()
     if attacker == null:
         return
     
-    if attacker != self.target:
-        self.set_target(attacker)
+    if attacker != self._ship.targeting_system.target:
+        self._ship.targeting_system.target = attacker
         self._current_state = State.ENGAGE
-
-func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-    var desired_basis := Basis.looking_at(self._desired_direction())
-    if state.transform.basis.is_equal_approx(desired_basis):
-        return
-    
-    if not self.consume_turning_energy(state.get_step()):
-        return
-
-    state.transform.basis = state.transform.basis.slerp(desired_basis, self.ship_def.torque * state.get_step())

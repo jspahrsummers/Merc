@@ -1,9 +1,52 @@
-[gd_scene load_steps=5 format=3 uid="uid://d3qpe4ne3bgww"]
+[gd_scene load_steps=14 format=3 uid="uid://d3qpe4ne3bgww"]
 
 [ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://stars/star.tscn" id="1_p0ggc"]
 [ext_resource type="Texture2D" uid="uid://dh0obx8nl0ltx" path="res://stars/sprites/star_red03.png" id="2_sinon"]
 [ext_resource type="PackedScene" uid="uid://cdvbol3xj7jr5" path="res://ships/frigate03/frigate03.tscn" id="3_1cx0e"]
 [ext_resource type="Script" path="res://actors/pirate.gd" id="4_j6bxn"]
+[ext_resource type="Script" path="res://combat/shield.gd" id="4_y3muj"]
+[ext_resource type="Script" path="res://combat/hull.gd" id="5_cisyv"]
+[ext_resource type="Script" path="res://power/battery.gd" id="6_w0j0f"]
+
+[sub_resource type="Resource" id="Resource_pmk6g"]
+resource_local_to_scene = true
+script = ExtResource("4_y3muj")
+max_integrity = 100.0
+integrity = 100.0
+recharge_rate = 10.0
+power_efficiency = 1.0
+
+[sub_resource type="Resource" id="Resource_y25t5"]
+resource_local_to_scene = true
+script = ExtResource("5_cisyv")
+max_integrity = 100.0
+integrity = 100.0
+
+[sub_resource type="Resource" id="Resource_b7mga"]
+resource_local_to_scene = true
+script = ExtResource("6_w0j0f")
+max_power = 300.0
+power = 300.0
+
+[sub_resource type="Resource" id="Resource_5bgts"]
+resource_local_to_scene = true
+script = ExtResource("4_y3muj")
+max_integrity = 100.0
+integrity = 100.0
+recharge_rate = 10.0
+power_efficiency = 1.0
+
+[sub_resource type="Resource" id="Resource_u3fwi"]
+resource_local_to_scene = true
+script = ExtResource("5_cisyv")
+max_integrity = 100.0
+integrity = 100.0
+
+[sub_resource type="Resource" id="Resource_1cdp5"]
+resource_local_to_scene = true
+script = ExtResource("6_w0j0f")
+max_power = 300.0
+power = 300.0
 
 [node name="Wolf 359" type="Node3D" groups=["star_system"]]
 
@@ -19,44 +62,58 @@ omni_range = 10.0
 [node name="Sprite3D" parent="Star" index="2"]
 texture = ExtResource("2_sinon")
 
-[node name="Frigate" parent="." node_paths=PackedStringArray("weapon_hardpoints", "engine_glow") instance=ExtResource("3_1cx0e")]
+[node name="Frigate" parent="." instance=ExtResource("3_1cx0e")]
 transform = Transform3D(-0.287762, -2.33666e-16, -0.957702, 3.48787e-16, 1, -3.48787e-16, 0.957702, -4.34402e-16, -0.287762, -7.88217, 0, -3.99797)
-script = ExtResource("4_j6bxn")
-detection_range = 10.0
-preferred_distance = 3.0
-distance_hysteresis = 1.5
-fire_range = 8.0
-direction_tolerance_deg = 10.0
-patrol_radius = 10.0
-patrol_target_tolerance = 1.0
-ship_def = null
-bullet = null
-explosion = null
-minimap_target_override_material = null
-free_when_destroyed = true
-weapon_hardpoints = []
-engine_glow = []
-engine_glow_tween_duration_sec = 0.4
-shield_effect_duration_sec = 0.4
 
-[node name="Frigate2" parent="." node_paths=PackedStringArray("weapon_hardpoints", "engine_glow") instance=ExtResource("3_1cx0e")]
-transform = Transform3D(-0.69814, 4.9322e-16, 0.715961, 3.48787e-16, 1, -3.48787e-16, -0.715961, 6.21555e-18, -0.69814, 5.40376, 0, 0.771966)
+[node name="CombatObject" parent="Frigate" index="2"]
+shield = SubResource("Resource_pmk6g")
+hull = SubResource("Resource_y25t5")
+
+[node name="RigidBodyDirection" parent="Frigate" index="3"]
+battery = SubResource("Resource_b7mga")
+
+[node name="RigidBodyThruster" parent="Frigate" index="4"]
+battery = SubResource("Resource_b7mga")
+
+[node name="PowerManagementUnit" parent="Frigate" index="5"]
+battery = SubResource("Resource_b7mga")
+
+[node name="ShieldRecharger" parent="Frigate" index="7"]
+battery = SubResource("Resource_b7mga")
+shield = SubResource("Resource_pmk6g")
+
+[node name="Blaster" parent="Frigate" index="8"]
+battery = SubResource("Resource_b7mga")
+
+[node name="Pirate" type="Node" parent="Frigate"]
 script = ExtResource("4_j6bxn")
-detection_range = 10.0
-preferred_distance = 3.0
-distance_hysteresis = 1.5
-fire_range = 8.0
-direction_tolerance_deg = 10.0
-patrol_radius = 10.0
-patrol_target_tolerance = 1.0
-ship_def = null
-bullet = null
-explosion = null
-minimap_target_override_material = null
-free_when_destroyed = true
-weapon_hardpoints = []
-engine_glow = []
-engine_glow_tween_duration_sec = 0.4
-shield_effect_duration_sec = 0.4
+
+[node name="Frigate2" parent="." instance=ExtResource("3_1cx0e")]
+transform = Transform3D(-0.69814, 4.9322e-16, 0.715961, 3.48787e-16, 1, -3.48787e-16, -0.715961, 6.21555e-18, -0.69814, 5.40376, 0, 0.771966)
+
+[node name="CombatObject" parent="Frigate2" index="2"]
+shield = SubResource("Resource_5bgts")
+hull = SubResource("Resource_u3fwi")
+
+[node name="RigidBodyDirection" parent="Frigate2" index="3"]
+battery = SubResource("Resource_1cdp5")
+
+[node name="RigidBodyThruster" parent="Frigate2" index="4"]
+battery = SubResource("Resource_1cdp5")
+
+[node name="PowerManagementUnit" parent="Frigate2" index="5"]
+battery = SubResource("Resource_1cdp5")
+
+[node name="ShieldRecharger" parent="Frigate2" index="7"]
+battery = SubResource("Resource_1cdp5")
+shield = SubResource("Resource_5bgts")
+
+[node name="Blaster" parent="Frigate2" index="8"]
+battery = SubResource("Resource_1cdp5")
+
+[node name="Pirate" type="Node" parent="Frigate2"]
+script = ExtResource("4_j6bxn")
 
 [editable path="Star"]
+[editable path="Frigate"]
+[editable path="Frigate2"]
