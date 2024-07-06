@@ -23,7 +23,7 @@ func _ready() -> void:
     for system in galaxy.systems:
         var system_node: GalaxyMapSystem = self.galaxy_map_system.instantiate()
         self._system_nodes[system.name] = system_node
-        system_node.clicked.connect(func(node): self._on_system_clicked(system, node))
+        system_node.clicked.connect(func(node: GalaxyMapSystem) -> void: self._on_system_clicked(system, node))
 
         system_node.name = system.name
         system_node.current = (system == self.hyperspace_controller.current_system)
@@ -34,7 +34,7 @@ func _ready() -> void:
         for connection in system.connections:
             var connected_system := self.galaxy.get_system(connection)
             var hyperlane: GalaxyMapHyperlane = self.galaxy_map_hyperlane.instantiate()
-            hyperlane.clicked.connect(func(node): self._on_hyperlane_clicked(system, connected_system, node))
+            hyperlane.clicked.connect(func(node: GalaxyMapHyperlane) -> void: self._on_hyperlane_clicked(system, connected_system, node))
 
             hyperlane.name = "%s > %s" % [system.name, connection]
             hyperlane.starting_position = system.position
@@ -42,11 +42,11 @@ func _ready() -> void:
             self.add_child(hyperlane)
 
 func _on_jump_started(_destination: StarSystem) -> void:
-    var current_name = self.hyperspace_controller.current_system.name
+    var current_name := self.hyperspace_controller.current_system.name
     self._system_nodes[current_name].current = false
 
 func _on_jump_finished(new_system: StarSystem) -> void:
-    var new_name = new_system.name
+    var new_name := new_system.name
     self.camera.center = new_system.position
     self._system_nodes[new_name].current = true
 
