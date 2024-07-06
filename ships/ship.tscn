@@ -1,0 +1,33 @@
+[gd_scene load_steps=8 format=3 uid="uid://c8a5lgba7mbpr"]
+
+[ext_resource type="Script" path="res://combat/combat_object.gd" id="1_71hcp"]
+[ext_resource type="Script" path="res://ships/ship.gd" id="1_ge1ie"]
+[ext_resource type="Script" path="res://combat/targeting_system.gd" id="2_a7xhq"]
+[ext_resource type="Script" path="res://ships/rigid_body_direction.gd" id="3_5a5el"]
+[ext_resource type="Script" path="res://ships/rigid_body_thruster.gd" id="5_66pr6"]
+[ext_resource type="Script" path="res://power/power_management_unit.gd" id="6_4hum8"]
+[ext_resource type="PackedScene" uid="uid://dmneg7pw872n2" path="res://radar/radar_object.tscn" id="8_lf0ki"]
+
+[node name="Ship" type="RigidBody3D" groups=["ships"]]
+collision_mask = 2
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+script = ExtResource("1_ge1ie")
+
+[node name="CombatObject" type="Node3D" parent="."]
+script = ExtResource("1_71hcp")
+
+[node name="TargetingSystem" type="Node" parent="CombatObject"]
+script = ExtResource("2_a7xhq")
+
+[node name="RigidBodyDirection" type="Node" parent="."]
+script = ExtResource("3_5a5el")
+
+[node name="RigidBodyThruster" type="Node" parent="."]
+script = ExtResource("5_66pr6")
+
+[node name="PowerManagementUnit" type="Node" parent="."]
+script = ExtResource("6_4hum8")
+
+[node name="RadarObject" parent="." instance=ExtResource("8_lf0ki")]

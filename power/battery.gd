@@ -3,8 +3,15 @@ class_name Battery
 
 ## Represents a battery that can hold power and be recharged, and from which power can be consumed.
 
-## Defines the maximum power capacity for this battery.
-@export var power_capacity: PowerCapacity
+## The maximum power capacity for this battery.
+@export var max_power: float:
+    set(value):
+        assert(value >= 0.0, "Power capacity must be non-negative")
+        if is_equal_approx(max_power, value):
+            return
+
+        max_power = value
+        self.emit_changed()
 
 ## The current power level of this battery.
 @export var power: float:
@@ -12,7 +19,7 @@ class_name Battery
         if is_equal_approx(power, value):
             return
 
-        power = clampf(value, 0.0, self.power_capacity.capacity)
+        power = clampf(value, 0.0, self.max_power)
         self.emit_changed()
 
 ## Consumes up to the given amount of power.
@@ -35,6 +42,6 @@ func consume_exactly(amount: float) -> bool:
 ##
 ## Returns the amount of power actually recharged, which may be less than requested if the battery does not have enough capacity for the full amount.
 func recharge(amount: float) -> float:
-    var charged := minf(amount, self.power_capacity.capacity - self.power)
+    var charged := minf(amount, self.max_power - self.power)
     self.power += charged
     return charged
