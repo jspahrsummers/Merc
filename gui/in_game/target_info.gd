@@ -37,8 +37,8 @@ func _on_player_target_changed(_player: Player, target: CombatObject) -> void:
 
         target.hull.changed.connect(_on_target_hull_changed)
         target.shield.changed.connect(_on_target_shield_changed)
-        self._on_target_hull_changed(target.hull)
-        self._on_target_shield_changed(target.shield)
+        self._on_target_hull_changed()
+        self._on_target_shield_changed()
 
 func _find_target_mesh(target: CombatObject) -> MeshInstance3D:
     for node in target.get_parent().get_children():
@@ -47,10 +47,12 @@ func _find_target_mesh(target: CombatObject) -> MeshInstance3D:
 
     return null
 
-func _on_target_hull_changed(hull: Hull) -> void:
+func _on_target_hull_changed() -> void:
+    var hull := self._target.hull
     self.hull_bar.max_value = hull.max_integrity
     self.hull_bar.value = hull.integrity
 
-func _on_target_shield_changed(shield: Shield) -> void:
+func _on_target_shield_changed() -> void:
+    var shield := self._target.shield
     self.shield_bar.max_value = maxf(1.0, shield.max_integrity)
     self.shield_bar.value = shield.integrity
