@@ -124,8 +124,18 @@ func _unhandled_input(event: InputEvent) -> void:
         for weapon_mount in self.ship.weapon_mounts:
             weapon_mount.fire()
 
-    if event.is_action_pressed("jump") and self.hyperspace_controller.jump_destination != null:
-        self.hyperspace_controller.start_jump()
+    if event.is_action_pressed("jump"):
+        self._jump_to_hyperspace()
+
+func _jump_to_hyperspace() -> void:
+    if not self.hyperspace_controller.jump_destination:
+        return
+
+    # Lock controls
+    self.ship.rigid_body_thruster.throttle = 0.0
+    self.ship.rigid_body_direction.direction = Vector3.ZERO
+    self.ship.rigid_body_turner.turning = 0.0
+    self.hyperspace_controller.start_jump()
 
 func _absolute_input_direction() -> Vector3:
     var input_direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
