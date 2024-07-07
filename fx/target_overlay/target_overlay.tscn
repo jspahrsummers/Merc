@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://cl1bw1w8q8la0" path="res://fx/target_overlay/target_overlay_right.png" id="2_rnf5e"]
 
 [node name="TargetOverlay" type="Node3D"]
-top_level = true
 script = ExtResource("1_q5mgn")
 
 [node name="Left" type="Sprite3D" parent="."]

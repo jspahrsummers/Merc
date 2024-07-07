@@ -7,6 +7,10 @@ extends Node3D
 func _ready() -> void:
     self.visible = false
 
+func _process(_delta: float) -> void:
+    # Never rotate, regardless of what parent is doing.
+    self.global_rotation = Vector3.ZERO
+
 func _on_targeted_by_changed(combat_object: CombatObject) -> void:
     for targeting_system in combat_object.get_targeted_by():
         if targeting_system.is_player:
