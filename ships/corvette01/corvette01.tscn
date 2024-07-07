@@ -57,8 +57,10 @@ power_consumption_rate = 8.0
 script = ExtResource("13_n5lfa")
 rate_of_power = 5.0
 
-[node name="Corvette" instance=ExtResource("1_cmgif")]
+[node name="Corvette" node_paths=PackedStringArray("shield_recharger", "weapon_mounts") instance=ExtResource("1_cmgif")]
 mass = 10.0
+shield_recharger = NodePath("ShieldRecharger")
+weapon_mounts = [NodePath("Blaster")]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="0"]
 transform = Transform3D(-0.2, 6.97574e-17, -1.74846e-08, 6.97574e-17, 0.2, -6.97574e-17, 1.74846e-08, -6.97574e-17, -0.2, 0, 0, 0)

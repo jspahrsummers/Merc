@@ -89,8 +89,10 @@ orientation = 1
 script = ExtResource("14_ccaul")
 rate_of_power = 2.0
 
-[node name="Frigate" instance=ExtResource("1_w0piq")]
+[node name="Frigate" node_paths=PackedStringArray("shield_recharger", "weapon_mounts") instance=ExtResource("1_w0piq")]
 mass = 100.0
+shield_recharger = NodePath("ShieldRecharger")
+weapon_mounts = [NodePath("Blaster")]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="0"]
 transform = Transform3D(-0.4, 1.39515e-16, 3.49691e-08, 1.39515e-16, 0.4, -1.39515e-16, -3.49691e-08, -1.39515e-16, -0.4, 1.40849e-16, -1.40849e-16, -0.199324)
