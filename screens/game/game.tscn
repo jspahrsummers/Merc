@@ -1,0 +1,538 @@
+[gd_scene load_steps=53 format=3 uid="uid://sunhu71swcs2"]
+
+[ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
+[ext_resource type="Script" path="res://utils/shader_precompiler.gd" id="2_if3rk"]
+[ext_resource type="PackedScene" uid="uid://b7tckdwyjwpso" path="res://mechanics/combat/weapons/blaster/blaster_bolt.tscn" id="3_juk8d"]
+[ext_resource type="Script" path="res://mechanics/hyperspace_controller.gd" id="4_yyrkm"]
+[ext_resource type="Resource" uid="uid://bcva4l4cpt70c" path="res://galaxy/main_galaxy.tres" id="5_3nony"]
+[ext_resource type="Resource" uid="uid://cew4x137v08q" path="res://galaxy/star_systems/sol.tres" id="6_xi4oj"]
+[ext_resource type="Material" uid="uid://tpd4rufhhe4h" path="res://fx/starfield/starfield.tres" id="7_gr6ce"]
+[ext_resource type="Script" path="res://fx/starfield/starfield_parallax.gd" id="8_ueist"]
+[ext_resource type="Script" path="res://fx/main_camera.gd" id="9_v2hcn"]
+[ext_resource type="Script" path="res://fx/hyperspace/hyperspace_effect.gd" id="10_23l1d"]
+[ext_resource type="AudioStream" uid="uid://cmjfgigj57eie" path="res://fx/hyperspace/teleport_02_slowed.ogg" id="11_tu1c7"]
+[ext_resource type="PackedScene" uid="uid://dsuln1s4j366a" path="res://ships/corvette01/corvette01.tscn" id="12_bj83b"]
+[ext_resource type="Script" path="res://mechanics/combat/shield.gd" id="13_xvthq"]
+[ext_resource type="Script" path="res://mechanics/combat/hull.gd" id="14_bcf1o"]
+[ext_resource type="Script" path="res://mechanics/power/battery.gd" id="15_sjw8q"]
+[ext_resource type="PackedScene" uid="uid://cxlg0yj8cjbrf" path="res://actors/player.tscn" id="16_lqltb"]
+[ext_resource type="PackedScene" uid="uid://2mdsbbko7baw" path="res://galaxy/star_systems/scenes/sol.tscn" id="17_wjgyf"]
+[ext_resource type="Script" path="res://screens/game/in_game_gui.gd" id="18_y74ml"]
+[ext_resource type="Texture2D" uid="uid://bphfuhdpceacb" path="res://mechanics/radar/images/radar_bg.png" id="19_vr47x"]
+[ext_resource type="Shader" path="res://screens/shared_ui/shaders/circular_mask.gdshader" id="20_wa4c1"]
+[ext_resource type="Texture2D" uid="uid://cmyn742dooo0n" path="res://mechanics/radar/images/radar_circles.png" id="21_bomkk"]
+[ext_resource type="Script" path="res://screens/game/hud/system_name.gd" id="22_xta3d"]
+[ext_resource type="Script" path="res://screens/game/hud/jump_destination_name.gd" id="23_1qfwo"]
+[ext_resource type="AudioStream" uid="uid://dqsuscukdo5oa" path="res://screens/shared_ui/audio/itempick1.wav" id="24_oh7qv"]
+[ext_resource type="Texture2D" uid="uid://22uk26e8fbc0" path="res://screens/game/hud/images/player_vitals/bg.png" id="25_2kecg"]
+[ext_resource type="Texture2D" uid="uid://c2nr462gj84yf" path="res://screens/game/hud/images/player_vitals/heading_bg.png" id="26_mxja1"]
+[ext_resource type="Script" path="res://screens/game/hud/player_vitals.gd" id="27_mar8l"]
+[ext_resource type="PackedScene" uid="uid://dl3xau7i06twf" path="res://screens/game/hud/vitals_fill_bar.tscn" id="28_7l7fi"]
+[ext_resource type="Texture2D" uid="uid://s173r8o180gv" path="res://screens/game/hud/images/target_info/target_bg.png" id="29_1nwk2"]
+[ext_resource type="Script" path="res://screens/game/hud/target_info.gd" id="30_w0xsi"]
+[ext_resource type="Texture2D" uid="uid://dcg5m8doqdfc" path="res://screens/game/hud/images/target_info/heading_border.png" id="31_53obm"]
+[ext_resource type="PackedScene" uid="uid://bpav2va7o5qt4" path="res://screens/game/hud/target_fill_bar.tscn" id="32_pyrqo"]
+[ext_resource type="Texture2D" uid="uid://bsf3tqgocto7h" path="res://screens/game/hud/images/target_info/shields_fill.png" id="33_jftfh"]
+[ext_resource type="Script" path="res://screens/game/game_over.gd" id="34_ipa71"]
+[ext_resource type="PackedScene" uid="uid://btc568gwt7fuc" path="res://screens/main_menu/main_menu.tscn" id="35_x8atu"]
+[ext_resource type="Script" path="res://screens/game/exit_dialog.gd" id="36_7hsbd"]
+[ext_resource type="Script" path="res://screens/shared_ui/fps_counter.gd" id="37_e11x7"]
+[ext_resource type="PackedScene" uid="uid://kqong7nrl4p2" path="res://galaxy/map/galaxy_map.tscn" id="38_r6s3m"]
+
+[sub_resource type="World3D" id="World3D_pvg5q"]
+environment = ExtResource("1_pqled")
+
+[sub_resource type="QuadMesh" id="QuadMesh_7oe51"]
+material = ExtResource("7_gr6ce")
+size = Vector2(50, 50)
+orientation = 1
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_u0kwm"]
+viewport_path = NodePath("HyperspaceViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y8uu3"]
+resource_local_to_scene = true
+shading_mode = 0
+specular_mode = 2
+disable_ambient_light = true
+albedo_texture = SubResource("ViewportTexture_u0kwm")
+uv1_scale = Vector3(2, 2, 2)
+disable_receive_shadows = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_sndvt"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_y8uu3")
+radius = 4.0
+height = 8.0
+
+[sub_resource type="Resource" id="Resource_p0y82"]
+resource_local_to_scene = true
+script = ExtResource("13_xvthq")
+max_integrity = 80.0
+integrity = 80.0
+recharge_rate = 5.0
+power_efficiency = 1.0
+
+[sub_resource type="Resource" id="Resource_rdvmt"]
+resource_local_to_scene = true
+script = ExtResource("14_bcf1o")
+max_integrity = 40.0
+integrity = 40.0
+
+[sub_resource type="Resource" id="Resource_jcr0a"]
+resource_local_to_scene = true
+script = ExtResource("15_sjw8q")
+max_power = 100.0
+power = 100.0
+
+[sub_resource type="Environment" id="Environment_skmw1"]
+background_color = Color(0.0728426, 0.0728426, 0.0728426, 1)
+ambient_light_source = 1
+reflected_light_source = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7gqif"]
+texture = ExtResource("19_vr47x")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7qkc6"]
+shader = ExtResource("20_wa4c1")
+shader_parameter/margin = 3.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_akdok"]
+viewport_path = NodePath("MinimapViewport")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gooxh"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+texture = ExtResource("25_2kecg")
+region_rect = Rect2(0, 0, 157, 161)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lc8il"]
+texture = ExtResource("29_1nwk2")
+texture_margin_left = 14.0
+texture_margin_top = 10.0
+texture_margin_right = 15.0
+texture_margin_bottom = 10.0
+
+[node name="Game" type="Node3D"]
+
+[node name="ShaderPrecompiler" type="SubViewport" parent="."]
+world_3d = SubResource("World3D_pvg5q")
+gui_disable_input = true
+size = Vector2i(2048, 2048)
+render_target_update_mode = 4
+script = ExtResource("2_if3rk")
+precompile = Array[PackedScene]([ExtResource("3_juk8d")])
+
+[node name="Camera3D" type="Camera3D" parent="ShaderPrecompiler"]
+transform = Transform3D(1, -6.97574e-16, -1.5246e-23, -1.5246e-23, -4.37114e-08, 1, -6.97574e-16, -1, -4.37114e-08, 2.08165e-12, 10, 2.08165e-12)
+projection = 1
+current = true
+near = 1.0
+far = 20.0
+
+[node name="HyperspaceController" type="Node3D" parent="."]
+script = ExtResource("4_yyrkm")
+galaxy = ExtResource("5_3nony")
+current_system = ExtResource("6_xi4oj")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_pqled")
+
+[node name="StarfieldTransform" type="Node3D" parent="."]
+
+[node name="Starfield" type="MeshInstance3D" parent="StarfieldTransform"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -2, 2.08165e-12)
+layers = 16
+sorting_offset = -1.0
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("QuadMesh_7oe51")
+skeleton = NodePath("../..")
+script = ExtResource("8_ueist")
+starfield_material = ExtResource("7_gr6ce")
+
+[node name="MainCameraTransform" type="Node3D" parent="."]
+
+[node name="MainCamera" type="Camera3D" parent="MainCameraTransform"]
+transform = Transform3D(1, -6.97574e-16, -1.5246e-23, -1.5246e-23, -4.37114e-08, 1, -6.97574e-16, -1, -4.37114e-08, 2.08165e-12, 10, 2.08165e-12)
+cull_mask = 1048565
+current = true
+near = 1.0
+far = 20.0
+script = ExtResource("9_v2hcn")
+
+[node name="HyperspaceEffect" type="MeshInstance3D" parent="MainCameraTransform/MainCamera" node_paths=PackedStringArray("hyperspace_controller", "hyperspace_viewport", "jump_out_audio") groups=["hyperspace"]]
+transform = Transform3D(1, 4.15924e-24, -6.97574e-16, -6.97574e-16, 1.19249e-08, -1, 4.15926e-24, 1, 1.19249e-08, 2.08165e-12, 2.08165e-12, -12)
+visible = false
+layers = 4
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("SphereMesh_sndvt")
+skeleton = NodePath("../../..")
+script = ExtResource("10_23l1d")
+hyperspace_controller = NodePath("../../../HyperspaceController")
+hyperspace_viewport = NodePath("../../../HyperspaceViewport")
+jump_out_audio = NodePath("AudioStreamPlayer")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MainCameraTransform/MainCamera/HyperspaceEffect" groups=["hyperspace"]]
+stream = ExtResource("11_tu1c7")
+volume_db = 2.0
+mix_target = 1
+
+[node name="Corvette" parent="." instance=ExtResource("12_bj83b")]
+
+[node name="CombatObject" parent="Corvette" index="3"]
+shield = SubResource("Resource_p0y82")
+hull = SubResource("Resource_rdvmt")
+
+[node name="RigidBodyDirection" parent="Corvette" index="4"]
+battery = SubResource("Resource_jcr0a")
+
+[node name="RigidBodyThruster" parent="Corvette" index="5"]
+battery = SubResource("Resource_jcr0a")
+
+[node name="PowerManagementUnit" parent="Corvette" index="6"]
+battery = SubResource("Resource_jcr0a")
+
+[node name="ShieldRecharger" parent="Corvette" index="8"]
+battery = SubResource("Resource_jcr0a")
+shield = SubResource("Resource_p0y82")
+
+[node name="Blaster" parent="Corvette" index="9"]
+battery = SubResource("Resource_jcr0a")
+
+[node name="Player" parent="Corvette" node_paths=PackedStringArray("hyperspace_controller") instance=ExtResource("16_lqltb")]
+hyperspace_controller = NodePath("../../HyperspaceController")
+
+[node name="MinimapCameraRemoteTransform" parent="Corvette/Player" index="0"]
+remote_path = NodePath("../../../MinimapViewport/MinimapCameraTransform")
+
+[node name="MainCameraRemoteTransform" parent="Corvette/Player" index="1"]
+remote_path = NodePath("../../../MainCameraTransform")
+
+[node name="StarfieldRemoteTransform" parent="Corvette/Player" index="2"]
+remote_path = NodePath("../../../StarfieldTransform")
+
+[node name="MinimapViewport" type="SubViewport" parent="."]
+transparent_bg = true
+handle_input_locally = false
+canvas_item_default_texture_filter = 0
+gui_disable_input = true
+size = Vector2i(200, 200)
+
+[node name="MinimapCameraTransform" type="Node3D" parent="MinimapViewport"]
+
+[node name="MinimapCamera" type="Camera3D" parent="MinimapViewport/MinimapCameraTransform"]
+transform = Transform3D(1, -6.97574e-16, -1.5246e-23, -1.5246e-23, -4.37114e-08, 1, -6.97574e-16, -1, -4.37114e-08, 2.08165e-12, 10, 2.08165e-12)
+keep_aspect = 0
+cull_mask = 2
+environment = SubResource("Environment_skmw1")
+projection = 1
+current = true
+size = 150.0
+near = 1.0
+far = 20.0
+
+[node name="HyperspaceViewport" type="SubViewport" parent="." groups=["hyperspace"]]
+handle_input_locally = false
+gui_disable_input = true
+size = Vector2i(4096, 2048)
+render_target_clear_mode = 1
+render_target_update_mode = 0
+
+[node name="HyperspaceCamera" type="Camera3D" parent="HyperspaceViewport" groups=["hyperspace"]]
+transform = Transform3D(1, -6.97574e-16, 4.15926e-24, 4.15924e-24, 1.19249e-08, 1, -6.97574e-16, -1, 1.19249e-08, 2.08165e-12, 10, 2.08165e-12)
+cull_mask = 1048553
+current = true
+fov = 90.0
+near = 1.0
+far = 20.0
+
+[node name="Starfield" type="MeshInstance3D" parent="HyperspaceViewport"]
+transform = Transform3D(1, 3.88104e-23, 6.97574e-16, 3.9443e-31, 1, -5.56363e-08, -6.97574e-16, 5.56363e-08, 1, 2.08165e-12, -2, 2.2806e-12)
+layers = 8
+sorting_offset = -1.0
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("QuadMesh_7oe51")
+skeleton = NodePath("../..")
+
+[node name="Sol" parent="." instance=ExtResource("17_wjgyf")]
+
+[node name="InGameGUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("galaxy_map_window", "exit_dialog")]
+script = ExtResource("18_y74ml")
+galaxy_map_window = NodePath("GalaxyMapWindow")
+exit_dialog = NodePath("ExitDialog")
+
+[node name="Sidebar" type="VBoxContainer" parent="InGameGUI"]
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MinimapContainer" type="PanelContainer" parent="InGameGUI/Sidebar"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_7gqif")
+
+[node name="Minimap" type="TextureRect" parent="InGameGUI/Sidebar/MinimapContainer"]
+material = SubResource("ShaderMaterial_7qkc6")
+layout_mode = 2
+mouse_filter = 2
+texture = SubResource("ViewportTexture_akdok")
+stretch_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="InGameGUI/Sidebar/MinimapContainer"]
+layout_mode = 2
+texture = ExtResource("21_bomkk")
+
+[node name="SystemName" type="Label" parent="InGameGUI/Sidebar"]
+layout_mode = 2
+tooltip_text = "Current system"
+mouse_filter = 1
+theme_type_variation = &"HUDLabel"
+text = "Sol"
+horizontal_alignment = 1
+text_overrun_behavior = 3
+uppercase = true
+script = ExtResource("22_xta3d")
+
+[node name="JumpDestinationName" type="Label" parent="InGameGUI/Sidebar" node_paths=PackedStringArray("pick_sound")]
+modulate = Color(1, 1, 1, 0.498039)
+layout_mode = 2
+tooltip_text = "Hyperspace jump destination"
+mouse_filter = 1
+theme_type_variation = &"HUDLabel"
+horizontal_alignment = 1
+text_overrun_behavior = 3
+uppercase = true
+script = ExtResource("23_1qfwo")
+pick_sound = NodePath("PickSound")
+
+[node name="PickSound" type="AudioStreamPlayer" parent="InGameGUI/Sidebar/JumpDestinationName"]
+stream = ExtResource("24_oh7qv")
+volume_db = -10.0
+
+[node name="PlayerVitalsContainer" type="PanelContainer" parent="InGameGUI/Sidebar"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_gooxh")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameGUI/Sidebar/PlayerVitalsContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("26_mxja1")
+expand_mode = 5
+
+[node name="Header" type="Label" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 4.0
+offset_bottom = 16.0
+grow_horizontal = 2
+theme_type_variation = &"HUDLabel"
+theme_override_colors/font_color = Color(0.454902, 0.729412, 0.984314, 1)
+theme_override_font_sizes/font_size = 10
+text = "Ship systems"
+uppercase = true
+
+[node name="PlayerVitals" type="GridContainer" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer" node_paths=PackedStringArray("hull_bar", "shield_bar", "power_bar")]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/h_separation = 16
+columns = 3
+script = ExtResource("27_mar8l")
+hull_bar = NodePath("HullBar")
+shield_bar = NodePath("ShieldBar")
+power_bar = NodePath("PowerBar")
+
+[node name="HullLabel" type="Label" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals"]
+layout_mode = 2
+theme_type_variation = &"HUDLabel"
+text = "HULL	"
+horizontal_alignment = 1
+
+[node name="ShieldLabel" type="Label" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals"]
+layout_mode = 2
+theme_type_variation = &"HUDLabel"
+text = "SHLD"
+horizontal_alignment = 1
+
+[node name="PowerLabel" type="Label" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals"]
+layout_mode = 2
+theme_type_variation = &"HUDLabel"
+text = "PWR"
+horizontal_alignment = 1
+
+[node name="HullBar" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" instance=ExtResource("28_7l7fi")]
+layout_mode = 2
+
+[node name="ShieldBar" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" instance=ExtResource("28_7l7fi")]
+layout_mode = 2
+
+[node name="PowerBar" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" instance=ExtResource("28_7l7fi")]
+layout_mode = 2
+
+[node name="TargetInfoContainer" type="PanelContainer" parent="InGameGUI/Sidebar" node_paths=PackedStringArray("target_label", "target_viewport", "hull_bar", "shield_bar", "pick_sound")]
+custom_minimum_size = Vector2(200, 194)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_lc8il")
+script = ExtResource("30_w0xsi")
+target_label = NodePath("VBoxContainer/HBoxContainer/TargetedShipLabel")
+target_viewport = NodePath("VBoxContainer/TargetViewportContainer/TargetViewport")
+hull_bar = NodePath("VBoxContainer/HullBar")
+shield_bar = NodePath("VBoxContainer/ShieldBar")
+pick_sound = NodePath("PickSound")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameGUI/Sidebar/TargetInfoContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"HUDLabel"
+theme_override_colors/font_color = Color(0.454902, 0.729412, 0.984314, 1)
+text = "Target:"
+uppercase = true
+
+[node name="TargetedShipLabel" type="Label" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"HUDLabel"
+text = "none"
+text_overrun_behavior = 3
+uppercase = true
+
+[node name="TextureRect" type="TextureRect" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("31_53obm")
+expand_mode = 5
+
+[node name="TargetViewportContainer" type="SubViewportContainer" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+stretch = true
+
+[node name="TargetViewport" type="SubViewport" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer/TargetViewportContainer"]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+msaa_3d = 2
+gui_disable_input = true
+size = Vector2i(171, 140)
+render_target_update_mode = 4
+
+[node name="ShieldBar" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer" instance=ExtResource("32_pyrqo")]
+visible = false
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="NinePatchRect" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer/ShieldBar" index="1"]
+offset_right = 89.0
+texture = ExtResource("33_jftfh")
+
+[node name="HullBar" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer" instance=ExtResource("32_pyrqo")]
+visible = false
+layout_mode = 2
+
+[node name="PickSound" type="AudioStreamPlayer" parent="InGameGUI/Sidebar/TargetInfoContainer"]
+stream = ExtResource("24_oh7qv")
+volume_db = -10.0
+
+[node name="GameOverDialog" type="AcceptDialog" parent="InGameGUI"]
+scaling_3d_scale = 2.0
+title = "GAME OVER"
+initial_position = 2
+size = Vector2i(400, 150)
+ok_button_text = "EXIT TO MAIN MENU"
+dialog_text = "Your ship has been destroyed, and you along with it."
+dialog_hide_on_ok = false
+dialog_close_on_escape = false
+dialog_autowrap = true
+script = ExtResource("34_ipa71")
+main_menu_scene = ExtResource("35_x8atu")
+
+[node name="ExitDialog" type="ConfirmationDialog" parent="InGameGUI"]
+scaling_3d_scale = 2.0
+title = "EXIT GAME?"
+initial_position = 2
+size = Vector2i(400, 150)
+ok_button_text = "EXIT TO MAIN MENU"
+dialog_text = "Do you wish to end the game in progress?"
+dialog_hide_on_ok = false
+dialog_autowrap = true
+cancel_button_text = "CANCEL"
+script = ExtResource("36_7hsbd")
+main_menu_scene = ExtResource("35_x8atu")
+
+[node name="FPSCounter" type="Label" parent="InGameGUI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "30 FPS
+"
+script = ExtResource("37_e11x7")
+
+[node name="GalaxyMapWindow" type="Window" parent="InGameGUI"]
+own_world_3d = true
+title = "Galaxy Map"
+initial_position = 2
+size = Vector2i(1000, 1000)
+visible = false
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="InGameGUI/GalaxyMapWindow"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="InGameGUI/GalaxyMapWindow/SubViewportContainer"]
+own_world_3d = true
+handle_input_locally = false
+physics_object_picking = true
+size = Vector2i(1000, 1000)
+render_target_update_mode = 0
+
+[node name="GalaxyMap" parent="InGameGUI/GalaxyMapWindow/SubViewportContainer/SubViewport" node_paths=PackedStringArray("hyperspace_controller") instance=ExtResource("38_r6s3m")]
+hyperspace_controller = NodePath("../../../../../HyperspaceController")
+galaxy = ExtResource("5_3nony")
+
+[connection signal="jump_destination_changed" from="HyperspaceController" to="InGameGUI/Sidebar/JumpDestinationName" method="_on_jump_destination_changed"]
+[connection signal="jump_destination_loaded" from="HyperspaceController" to="Corvette/Player" method="_on_jump_destination_loaded"]
+[connection signal="jump_destination_loaded" from="HyperspaceController" to="InGameGUI/Sidebar/SystemName" method="_on_jump_destination_loaded"]
+[connection signal="jump_finished" from="HyperspaceController" to="InGameGUI/GalaxyMapWindow/SubViewportContainer/SubViewport/GalaxyMap" method="_on_jump_finished"]
+[connection signal="jump_started" from="HyperspaceController" to="MainCameraTransform/MainCamera/HyperspaceEffect" method="_on_jump_started"]
+[connection signal="jump_started" from="HyperspaceController" to="InGameGUI/GalaxyMapWindow/SubViewportContainer/SubViewport/GalaxyMap" method="_on_jump_started"]
+[connection signal="hull_changed" from="Corvette/Player" to="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_hull_changed"]
+[connection signal="power_changed" from="Corvette/Player" to="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_power_changed"]
+[connection signal="shield_changed" from="Corvette/Player" to="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_shield_changed"]
+[connection signal="ship_destroyed" from="Corvette/Player" to="InGameGUI/GameOverDialog" method="_on_player_ship_destroyed"]
+[connection signal="target_changed" from="Corvette/Player" to="InGameGUI/Sidebar/TargetInfoContainer" method="_on_player_target_changed"]
+[connection signal="confirmed" from="InGameGUI/GameOverDialog" to="InGameGUI/GameOverDialog" method="_on_confirmed"]
+[connection signal="canceled" from="InGameGUI/ExitDialog" to="InGameGUI/ExitDialog" method="_on_canceled"]
+[connection signal="confirmed" from="InGameGUI/ExitDialog" to="InGameGUI/ExitDialog" method="_on_confirmed"]
+[connection signal="close_requested" from="InGameGUI/GalaxyMapWindow" to="InGameGUI/GalaxyMapWindow/SubViewportContainer/SubViewport/GalaxyMap" method="_on_window_close_requested"]
+
+[editable path="Corvette"]
+[editable path="Corvette/Player"]
+[editable path="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer/ShieldBar"]

@@ -12,16 +12,16 @@ config_version=5
 
 config/name="Merc"
 config/version="0.1"
-run/main_scene="res://gui/screens/main_menu/main_menu.tscn"
+run/main_scene="res://screens/main_menu/main_menu.tscn"
 config/use_custom_user_dir=true
 config/features=PackedStringArray("4.2", "GL Compatibility")
 boot_splash/bg_color=Color(0.0509804, 0.0666667, 0.101961, 1)
-boot_splash/image="res://gui/images/splash_screen.png"
-config/icon="res://gui/images/icon.svg"
+boot_splash/image="res://screens/shared_ui/images/splash_screen.png"
+config/icon="res://screens/shared_ui/images/icon.svg"
 
 [autoload]
 
-UserPreferences="*res://user/user_preferences.gd"
+UserPreferences="*res://utils/user_preferences.gd"
 MathUtils="*res://utils/math_utils.gd"
 
 [debug]
@@ -53,7 +53,7 @@ import/fbx/enabled=false
 
 [gui]
 
-theme/custom="res://gui/theme.tres"
+theme/custom="res://screens/shared_ui/theme.tres"
 
 [importer_defaults]
 

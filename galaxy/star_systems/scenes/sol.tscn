@@ -6,10 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://bege8n4jjcej5" path="res://planets/sprites/planet_37.png" id="5_hnp7v"]
 [ext_resource type="Texture2D" uid="uid://dkelmabwfrb5x" path="res://planets/sprites/planet_23.png" id="5_k6fyb"]
 [ext_resource type="PackedScene" uid="uid://dqrul5pyjbxjc" path="res://ships/freighter/freighter.tscn" id="6_uk08c"]
-[ext_resource type="Script" path="res://combat/shield.gd" id="7_pkdss"]
-[ext_resource type="Script" path="res://combat/hull.gd" id="8_ibfoc"]
-[ext_resource type="Script" path="res://power/battery.gd" id="9_w4i7k"]
-[ext_resource type="PackedScene" uid="uid://dpwohjd3mf1e" path="res://actors/trader.tscn" id="10_dpriv"]
+[ext_resource type="Script" path="res://mechanics/combat/shield.gd" id="7_pkdss"]
+[ext_resource type="Script" path="res://mechanics/combat/hull.gd" id="8_ibfoc"]
+[ext_resource type="Script" path="res://mechanics/power/battery.gd" id="9_w4i7k"]
+[ext_resource type="PackedScene" uid="uid://dpwohjd3mf1e" path="res://actors/ai/trader.tscn" id="10_dpriv"]
 
 [sub_resource type="Resource" id="Resource_oen30"]
 resource_local_to_scene = true

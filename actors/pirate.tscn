@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c5l6qgyy2mumc"]
-
-[ext_resource type="Script" path="res://actors/pirate.gd" id="1_ndoop"]
-
-[node name="Pirate" type="Node3D"]
-script = ExtResource("1_ndoop")
