@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dpwohjd3mf1e"]
 
-[ext_resource type="Script" path="res://actors/ai/trader.gd" id="1_1k1lj"]
+[ext_resource type="Script" path="res://actors/ai/archetypes/trader.gd" id="1_1k1lj"]
 
 [node name="Trader" type="Node3D"]
 script = ExtResource("1_1k1lj")
