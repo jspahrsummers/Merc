@@ -196,6 +196,8 @@ exit={
 
 3d/default_gravity=2.08165e-12
 3d/default_gravity_vector=Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+3d/default_linear_damp=0.0
+3d/default_angular_damp=0.0
 
 [rendering]
 
