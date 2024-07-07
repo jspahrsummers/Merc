@@ -8,8 +8,8 @@ class_name CombatObject
 ## This object's name when targeted in combat.
 @export var combat_name: String
 
-## The mesh for this object, used to render a visualization in the player's target info panel.
-@export var mesh: Mesh
+## A scene to render as the visualization of this object in the target info panel.
+@export var target_view: PackedScene
 
 ## An optional shield protecting the object.
 @export var shield: Shield

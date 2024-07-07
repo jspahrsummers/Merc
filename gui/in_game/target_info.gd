@@ -3,13 +3,13 @@ extends PanelContainer
 ## Displays information and vitals about the ship that the player is targeting, if any.
 
 @export var target_label: Label
-@export var target_view: TargetView
 @export var target_viewport: SubViewport
 @export var hull_bar: TargetFillBar
 @export var shield_bar: TargetFillBar
 @export var pick_sound: AudioStreamPlayer
 
 var _target: CombatObject = null
+var _target_view: Node3D = null
 
 func _on_player_target_changed(_player: Player, target: CombatObject) -> void:
     if target == self._target:
@@ -22,16 +22,16 @@ func _on_player_target_changed(_player: Player, target: CombatObject) -> void:
     self._target = target
 
     if target == null:
+        self._target_view.queue_free()
         self.target_label.text = "None"
-        self.target_view.visible = false
         self.hull_bar.visible = false
         self.shield_bar.visible = false
     else:
         self.pick_sound.play()
         self.target_label.text = target.combat_name
-        self.target_view.mesh_to_render = target.mesh
+        self._target_view = target.target_view.instantiate() as Node3D
+        self.target_viewport.add_child(self._target_view)
         self.target_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
-        self.target_view.visible = true
         self.hull_bar.visible = true
         self.shield_bar.visible = true
 

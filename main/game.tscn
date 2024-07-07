@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=53 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Script" path="res://utils/shader_precompiler.gd" id="1_kgmvv"]
 [ext_resource type="Script" path="res://main/hyperspace_controller.gd" id="2_5gj7y"]
@@ -34,7 +34,6 @@
 [ext_resource type="Script" path="res://gui/in_game/target_info.gd" id="27_kxugu"]
 [ext_resource type="Texture2D" uid="uid://dcg5m8doqdfc" path="res://gui/in_game/images/target_info/heading_border.png" id="28_gflfl"]
 [ext_resource type="PackedScene" uid="uid://kqong7nrl4p2" path="res://galaxy/map/galaxy_map.tscn" id="28_oyaod"]
-[ext_resource type="PackedScene" uid="uid://boit6owlfi3h" path="res://gui/in_game/target_view/target_view.tscn" id="29_25m7q"]
 [ext_resource type="PackedScene" uid="uid://bpav2va7o5qt4" path="res://gui/in_game/target_fill_bar.tscn" id="30_hiadm"]
 [ext_resource type="Texture2D" uid="uid://bsf3tqgocto7h" path="res://gui/in_game/images/target_info/shields_fill.png" id="31_i0efw"]
 [ext_resource type="Script" path="res://gui/in_game/exit_dialog.gd" id="34_jar7c"]
@@ -383,14 +382,13 @@ layout_mode = 2
 [node name="PowerBar" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" instance=ExtResource("25_5yuo5")]
 layout_mode = 2
 
-[node name="TargetInfoContainer" type="PanelContainer" parent="InGameGUI/Sidebar" node_paths=PackedStringArray("target_label", "target_view", "target_viewport", "hull_bar", "shield_bar", "pick_sound")]
+[node name="TargetInfoContainer" type="PanelContainer" parent="InGameGUI/Sidebar" node_paths=PackedStringArray("target_label", "target_viewport", "hull_bar", "shield_bar", "pick_sound")]
 custom_minimum_size = Vector2(200, 194)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_lc8il")
 script = ExtResource("27_kxugu")
 target_label = NodePath("VBoxContainer/HBoxContainer/TargetedShipLabel")
-target_view = NodePath("VBoxContainer/SubViewportContainer/SubViewport/TargetView")
-target_viewport = NodePath("VBoxContainer/SubViewportContainer/SubViewport")
+target_viewport = NodePath("VBoxContainer/TargetViewportContainer/TargetViewport")
 hull_bar = NodePath("VBoxContainer/HullBar")
 shield_bar = NodePath("VBoxContainer/ShieldBar")
 pick_sound = NodePath("PickSound")
@@ -423,12 +421,12 @@ layout_mode = 2
 texture = ExtResource("28_gflfl")
 expand_mode = 5
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer"]
+[node name="TargetViewportContainer" type="SubViewportContainer" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer/SubViewportContainer"]
+[node name="TargetViewport" type="SubViewport" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer/TargetViewportContainer"]
 own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
@@ -436,9 +434,6 @@ msaa_3d = 2
 gui_disable_input = true
 size = Vector2i(171, 140)
 render_target_update_mode = 4
-
-[node name="TargetView" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer/SubViewportContainer/SubViewport" instance=ExtResource("29_25m7q")]
-visible = false
 
 [node name="ShieldBar" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer" instance=ExtResource("30_hiadm")]
 visible = false
