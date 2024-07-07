@@ -136,7 +136,7 @@ mesh = SubResource("QuadMesh_j7d31")
 battery = SubResource("Resource_p601o")
 power_generator = SubResource("Resource_0m3cu")
 
-[node name="ShieldRecharger" type="Node" parent="." index="7"]
+[node name="ShieldRecharger" type="Node3D" parent="." index="7"]
 script = ExtResource("15_ik8m4")
 battery = SubResource("Resource_p601o")
 shield = SubResource("Resource_rw3nb")

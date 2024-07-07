@@ -24,10 +24,10 @@ radar_object = NodePath("RadarObject")
 [node name="CombatObject" type="Node3D" parent="." groups=["combat_objects"]]
 script = ExtResource("1_71hcp")
 
-[node name="TargetingSystem" type="Node" parent="CombatObject"]
+[node name="TargetingSystem" type="Node3D" parent="CombatObject"]
 script = ExtResource("2_a7xhq")
 
-[node name="RigidBodyDirection" type="Node" parent="."]
+[node name="RigidBodyDirection" type="Node3D" parent="."]
 script = ExtResource("3_5a5el")
 
 [node name="RigidBodyThruster" type="Node3D" parent="."]

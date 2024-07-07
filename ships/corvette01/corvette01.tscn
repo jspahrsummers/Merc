@@ -112,7 +112,7 @@ gi_mode = 2
 battery = SubResource("Resource_ftwkb")
 power_generator = SubResource("Resource_csuav")
 
-[node name="ShieldRecharger" type="Node" parent="." index="8"]
+[node name="ShieldRecharger" type="Node3D" parent="." index="8"]
 script = ExtResource("14_mp2y5")
 battery = SubResource("Resource_ftwkb")
 shield = SubResource("Resource_alskh")
