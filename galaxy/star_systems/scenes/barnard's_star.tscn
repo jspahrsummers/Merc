@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://mechanics/combat/shield.gd" id="4_avs2c"]
 [ext_resource type="Script" path="res://mechanics/combat/hull.gd" id="5_4e6ev"]
 [ext_resource type="Script" path="res://mechanics/power/battery.gd" id="6_s58bt"]
-[ext_resource type="PackedScene" uid="uid://c5l6qgyy2mumc" path="res://actors/ai/pirate.tscn" id="7_20prt"]
+[ext_resource type="PackedScene" uid="uid://c5l6qgyy2mumc" path="res://actors/ai/archetypes/pirate.tscn" id="7_20prt"]
 [ext_resource type="PackedScene" uid="uid://cdvbol3xj7jr5" path="res://ships/frigate03/frigate03.tscn" id="7_lnhbv"]
 
 [sub_resource type="Resource" id="Resource_33hy8"]
