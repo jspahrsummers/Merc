@@ -21,10 +21,10 @@ func _update_icon() -> void:
 
 func _gui_input(event: InputEvent) -> void:
     if event is InputEventMouse:
-        self.call_deferred("_update_icon")
+        self._update_icon.call_deferred()
 
 func _on_mouse_exited() -> void:
-    self.call_deferred("_update_icon")
+    self._update_icon.call_deferred()
 
 func _on_toggled(_toggled_on: bool) -> void:
-    self.call_deferred("_update_icon")
+    self._update_icon.call_deferred()

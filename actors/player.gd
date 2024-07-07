@@ -2,9 +2,12 @@ extends Node3D
 class_name Player
 
 ## The player.
+##
+## [b]This script expects the parent node to be a [Ship].[/b]
 
 @export var hyperspace_controller: HyperspaceController
-@export var ship: Ship
+
+@onready var ship := get_parent() as Ship
 
 ## Fires when the ship's hull changes (e.g., due to damage).
 signal hull_changed(player: Player, hull: Hull)
@@ -31,7 +34,7 @@ func _ready() -> void:
     var turner: RigidBodyTurner = RigidBodyTurner.new()
     turner.spin_thruster = self.ship.rigid_body_direction.spin_thruster
     turner.battery = self.ship.rigid_body_direction.battery
-    self.ship.add_child(turner)
+    self.ship.add_child.call_deferred(turner)
     self.ship.rigid_body_turner = turner
     self.ship.radar_object.iff = RadarObject.IFF.SELF
     self.ship.targeting_system.is_player = true
@@ -62,15 +65,6 @@ func _on_hull_destroyed(hull: Hull) -> void:
 
 func _on_target_changed(targeting_system: TargetingSystem) -> void:
     self.target_changed.emit(self, targeting_system.target)
-
-# func set_target(targeted_ship: Ship) -> void:
-#     if self.target != null:
-#         self.target.set_targeted_by_player(false)
-    
-#     super(targeted_ship)
-
-#     if self.target != null:
-#         self.target.set_targeted_by_player(true)
 
 func _on_jump_destination_loaded(_system: StarSystem) -> void:
     self.ship.linear_velocity = Vector3.ZERO
@@ -146,9 +140,8 @@ func _physics_process(_delta: float) -> void:
             if Input.is_action_pressed("turn_backwards"):
                 self.ship.rigid_body_direction.direction = -self.ship.linear_velocity.normalized()
                 return
-            else:
-                self.ship.rigid_body_direction.direction = Vector3.ZERO
 
+            self.ship.rigid_body_direction.direction = Vector3.ZERO
             if Input.is_action_pressed("turn_left"):
                 self.ship.rigid_body_turner.turning = -1.0
             elif Input.is_action_pressed("turn_right"):

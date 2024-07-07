@@ -78,7 +78,7 @@ func set_custom_value(section: String, key: String, value: Variant) -> void:
     # TODO: This will save any unsaved preference modifications the user made.
     # We should probably just disallow exiting the settings screen without
     # saving or reverting.
-    self.call_deferred("save")
+    self.save.call_deferred()
 
 ## Call this whenever user preferences change, so the UI can be updated.
 func _updated() -> void:
