@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c0eitctnmmfyq"]
+[gd_scene load_steps=10 format=3 uid="uid://c0eitctnmmfyq"]
 
 [ext_resource type="Script" path="res://mechanics/combat/combat_object.gd" id="1_71hcp"]
 [ext_resource type="Script" path="res://ships/ship.gd" id="1_ge1ie"]
@@ -9,11 +9,14 @@
 [ext_resource type="Script" path="res://mechanics/power/power_management_unit.gd" id="6_4hum8"]
 [ext_resource type="PackedScene" uid="uid://dmneg7pw872n2" path="res://mechanics/radar/radar_object.tscn" id="8_lf0ki"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gsr85"]
+
 [node name="Ship" type="RigidBody3D" node_paths=PackedStringArray("combat_object", "targeting_system", "rigid_body_thruster", "rigid_body_direction", "power_management_unit", "radar_object") groups=["ships"]]
 collision_mask = 2
 axis_lock_linear_y = true
 axis_lock_angular_x = true
 axis_lock_angular_z = true
+physics_material_override = SubResource("PhysicsMaterial_gsr85")
 script = ExtResource("1_ge1ie")
 combat_object = NodePath("CombatObject")
 targeting_system = NodePath("CombatObject/TargetingSystem")

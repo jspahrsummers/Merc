@@ -182,6 +182,7 @@ volume_db = 2.0
 mix_target = 1
 
 [node name="PlayerCorvette" parent="." instance=ExtResource("12_bj83b")]
+physics_material_override = null
 
 [node name="CombatObject" parent="PlayerCorvette" index="3"]
 shield = SubResource("Resource_p0y82")
