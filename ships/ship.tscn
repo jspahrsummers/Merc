@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://c8a5lgba7mbpr"]
+[gd_scene load_steps=9 format=3 uid="uid://c0eitctnmmfyq"]
 
 [ext_resource type="Script" path="res://combat/combat_object.gd" id="1_71hcp"]
 [ext_resource type="Script" path="res://ships/ship.gd" id="1_ge1ie"]
 [ext_resource type="Script" path="res://combat/targeting_system.gd" id="2_a7xhq"]
 [ext_resource type="Script" path="res://ships/rigid_body_direction.gd" id="3_5a5el"]
+[ext_resource type="PackedScene" uid="uid://ikpmfsfblp3i" path="res://fx/target_overlay/target_overlay.tscn" id="4_o8dwl"]
 [ext_resource type="Script" path="res://ships/rigid_body_thruster.gd" id="5_66pr6"]
 [ext_resource type="Script" path="res://power/power_management_unit.gd" id="6_4hum8"]
 [ext_resource type="PackedScene" uid="uid://dmneg7pw872n2" path="res://radar/radar_object.tscn" id="8_lf0ki"]
@@ -27,6 +28,8 @@ script = ExtResource("1_71hcp")
 [node name="TargetingSystem" type="Node3D" parent="CombatObject"]
 script = ExtResource("2_a7xhq")
 
+[node name="TargetOverlay" parent="CombatObject" instance=ExtResource("4_o8dwl")]
+
 [node name="RigidBodyDirection" type="Node3D" parent="."]
 script = ExtResource("3_5a5el")
 
@@ -37,7 +40,6 @@ script = ExtResource("5_66pr6")
 script = ExtResource("6_4hum8")
 
 [node name="RadarObject" parent="." instance=ExtResource("8_lf0ki")]
-iff = null
-targeted = null
 
+[connection signal="targeted_by_changed" from="CombatObject" to="CombatObject/TargetOverlay" method="_on_targeted_by_changed"]
 [connection signal="targeted_by_changed" from="CombatObject" to="RadarObject" method="_on_targeted_by_changed"]

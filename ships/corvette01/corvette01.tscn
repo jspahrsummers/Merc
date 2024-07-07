@@ -1,6 +1,6 @@
 [gd_scene load_steps=24 format=3 uid="uid://dsuln1s4j366a"]
 
-[ext_resource type="PackedScene" uid="uid://c8a5lgba7mbpr" path="res://ships/ship.tscn" id="1_cmgif"]
+[ext_resource type="PackedScene" uid="uid://c0eitctnmmfyq" path="res://ships/ship.tscn" id="1_cmgif"]
 [ext_resource type="ArrayMesh" uid="uid://40a23nnu1j37" path="res://ships/corvette01/corvette01_mesh.tres" id="1_yacfo"]
 [ext_resource type="PackedScene" uid="uid://cdyo800b83x5i" path="res://fx/explosions/explosion002.tscn" id="2_xcc1t"]
 [ext_resource type="Script" path="res://combat/shield.gd" id="4_v1dlu"]
