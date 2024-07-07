@@ -13,10 +13,10 @@ class_name AINavigation
 @export var destination: Vector3
 
 ## The distance tolerance to consider the destination reached.
-@export var arrival_distance_tolerance: float = 5.0
+@export var arrival_distance_tolerance: float = 1.0
 
 ## The maximum velocity allowed when coming to a stop.
-@export var stopping_velocity_tolerance: float = 0.5
+@export var stopping_velocity_tolerance: float = 0.1
 
 ## Whether to automatically start navigation on ready.
 @export var auto_start: bool = true
@@ -79,19 +79,18 @@ func _accelerate_toward_destination() -> void:
     self.rigid_body_thruster.throttle = 1.0
 
     var distance_to_destination := self._rigid_body.global_position.distance_to(self.destination)
-    var velocity_toward_destination := self._rigid_body.linear_velocity.project(self._target_direction)
-    var stopping_distance := self._calculate_stopping_distance(velocity_toward_destination.length())
+    var stopping_distance := self._calculate_stopping_distance(self._rigid_body.linear_velocity.length())
 
     # Account for rotation time in stopping distance
-    var rotation_time := self._estimate_rotation_time( - self._target_direction)
-    var rotation_distance := velocity_toward_destination.length() * rotation_time
+    var rotation_time := self._estimate_rotation_time( - self._rigid_body.linear_velocity.normalized())
+    var rotation_distance := self._rigid_body.linear_velocity.length() * rotation_time
     stopping_distance += rotation_distance
 
     if stopping_distance >= distance_to_destination:
         self._state = State.ROTATING_TO_DECELERATE
 
 func _rotate_to_decelerate() -> void:
-    self._target_direction = -(self.destination - self._rigid_body.global_position).normalized()
+    self._target_direction = -self._rigid_body.linear_velocity.normalized()
     self.rigid_body_direction.direction = self._target_direction
     self.rigid_body_thruster.throttle = 0.0
 
@@ -99,7 +98,13 @@ func _rotate_to_decelerate() -> void:
         self._state = State.DECELERATING_TO_STOP
 
 func _decelerate_to_stop() -> void:
-    self.rigid_body_thruster.throttle = 1.0
+    self._target_direction = -self._rigid_body.linear_velocity.normalized()
+    self.rigid_body_direction.direction = self._target_direction
+    
+    if self._pointing_in_direction(self._target_direction):
+        self.rigid_body_thruster.throttle = 1.0
+    else:
+        self.rigid_body_thruster.throttle = 0.0
 
     var distance_to_destination := self._rigid_body.global_position.distance_to(self.destination)
     if distance_to_destination <= self.arrival_distance_tolerance and self._rigid_body.linear_velocity.length() <= self.stopping_velocity_tolerance:
