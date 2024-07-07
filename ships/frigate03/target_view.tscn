@@ -1,5 +1,5 @@
 [gd_scene load_steps=2 format=3 uid="uid://gcf8fo4e36c4"]
 
-[ext_resource type="PackedScene" uid="uid://boit6owlfi3h" path="res://gui/in_game/target_view/target_view.tscn" id="1_lrksi"]
+[ext_resource type="PackedScene" uid="uid://boit6owlfi3h" path="res://screens/game/hud/target_view/target_view.tscn" id="1_lrksi"]
 
 [node name="TargetView" instance=ExtResource("1_lrksi")]

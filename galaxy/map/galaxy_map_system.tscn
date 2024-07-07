@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://galaxy/map/galaxy_map_system.gd" id="1_jbywj"]
 [ext_resource type="Material" uid="uid://wjykkjty1dt5" path="res://galaxy/map/galaxy_map_current_mat.tres" id="2_ddy2j"]
-[ext_resource type="FontFile" uid="uid://csj4t4r3hegan" path="res://gui/fonts/TitilliumWeb-Regular.ttf" id="3_747hn"]
+[ext_resource type="FontFile" uid="uid://csj4t4r3hegan" path="res://screens/shared_ui/fonts/TitilliumWeb-Regular.ttf" id="3_747hn"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j7i3l"]
 

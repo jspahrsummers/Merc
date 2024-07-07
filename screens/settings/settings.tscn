@@ -1,0 +1,98 @@
+[gd_scene load_steps=2 format=3 uid="uid://dxfmf433s5ab3"]
+
+[ext_resource type="Script" path="res://screens/settings/settings.gd" id="1_cg0bx"]
+
+[node name="Settings" type="Control" node_paths=PackedStringArray("control_scheme_button", "ui_scale_range", "display_mode_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cg0bx")
+control_scheme_button = NodePath("PanelContainer/CenterContainer/VBoxContainer/GridContainer/ControlSchemeButton")
+ui_scale_range = NodePath("PanelContainer/CenterContainer/VBoxContainer/GridContainer/UIScaleSpinBox")
+display_mode_button = NodePath("PanelContainer/CenterContainer/VBoxContainer/GridContainer/DisplayModeButton")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CenterContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="ControlSchemeLabel" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Control scheme"
+horizontal_alignment = 2
+uppercase = true
+
+[node name="ControlSchemeButton" type="OptionButton" parent="PanelContainer/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Control scheme"
+item_count = 2
+selected = 0
+popup/item_0/text = "RELATIVE"
+popup/item_0/id = 0
+popup/item_1/text = "ABSOLUTE"
+popup/item_1/id = 1
+
+[node name="UIScaleLabel" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "UI SCALE"
+horizontal_alignment = 2
+
+[node name="UIScaleSpinBox" type="SpinBox" parent="PanelContainer/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+min_value = 50.0
+max_value = 200.0
+step = 25.0
+value = 100.0
+update_on_text_changed = true
+suffix = "%"
+
+[node name="DisplayModeLabel" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Display mode"
+horizontal_alignment = 2
+uppercase = true
+
+[node name="DisplayModeButton" type="OptionButton" parent="PanelContainer/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+item_count = 2
+selected = 0
+popup/item_0/text = "WINDOWED"
+popup/item_0/id = 0
+popup/item_1/text = "FULLSCREEN"
+popup/item_1/id = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="RevertButton" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Revert"
+
+[node name="SaveButton" type="Button" parent="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[connection signal="item_selected" from="PanelContainer/CenterContainer/VBoxContainer/GridContainer/ControlSchemeButton" to="." method="_on_control_scheme_item_selected"]
+[connection signal="value_changed" from="PanelContainer/CenterContainer/VBoxContainer/GridContainer/UIScaleSpinBox" to="." method="_on_ui_scale_changed"]
+[connection signal="item_selected" from="PanelContainer/CenterContainer/VBoxContainer/GridContainer/DisplayModeButton" to="." method="_on_display_mode_button_item_selected"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/RevertButton" to="." method="_on_revert_button_pressed"]
+[connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]

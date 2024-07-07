@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://boit6owlfi3h"]
+
+[ext_resource type="Material" uid="uid://sudvuasga0mp" path="res://screens/game/hud/target_view/target_view_mat.tres" id="3_k3hsx"]
+[ext_resource type="ArrayMesh" uid="uid://c2y60nf8m25ka" path="res://ships/frigate03/frigate03_mesh.tres" id="3_r5epb"]
+
+[sub_resource type="Environment" id="Environment_n1lj7"]
+ambient_light_color = Color(1, 1, 1, 1)
+reflected_light_source = 1
+
+[node name="TargetView" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("3_r5epb")
+surface_material_override/0 = ExtResource("3_k3hsx")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.707107, 0.5, -0.5, 2.4663e-16, 0.707107, 0.707107, 0.707107, -0.5, 0.5, -2, 2, 2)
+current = true
+near = 1.0
+far = 10.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_n1lj7")

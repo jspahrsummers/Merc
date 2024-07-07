@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpav2va7o5qt4"]
+
+[ext_resource type="Script" path="res://screens/game/hud/target_fill_bar.gd" id="1_q2o4q"]
+[ext_resource type="Texture2D" uid="uid://cwdmvrqg25666" path="res://screens/game/hud/images/target_info/bar_empty.png" id="1_slxrs"]
+[ext_resource type="Texture2D" uid="uid://e8r1y25pox5u" path="res://screens/game/hud/images/target_info/hull_fill.png" id="2_gshbn"]
+
+[node name="TargetFillBar" type="Control" node_paths=PackedStringArray("fill_rect")]
+custom_minimum_size = Vector2(100, 11)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 1
+script = ExtResource("1_q2o4q")
+max_value = 10.0
+value = 7.0
+fill_rect = NodePath("NinePatchRect")
+max_width = 184.0
+min_width = 16.0
+
+[node name="Background" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(100, 11)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("1_slxrs")
+expand_mode = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+layout_mode = 0
+offset_left = -7.0
+offset_top = -6.0
+offset_right = 107.0
+offset_bottom = 17.0
+texture = ExtResource("2_gshbn")
+region_rect = Rect2(2.08165e-12, 2.08165e-12, 278, 23)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8

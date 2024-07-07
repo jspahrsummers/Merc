@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://btvvpil5pv7se"]
 
-[ext_resource type="PackedScene" uid="uid://boit6owlfi3h" path="res://gui/in_game/target_view/target_view.tscn" id="1_bqpie"]
+[ext_resource type="PackedScene" uid="uid://boit6owlfi3h" path="res://screens/game/hud/target_view/target_view.tscn" id="1_bqpie"]
 [ext_resource type="ArrayMesh" uid="uid://cxa8dtoudx38a" path="res://ships/freighter/freighter_mesh.res" id="2_dnjtt"]
-[ext_resource type="Material" uid="uid://sudvuasga0mp" path="res://gui/in_game/target_view/target_view_mat.tres" id="3_ai6kg"]
+[ext_resource type="Material" uid="uid://sudvuasga0mp" path="res://screens/game/hud/target_view/target_view_mat.tres" id="3_ai6kg"]
 
 [node name="TargetView" instance=ExtResource("1_bqpie")]
 

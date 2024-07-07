@@ -1,0 +1,119 @@
+[gd_scene load_steps=10 format=3 uid="uid://btc568gwt7fuc"]
+
+[ext_resource type="Texture2D" uid="uid://b3edwsa85u8fx" path="res://screens/shared_ui/images/splash_screen.png" id="1_hdxn3"]
+[ext_resource type="Script" path="res://screens/main_menu/main_menu.gd" id="2_dwbyb"]
+[ext_resource type="PackedScene" uid="uid://210831aopuew" path="res://screens/main_menu/main_menu_button.tscn" id="2_kk5nj"]
+[ext_resource type="PackedScene" uid="uid://dxfmf433s5ab3" path="res://screens/settings/settings.tscn" id="2_xomwj"]
+[ext_resource type="PackedScene" uid="uid://dq8h67fl0mw43" path="res://screens/licenses/licenses.tscn" id="3_bl7ky"]
+[ext_resource type="Script" path="res://screens/main_menu/version_label.gd" id="6_ucu8b"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j8tcr"]
+texture = ExtResource("1_hdxn3")
+
+[sub_resource type="InputEventAction" id="InputEventAction_ceokg"]
+action = &"exit"
+pressed = true
+
+[sub_resource type="Shortcut" id="Shortcut_qfyly"]
+events = [SubResource("InputEventAction_ceokg")]
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("content_container", "settings_button", "licenses_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_dwbyb")
+content_container = NodePath("PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/ContentContainer")
+settings_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/SettingsButton")
+settings_scene = ExtResource("2_xomwj")
+licenses_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/LicensesButton")
+licenses_scene = ExtResource("3_bl7ky")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_j8tcr")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_color = Color(0.545098, 0.858824, 1, 1)
+theme_override_font_sizes/font_size = 72
+text = "Merc"
+uppercase = true
+
+[node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+dragger_visibility = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 18
+theme_override_constants/margin_top = 36
+theme_override_constants/margin_right = 72
+theme_override_constants/margin_bottom = 36
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/separation = 36
+
+[node name="NewGameButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_kk5nj")]
+layout_mode = 2
+
+[node name="SettingsButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_kk5nj")]
+layout_mode = 2
+toggle_mode = true
+text = "SETTINGS"
+
+[node name="LicensesButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_kk5nj")]
+layout_mode = 2
+toggle_mode = true
+text = "LICENSES"
+
+[node name="ExitButton" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_kk5nj")]
+layout_mode = 2
+shortcut = SubResource("Shortcut_qfyly")
+text = "EXIT"
+
+[node name="ContentContainer" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer"]
+layout_mode = 2
+theme_override_constants/margin_right = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CopyrightLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Merc copyright © 2024 Justin Spahr-Summers. This project makes use of open source code and open game assets. See the \"Licenses\" screen for more information."
+
+[node name="VersionLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+text = "(version number)"
+script = ExtResource("6_ucu8b")
+
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/LicensesButton" to="." method="_on_licenses_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
