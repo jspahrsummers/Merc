@@ -31,9 +31,10 @@ func _ready() -> void:
     var turner: RigidBodyTurner = RigidBodyTurner.new()
     turner.spin_thruster = self.ship.rigid_body_direction.spin_thruster
     turner.battery = self.ship.rigid_body_direction.battery
-
     self.ship.add_child(turner)
     self.ship.rigid_body_turner = turner
+    self.ship.radar_object.iff = RadarObject.IFF.SELF
+    self.ship.targeting_system.is_player = true
 
     self.ship.combat_object.hull.changed.connect(_on_hull_changed)
     self.ship.combat_object.hull.hull_destroyed.connect(_on_hull_destroyed)
