@@ -29,7 +29,7 @@ func _on_player_target_changed(_player: Player, target: CombatObject) -> void:
     else:
         self.pick_sound.play()
         self.target_label.text = target.combat_name
-        self.target_view.mesh = self._find_target_mesh(target)
+        self.target_view.mesh_to_render = target.mesh
         self.target_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
         self.target_view.visible = true
         self.hull_bar.visible = true
@@ -39,13 +39,6 @@ func _on_player_target_changed(_player: Player, target: CombatObject) -> void:
         target.shield.changed.connect(_on_target_shield_changed)
         self._on_target_hull_changed()
         self._on_target_shield_changed()
-
-func _find_target_mesh(target: CombatObject) -> MeshInstance3D:
-    for node in target.get_parent().get_children():
-        if node is MeshInstance3D:
-            return node
-
-    return null
 
 func _on_target_hull_changed() -> void:
     var hull := self._target.hull

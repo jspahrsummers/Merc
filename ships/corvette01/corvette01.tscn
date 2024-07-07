@@ -77,6 +77,7 @@ shape = SubResource("BoxShape3D_28kwx")
 
 [node name="CombatObject" parent="." index="3" node_paths=PackedStringArray("shield_mesh_instance")]
 combat_name = "Corvette"
+mesh = ExtResource("1_yacfo")
 shield = SubResource("Resource_alskh")
 shield_mesh_instance = NodePath("ShieldEffect")
 hull = SubResource("Resource_5twpq")
