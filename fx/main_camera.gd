@@ -1,16 +1,4 @@
-extends Camera3D
-
-## A node to automatically follow with the camera.
-@export var follow_target: Node3D
-
-## The starfield below the game plane.
-@export var starfield_node: Node3D
-
-## The material rendering the starfield below the game plane.
-@export var starfield_material: StandardMaterial3D
-
-## How much to dampen movement of the starfield below the game plane, while it moves in concert with the camera.
-@export var starfield_parallax_dampening: float = 50
+extends Node3D
 
 ## The closest zoom (in m) allowed on the main camera.
 const ZOOM_CLOSEST: float = 5.0
@@ -35,20 +23,8 @@ func _set_camera_zoom(value: float) -> void:
         return
 
     self._camera_zoom = value
+    self.global_transform.origin.y = self._camera_zoom
     UserPreferences.set_custom_value("camera", "zoom", value)
-
-func _process(_delta: float) -> void:
-    var follow_origin := follow_target.global_transform.origin
-
-    var new_camera_origin := follow_origin
-    new_camera_origin.y = self._camera_zoom
-
-    var new_starfield_origin := follow_origin
-    new_starfield_origin.y = self.starfield_node.global_transform.origin.y
-
-    self.global_transform.origin = new_camera_origin
-    self.starfield_node.global_transform.origin = new_starfield_origin
-    self.starfield_material.uv1_offset = Vector3(follow_origin.x, follow_origin.z, 0) / self.starfield_parallax_dampening
 
 func _unhandled_input(event: InputEvent) -> void:
     var pan_event := event as InputEventPanGesture
