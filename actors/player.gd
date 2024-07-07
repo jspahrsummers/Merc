@@ -102,7 +102,7 @@ func _next_target() -> CombatObject:
 
     return available_targets[index + 1] if index + 1 < available_targets.size() else null
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_key_input(event: InputEvent) -> void:
     if self.hyperspace_controller.jumping:
         return
 
@@ -113,13 +113,6 @@ func _unhandled_input(event: InputEvent) -> void:
     if event.is_action_pressed("cycle_target"):
         self.ship.targeting_system.target = _next_target()
         self.get_viewport().set_input_as_handled()
-
-    if event.is_action_pressed("fire", true):
-        for weapon_mount in self.ship.weapon_mounts:
-            weapon_mount.fire()
-
-    if event.is_action_pressed("jump", true):
-        self._jump_to_hyperspace()
 
 func _jump_to_hyperspace() -> void:
     if not self.hyperspace_controller.jump_destination:
@@ -138,6 +131,14 @@ func _absolute_input_direction() -> Vector3:
 func _physics_process(_delta: float) -> void:
     if self.hyperspace_controller.jumping:
         return
+
+    if Input.is_action_pressed("jump"):
+        self._jump_to_hyperspace()
+        return
+
+    if Input.is_action_pressed("fire"):
+        for weapon_mount in self.ship.weapon_mounts:
+            weapon_mount.fire()
 
     match UserPreferences.control_scheme:
         UserPreferences.ControlScheme.RELATIVE:
