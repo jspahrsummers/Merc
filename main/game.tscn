@@ -34,7 +34,7 @@
 [ext_resource type="Script" path="res://gui/in_game/target_info.gd" id="27_kxugu"]
 [ext_resource type="Texture2D" uid="uid://dcg5m8doqdfc" path="res://gui/in_game/images/target_info/heading_border.png" id="28_gflfl"]
 [ext_resource type="PackedScene" uid="uid://kqong7nrl4p2" path="res://galaxy/map/galaxy_map.tscn" id="28_oyaod"]
-[ext_resource type="PackedScene" uid="uid://boit6owlfi3h" path="res://gui/in_game/target_view.tscn" id="29_25m7q"]
+[ext_resource type="PackedScene" uid="uid://boit6owlfi3h" path="res://gui/in_game/target_view/target_view.tscn" id="29_25m7q"]
 [ext_resource type="PackedScene" uid="uid://bpav2va7o5qt4" path="res://gui/in_game/target_fill_bar.tscn" id="30_hiadm"]
 [ext_resource type="Texture2D" uid="uid://bsf3tqgocto7h" path="res://gui/in_game/images/target_info/shields_fill.png" id="31_i0efw"]
 [ext_resource type="Script" path="res://gui/in_game/exit_dialog.gd" id="34_jar7c"]

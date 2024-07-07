@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://boit6owlfi3h"]
+
+[ext_resource type="Script" path="res://gui/in_game/target_view/target_view.gd" id="1_bqomq"]
+[ext_resource type="ArrayMesh" uid="uid://cxa8dtoudx38a" path="res://ships/freighter/freighter_mesh.res" id="2_gk2qc"]
+[ext_resource type="Material" uid="uid://sudvuasga0mp" path="res://gui/in_game/target_view/target_view_mat.tres" id="3_k3hsx"]
+
+[sub_resource type="Environment" id="Environment_n1lj7"]
+ambient_light_color = Color(1, 1, 1, 1)
+reflected_light_source = 1
+
+[node name="TargetView" type="Node3D" node_paths=PackedStringArray("mesh_instance")]
+script = ExtResource("1_bqomq")
+mesh_instance = NodePath("MeshInstance3D")
+material = ExtResource("3_k3hsx")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_gk2qc")
+surface_material_override/0 = ExtResource("3_k3hsx")
+surface_material_override/1 = ExtResource("3_k3hsx")
+surface_material_override/2 = ExtResource("3_k3hsx")
+surface_material_override/3 = ExtResource("3_k3hsx")
+surface_material_override/4 = ExtResource("3_k3hsx")
+surface_material_override/5 = ExtResource("3_k3hsx")
+surface_material_override/6 = ExtResource("3_k3hsx")
+surface_material_override/7 = ExtResource("3_k3hsx")
+surface_material_override/8 = ExtResource("3_k3hsx")
+surface_material_override/9 = ExtResource("3_k3hsx")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.707107, 0.5, -0.5, 2.4663e-16, 0.707107, 0.707107, 0.707107, -0.5, 0.5, -2, 2, 2)
+current = true
+near = 1.0
+far = 10.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_n1lj7")
