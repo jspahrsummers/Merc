@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://2mdsbbko7baw"]
+[gd_scene load_steps=14 format=3 uid="uid://2mdsbbko7baw"]
 
 [ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://stars/star.tscn" id="1_j8iws"]
 [ext_resource type="PackedScene" uid="uid://b04hfgkcuq7k6" path="res://planets/planet.tscn" id="3_7gpxn"]
@@ -6,6 +6,30 @@
 [ext_resource type="Texture2D" uid="uid://bege8n4jjcej5" path="res://planets/sprites/planet_37.png" id="5_hnp7v"]
 [ext_resource type="Texture2D" uid="uid://dkelmabwfrb5x" path="res://planets/sprites/planet_23.png" id="5_k6fyb"]
 [ext_resource type="PackedScene" uid="uid://dqrul5pyjbxjc" path="res://ships/freighter/freighter.tscn" id="6_uk08c"]
+[ext_resource type="Script" path="res://combat/shield.gd" id="7_pkdss"]
+[ext_resource type="Script" path="res://combat/hull.gd" id="8_ibfoc"]
+[ext_resource type="Script" path="res://power/battery.gd" id="9_w4i7k"]
+[ext_resource type="PackedScene" uid="uid://dpwohjd3mf1e" path="res://actors/trader.tscn" id="10_dpriv"]
+
+[sub_resource type="Resource" id="Resource_oen30"]
+resource_local_to_scene = true
+script = ExtResource("7_pkdss")
+max_integrity = 150.0
+integrity = 150.0
+recharge_rate = 5.0
+power_efficiency = 1.0
+
+[sub_resource type="Resource" id="Resource_yterj"]
+resource_local_to_scene = true
+script = ExtResource("8_ibfoc")
+max_integrity = 300.0
+integrity = 300.0
+
+[sub_resource type="Resource" id="Resource_eyrkq"]
+resource_local_to_scene = true
+script = ExtResource("9_w4i7k")
+max_power = 300.0
+power = 300.0
 
 [node name="Sol" type="Node3D" groups=["star_system"]]
 
@@ -36,6 +60,27 @@ texture = ExtResource("5_k6fyb")
 [node name="Freighter" parent="." instance=ExtResource("6_uk08c")]
 transform = Transform3D(0.759975, 0, -0.649952, 0, 1, 0, 0.649952, 0, 0.759975, -5.22228, 0, -4.59493)
 
+[node name="CombatObject" parent="Freighter" index="2"]
+shield = SubResource("Resource_oen30")
+hull = SubResource("Resource_yterj")
+
+[node name="RigidBodyDirection" parent="Freighter" index="3"]
+battery = SubResource("Resource_eyrkq")
+
+[node name="RigidBodyThruster" parent="Freighter" index="4"]
+battery = SubResource("Resource_eyrkq")
+
+[node name="PowerManagementUnit" parent="Freighter" index="5"]
+battery = SubResource("Resource_eyrkq")
+
+[node name="ShieldRecharger" parent="Freighter" index="7"]
+battery = SubResource("Resource_eyrkq")
+shield = SubResource("Resource_oen30")
+
+[node name="Trader" parent="Freighter" instance=ExtResource("10_dpriv")]
+
 [editable path="Mars"]
 [editable path="Mercury"]
 [editable path="Venus"]
+[editable path="Freighter"]
+[editable path="Freighter/CombatObject/TargetOverlay"]

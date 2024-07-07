@@ -14,7 +14,7 @@ bottom_radius = 1.0
 height = 0.001
 cap_bottom = false
 
-[node name="Planet" type="Node3D"]
+[node name="Planet" type="Node3D" groups=["planets"]]
 
 [node name="MinimapIcon" type="MeshInstance3D" parent="."]
 layers = 2
