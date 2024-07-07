@@ -106,11 +106,11 @@ func _unhandled_key_input(event: InputEvent) -> void:
     if self.hyperspace_controller.jumping:
         return
 
-    if event.is_action_pressed("cycle_jump_destination"):
+    if event.is_action_pressed("cycle_jump_destination", true):
         self.hyperspace_controller.set_jump_destination(_next_system_connection())
         self.get_viewport().set_input_as_handled()
 
-    if event.is_action_pressed("cycle_target"):
+    if event.is_action_pressed("cycle_target", true):
         self.ship.targeting_system.target = _next_target()
         self.get_viewport().set_input_as_handled()
 
