@@ -17,8 +17,8 @@ class_name Pirate
 ## The maximum range (in m) at which this ship will fire its weapon at the target.
 @export var fire_range: float = 8.0
 
-## For firing and thrusting, the tolerance (in degrees) for being slightly off-rotated.
-@export var direction_tolerance_deg: float = 10.0
+## For firing and thrusting, the tolerance for being slightly off-rotated.
+@export_range(0, 180, 1, "radians_as_degrees") var direction_tolerance: float = deg_to_rad(10.0)
 
 ## Maximum radius (in m) from the system's center that the pirate will patrol.
 @export var patrol_radius: float = 10.0
@@ -40,13 +40,10 @@ enum State {
 
 @onready var _ship := self.get_parent() as Ship
 var _current_state := State.PATROL
-var _direction_tolerance_rad: float
 var _patrol_target := Vector3.ZERO
 
 func _ready() -> void:
     self._ship.radar_object.iff = RadarObject.IFF.HOSTILE
-
-    self._direction_tolerance_rad = deg_to_rad(self.direction_tolerance_deg)
     self._select_new_patrol_target()
 
     # Have to wait for the ship to be ready before we can start listening for damage events.
@@ -83,7 +80,7 @@ func _desired_direction() -> Vector3:
 
 func _pointing_in_direction(direction: Vector3) -> bool:
     var current_direction := - self._ship.global_transform.basis.z
-    return current_direction.angle_to(direction) <= self._direction_tolerance_rad
+    return current_direction.angle_to(direction) <= self.direction_tolerance
 
 func _patrol_behavior(_delta: float) -> void:
     var target := self._find_closest_target()
