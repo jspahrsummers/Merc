@@ -86,7 +86,7 @@ func _pointing_in_direction(direction: Vector3) -> bool:
     return current_direction.angle_to(direction) <= self._direction_tolerance_rad
 
 func _patrol_behavior(_delta: float) -> void:
-    var target := self._find_closest_ship()
+    var target := self._find_closest_target()
     self._ship.targeting_system.target = target
     if target != null:
         self._current_state = State.ENGAGE
@@ -95,15 +95,20 @@ func _patrol_behavior(_delta: float) -> void:
     var direction_to_target := self._patrol_target - self._ship.global_transform.origin
     if direction_to_target.length() < self.patrol_target_tolerance: # Close enough to current patrol point
         self._select_new_patrol_target()
-    elif self._pointing_in_direction(direction_to_target.normalized()):
+    elif self._pointing_in_direction(direction_to_target):
         self._ship.rigid_body_thruster.throttle = 1.0
-    else:
-        self._ship.rigid_body_thruster.throttle = 0.0
+        return
+
+    self._ship.rigid_body_thruster.throttle = 0.0
 
 func _engage_behavior(_delta: float) -> void:
     var target := self._ship.targeting_system.target
     if not target:
         self._current_state = State.PATROL
+        return
+
+    if not self._pointing_in_direction(self._desired_direction()):
+        self._ship.rigid_body_thruster.throttle = 0.0
         return
 
     var distance := self._ship.global_transform.origin.distance_to(target.global_transform.origin)
@@ -138,25 +143,25 @@ func _retreat_behavior(_delta: float) -> void:
     if distance >= self.preferred_distance:
         self._current_state = State.ENGAGE
 
-func _find_closest_ship() -> CombatObject:
-    var ships := self.get_tree().get_nodes_in_group("ships")
-    ships.erase(self)
+func _find_closest_target() -> CombatObject:
+    var available_targets := self._ship.targeting_system.get_available_targets()
+    available_targets.erase(self._ship.combat_object)
 
-    var closest_ship: CombatObject = null
+    var closest_target: CombatObject = null
     var closest_distance := self.detection_range
 
-    for ship: Ship in ships:
-        var distance := self._ship.global_transform.origin.distance_to(ship.global_transform.origin)
+    for target in available_targets:
+        var distance := self._ship.global_transform.origin.distance_to(target.global_transform.origin)
         if distance < closest_distance:
             closest_distance = distance
-            closest_ship = ship.combat_object
+            closest_target = target
 
-    return closest_ship
+    return closest_target
 
 func _on_damage_received() -> void:
     # TODO: This isn't necessarily the actual attacker. Need to implement a way
     # to figure out who fired a weapon.
-    var attacker := self._find_closest_ship()
+    var attacker := self._find_closest_target()
     if attacker == null:
         return
     
