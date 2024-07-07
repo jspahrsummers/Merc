@@ -25,6 +25,15 @@ class_name TargetingSystem
 ## Fires when the [member target] changes.
 signal target_changed(targeting_system: TargetingSystem)
 
+func get_available_targets() -> Array[CombatObject]:
+    var combat_objects: Array[CombatObject] = []
+    for node in get_tree().get_nodes_in_group("combat_objects"):
+        var obj := node as CombatObject
+        if obj.is_visible_in_tree():
+            combat_objects.push_back(obj)
+    
+    return combat_objects
+
 func _notification(what: int) -> void:
     match what:
         # When freed, make sure to remove self from the targeted_by list, in case the target object will be sticking around.

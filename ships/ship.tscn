@@ -15,7 +15,7 @@ axis_lock_angular_x = true
 axis_lock_angular_z = true
 script = ExtResource("1_ge1ie")
 
-[node name="CombatObject" type="Node3D" parent="."]
+[node name="CombatObject" type="Node3D" parent="." groups=["combat_objects"]]
 script = ExtResource("1_71hcp")
 
 [node name="TargetingSystem" type="Node" parent="CombatObject"]

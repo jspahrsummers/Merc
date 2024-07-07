@@ -105,3 +105,6 @@ func _show_shields() -> void:
     off_tweener.set_ease(self.shield_flash_off_ease)
     
     self._shield_tween = tween
+
+func _to_string() -> String:
+    return "CombatObject:" + self.combat_name

@@ -11,7 +11,7 @@ extends PanelContainer
 
 var _target: CombatObject = null
 
-func _on_player_ship_target_changed(_player_ship: Ship, target: CombatObject) -> void:
+func _on_player_target_changed(_player: Player, target: CombatObject) -> void:
     if target == self._target:
         return
     
@@ -41,9 +41,11 @@ func _on_player_ship_target_changed(_player_ship: Ship, target: CombatObject) ->
         self._on_target_shield_changed(target.shield)
 
 func _find_target_mesh(target: CombatObject) -> MeshInstance3D:
-    var nodes := target.get_parent().get_children()
-    var index := nodes.find(func(node: Node) -> bool: return node is MeshInstance3D)
-    return nodes[index] if index >= 0 else null
+    for node in target.get_parent().get_children():
+        if node is MeshInstance3D:
+            return node
+
+    return null
 
 func _on_target_hull_changed(hull: Hull) -> void:
     self.hull_bar.max_value = hull.max_integrity

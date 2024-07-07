@@ -478,7 +478,7 @@ galaxy = ExtResource("3_j76v0")
 [connection signal="power_changed" from="Player" to="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_ship_power_changed"]
 [connection signal="shield_changed" from="Player" to="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_ship_shield_changed"]
 [connection signal="ship_destroyed" from="Player" to="InGameGUI/GameOverDialog" method="_on_player_ship_destroyed"]
-[connection signal="target_changed" from="Player" to="InGameGUI/Sidebar/TargetInfoContainer" method="_on_player_ship_target_changed"]
+[connection signal="target_changed" from="Player" to="InGameGUI/Sidebar/TargetInfoContainer" method="_on_player_target_changed"]
 [connection signal="confirmed" from="InGameGUI/GameOverDialog" to="InGameGUI/GameOverDialog" method="_on_confirmed"]
 [connection signal="canceled" from="InGameGUI/ExitDialog" to="InGameGUI/ExitDialog" method="_on_canceled"]
 [connection signal="confirmed" from="InGameGUI/ExitDialog" to="InGameGUI/ExitDialog" method="_on_confirmed"]
