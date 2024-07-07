@@ -13,7 +13,7 @@ class_name AINavigation
 @export var destination: Vector3
 
 ## The distance tolerance to consider the destination reached.
-@export var arrival_distance_tolerance: float = 1.0
+@export var arrival_distance_tolerance: float = 5.0
 
 ## The maximum velocity allowed when coming to a stop.
 @export var stopping_velocity_tolerance: float = 0.1
