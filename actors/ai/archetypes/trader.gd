@@ -8,17 +8,13 @@ class_name Trader
 # TODO: Deduplicate code with Pirate class.
 
 ## For thrusting, the tolerance (in degrees) for being slightly off-rotated.
-@export var direction_tolerance_deg: float = 10.0
+@export_range(0, 180, 1, "radians_as_degrees") var direction_tolerance: float = deg_to_rad(10.0)
 
 ## The tolerance (in m) for hitting the destination point, before selecting a new one.
 @export var destination_tolerance: float = 1.0
 
 @onready var _ship := self.get_parent() as Ship
-var _direction_tolerance_rad: float
 var _destination: Node3D = null
-
-func _ready() -> void:
-    self._direction_tolerance_rad = deg_to_rad(self.direction_tolerance_deg)
 
 func _select_new_destination() -> void:
     var planets: Array[Node3D] = []
@@ -36,7 +32,7 @@ func _desired_direction() -> Vector3:
 
 func _pointing_in_direction(direction: Vector3) -> bool:
     var current_direction := - self._ship.global_transform.basis.z
-    return current_direction.angle_to(direction) <= self._direction_tolerance_rad
+    return current_direction.angle_to(direction) <= self.direction_tolerance
 
 func _distance_to_destination() -> float:
     if not self._destination:
