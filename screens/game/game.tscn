@@ -181,38 +181,38 @@ stream = ExtResource("11_tu1c7")
 volume_db = 2.0
 mix_target = 1
 
-[node name="Corvette" parent="." instance=ExtResource("12_bj83b")]
+[node name="PlayerCorvette" parent="." instance=ExtResource("12_bj83b")]
 
-[node name="CombatObject" parent="Corvette" index="3"]
+[node name="CombatObject" parent="PlayerCorvette" index="3"]
 shield = SubResource("Resource_p0y82")
 hull = SubResource("Resource_rdvmt")
 
-[node name="RigidBodyDirection" parent="Corvette" index="4"]
+[node name="RigidBodyDirection" parent="PlayerCorvette" index="4"]
 battery = SubResource("Resource_jcr0a")
 
-[node name="RigidBodyThruster" parent="Corvette" index="5"]
+[node name="RigidBodyThruster" parent="PlayerCorvette" index="5"]
 battery = SubResource("Resource_jcr0a")
 
-[node name="PowerManagementUnit" parent="Corvette" index="6"]
+[node name="PowerManagementUnit" parent="PlayerCorvette" index="6"]
 battery = SubResource("Resource_jcr0a")
 
-[node name="ShieldRecharger" parent="Corvette" index="8"]
+[node name="ShieldRecharger" parent="PlayerCorvette" index="8"]
 battery = SubResource("Resource_jcr0a")
 shield = SubResource("Resource_p0y82")
 
-[node name="Blaster" parent="Corvette" index="9"]
+[node name="Blaster" parent="PlayerCorvette" index="9"]
 battery = SubResource("Resource_jcr0a")
 
-[node name="Player" parent="Corvette" node_paths=PackedStringArray("hyperspace_controller") instance=ExtResource("16_lqltb")]
+[node name="Player" parent="PlayerCorvette" node_paths=PackedStringArray("hyperspace_controller") instance=ExtResource("16_lqltb")]
 hyperspace_controller = NodePath("../../HyperspaceController")
 
-[node name="MinimapCameraRemoteTransform" parent="Corvette/Player" index="0"]
+[node name="MinimapCameraRemoteTransform" parent="PlayerCorvette/Player" index="0"]
 remote_path = NodePath("../../../MinimapViewport/MinimapCameraTransform")
 
-[node name="MainCameraRemoteTransform" parent="Corvette/Player" index="1"]
+[node name="MainCameraRemoteTransform" parent="PlayerCorvette/Player" index="1"]
 remote_path = NodePath("../../../MainCameraTransform")
 
-[node name="StarfieldRemoteTransform" parent="Corvette/Player" index="2"]
+[node name="StarfieldRemoteTransform" parent="PlayerCorvette/Player" index="2"]
 remote_path = NodePath("../../../StarfieldTransform")
 
 [node name="MinimapViewport" type="SubViewport" parent="."]
@@ -518,21 +518,21 @@ hyperspace_controller = NodePath("../../../../../HyperspaceController")
 galaxy = ExtResource("5_3nony")
 
 [connection signal="jump_destination_changed" from="HyperspaceController" to="InGameGUI/Sidebar/JumpDestinationName" method="_on_jump_destination_changed"]
-[connection signal="jump_destination_loaded" from="HyperspaceController" to="Corvette/Player" method="_on_jump_destination_loaded"]
+[connection signal="jump_destination_loaded" from="HyperspaceController" to="PlayerCorvette/Player" method="_on_jump_destination_loaded"]
 [connection signal="jump_destination_loaded" from="HyperspaceController" to="InGameGUI/Sidebar/SystemName" method="_on_jump_destination_loaded"]
 [connection signal="jump_finished" from="HyperspaceController" to="InGameGUI/GalaxyMapWindow/SubViewportContainer/SubViewport/GalaxyMap" method="_on_jump_finished"]
 [connection signal="jump_started" from="HyperspaceController" to="MainCameraTransform/MainCamera/HyperspaceEffect" method="_on_jump_started"]
 [connection signal="jump_started" from="HyperspaceController" to="InGameGUI/GalaxyMapWindow/SubViewportContainer/SubViewport/GalaxyMap" method="_on_jump_started"]
-[connection signal="hull_changed" from="Corvette/Player" to="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_hull_changed"]
-[connection signal="power_changed" from="Corvette/Player" to="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_power_changed"]
-[connection signal="shield_changed" from="Corvette/Player" to="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_shield_changed"]
-[connection signal="ship_destroyed" from="Corvette/Player" to="InGameGUI/GameOverDialog" method="_on_player_ship_destroyed"]
-[connection signal="target_changed" from="Corvette/Player" to="InGameGUI/Sidebar/TargetInfoContainer" method="_on_player_target_changed"]
+[connection signal="hull_changed" from="PlayerCorvette/Player" to="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_hull_changed"]
+[connection signal="power_changed" from="PlayerCorvette/Player" to="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_power_changed"]
+[connection signal="shield_changed" from="PlayerCorvette/Player" to="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_shield_changed"]
+[connection signal="ship_destroyed" from="PlayerCorvette/Player" to="InGameGUI/GameOverDialog" method="_on_player_ship_destroyed"]
+[connection signal="target_changed" from="PlayerCorvette/Player" to="InGameGUI/Sidebar/TargetInfoContainer" method="_on_player_target_changed"]
 [connection signal="confirmed" from="InGameGUI/GameOverDialog" to="InGameGUI/GameOverDialog" method="_on_confirmed"]
 [connection signal="canceled" from="InGameGUI/ExitDialog" to="InGameGUI/ExitDialog" method="_on_canceled"]
 [connection signal="confirmed" from="InGameGUI/ExitDialog" to="InGameGUI/ExitDialog" method="_on_confirmed"]
 [connection signal="close_requested" from="InGameGUI/GalaxyMapWindow" to="InGameGUI/GalaxyMapWindow/SubViewportContainer/SubViewport/GalaxyMap" method="_on_window_close_requested"]
 
-[editable path="Corvette"]
-[editable path="Corvette/Player"]
+[editable path="PlayerCorvette"]
+[editable path="PlayerCorvette/Player"]
 [editable path="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer/ShieldBar"]
