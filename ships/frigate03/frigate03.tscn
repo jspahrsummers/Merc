@@ -111,7 +111,7 @@ hull = SubResource("Resource_am8dk")
 destruction = ExtResource("2_xcc1t")
 
 [node name="ShieldEffect" parent="CombatObject" index="1" instance=ExtResource("11_lwnic")]
-transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, 4.67184e-19, -4.67184e-19, -0.00133798)
+transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("SphereMesh_r5nlv")
 
 [node name="Left" parent="CombatObject/TargetOverlay" index="0"]
@@ -132,7 +132,7 @@ battery = SubResource("Resource_p601o")
 thruster_audio = NodePath("AudioStreamPlayer3D")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="RigidBodyThruster" index="0"]
-transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, -6.21724e-17, 6.21724e-17, 0.178253)
+transform = Transform3D(1, 1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, -6.21724e-17, 6.21724e-17, 0.897866)
 stream = ExtResource("4_xrdjv")
 volume_db = -40.0
 

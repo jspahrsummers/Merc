@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://2mdsbbko7baw"]
+[gd_scene load_steps=7 format=3 uid="uid://2mdsbbko7baw"]
 
 [ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://stars/star.tscn" id="1_j8iws"]
 [ext_resource type="PackedScene" uid="uid://b04hfgkcuq7k6" path="res://planets/planet.tscn" id="3_7gpxn"]
 [ext_resource type="Texture2D" uid="uid://bqxxjmbapro8l" path="res://planets/sprites/planet_02.png" id="4_afp06"]
 [ext_resource type="Texture2D" uid="uid://bege8n4jjcej5" path="res://planets/sprites/planet_37.png" id="5_hnp7v"]
 [ext_resource type="Texture2D" uid="uid://dkelmabwfrb5x" path="res://planets/sprites/planet_23.png" id="5_k6fyb"]
+[ext_resource type="PackedScene" uid="uid://dqrul5pyjbxjc" path="res://ships/freighter/freighter.tscn" id="6_uk08c"]
 
 [node name="Sol" type="Node3D" groups=["star_system"]]
 
@@ -31,6 +32,9 @@ transform = Transform3D(0.71043, 0, 0, 0, 1, 0, 0, 0, 0.71043, 12.5408, 0, 0.722
 
 [node name="Sprite3D" parent="Venus" index="1"]
 texture = ExtResource("5_k6fyb")
+
+[node name="Freighter" parent="." instance=ExtResource("6_uk08c")]
+transform = Transform3D(0.759975, 0, -0.649952, 0, 1, 0, 0.649952, 0, 0.759975, -5.22228, 0, -4.59493)
 
 [editable path="Mars"]
 [editable path="Mercury"]

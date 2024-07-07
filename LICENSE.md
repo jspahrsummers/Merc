@@ -16,6 +16,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [Ship models and textures](https://v-ktor.itch.io/space-ships) created by [Viktor Hahn](https://v-ktor.itch.io/) (Viktor.Hahn@web.de), licensed under [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/):
 - corvette01
 - frigate03
+- freighter
 
 [Star sprites](https://v-ktor.itch.io/star-sprites) created by [Viktor Hahn](https://v-ktor.itch.io/) (Viktor.Hahn@web.de), licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/):
 - star_orange02
