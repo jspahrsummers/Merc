@@ -19,3 +19,6 @@ func _ready() -> void:
             continue
         
         self.weapon_mounts.push_back(weapon_mount)
+
+func _to_string() -> String:
+    return "Ship:%s (%s)" % [self.name, self.combat_object]

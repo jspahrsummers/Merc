@@ -59,8 +59,8 @@ func _on_hull_destroyed(hull: Hull) -> void:
     assert(hull == self.ship.combat_object.hull, "Received hull_destroyed signal from incorrect hull")
     self.ship_destroyed.emit(self)
 
-func _on_target_changed() -> void:
-    self.target_changed.emit(self, self.ship.targeting_system.target)
+func _on_target_changed(targeting_system: TargetingSystem) -> void:
+    self.target_changed.emit(self, targeting_system.target)
 
 # func set_target(targeted_ship: Ship) -> void:
 #     if self.target != null:
@@ -91,26 +91,21 @@ func _next_system_connection() -> StarSystem:
 
     return self.hyperspace_controller.galaxy.get_system(connections[index + 1]) if index + 1 < connections.size() else null
 
-## Cycles through ships in the current system, for picking a target.
-func _next_ship_target() -> CombatObject:
-    var ships := get_tree().get_nodes_in_group("ships")
-    ships.erase(self.ship)
-    ships = ships.filter(func(s: Ship) -> bool: return s.is_visible_in_tree())
-    if ships.size() == 0:
+## Cycles through targets in the current system.
+func _next_target() -> CombatObject:
+    var available_targets := self.ship.targeting_system.get_available_targets()
+    available_targets.erase(self.ship.combat_object)
+    if available_targets.size() == 0:
         return null
     
     var target := self.ship.targeting_system.target
     if target == null:
-        return ships[0]
+        return available_targets[0]
     
-    var index := ships.find(target)
-    assert(index >= 0, "Cannot find targeted ship")
+    var index := available_targets.find(target)
+    assert(index >= 0, "Cannot find currently targeted object")
 
-    if index + 1 >= ships.size():
-        return null
-
-    var next_ship: Ship = ships[index + 1]
-    return next_ship.combat_object
+    return available_targets[index + 1] if index + 1 < available_targets.size() else null
 
 func _unhandled_input(event: InputEvent) -> void:
     if self.hyperspace_controller.jumping:
@@ -121,7 +116,7 @@ func _unhandled_input(event: InputEvent) -> void:
         self.get_viewport().set_input_as_handled()
 
     if event.is_action_pressed("cycle_target"):
-        self.ship.targeting_system.target = _next_ship_target()
+        self.ship.targeting_system.target = _next_target()
         self.get_viewport().set_input_as_handled()
     
     if UserPreferences.control_scheme == UserPreferences.ControlScheme.RELATIVE:
