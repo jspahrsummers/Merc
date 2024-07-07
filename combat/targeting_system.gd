@@ -14,7 +14,7 @@ class_name TargetingSystem
 
         target = value
         if target:
-            target.hull.hull_destroyed.connect(_on_target_destroyed)
+            target.tree_exiting.connect(_on_target_exiting_tree)
             target.targeted_by.push_back(self)
         
         self.target_changed.emit(self)
@@ -47,9 +47,9 @@ func _notification(what: int) -> void:
             if is_instance_valid(self.target):
                 self._remove_from_target()
 
-func _on_target_destroyed(_hull: Hull) -> void:
+func _on_target_exiting_tree() -> void:
     self.target = null
 
 func _remove_from_target() -> void:
     self.target.targeted_by.erase(self)
-    self.target.hull.hull_destroyed.disconnect(_on_target_destroyed)
+    self.target.tree_exiting.disconnect(_on_target_exiting_tree)
