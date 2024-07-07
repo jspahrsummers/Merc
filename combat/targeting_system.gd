@@ -31,6 +31,9 @@ signal target_changed(targeting_system: TargetingSystem)
 func get_available_targets() -> Array[CombatObject]:
     var combat_objects: Array[CombatObject] = []
     for node in get_tree().get_nodes_in_group("combat_objects"):
+        if node.is_queued_for_deletion():
+            continue
+
         var obj := node as CombatObject
         if obj.is_visible_in_tree():
             combat_objects.push_back(obj)
