@@ -108,6 +108,14 @@ shield_mesh_instance = NodePath("ShieldEffect")
 hull = SubResource("Resource_t05wf")
 destruction = ExtResource("5_bgpiu")
 
+[node name="Left" parent="CombatObject/TargetOverlay" index="0"]
+transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, -2.31114, 2.08165e-12, 0.0420778)
+pixel_size = 0.015
+
+[node name="Right" parent="CombatObject/TargetOverlay" index="1"]
+transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, 2.311, 2.08165e-12, 0.042)
+pixel_size = 0.015
+
 [node name="ShieldEffect" parent="CombatObject" index="2" instance=ExtResource("3_inpky")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.115494)
 mesh = SubResource("SphereMesh_cm3ef")
@@ -147,3 +155,5 @@ power_generator = SubResource("Resource_ku887")
 script = ExtResource("5_s17ip")
 battery = SubResource("Resource_lo26u")
 shield = SubResource("Resource_ln8ln")
+
+[editable path="CombatObject/TargetOverlay"]

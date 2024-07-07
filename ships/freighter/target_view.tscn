@@ -20,4 +20,4 @@ surface_material_override/8 = ExtResource("3_ai6kg")
 surface_material_override/9 = ExtResource("3_ai6kg")
 
 [node name="Camera3D" parent="." index="2"]
-transform = Transform3D(0.707107, 0.5, -0.5, 2.4663e-16, 0.707107, 0.707107, 0.707107, -0.5, 0.5, -4, 4, 4)
+transform = Transform3D(0.707107, 0.5, -0.5, 2.4663e-16, 0.707107, 0.707107, 0.707107, -0.5, 0.5, -3.38045, 4, 4.61955)
