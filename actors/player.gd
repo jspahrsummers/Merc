@@ -113,18 +113,12 @@ func _unhandled_input(event: InputEvent) -> void:
     if event.is_action_pressed("cycle_target"):
         self.ship.targeting_system.target = _next_target()
         self.get_viewport().set_input_as_handled()
-    
-    if UserPreferences.control_scheme == UserPreferences.ControlScheme.RELATIVE:
-        if event.is_action_pressed("thrust"):
-            self.ship.rigid_body_thruster.throttle = 1.0
-        elif event.is_action_released("thrust"):
-            self.ship.rigid_body_thruster.throttle = 0.0
 
-    if event.is_action_pressed("fire"):
+    if event.is_action_pressed("fire", true):
         for weapon_mount in self.ship.weapon_mounts:
             weapon_mount.fire()
 
-    if event.is_action_pressed("jump"):
+    if event.is_action_pressed("jump", true):
         self._jump_to_hyperspace()
 
 func _jump_to_hyperspace() -> void:
@@ -147,6 +141,11 @@ func _physics_process(_delta: float) -> void:
 
     match UserPreferences.control_scheme:
         UserPreferences.ControlScheme.RELATIVE:
+            if Input.is_action_pressed("thrust"):
+                self.ship.rigid_body_thruster.throttle = 1.0
+            else:
+                self.ship.rigid_body_thruster.throttle = 0.0
+
             if Input.is_action_pressed("turn_backwards"):
                 self.ship.rigid_body_direction.direction = -self.ship.linear_velocity.normalized()
                 return
