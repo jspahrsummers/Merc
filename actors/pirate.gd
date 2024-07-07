@@ -44,6 +44,8 @@ var _direction_tolerance_rad: float
 var _patrol_target := Vector3.ZERO
 
 func _ready() -> void:
+    self._ship.radar_object.iff = RadarObject.IFF.HOSTILE
+
     self._direction_tolerance_rad = deg_to_rad(self.direction_tolerance_deg)
     self._select_new_patrol_target()
 

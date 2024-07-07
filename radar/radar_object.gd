@@ -56,3 +56,11 @@ func _update_iff() -> void:
             self.iff_sprite.texture = self.texture_friendly
         IFF.HOSTILE:
             self.iff_sprite.texture = self.texture_hostile
+
+func _on_targeted_by_changed(combat_object: CombatObject) -> void:
+    for targeting_system in combat_object.targeted_by:
+        if targeting_system.is_player:
+            self.targeted = true
+            return
+    
+    self.targeted = false

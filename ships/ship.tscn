@@ -37,3 +37,7 @@ script = ExtResource("5_66pr6")
 script = ExtResource("6_4hum8")
 
 [node name="RadarObject" parent="." instance=ExtResource("8_lf0ki")]
+iff = null
+targeted = null
+
+[connection signal="targeted_by_changed" from="CombatObject" to="RadarObject" method="_on_targeted_by_changed"]

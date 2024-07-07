@@ -22,6 +22,9 @@ class_name TargetingSystem
 ## The [CombatObject] containing this [TargetingSystem].
 @onready var combat_object := get_parent() as CombatObject
 
+## Whether this is a player's [TargetingSystem]. Used to render UI differently accordingly.
+var is_player: bool = false
+
 ## Fires when the [member target] changes.
 signal target_changed(targeting_system: TargetingSystem)
 
