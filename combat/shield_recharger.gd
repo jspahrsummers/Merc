@@ -1,4 +1,4 @@
-extends Node
+extends Node3D
 class_name ShieldRecharger
 
 ## Automatically charges a [Shield] from a [Battery] over time.

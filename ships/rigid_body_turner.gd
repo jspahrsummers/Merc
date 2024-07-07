@@ -1,4 +1,4 @@
-extends Node
+extends Node3D
 class_name RigidBodyTurner
 
 ## Attaches to a [RigidBody3D] to implement turning on demand.

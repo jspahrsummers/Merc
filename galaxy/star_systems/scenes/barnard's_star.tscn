@@ -3,9 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://stars/star.tscn" id="1_dt7yu"]
 [ext_resource type="Texture2D" uid="uid://bsgwmdcreel60" path="res://stars/sprites/star_red02.png" id="2_xr5lq"]
 [ext_resource type="Script" path="res://combat/shield.gd" id="4_avs2c"]
-[ext_resource type="Script" path="res://actors/pirate.gd" id="4_cyjdf"]
 [ext_resource type="Script" path="res://combat/hull.gd" id="5_4e6ev"]
 [ext_resource type="Script" path="res://power/battery.gd" id="6_s58bt"]
+[ext_resource type="PackedScene" uid="uid://c5l6qgyy2mumc" path="res://actors/pirate.tscn" id="7_20prt"]
 [ext_resource type="PackedScene" uid="uid://cdvbol3xj7jr5" path="res://ships/frigate03/frigate03.tscn" id="7_lnhbv"]
 
 [sub_resource type="Resource" id="Resource_33hy8"]
@@ -65,8 +65,7 @@ shield = SubResource("Resource_33hy8")
 [node name="Blaster" parent="Frigate" index="8"]
 battery = SubResource("Resource_62daw")
 
-[node name="Pirate" type="Node" parent="Frigate"]
-script = ExtResource("4_cyjdf")
+[node name="Pirate" parent="Frigate" instance=ExtResource("7_20prt")]
 
 [editable path="Star"]
 [editable path="Frigate"]

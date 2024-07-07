@@ -1,4 +1,4 @@
-extends Node
+extends Node3D
 class_name TargetingSystem
 
 ## Attaches to a [CombatObject] to implement target lock from that object to other [CombatObject]s.

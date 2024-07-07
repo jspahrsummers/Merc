@@ -110,7 +110,7 @@ current = true
 near = 1.0
 far = 20.0
 
-[node name="HyperspaceController" type="Node" parent="."]
+[node name="HyperspaceController" type="Node3D" parent="."]
 script = ExtResource("2_5gj7y")
 galaxy = ExtResource("3_j76v0")
 current_system = ExtResource("6_es1br")
@@ -155,7 +155,7 @@ stream = ExtResource("5_jhe1g")
 volume_db = 2.0
 mix_target = 1
 
-[node name="Player" type="Node" parent="." node_paths=PackedStringArray("hyperspace_controller", "ship")]
+[node name="Player" type="Node3D" parent="." node_paths=PackedStringArray("hyperspace_controller", "ship")]
 script = ExtResource("7_6citj")
 hyperspace_controller = NodePath("../HyperspaceController")
 ship = NodePath("Corvette")

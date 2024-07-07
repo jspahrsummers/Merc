@@ -7,13 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://b6ry6dyft8wrh" path="res://radar/images/hostile_vessel.png" id="5_73qg7"]
 [ext_resource type="Texture2D" uid="uid://ds3ts566ftpw" path="res://radar/images/selector.png" id="6_c63wx"]
 
-[node name="RadarObject" type="Node" node_paths=PackedStringArray("iff_sprite", "targeted_sprite")]
+[node name="RadarObject" type="Node3D" node_paths=PackedStringArray("iff_sprite", "targeted_sprite")]
 script = ExtResource("1_io8dg")
-iff_sprite = NodePath("IFFSprite")
 texture_self = ExtResource("2_wdmmt")
 texture_neutral = ExtResource("3_jwj8n")
 texture_friendly = ExtResource("4_mvbae")
 texture_hostile = ExtResource("5_73qg7")
+iff_sprite = NodePath("IFFSprite")
 targeted_sprite = NodePath("TargetedSprite")
 
 [node name="IFFSprite" type="Sprite3D" parent="."]
