@@ -15,7 +15,7 @@ class_name TargetingSystem
         target = value
         if target:
             target.tree_exiting.connect(_on_target_exiting_tree)
-            target.targeted_by.push_back(self)
+            target.add_targeted_by(self)
         
         self.target_changed.emit(self)
 
@@ -40,16 +40,13 @@ func get_available_targets() -> Array[CombatObject]:
     
     return combat_objects
 
-func _notification(what: int) -> void:
-    match what:
-        # When freed, make sure to remove self from the targeted_by list, in case the target object will be sticking around.
-        NOTIFICATION_PREDELETE:
-            if is_instance_valid(self.target):
-                self._remove_from_target()
+func _exit_tree() -> void:
+    # Remove targeting when the TargetingSystem exits the scene tree.
+    self.target = null
 
 func _on_target_exiting_tree() -> void:
     self.target = null
 
 func _remove_from_target() -> void:
-    self.target.targeted_by.erase(self)
+    self.target.remove_targeted_by(self)
     self.target.tree_exiting.disconnect(_on_target_exiting_tree)

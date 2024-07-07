@@ -34,19 +34,13 @@ class_name CombatObject
 ## The root must be a [Node3D].
 @export var destruction: PackedScene
 
-## [TargetingSystem]s that are currently targeting this object.
-@export var targeted_by: Array[TargetingSystem] = []:
-    set(value):
-        if value == targeted_by:
-            return
-
-        targeted_by = value.duplicate()
-        self.targeted_by_changed.emit(self)
-
-## Fires when the [member targeted_by] property changes.
+## Fires when this object is targeted, or stops being targeted, by a new [TargetingSystem].
+##
+## See [method get_targeted_by]
 signal targeted_by_changed(combat_object: CombatObject)
 
 var _shield_tween: Tween
+var _targeted_by: Array[TargetingSystem] = []
 
 func _ready() -> void:
     if self.destruction:
@@ -54,6 +48,29 @@ func _ready() -> void:
     
     if self.shield_mesh_instance:
         self.shield_mesh_instance.transparency = 1.0
+
+## Returns the list of [TargetingSystem]s targeting this object.
+func get_targeted_by() -> Array[TargetingSystem]:
+    return self._targeted_by.duplicate()
+
+## Adds to the list of [TArgetingSystem]s targeting this object.
+##
+## This [b]must not[/b] be called twice for the same targeting system, without an intervening removal.
+func add_targeted_by(targeting_system: TargetingSystem) -> void:
+    assert(self._targeted_by.find(targeting_system) == - 1, "Duplicate add_targeted_by with the same targeting system")
+    self._targeted_by.push_back(targeting_system)
+    self.targeted_by_changed.emit(self)
+
+## Removes from the list of [TArgetingSystem]s targeting this object.
+##
+## This [b]must[/b] only be called after a matching [method add_targeted_by] call.
+func remove_targeted_by(targeting_system: TargetingSystem) -> void:
+    # Targets are more likely to change at the end of the list, so search in reverse
+    var index := self._targeted_by.rfind(targeting_system)
+    assert(index != - 1, "remove_targeted_by called with a targeting system that is not targeting this object")
+
+    self._targeted_by.remove_at(index)
+    self.targeted_by_changed.emit(self)
 
 ## Damages this object, potentially destroying it.
 func damage(dmg: Damage) -> void:

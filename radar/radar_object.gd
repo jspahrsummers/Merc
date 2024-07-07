@@ -2,6 +2,8 @@ extends Node3D
 class_name RadarObject
 
 ## An object to be rendered on the player's radar.
+##
+## Requires [signal CombatObject.targeted_by_changed] to be connected to this object.
 
 ## Declares a radar object's intentions toward the player. 
 enum IFF {
@@ -58,7 +60,7 @@ func _update_iff() -> void:
             self.iff_sprite.texture = self.texture_hostile
 
 func _on_targeted_by_changed(combat_object: CombatObject) -> void:
-    for targeting_system in combat_object.targeted_by:
+    for targeting_system in combat_object.get_targeted_by():
         if targeting_system.is_player:
             self.targeted = true
             return
