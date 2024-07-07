@@ -71,6 +71,15 @@ func damage(dmg: Damage) -> void:
     if apply_hull_dmg_pct > 0.0:
         self.hull.integrity -= dmg.hull_damage * apply_hull_dmg_pct
 
+## Checks whether [param node] contains a [CombatObject], and damages it if so.
+static func damage_combat_object_inside(node: Node, dmg: Damage) -> bool:
+    var combat_object := node.get_node_or_null(^"CombatObject") as CombatObject
+    if not combat_object:
+        return false
+    
+    combat_object.damage(dmg)
+    return true
+
 func _on_hull_destroyed(destroyed_hull: Hull) -> void:
     assert(destroyed_hull == self.hull)
 
