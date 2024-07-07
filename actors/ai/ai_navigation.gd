@@ -58,6 +58,8 @@ func _physics_process(_delta: float) -> void:
         return
 
     match self._state:
+        State.IDLE:
+            self._idle()
         State.ROTATING_TO_ACCELERATE:
             self._rotate_to_accelerate()
         State.ACCELERATING_TOWARD_DESTINATION:
@@ -66,6 +68,10 @@ func _physics_process(_delta: float) -> void:
             self._rotate_to_decelerate()
         State.DECELERATING_TO_STOP:
             self._decelerate_to_stop()
+
+func _idle() -> void:
+    self.rigid_body_direction.direction = Vector3.ZERO
+    self.rigid_body_thruster.throttle = 0.0
 
 func _rotate_to_accelerate() -> void:
     self._target_direction = (self.destination - self._rigid_body.global_position).normalized()
@@ -110,6 +116,8 @@ func _decelerate_to_stop() -> void:
     if distance_to_destination <= self.arrival_distance_tolerance and self._rigid_body.linear_velocity.length() <= self.stopping_velocity_tolerance:
         self.navigating = false
         self.rigid_body_thruster.throttle = 0.0
+
+        print("Destination reached")
         self.destination_reached.emit(self)
 
 func _pointing_in_direction(direction: Vector3) -> bool:
