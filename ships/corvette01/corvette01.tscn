@@ -1,8 +1,9 @@
-[gd_scene load_steps=24 format=3 uid="uid://dsuln1s4j366a"]
+[gd_scene load_steps=25 format=3 uid="uid://dsuln1s4j366a"]
 
 [ext_resource type="PackedScene" uid="uid://c0eitctnmmfyq" path="res://ships/ship.tscn" id="1_cmgif"]
 [ext_resource type="ArrayMesh" uid="uid://40a23nnu1j37" path="res://ships/corvette01/corvette01_mesh.tres" id="1_yacfo"]
 [ext_resource type="PackedScene" uid="uid://cdyo800b83x5i" path="res://fx/explosions/explosion002.tscn" id="2_xcc1t"]
+[ext_resource type="PackedScene" uid="uid://c4l7cg26n051d" path="res://ships/corvette01/target_view.tscn" id="3_v410k"]
 [ext_resource type="Script" path="res://combat/shield.gd" id="4_v1dlu"]
 [ext_resource type="AudioStream" uid="uid://5iqc5o8p02l5" path="res://ships/audio/THRUSTER LOW.wav" id="4_xrdjv"]
 [ext_resource type="Script" path="res://combat/hull.gd" id="5_uewxf"]
@@ -77,7 +78,7 @@ shape = SubResource("BoxShape3D_28kwx")
 
 [node name="CombatObject" parent="." index="3" node_paths=PackedStringArray("shield_mesh_instance")]
 combat_name = "Corvette"
-mesh = ExtResource("1_yacfo")
+target_view = ExtResource("3_v410k")
 shield = SubResource("Resource_alskh")
 shield_mesh_instance = NodePath("ShieldEffect")
 hull = SubResource("Resource_5twpq")

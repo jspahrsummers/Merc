@@ -1,8 +1,9 @@
-[gd_scene load_steps=31 format=3 uid="uid://cdvbol3xj7jr5"]
+[gd_scene load_steps=32 format=3 uid="uid://cdvbol3xj7jr5"]
 
 [ext_resource type="PackedScene" uid="uid://c0eitctnmmfyq" path="res://ships/ship.tscn" id="1_w0piq"]
 [ext_resource type="PackedScene" uid="uid://cdyo800b83x5i" path="res://fx/explosions/explosion002.tscn" id="2_xcc1t"]
 [ext_resource type="Script" path="res://combat/shield.gd" id="3_61ijs"]
+[ext_resource type="PackedScene" uid="uid://gcf8fo4e36c4" path="res://ships/frigate03/target_view.tscn" id="3_bcien"]
 [ext_resource type="Script" path="res://combat/hull.gd" id="4_6j23n"]
 [ext_resource type="AudioStream" uid="uid://5iqc5o8p02l5" path="res://ships/audio/THRUSTER LOW.wav" id="4_xrdjv"]
 [ext_resource type="ArrayMesh" uid="uid://c2y60nf8m25ka" path="res://ships/frigate03/frigate03_mesh.tres" id="6_g7bx0"]
@@ -105,7 +106,7 @@ shape = SubResource("BoxShape3D_ou7uu")
 
 [node name="CombatObject" parent="." index="2" node_paths=PackedStringArray("shield_mesh_instance")]
 combat_name = "Frigate"
-mesh = ExtResource("6_g7bx0")
+target_view = ExtResource("3_bcien")
 shield = SubResource("Resource_rw3nb")
 shield_mesh_instance = NodePath("ShieldEffect")
 hull = SubResource("Resource_am8dk")
