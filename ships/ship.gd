@@ -1,24 +1,31 @@
 extends RigidBody3D
 class_name Ship
 
-@onready var combat_object: CombatObject = $CombatObject
-@onready var targeting_system: TargetingSystem = $CombatObject/TargetingSystem
-@onready var rigid_body_thruster: RigidBodyThruster = $RigidBodyThruster
-@onready var rigid_body_direction: RigidBodyDirection = $RigidBodyDirection
-@onready var rigid_body_turner: RigidBodyTurner = self.get_node_or_null("RigidBodyTurner")
-@onready var power_management_unit: PowerManagementUnit = $PowerManagementUnit
-@onready var radar_object: RadarObject = $RadarObject
-@onready var shield_recharger: ShieldRecharger = self.get_node_or_null("ShieldRecharger")
+## The [CombatObject] representing this ship.
+@export var combat_object: CombatObject
 
-var weapon_mounts: Array[WeaponMount] = []
+## The ship's targeting system.
+@export var targeting_system: TargetingSystem
 
-func _ready() -> void:
-    for child_index in self.get_child_count():
-        var weapon_mount := self.get_child(child_index) as WeaponMount
-        if not weapon_mount:
-            continue
-        
-        self.weapon_mounts.push_back(weapon_mount)
+## A [RigidBodyThruster] for moving this ship.
+@export var rigid_body_thruster: RigidBodyThruster
+
+## A [RigidBodyDirection] for pointing this ship.
+@export var rigid_body_direction: RigidBodyDirection
+
+## An optional [RigidBody] turner to turn this ship.
+@export var rigid_body_turner: RigidBodyTurner
+
+## This ship's power management unit.
+@export var power_management_unit: PowerManagementUnit
+
+## An object for representing this ship on radar.
+@export var radar_object: RadarObject
+
+## An optional shield recharger for this ship.
+@export var shield_recharger: ShieldRecharger
+
+@export var weapon_mounts: Array[WeaponMount]
 
 func _to_string() -> String:
     return "Ship:%s (%s)" % [self.name, self.combat_object]

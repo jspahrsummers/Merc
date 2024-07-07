@@ -8,12 +8,18 @@
 [ext_resource type="Script" path="res://power/power_management_unit.gd" id="6_4hum8"]
 [ext_resource type="PackedScene" uid="uid://dmneg7pw872n2" path="res://radar/radar_object.tscn" id="8_lf0ki"]
 
-[node name="Ship" type="RigidBody3D" groups=["ships"]]
+[node name="Ship" type="RigidBody3D" node_paths=PackedStringArray("combat_object", "targeting_system", "rigid_body_thruster", "rigid_body_direction", "power_management_unit", "radar_object") groups=["ships"]]
 collision_mask = 2
 axis_lock_linear_y = true
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 script = ExtResource("1_ge1ie")
+combat_object = NodePath("CombatObject")
+targeting_system = NodePath("CombatObject/TargetingSystem")
+rigid_body_thruster = NodePath("RigidBodyThruster")
+rigid_body_direction = NodePath("RigidBodyDirection")
+power_management_unit = NodePath("PowerManagementUnit")
+radar_object = NodePath("RadarObject")
 
 [node name="CombatObject" type="Node3D" parent="." groups=["combat_objects"]]
 script = ExtResource("1_71hcp")
