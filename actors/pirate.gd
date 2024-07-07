@@ -50,7 +50,7 @@ func _ready() -> void:
     self._select_new_patrol_target()
 
     # Have to wait for the ship to be ready before we can start listening for damage events.
-    self.call_deferred("_connect_notifications")
+    self._connect_notifications.call_deferred()
 
 func _connect_notifications() -> void:
     self._ship.combat_object.hull.changed.connect(_on_damage_received)

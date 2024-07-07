@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxlg0yj8cjbrf"]
+
+[ext_resource type="Script" path="res://actors/player.gd" id="1_qxs3b"]
+
+[node name="Player" type="Node3D"]
+script = ExtResource("1_qxs3b")
+
+[node name="MinimapCameraRemoteTransform" type="RemoteTransform3D" parent="."]
+update_rotation = false
+update_scale = false
+
+[node name="MainCameraRemoteTransform" type="RemoteTransform3D" parent="."]
+update_rotation = false
+update_scale = false
+
+[node name="StarfieldRemoteTransform" type="RemoteTransform3D" parent="."]
+update_rotation = false
+update_scale = false
