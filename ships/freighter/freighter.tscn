@@ -1,8 +1,9 @@
-[gd_scene load_steps=29 format=3 uid="uid://dqrul5pyjbxjc"]
+[gd_scene load_steps=30 format=3 uid="uid://dqrul5pyjbxjc"]
 
 [ext_resource type="PackedScene" uid="uid://c0eitctnmmfyq" path="res://ships/ship.tscn" id="1_r6j4w"]
 [ext_resource type="PackedScene" uid="uid://co3rcmgurh2gb" path="res://ships/freighter/freighter.glb" id="2_qliud"]
 [ext_resource type="PackedScene" uid="uid://bwna41dl1fs1b" path="res://fx/shield/shield_effect.tscn" id="3_inpky"]
+[ext_resource type="ArrayMesh" uid="uid://cxa8dtoudx38a" path="res://ships/freighter/freighter_mesh.res" id="3_tacli"]
 [ext_resource type="Script" path="res://combat/shield.gd" id="3_ti3ck"]
 [ext_resource type="Script" path="res://combat/hull.gd" id="4_n1hc8"]
 [ext_resource type="Shader" path="res://fx/shield/shield.gdshader" id="4_unqrx"]
@@ -101,6 +102,7 @@ shape = SubResource("CylinderShape3D_23xxj")
 
 [node name="CombatObject" parent="." index="2" node_paths=PackedStringArray("shield_mesh_instance")]
 combat_name = "Freighter"
+mesh = ExtResource("3_tacli")
 shield = SubResource("Resource_ln8ln")
 shield_mesh_instance = NodePath("ShieldEffect")
 hull = SubResource("Resource_t05wf")
