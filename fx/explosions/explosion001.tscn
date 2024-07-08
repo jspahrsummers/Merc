@@ -468,6 +468,7 @@ pixel_size = 0.02
 axis = 1
 double_sided = false
 sprite_frames = SubResource("SpriteFrames_j0j6r")
+autoplay = "default"
 script = ExtResource("2_nmnfi")
 audio = NodePath("AudioStreamPlayer3D")
 
