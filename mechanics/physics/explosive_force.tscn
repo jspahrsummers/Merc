@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bh57cxqvqr20w"]
+
+[ext_resource type="Script" path="res://mechanics/physics/explosive_force.gd" id="1_gv5w2"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bn7a2"]
+radius = 3.0
+
+[node name="ExplosiveForce" type="Area3D"]
+collision_layer = 0
+collision_mask = 3
+input_ray_pickable = false
+monitorable = false
+script = ExtResource("1_gv5w2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_bn7a2")

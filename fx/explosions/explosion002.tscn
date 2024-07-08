@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://0aaekoo13gdw" path="res://fx/explosions/textures/explosion002_fullsize.png" id="1_lbape"]
 [ext_resource type="Script" path="res://fx/explosions/explosion.gd" id="2_746tl"]
 [ext_resource type="AudioStream" uid="uid://b8tpfftx3si3h" path="res://fx/explosions/audio/chunky_explosion.mp3" id="3_ll7lb"]
+[ext_resource type="PackedScene" uid="uid://bh57cxqvqr20w" path="res://mechanics/physics/explosive_force.tscn" id="4_fe5b5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b2xa6"]
 atlas = ExtResource("1_lbape")
@@ -460,9 +461,6 @@ animations = [{
 "speed": 30.0
 }]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_bn7a2"]
-radius = 2.447
-
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" node_paths=PackedStringArray("audio")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 cast_shadow = 0
@@ -478,11 +476,4 @@ audio = NodePath("AudioStreamPlayer3D")
 stream = ExtResource("3_ll7lb")
 autoplay = true
 
-[node name="Area3D" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 3
-input_ray_pickable = false
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-shape = SubResource("SphereShape3D_bn7a2")
+[node name="ExplosiveForce" parent="." instance=ExtResource("4_fe5b5")]
