@@ -17,7 +17,7 @@ config/use_custom_user_dir=true
 config/features=PackedStringArray("4.2", "GL Compatibility")
 boot_splash/bg_color=Color(0.0509804, 0.0666667, 0.101961, 1)
 boot_splash/image="res://screens/shared_ui/images/splash_screen.png"
-config/icon="res://screens/shared_ui/images/icon.svg"
+config/icon="res://screens/shared_ui/images/icon.png"
 
 [autoload]
 
