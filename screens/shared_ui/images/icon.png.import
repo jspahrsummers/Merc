@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://dums71vwd5gur"
+path="res://.godot/imported/icon.png-5b91fd4ac747b95d31faf0d5c3b7aacb.image"
+
+[deps]
+
+source_file="res://screens/shared_ui/images/icon.png"
+dest_files=["res://.godot/imported/icon.png-5b91fd4ac747b95d31faf0d5c3b7aacb.image"]
+
+[params]
+
