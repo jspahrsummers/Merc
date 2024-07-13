@@ -94,35 +94,18 @@ func _on_jump_destination_loaded(_system: StarSystem) -> void:
     self.ship.position = MathUtils.random_unit_vector() * HYPERSPACE_ARRIVAL_RADIUS
     self.ship.targeting_system.target = null
 
-## Cycles through systems connected to this one, for picking a hyperspace jump destination.
 func _next_system_connection() -> StarSystem:
-    var connections := self.hyperspace_controller.current_system.connections
-    if connections.size() == 0:
-        return null
+    var current_destination_name: Variant = null
+    if self.hyperspace_controller.jump_destination:
+        current_destination_name = self.hyperspace_controller.jump_destination.name
 
-    if self.hyperspace_controller.jump_destination == null:
-        return self.hyperspace_controller.galaxy.get_system(connections[0])
+    var next_destination_name: Variant = ArrayUtils.cycle_through(self.hyperspace_controller.current_system.connections, current_destination_name)
+    return self.hyperspace_controller.galaxy.get_system(next_destination_name as StringName) if next_destination_name else null
 
-    var index := connections.find(self.hyperspace_controller.jump_destination.name)
-    assert(index >= 0, "Cannot find jump destination in system connections")
-
-    return self.hyperspace_controller.galaxy.get_system(connections[index + 1]) if index + 1 < connections.size() else null
-
-## Cycles through targets in the current system.
 func _next_target() -> CombatObject:
     var available_targets := self.ship.targeting_system.get_available_targets()
     available_targets.erase(self.ship.combat_object)
-    if available_targets.size() == 0:
-        return null
-    
-    var target := self.ship.targeting_system.target
-    if target == null:
-        return available_targets[0]
-    
-    var index := available_targets.find(target)
-    assert(index >= 0, "Cannot find currently targeted object")
-
-    return available_targets[index + 1] if index + 1 < available_targets.size() else null
+    return ArrayUtils.cycle_through(available_targets, self.ship.targeting_system.target)
 
 func _available_landing_targets() -> Array[PlanetInstance]:
     var targets: Array[PlanetInstance] = []
@@ -144,20 +127,6 @@ func _closest_landing_target() -> PlanetInstance:
     
     return nearest_planet_instance
 
-func _next_landing_target() -> PlanetInstance:
-    var available_targets := self._available_landing_targets()
-    if available_targets.size() == 0:
-        return null
-
-    var target := self.landing_target
-    if target == null:
-        return available_targets[0]
-    
-    var index := available_targets.find(target)
-    assert(index >= 0, "Cannot find currently targeted object")
-
-    return available_targets[index + 1] if index + 1 < available_targets.size() else null
-
 func _unhandled_key_input(event: InputEvent) -> void:
     if self.hyperspace_controller.jumping:
         return
@@ -177,7 +146,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
         self._land()
 
     if event.is_action_pressed("cycle_landing_target", true):
-        self.landing_target = self._next_landing_target()
+        var next_target: PlanetInstance = ArrayUtils.cycle_through(self._available_landing_targets(), self.landing_target)
+        self.landing_target = next_target
         self.get_viewport().set_input_as_handled()
 
 func _jump_to_hyperspace() -> void:
