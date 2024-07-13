@@ -68,8 +68,7 @@ func _on_target_changed(targeting_system: TargetingSystem) -> void:
     self.target_changed.emit(self, targeting_system.target)
 
 func _on_jump_destination_loaded(_system: StarSystem) -> void:
-    self.ship.linear_velocity = Vector3.ZERO
-    self.ship.angular_velocity = Vector3.ZERO
+    self._reset_velocity()
     self.ship.position = MathUtils.random_unit_vector() * HYPERSPACE_ARRIVAL_RADIUS
     self.ship.targeting_system.target = null
 
@@ -126,9 +125,7 @@ func _jump_to_hyperspace() -> void:
         return
 
     # Lock controls
-    self.ship.rigid_body_thruster.throttle = 0.0
-    self.ship.rigid_body_direction.direction = Vector3.ZERO
-    self.ship.rigid_body_turner.turning = 0.0
+    self._reset_controls()
     self.hyperspace_controller.start_jump()
 
 func _land() -> void:
@@ -143,9 +140,15 @@ func _land() -> void:
         self._depart_from_planet())
 
 func _depart_from_planet() -> void:
+    self._reset_controls()
+    self._reset_velocity()
+
+func _reset_controls() -> void:
     self.ship.rigid_body_thruster.throttle = 0.0
     self.ship.rigid_body_direction.direction = Vector3.ZERO
     self.ship.rigid_body_turner.turning = 0.0
+
+func _reset_velocity() -> void:
     self.ship.linear_velocity = Vector3.ZERO
     self.ship.angular_velocity = Vector3.ZERO
 
