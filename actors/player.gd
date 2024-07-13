@@ -149,13 +149,11 @@ func _land() -> void:
 
     # Check this only after looking for a planet, to avoid spamming the message log.
     if self.ship.linear_velocity.length() > MAX_LANDING_VELOCITY:
-        # TODO: Play an error sound.
         self.message_log.add_message("Moving too fast to land.")
         return
 
     var planet := nearest_planet_instance.planet
     if not planet:
-        # TODO: Play an error sound.
         self.message_log.add_message("Cannot land on this planet.")
         return
 

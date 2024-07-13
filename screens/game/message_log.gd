@@ -1,7 +1,11 @@
 extends Label
 class_name MessageLog
 
+## How long each message should be displayed, before it disappears.
 @export_range(1.0, 10.0, 0.5, "suffix:s") var message_lifetime: float = 5.0
+
+## Audio to play when a new message is added.
+@export var new_message_audio: AudioStreamPlayer
 
 ## Messages currently being displayed in the log.
 ##
@@ -17,6 +21,7 @@ func add_message(message_text: String) -> void:
         "created_at": Time.get_ticks_msec()
     })
     self._update_text()
+    self.new_message_audio.play()
 
 func _update_text() -> void:
     var new_text := ""

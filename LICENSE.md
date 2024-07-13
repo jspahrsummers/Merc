@@ -41,9 +41,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [Chunky Explosion](https://opengameart.org/content/chunky-explosion) sound effect created by [Joth](https://opengameart.org/users/joth), licensed under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/):
 - chunky_explosion
 
-[Digital sound effects](https://opengameart.org/content/50-cc0-sci-fi-sfx) created by [rubberduck](https://opengameart.org/users/rubberduck), licensed under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/):
+[50 CC0 Sci-Fi SFX](https://opengameart.org/content/50-cc0-sci-fi-sfx) created by [rubberduck](https://opengameart.org/users/rubberduck), licensed under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/):
 - explosion_01
 - teleport_02
+- beep_03
 
 [Space panorama galaxy](https://pixabay.com/photos/space-panorama-galaxy-cosmos-2638158/) created by [Alex Myers](https://pixabay.com/users/myersalex216-4979749/), licensed under the [Pixabay Content License](https://pixabay.com/service/license-summary/):
 - galaxy-panorama
