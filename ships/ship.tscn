@@ -33,6 +33,12 @@ script = ExtResource("2_a7xhq")
 
 [node name="TargetOverlay" parent="CombatObject" instance=ExtResource("4_o8dwl")]
 
+[node name="Left" parent="CombatObject/TargetOverlay" index="0"]
+modulate = Color(0.258824, 0.811765, 1, 1)
+
+[node name="Right" parent="CombatObject/TargetOverlay" index="1"]
+modulate = Color(0.258824, 0.811765, 1, 1)
+
 [node name="RigidBodyDirection" type="Node3D" parent="."]
 script = ExtResource("3_5a5el")
 
@@ -46,3 +52,5 @@ script = ExtResource("6_4hum8")
 
 [connection signal="targeted_by_changed" from="CombatObject" to="CombatObject/TargetOverlay" method="_on_targeted_by_changed"]
 [connection signal="targeted_by_changed" from="CombatObject" to="RadarObject" method="_on_targeted_by_changed"]
+
+[editable path="CombatObject/TargetOverlay"]
