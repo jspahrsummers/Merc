@@ -177,6 +177,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 text = "Depart"
 
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/BarButton" to="." method="_on_bar_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/TradingButton" to="." method="_on_trading_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/MissionsButton" to="." method="_on_missions_button_pressed"]
