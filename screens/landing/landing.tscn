@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://d1kbmfvjs6nrv"]
 
-[ext_resource type="Script" path="res://planet/landing/landing.gd" id="1_h6plc"]
-[ext_resource type="AudioStream" uid="uid://bbxl7rk2jq5qi" path="res://planet/landing/audio/HangarDoors.ogg" id="2_g2uae"]
+[ext_resource type="Script" path="res://screens/landing/landing.gd" id="1_h6plc"]
+[ext_resource type="AudioStream" uid="uid://bbxl7rk2jq5qi" path="res://screens/landing/audio/HangarDoors.ogg" id="2_g2uae"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3rern"]
 size = Vector2(1024, 1024)
