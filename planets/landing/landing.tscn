@@ -1,5 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://d1kbmfvjs6nrv"]
+[gd_scene load_steps=16 format=3 uid="uid://d1kbmfvjs6nrv"]
 
+[ext_resource type="Script" path="res://planets/landing/landing.gd" id="1_h6plc"]
 [ext_resource type="Texture2D" uid="uid://bj326fr2sh34k" path="res://planets/landing/images/e44babbc-77e8-45dc-912f-a73b967e9724.jpg" id="1_pqg2x"]
 [ext_resource type="Script" path="res://addons/markdownlabel/markdownlabel.gd" id="2_yg35i"]
 [ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h1_format.gd" id="3_qyo7t"]
@@ -74,6 +75,7 @@ title = "Mars"
 initial_position = 2
 size = Vector2i(900, 600)
 exclusive = true
+script = ExtResource("1_h6plc")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -174,3 +176,11 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Depart"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/BarButton" to="." method="_on_bar_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/TradingButton" to="." method="_on_trading_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/MissionsButton" to="." method="_on_missions_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/OutfitterButton" to="." method="_on_outfitter_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/ShipyardButton" to="." method="_on_shipyard_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/RefuelButton" to="." method="_on_refuel_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/DepartButton" to="." method="_on_depart_button_pressed"]
