@@ -36,8 +36,14 @@ var landing_target: PlanetInstance = null:
         if landing_target == value:
             return
         
+        if landing_target:
+            landing_target.targeted_by_player = false
+        
         landing_target = value
         self.landing_target_changed.emit(self, landing_target)
+
+        if landing_target:
+            landing_target.targeted_by_player = true
 
 ## When using the "absolute" control scheme, this is the tolerance (in radians) for being slightly off-rotated while enabling thrusters.
 const ABSOLUTE_DIRECTION_TOLERANCE_RAD = 0.1745
@@ -177,6 +183,8 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func _jump_to_hyperspace() -> void:
     if not self.hyperspace_controller.jump_destination:
         return
+    
+    self.landing_target = null
 
     # Lock controls
     self._reset_controls()

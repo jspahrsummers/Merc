@@ -16,8 +16,9 @@ bottom_radius = 1.0
 height = 0.001
 cap_bottom = false
 
-[node name="PlanetInstance" type="Node3D" groups=["planets"]]
+[node name="PlanetInstance" type="Node3D" node_paths=PackedStringArray("target_overlay") groups=["planets"]]
 script = ExtResource("1_f2834")
+target_overlay = NodePath("TargetOverlay")
 
 [node name="MinimapIcon" type="MeshInstance3D" parent="."]
 visible = false
