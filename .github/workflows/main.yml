@@ -112,6 +112,7 @@ jobs:
 
   post-on-discord:
     needs: [build-mac, build-windows]
+    if: ${{ !contains(github.event.head_commit.message, "@skip-notify") }}
     runs-on: ubuntu-latest
 
     steps:
