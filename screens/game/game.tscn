@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=55 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://utils/shader_precompiler.gd" id="2_if3rk"]
@@ -35,6 +35,7 @@
 [ext_resource type="PackedScene" uid="uid://bpav2va7o5qt4" path="res://screens/game/hud/target_fill_bar.tscn" id="32_pyrqo"]
 [ext_resource type="Texture2D" uid="uid://bsf3tqgocto7h" path="res://screens/game/hud/images/target_info/shields_fill.png" id="33_jftfh"]
 [ext_resource type="Script" path="res://screens/game/game_over.gd" id="34_ipa71"]
+[ext_resource type="Script" path="res://screens/game/message_log.gd" id="35_8pupt"]
 [ext_resource type="PackedScene" uid="uid://btc568gwt7fuc" path="res://screens/main_menu/main_menu.tscn" id="35_x8atu"]
 [ext_resource type="Script" path="res://screens/game/exit_dialog.gd" id="36_7hsbd"]
 [ext_resource type="Script" path="res://screens/shared_ui/fps_counter.gd" id="37_e11x7"]
@@ -269,34 +270,43 @@ script = ExtResource("18_y74ml")
 galaxy_map_window = NodePath("GalaxyMapWindow")
 exit_dialog = NodePath("ExitDialog")
 
-[node name="Sidebar" type="VBoxContainer" parent="InGameGUI"]
-anchors_preset = 9
+[node name="MarginContainer" type="MarginContainer" parent="InGameGUI"]
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = -10.0
+grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_right = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="InGameGUI/MarginContainer"]
+layout_mode = 2
+
+[node name="Sidebar" type="VBoxContainer" parent="InGameGUI/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
 mouse_filter = 2
 
-[node name="MinimapContainer" type="PanelContainer" parent="InGameGUI/Sidebar"]
+[node name="MinimapContainer" type="PanelContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_7gqif")
 
-[node name="Minimap" type="TextureRect" parent="InGameGUI/Sidebar/MinimapContainer"]
+[node name="Minimap" type="TextureRect" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/MinimapContainer"]
 material = SubResource("ShaderMaterial_7qkc6")
 layout_mode = 2
 mouse_filter = 2
 texture = SubResource("ViewportTexture_akdok")
 stretch_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="InGameGUI/Sidebar/MinimapContainer"]
+[node name="TextureRect" type="TextureRect" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/MinimapContainer"]
 layout_mode = 2
 texture = ExtResource("21_bomkk")
 
-[node name="SystemName" type="Label" parent="InGameGUI/Sidebar"]
+[node name="SystemName" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar"]
 layout_mode = 2
 tooltip_text = "Current system"
 mouse_filter = 1
@@ -307,7 +317,7 @@ text_overrun_behavior = 3
 uppercase = true
 script = ExtResource("22_xta3d")
 
-[node name="JumpDestinationName" type="Label" parent="InGameGUI/Sidebar" node_paths=PackedStringArray("pick_sound")]
+[node name="JumpDestinationName" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar" node_paths=PackedStringArray("pick_sound")]
 modulate = Color(1, 1, 1, 0.498039)
 layout_mode = 2
 tooltip_text = "Hyperspace jump destination"
@@ -319,23 +329,23 @@ uppercase = true
 script = ExtResource("23_1qfwo")
 pick_sound = NodePath("PickSound")
 
-[node name="PickSound" type="AudioStreamPlayer" parent="InGameGUI/Sidebar/JumpDestinationName"]
+[node name="PickSound" type="AudioStreamPlayer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/JumpDestinationName"]
 stream = ExtResource("24_oh7qv")
 volume_db = -10.0
 
-[node name="PlayerVitalsContainer" type="PanelContainer" parent="InGameGUI/Sidebar"]
+[node name="PlayerVitalsContainer" type="PanelContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_gooxh")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InGameGUI/Sidebar/PlayerVitalsContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("26_mxja1")
 expand_mode = 5
 
-[node name="Header" type="Label" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/TextureRect"]
+[node name="Header" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/TextureRect"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -348,7 +358,7 @@ theme_override_font_sizes/font_size = 10
 text = "Ship systems"
 uppercase = true
 
-[node name="PlayerVitals" type="GridContainer" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer" node_paths=PackedStringArray("hull_bar", "shield_bar", "power_bar")]
+[node name="PlayerVitals" type="GridContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer" node_paths=PackedStringArray("hull_bar", "shield_bar", "power_bar")]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/h_separation = 16
@@ -358,34 +368,34 @@ hull_bar = NodePath("HullBar")
 shield_bar = NodePath("ShieldBar")
 power_bar = NodePath("PowerBar")
 
-[node name="HullLabel" type="Label" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals"]
+[node name="HullLabel" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals"]
 layout_mode = 2
 theme_type_variation = &"HUDLabel"
 text = "HULL	"
 horizontal_alignment = 1
 
-[node name="ShieldLabel" type="Label" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals"]
+[node name="ShieldLabel" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals"]
 layout_mode = 2
 theme_type_variation = &"HUDLabel"
 text = "SHLD"
 horizontal_alignment = 1
 
-[node name="PowerLabel" type="Label" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals"]
+[node name="PowerLabel" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals"]
 layout_mode = 2
 theme_type_variation = &"HUDLabel"
 text = "PWR"
 horizontal_alignment = 1
 
-[node name="HullBar" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" instance=ExtResource("28_7l7fi")]
+[node name="HullBar" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" instance=ExtResource("28_7l7fi")]
 layout_mode = 2
 
-[node name="ShieldBar" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" instance=ExtResource("28_7l7fi")]
+[node name="ShieldBar" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" instance=ExtResource("28_7l7fi")]
 layout_mode = 2
 
-[node name="PowerBar" parent="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" instance=ExtResource("28_7l7fi")]
+[node name="PowerBar" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" instance=ExtResource("28_7l7fi")]
 layout_mode = 2
 
-[node name="TargetInfoContainer" type="PanelContainer" parent="InGameGUI/Sidebar" node_paths=PackedStringArray("target_label", "target_viewport", "hull_bar", "shield_bar", "pick_sound")]
+[node name="TargetInfoContainer" type="PanelContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar" node_paths=PackedStringArray("target_label", "target_viewport", "hull_bar", "shield_bar", "pick_sound")]
 custom_minimum_size = Vector2(200, 194)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_lc8il")
@@ -396,22 +406,22 @@ hull_bar = NodePath("VBoxContainer/HullBar")
 shield_bar = NodePath("VBoxContainer/ShieldBar")
 pick_sound = NodePath("PickSound")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="InGameGUI/Sidebar/TargetInfoContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TargetInfoContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TargetInfoContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="Label" type="Label" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TargetInfoContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"HUDLabel"
 theme_override_colors/font_color = Color(0.454902, 0.729412, 0.984314, 1)
 text = "Target:"
 uppercase = true
 
-[node name="TargetedShipLabel" type="Label" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer/HBoxContainer"]
+[node name="TargetedShipLabel" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TargetInfoContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"HUDLabel"
@@ -419,17 +429,17 @@ text = "none"
 text_overrun_behavior = 3
 uppercase = true
 
-[node name="TextureRect" type="TextureRect" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TargetInfoContainer/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("31_53obm")
 expand_mode = 5
 
-[node name="TargetViewportContainer" type="SubViewportContainer" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer"]
+[node name="TargetViewportContainer" type="SubViewportContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TargetInfoContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 stretch = true
 
-[node name="TargetViewport" type="SubViewport" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer/TargetViewportContainer"]
+[node name="TargetViewport" type="SubViewport" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TargetInfoContainer/VBoxContainer/TargetViewportContainer"]
 own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
@@ -438,22 +448,40 @@ gui_disable_input = true
 size = Vector2i(171, 140)
 render_target_update_mode = 4
 
-[node name="ShieldBar" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer" instance=ExtResource("32_pyrqo")]
+[node name="ShieldBar" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TargetInfoContainer/VBoxContainer" instance=ExtResource("32_pyrqo")]
 visible = false
 layout_mode = 2
 size_flags_vertical = 8
 
-[node name="NinePatchRect" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer/ShieldBar" index="1"]
+[node name="NinePatchRect" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TargetInfoContainer/VBoxContainer/ShieldBar" index="1"]
 offset_right = 89.0
 texture = ExtResource("33_jftfh")
 
-[node name="HullBar" parent="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer" instance=ExtResource("32_pyrqo")]
+[node name="HullBar" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TargetInfoContainer/VBoxContainer" instance=ExtResource("32_pyrqo")]
 visible = false
 layout_mode = 2
 
-[node name="PickSound" type="AudioStreamPlayer" parent="InGameGUI/Sidebar/TargetInfoContainer"]
+[node name="PickSound" type="AudioStreamPlayer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TargetInfoContainer"]
 stream = ExtResource("24_oh7qv")
 volume_db = -10.0
+
+[node name="MessageLog" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+vertical_alignment = 2
+clip_text = true
+text_overrun_behavior = 3
+script = ExtResource("35_8pupt")
+
+[node name="FPSCounter" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "30 FPS
+"
+horizontal_alignment = 2
+script = ExtResource("37_e11x7")
 
 [node name="GameOverDialog" type="AcceptDialog" parent="InGameGUI"]
 scaling_3d_scale = 2.0
@@ -480,17 +508,6 @@ dialog_autowrap = true
 cancel_button_text = "CANCEL"
 script = ExtResource("36_7hsbd")
 main_menu_scene = ExtResource("35_x8atu")
-
-[node name="FPSCounter" type="Label" parent="InGameGUI"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 23.0
-grow_horizontal = 0
-text = "30 FPS
-"
-script = ExtResource("37_e11x7")
 
 [node name="GalaxyMapWindow" type="Window" parent="InGameGUI"]
 own_world_3d = true
@@ -520,17 +537,17 @@ render_target_update_mode = 0
 hyperspace_controller = NodePath("../../../../../HyperspaceController")
 galaxy = ExtResource("5_3nony")
 
-[connection signal="jump_destination_changed" from="HyperspaceController" to="InGameGUI/Sidebar/JumpDestinationName" method="_on_jump_destination_changed"]
+[connection signal="jump_destination_changed" from="HyperspaceController" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/JumpDestinationName" method="_on_jump_destination_changed"]
 [connection signal="jump_destination_loaded" from="HyperspaceController" to="PlayerCorvette/Player" method="_on_jump_destination_loaded"]
-[connection signal="jump_destination_loaded" from="HyperspaceController" to="InGameGUI/Sidebar/SystemName" method="_on_jump_destination_loaded"]
+[connection signal="jump_destination_loaded" from="HyperspaceController" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/SystemName" method="_on_jump_destination_loaded"]
 [connection signal="jump_finished" from="HyperspaceController" to="InGameGUI/GalaxyMapWindow/SubViewportContainer/SubViewport/GalaxyMap" method="_on_jump_finished"]
 [connection signal="jump_started" from="HyperspaceController" to="MainCameraTransform/MainCamera/HyperspaceEffect" method="_on_jump_started"]
 [connection signal="jump_started" from="HyperspaceController" to="InGameGUI/GalaxyMapWindow/SubViewportContainer/SubViewport/GalaxyMap" method="_on_jump_started"]
-[connection signal="hull_changed" from="PlayerCorvette/Player" to="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_hull_changed"]
-[connection signal="power_changed" from="PlayerCorvette/Player" to="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_power_changed"]
-[connection signal="shield_changed" from="PlayerCorvette/Player" to="InGameGUI/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_shield_changed"]
+[connection signal="hull_changed" from="PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_hull_changed"]
+[connection signal="power_changed" from="PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_power_changed"]
+[connection signal="shield_changed" from="PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_shield_changed"]
 [connection signal="ship_destroyed" from="PlayerCorvette/Player" to="InGameGUI/GameOverDialog" method="_on_player_ship_destroyed"]
-[connection signal="target_changed" from="PlayerCorvette/Player" to="InGameGUI/Sidebar/TargetInfoContainer" method="_on_player_target_changed"]
+[connection signal="target_changed" from="PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TargetInfoContainer" method="_on_player_target_changed"]
 [connection signal="confirmed" from="InGameGUI/GameOverDialog" to="InGameGUI/GameOverDialog" method="_on_confirmed"]
 [connection signal="canceled" from="InGameGUI/ExitDialog" to="InGameGUI/ExitDialog" method="_on_canceled"]
 [connection signal="confirmed" from="InGameGUI/ExitDialog" to="InGameGUI/ExitDialog" method="_on_confirmed"]
@@ -538,4 +555,4 @@ galaxy = ExtResource("5_3nony")
 
 [editable path="PlayerCorvette"]
 [editable path="PlayerCorvette/Player"]
-[editable path="InGameGUI/Sidebar/TargetInfoContainer/VBoxContainer/ShieldBar"]
+[editable path="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TargetInfoContainer/VBoxContainer/ShieldBar"]
