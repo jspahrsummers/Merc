@@ -10,6 +10,8 @@ Instructions:
 * M to view the galaxy map
 * H to select a hyperspace jump destination
 * J to jump to hyperspace
+* ` (backtick) or § to select a planet to land on
+* L to land
 * Scroll wheel to zoom in and out
 
 ## Development
