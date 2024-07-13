@@ -1,12 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1kbmfvjs6nrv"]
+[gd_scene load_steps=6 format=3 uid="uid://d1kbmfvjs6nrv"]
 
 [ext_resource type="Script" path="res://screens/landing/landing.gd" id="1_h6plc"]
 [ext_resource type="AudioStream" uid="uid://bbxl7rk2jq5qi" path="res://screens/landing/audio/HangarDoors.ogg" id="2_g2uae"]
+[ext_resource type="Script" path="res://screens/landing/spaceport_bar.gd" id="2_k5nxq"]
+
+[sub_resource type="Resource" id="Resource_4dtn6"]
+resource_local_to_scene = true
+script = ExtResource("2_k5nxq")
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3rern"]
 size = Vector2(1024, 1024)
 
-[node name="Landing" type="Window" node_paths=PackedStringArray("bar_button", "trading_button", "missions_button", "outfitter_button", "shipyard_button", "refuel_button", "landscape_image", "description_label")]
+[node name="Landing" type="Window" node_paths=PackedStringArray("bar_button", "trading_button", "missions_button", "outfitter_button", "shipyard_button", "refuel_button", "landscape_image", "description_label", "bar_dialog")]
 title = "Mars"
 initial_position = 2
 size = Vector2i(900, 600)
@@ -19,6 +24,8 @@ shipyard_button = NodePath("PanelContainer/VBoxContainer/HFlowContainer/Shipyard
 refuel_button = NodePath("PanelContainer/VBoxContainer/HFlowContainer/RefuelButton")
 landscape_image = NodePath("PanelContainer/VBoxContainer/HBoxContainer/TextureRect")
 description_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer/MarginContainer/DescriptionLabel")
+bar_dialog = NodePath("BarDialog")
+spaceport_bar = SubResource("Resource_4dtn6")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -109,6 +116,13 @@ text = "Depart"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_g2uae")
 autoplay = true
+
+[node name="BarDialog" type="AcceptDialog" parent="."]
+title = "Spaceport Bar"
+initial_position = 1
+size = Vector2i(400, 150)
+ok_button_text = "Leave"
+dialog_autowrap = true
 
 [connection signal="close_requested" from="." to="." method="_on_depart"]
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]

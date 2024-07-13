@@ -1,0 +1,60 @@
+extends Resource
+class_name SpaceportBar
+
+const _SPACEPORT_BAR_DESCRIPTIONS: PackedStringArray = [
+    "The air is thick with smoke and the chatter of a dozen alien languages. A grizzled bartender eyes you warily.",
+    "Neon lights flicker, casting an eerie glow on the diverse crowd of spacers and locals. The bar is sticky with spilled drinks.",
+    "A holographic band plays a haunting melody. The patrons seem lost in their own thoughts and drinks.",
+    "The bar is crowded with beings from across the galaxy. A group of Rigellians argue loudly over a game of chance.",
+    "An old spacer regales a small crowd with tales of narrow escapes and fantastic discoveries in uncharted space.",
+    "The walls are covered in trinkets and souvenirs from a hundred worlds. The bartender, a cybernetic humanoid, mixes drinks with mechanical precision.",
+    "A tense silence falls as you enter. Several patrons eye your weapons before returning to their drinks.",
+    "The bar is nearly empty, save for a few regulars. A vidscreen broadcasts news of a recent pirate attack in a nearby system.",
+    "Laughter erupts from a corner where a group plays a holographic card game. The stakes seem dangerously high.",
+    "The scent of exotic herbs and spices wafts from the kitchen. A chef with four arms expertly prepares dishes from across the galaxy.",
+    "A group of off-duty miners celebrates a recent big find. Their boisterous mood is infectious.",
+    "The bar is dim and quiet. Perfect for those looking to escape notice or strike shadowy deals.",
+    "A diverse array of starship models hangs from the ceiling. Each tells a story of interstellar exploration and adventure.",
+    "The bartender, a being of pure energy contained in a humanoid suit, serves drinks that glow and change color.",
+    "A heated argument breaks out between two traders. The crowd watches, eager for entertainment.",
+    "The walls are lined with viewscreens showing real-time footage from famous locations across the galaxy.",
+    "A group of young pilots boast about their latest maneuvers. Their laughter is tinged with nervous energy.",
+    "The bar is built into an ancient asteroid, with some patrons floating in zero-g sections.",
+    "A somber mood hangs over the crowd. News of a colony world's destruction has just reached this system.",
+    "The bar doubles as a museum of space exploration. Artifacts from humanity's first steps into space sit alongside alien relics.",
+    "A group of academics from the local university debates the ethics of terraforming. The discussion grows heated.",
+    "The entire bar is an elaborate hologram. As you watch, the scenery shifts to mimic famous locations across the galaxy.",
+    "A group of alien musicians plays hauntingly beautiful music using instruments you've never seen before.",
+    "The bar is run by an AI. Robotic arms mix drinks and clean tables with eerie efficiency.",
+    "A popular gladiatorial blood sport is broadcast on large screens. The crowd cheers with each brutal hit.",
+    "The bar seems normal at first glance, but you soon realize that time moves strangely here. Hours pass in minutes.",
+    "The patrons are unusually quiet, all entranced by a mysterious stranger telling fortunes in the corner.",
+    "The bar is aboard a massive generation ship. The patrons are descendants of the original crew, born in deep space.",
+    "A group of scientists celebrates a breakthrough in FTL technology. Their excitement is palpable.",
+    "The bar is famous for its collection of rare and exotic alcohols. Some drinks are only safe for specific alien physiologies.",
+    "A tense hostage situation unfolds as a desperate smuggler threatens the bartender. The crowd watches, unsure whether to intervene.",
+    "The entire bar is underwater, catering to aquatic species. Air-breathers are provided with breathing apparatus.",
+    "A group of veteran spacers share stories of close encounters with space monsters. Their tales seem too fantastic to be true... or are they?",
+    "The bar is built around the wreckage of an ancient alien ship. Patrons drink amidst mysterious artifacts and undeciphered writings.",
+    "A popular VR game allows patrons to experience simulated space battles. A crowd cheers on the current champion.",
+    "The bar is known for its neutrality. Enemies sit side by side, adhereing to an unspoken truce within these walls.",
+    "A group of refugees from a war-torn system huddles in a corner, sharing stories of home and hope for the future.",
+    "The bar's main attraction is a massive aquarium filled with bizarre deep-space creatures. Patrons watch, mesmerized.",
+    "A charity event is in full swing, raising funds for victims of a recent space plague. The mood is both somber and determined.",
+    "The bar is famous for its gravity-defying cocktails. Bartenders perform elaborate mixing routines in zero-g.",
+    "A group of explorers plans their next expedition into uncharted space. Their excitement is tempered with nervous energy.",
+    "The bar is run by a hive mind species. Hundreds of small creatures work in perfect unison to serve drinks and food.",
+    "A heated political debate rages as news comes in of a controversial new galactic law. Opinions are sharply divided.",
+    "The bar is known for its time-dilated happy hour. Patrons can experience days of revelry in just a few outside hours.",
+    "A group of space pirates tries to lay low, their nervous glances betraying their fugitive status.",
+    "The bar's walls are made of transparent material, offering a breathtaking view of the planet's ring system.",
+    "A popular interstellar chef films a cooking show in one corner. Patrons volunteer as taste-testers for exotic new dishes.",
+    "The bar's claim to fame is its collection of messages left by travelers. The walls are covered in notes, hopes, and warnings.",
+    "A group of xenoarchaeologists excitedly discusses a recent find, their table covered in holographic images of alien ruins.",
+    "The bar hosts a weekly alien cultural exchange. Tonight, a group performs a hauntingly beautiful bioluminescent dance."
+]
+
+var _description_idx := randi_range(0, _SPACEPORT_BAR_DESCRIPTIONS.size() - 1)
+
+func get_description() -> String:
+    return _SPACEPORT_BAR_DESCRIPTIONS[self._description_idx]
