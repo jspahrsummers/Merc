@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=55 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://utils/shader_precompiler.gd" id="2_if3rk"]
@@ -15,7 +15,6 @@
 [ext_resource type="Script" path="res://mechanics/combat/shield.gd" id="13_xvthq"]
 [ext_resource type="Script" path="res://mechanics/combat/hull.gd" id="14_bcf1o"]
 [ext_resource type="Script" path="res://mechanics/power/battery.gd" id="15_sjw8q"]
-[ext_resource type="Script" path="res://mechanics/power/power_management_unit.gd" id="16_40mdg"]
 [ext_resource type="PackedScene" uid="uid://cxlg0yj8cjbrf" path="res://actors/player.tscn" id="16_lqltb"]
 [ext_resource type="PackedScene" uid="uid://2mdsbbko7baw" path="res://galaxy/star_systems/scenes/sol.tscn" id="17_wjgyf"]
 [ext_resource type="Script" path="res://screens/game/in_game_gui.gd" id="18_y74ml"]
@@ -198,7 +197,6 @@ battery = SubResource("Resource_jcr0a")
 battery = SubResource("Resource_jcr0a")
 
 [node name="PowerManagementUnit" parent="PlayerCorvette" index="6"]
-script = ExtResource("16_40mdg")
 battery = SubResource("Resource_jcr0a")
 
 [node name="ShieldRecharger" parent="PlayerCorvette" index="8"]
@@ -563,5 +561,6 @@ galaxy = ExtResource("5_3nony")
 [connection signal="close_requested" from="InGameGUI/GalaxyMapWindow" to="InGameGUI/GalaxyMapWindow/SubViewportContainer/SubViewport/GalaxyMap" method="_on_window_close_requested"]
 
 [editable path="PlayerCorvette"]
+[editable path="PlayerCorvette/CombatObject/TargetOverlay"]
 [editable path="PlayerCorvette/Player"]
 [editable path="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TargetInfoContainer/VBoxContainer/ShieldBar"]
