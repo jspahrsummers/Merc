@@ -116,8 +116,10 @@ func _unhandled_key_input(event: InputEvent) -> void:
         self.get_viewport().set_input_as_handled()
 
     if event.is_action_pressed("land", true):
-        self._land()
+        # Ordering matters here: _land will remove the ship from the scene, at
+        # which point get_viewport() will be null.
         self.get_viewport().set_input_as_handled()
+        self._land()
 
 func _jump_to_hyperspace() -> void:
     if not self.hyperspace_controller.jump_destination:
@@ -132,17 +134,16 @@ func _jump_to_hyperspace() -> void:
 func _land() -> void:
     var window: Window = self.landing_scene.instantiate()
     self.ship.add_sibling(window)
+    self.ship.get_parent().remove_child(self.ship)
+
     window.show()
     window.visibility_changed.connect(func() -> void:
+        window.add_sibling(self.ship)
         window.queue_free()
         self._depart_from_planet())
-    
-    self.ship.visible = false
-    self.ship.freeze = true
 
 func _depart_from_planet() -> void:
-    self.ship.visible = true
-    self.ship.freeze = false
+    pass
 
 func _absolute_input_direction() -> Vector3:
     var input_direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
