@@ -27,6 +27,18 @@ signal ship_destroyed(player: Player)
 ## Fires when the player changes their target.
 signal target_changed(player: Player, target: CombatObject)
 
+## Fires when the player changes their landing target.
+signal landing_target_changed(player: Player, target: PlanetInstance)
+
+## The current target for landing, if any.
+var landing_target: PlanetInstance = null:
+    set(value):
+        if landing_target == value:
+            return
+        
+        landing_target = value
+        self.landing_target_changed.emit(self, value)
+
 ## When using the "absolute" control scheme, this is the tolerance (in radians) for being slightly off-rotated while enabling thrusters.
 const ABSOLUTE_DIRECTION_TOLERANCE_RAD = 0.1745
 
@@ -106,23 +118,61 @@ func _next_target() -> CombatObject:
 
     return available_targets[index + 1] if index + 1 < available_targets.size() else null
 
+func _available_landing_targets() -> Array[PlanetInstance]:
+    var targets: Array[PlanetInstance] = []
+    for node in self.get_tree().get_nodes_in_group("planets"):
+        var planet_instance := node as PlanetInstance
+        if planet_instance:
+            targets.append(planet_instance)
+
+    return targets
+
+func _closest_landing_target() -> PlanetInstance:
+    var nearest_planet_instance: PlanetInstance = null
+    var nearest_distance := MAX_LANDING_DISTANCE
+    for planet_instance in self._available_landing_targets():
+        var distance := planet_instance.global_transform.origin.distance_to(self.ship.global_transform.origin)
+        if distance <= nearest_distance:
+            nearest_planet_instance = planet_instance
+            nearest_distance = distance
+    
+    return nearest_planet_instance
+
+func _next_landing_target() -> PlanetInstance:
+    var available_targets := self._available_landing_targets()
+    if available_targets.size() == 0:
+        return null
+
+    var target := self.landing_target
+    if target == null:
+        return available_targets[0]
+    
+    var index := available_targets.find(target)
+    assert(index >= 0, "Cannot find currently targeted object")
+
+    return available_targets[index + 1] if index + 1 < available_targets.size() else null
+
 func _unhandled_key_input(event: InputEvent) -> void:
     if self.hyperspace_controller.jumping:
         return
 
     if event.is_action_pressed("cycle_jump_destination", true):
-        self.hyperspace_controller.set_jump_destination(_next_system_connection())
+        self.hyperspace_controller.set_jump_destination(self._next_system_connection())
         self.get_viewport().set_input_as_handled()
 
     if event.is_action_pressed("cycle_target", true):
-        self.ship.targeting_system.target = _next_target()
+        self.ship.targeting_system.target = self._next_target()
         self.get_viewport().set_input_as_handled()
 
     if event.is_action_pressed("land", true):
-        # Ordering matters here: _land will remove the ship from the scene, at
+        # Ordering matters here: _land can remove the ship from the scene, at
         # which point get_viewport() will be null.
         self.get_viewport().set_input_as_handled()
         self._land()
+
+    if event.is_action_pressed("cycle_landing_target", true):
+        self.landing_target = self._next_landing_target()
+        self.get_viewport().set_input_as_handled()
 
 func _jump_to_hyperspace() -> void:
     if not self.hyperspace_controller.jump_destination:
@@ -133,27 +183,17 @@ func _jump_to_hyperspace() -> void:
     self.hyperspace_controller.start_jump()
 
 func _land() -> void:
-    var nearest_planet_instance: PlanetInstance = null
-    var nearest_distance := MAX_LANDING_DISTANCE
-    for node in self.get_tree().get_nodes_in_group("planets"):
-        var planet_instance := node as PlanetInstance
-        if not planet_instance:
-            continue
-        
-        var distance := planet_instance.global_transform.origin.distance_to(self.ship.global_transform.origin)
-        if distance <= nearest_distance:
-            nearest_planet_instance = planet_instance
-            nearest_distance = distance
-    
-    if not nearest_planet_instance:
-        return
+    if not self.landing_target:
+        self.landing_target = self._closest_landing_target()
+        if not self.landing_target:
+            return
 
-    # Check this only after looking for a planet, to avoid spamming the message log.
+    # Check this only after a target is selected, to avoid spamming the message log.
     if self.ship.linear_velocity.length() > MAX_LANDING_VELOCITY:
         self.message_log.add_message("Moving too fast to land.")
         return
 
-    var planet := nearest_planet_instance.planet
+    var planet := self.landing_target.planet
     if not planet:
         self.message_log.add_message("Cannot land on this planet.")
         return
