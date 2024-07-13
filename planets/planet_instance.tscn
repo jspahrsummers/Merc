@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://b04hfgkcuq7k6"]
+[gd_scene load_steps=5 format=3 uid="uid://b04hfgkcuq7k6"]
 
+[ext_resource type="Script" path="res://planets/planet_instance.gd" id="1_f2834"]
 [ext_resource type="Texture2D" uid="uid://olumucogupnw" path="res://planets/sprites/planet_04.png" id="1_w3ph5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0y335"]
@@ -14,7 +15,8 @@ bottom_radius = 1.0
 height = 0.001
 cap_bottom = false
 
-[node name="Planet" type="Node3D" groups=["planets"]]
+[node name="PlanetInstance" type="Node3D" groups=["planets"]]
+script = ExtResource("1_f2834")
 
 [node name="MinimapIcon" type="MeshInstance3D" parent="."]
 layers = 2

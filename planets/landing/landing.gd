@@ -1,5 +1,22 @@
 extends Window
 
+@export var planet: Planet
+
+@export var bar_button: Button
+@export var trading_button: Button
+@export var missions_button: Button
+@export var outfitter_button: Button
+@export var shipyard_button: Button
+@export var refuel_button: Button
+
+func _ready() -> void:
+    self.bar_button.visible = (self.planet.facilities&Planet.BAR)
+    self.trading_button.visible = (self.planet.facilities&Planet.TRADING)
+    self.missions_button.visible = (self.planet.facilities&Planet.MISSIONS)
+    self.outfitter_button.visible = (self.planet.facilities&Planet.OUTFITTER)
+    self.shipyard_button.visible = (self.planet.facilities&Planet.SHIPYARD)
+    self.refuel_button.visible = (self.planet.facilities&Planet.REFUEL)
+
 func _on_bar_button_pressed() -> void:
     pass # Replace with function body.
 
