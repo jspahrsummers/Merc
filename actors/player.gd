@@ -6,6 +6,7 @@ class_name Player
 ## [b]This script expects the parent node to be a [Ship].[/b]
 
 @export var hyperspace_controller: HyperspaceController
+@export var message_log: MessageLog
 @export var landing_scene: PackedScene
 
 @onready var ship := get_parent() as Ship
@@ -131,10 +132,6 @@ func _jump_to_hyperspace() -> void:
     self.hyperspace_controller.start_jump()
 
 func _land() -> void:
-    if self.ship.linear_velocity.length() > MAX_LANDING_VELOCITY:
-        print("Moving too fast to land")
-        return
-
     var nearest_planet_instance: PlanetInstance = null
     var nearest_distance := MAX_LANDING_DISTANCE
     for node in self.get_tree().get_nodes_in_group("planets"):
@@ -148,12 +145,18 @@ func _land() -> void:
             nearest_distance = distance
     
     if not nearest_planet_instance:
-        print("Not near a planet!")
+        return
+
+    # Check this only after looking for a planet, to avoid spamming the message log.
+    if self.ship.linear_velocity.length() > MAX_LANDING_VELOCITY:
+        # TODO: Play an error sound.
+        self.message_log.add_message("Moving too fast to land.")
         return
 
     var planet := nearest_planet_instance.planet
     if not planet:
-        print("Cannot land on this planet")
+        # TODO: Play an error sound.
+        self.message_log.add_message("Cannot land on this planet.")
         return
 
     var landing: Landing = self.landing_scene.instantiate()
