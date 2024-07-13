@@ -9,6 +9,10 @@ class_name Landing
 @export var refuel_button: Button
 @export var landscape_image: TextureRect
 @export var description_label: RichTextLabel
+@export var bar_dialog: AcceptDialog
+
+## Defines how the spaceport bar should behave on this landing.
+@export var spaceport_bar: SpaceportBar
 
 # The planet to land on. Must be set before displaying.
 var planet: Planet
@@ -25,7 +29,8 @@ func _ready() -> void:
     self.description_label.text = self.planet.description
 
 func _on_bar_button_pressed() -> void:
-    pass # Replace with function body.
+    self.bar_dialog.dialog_text = self.spaceport_bar.get_description()
+    self.bar_dialog.show()
 
 func _on_trading_button_pressed() -> void:
     pass # Replace with function body.
