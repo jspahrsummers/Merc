@@ -30,6 +30,8 @@ const ABSOLUTE_DIRECTION_TOLERANCE_RAD = 0.1745
 
 # TODO: Put this somewhere better (per ship?)
 const HYPERSPACE_ARRIVAL_RADIUS = 8.0
+const MAX_LANDING_DISTANCE = 2.0
+const MAX_LANDING_VELOCITY = 4.0
 
 func _ready() -> void:
     var turner: RigidBodyTurner = RigidBodyTurner.new()
@@ -129,19 +131,29 @@ func _jump_to_hyperspace() -> void:
     self.hyperspace_controller.start_jump()
 
 func _land() -> void:
-    var planet_instances: Array[PlanetInstance] = []
-    planet_instances.assign(self.get_tree().get_nodes_in_group("planets"))
+    if self.ship.linear_velocity.length() > MAX_LANDING_VELOCITY:
+        print("Moving too fast to land")
+        return
 
-    # TODO: Pick the closest one
-    var planet: Planet = null
-    for planet_instance in planet_instances:
-        if not planet_instance.planet:
+    var nearest_planet_instance: PlanetInstance = null
+    var nearest_distance := MAX_LANDING_DISTANCE
+    for node in self.get_tree().get_nodes_in_group("planets"):
+        var planet_instance := node as PlanetInstance
+        if not planet_instance:
             continue
         
-        planet = planet_instance.planet
+        var distance := planet_instance.global_transform.origin.distance_to(self.ship.global_transform.origin)
+        if distance <= nearest_distance:
+            nearest_planet_instance = planet_instance
+            nearest_distance = distance
     
+    if not nearest_planet_instance:
+        print("Not near a planet!")
+        return
+
+    var planet := nearest_planet_instance.planet
     if not planet:
-        push_error("Cannot find a planet to land on")
+        print("Cannot land on this planet")
         return
 
     var landing: Landing = self.landing_scene.instantiate()
