@@ -74,7 +74,7 @@ func load_jump_destination() -> void:
         node = new_scene.instantiate()
 
         self._loaded_system_nodes[jump_destination.name] = node
-        get_parent().add_child(node)
+        self.add_sibling(node)
     else:
         print("Restoring node for system ", jump_destination.name)
         node.process_mode = Node.PROCESS_MODE_INHERIT
