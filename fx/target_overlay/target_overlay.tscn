@@ -1,11 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://ikpmfsfblp3i"]
+[gd_scene load_steps=3 format=3 uid="uid://ikpmfsfblp3i"]
 
 [ext_resource type="Texture2D" uid="uid://bcg51xixkcgic" path="res://fx/target_overlay/target_overlay_left.png" id="1_7k7nd"]
-[ext_resource type="Script" path="res://fx/target_overlay/target_overlay.gd" id="1_q5mgn"]
 [ext_resource type="Texture2D" uid="uid://cl1bw1w8q8la0" path="res://fx/target_overlay/target_overlay_right.png" id="2_rnf5e"]
 
 [node name="TargetOverlay" type="Node3D"]
-script = ExtResource("1_q5mgn")
 
 [node name="Left" type="Sprite3D" parent="."]
 transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, -0.6, 2.08165e-12, 2.08165e-12)
