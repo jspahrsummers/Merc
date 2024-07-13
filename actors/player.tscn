@@ -23,3 +23,6 @@ update_scale = false
 
 [node name="TakeoffSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_lqyst")
+
+[node name="AudioListener3D" type="AudioListener3D" parent="."]
+current = true
