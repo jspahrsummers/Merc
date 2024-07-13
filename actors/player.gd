@@ -8,6 +8,7 @@ class_name Player
 @export var hyperspace_controller: HyperspaceController
 @export var message_log: MessageLog
 @export var landing_scene: PackedScene
+@export var takeoff_sound: AudioStreamPlayer
 
 @onready var ship := get_parent() as Ship
 
@@ -171,6 +172,7 @@ func _land() -> void:
 func _depart_from_planet() -> void:
     self._reset_controls()
     self._reset_velocity()
+    self.takeoff_sound.play()
 
 func _reset_controls() -> void:
     self.ship.rigid_body_thruster.throttle = 0.0
