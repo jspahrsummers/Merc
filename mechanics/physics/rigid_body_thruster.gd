@@ -42,7 +42,7 @@ var _animation_geometry: Array[GeometryInstance3D]
 ## The [RigidBody3D] to apply thrust to.
 @onready var _rigid_body := get_parent() as RigidBody3D
 
-func _ready() -> void:
+func _enter_tree() -> void:
     if self.animation_duration > 0.0:
         self._animation_geometry = []
         for child_index in self.get_child_count():
@@ -54,6 +54,12 @@ func _ready() -> void:
         
         for geometry in self._animation_geometry:
             geometry.transparency = 1.0
+
+    if self._tween:
+        self._tween.kill()
+        self._tween = null
+    
+    self._target_transparency = 1.0
 
 func _physics_process(delta: float) -> void:
     if is_zero_approx(self.throttle) or is_zero_approx(self.battery.power):
