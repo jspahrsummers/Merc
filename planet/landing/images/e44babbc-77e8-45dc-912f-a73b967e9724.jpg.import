@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dkelmabwfrb5x"
-path.s3tc="res://.godot/imported/planet_23.png-7b78dafdebf5b46ae64e34220955250b.s3tc.ctex"
+uid="uid://bj326fr2sh34k"
+path.s3tc="res://.godot/imported/e44babbc-77e8-45dc-912f-a73b967e9724.jpg-80676322e86d940b8676cba104264dcc.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://planets/sprites/planet_23.png"
-dest_files=["res://.godot/imported/planet_23.png-7b78dafdebf5b46ae64e34220955250b.s3tc.ctex"]
+source_file="res://planet/landing/images/e44babbc-77e8-45dc-912f-a73b967e9724.jpg"
+dest_files=["res://.godot/imported/e44babbc-77e8-45dc-912f-a73b967e9724.jpg-80676322e86d940b8676cba104264dcc.s3tc.ctex"]
 
 [params]
 
@@ -22,9 +22,9 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=0
+roughness/mode=1
 roughness/src_normal=""
 process/fix_alpha_border=false
 process/premult_alpha=false

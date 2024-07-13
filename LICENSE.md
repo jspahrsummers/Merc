@@ -77,8 +77,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 - menu_button
 - target_overlay
 
-Icon created by [Justin Spahr-Summers](https://github.com/jspahrsummers) for this project, using [Midjourney](https://www.midjourney.com/):
+Graphics created by [Justin Spahr-Summers](https://github.com/jspahrsummers) for this project, using [Midjourney](https://www.midjourney.com/):
 - icon
+- planet landing images
 
 # Addon licenses
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bj326fr2sh34k"
-path.s3tc="res://.godot/imported/e44babbc-77e8-45dc-912f-a73b967e9724.jpg-3cba5bbaa1cc21298e087d83c1c71ebf.s3tc.ctex"
+uid="uid://bege8n4jjcej5"
+path.s3tc="res://.godot/imported/planet_37.png-f303651ac4b8767888586656a95613bc.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://planets/landing/images/e44babbc-77e8-45dc-912f-a73b967e9724.jpg"
-dest_files=["res://.godot/imported/e44babbc-77e8-45dc-912f-a73b967e9724.jpg-3cba5bbaa1cc21298e087d83c1c71ebf.s3tc.ctex"]
+source_file="res://planet/sprites/planet_37.png"
+dest_files=["res://.godot/imported/planet_37.png-f303651ac4b8767888586656a95613bc.s3tc.ctex"]
 
 [params]
 
@@ -22,9 +22,9 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
-roughness/mode=1
+roughness/mode=0
 roughness/src_normal=""
 process/fix_alpha_border=false
 process/premult_alpha=false

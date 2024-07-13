@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://b04hfgkcuq7k6"]
 
-[ext_resource type="Script" path="res://planets/planet_instance.gd" id="1_f2834"]
-[ext_resource type="Texture2D" uid="uid://olumucogupnw" path="res://planets/sprites/planet_04.png" id="1_w3ph5"]
+[ext_resource type="Script" path="res://planet/planet_instance.gd" id="1_f2834"]
+[ext_resource type="Texture2D" uid="uid://olumucogupnw" path="res://planet/sprites/planet_04.png" id="1_w3ph5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0y335"]
 shading_mode = 0

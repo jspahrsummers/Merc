@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://d1kbmfvjs6nrv"]
 
-[ext_resource type="Script" path="res://planets/landing/landing.gd" id="1_h6plc"]
+[ext_resource type="Script" path="res://planet/landing/landing.gd" id="1_h6plc"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3rern"]
 size = Vector2(1024, 1024)
