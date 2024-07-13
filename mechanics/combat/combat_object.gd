@@ -48,9 +48,14 @@ var _targeted_by: Array[TargetingSystem] = []
 func _ready() -> void:
     if self.destruction:
         self.hull.hull_destroyed.connect(_on_hull_destroyed)
-    
+
+func _enter_tree() -> void:
     if self.shield_mesh_instance:
         self.shield_mesh_instance.transparency = 1.0
+    
+    if self._shield_tween:
+        self._shield_tween.kill()
+        self._shield_tween = null
 
 ## Returns the list of [TargetingSystem]s targeting this object.
 func get_targeted_by() -> Array[TargetingSystem]:
