@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_ri415")
+name = "Mars"
 facilities = 5

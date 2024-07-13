@@ -1,8 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://d1kbmfvjs6nrv"]
+[gd_scene load_steps=16 format=3 uid="uid://d1kbmfvjs6nrv"]
 
 [ext_resource type="Script" path="res://planets/landing/landing.gd" id="1_h6plc"]
 [ext_resource type="Texture2D" uid="uid://bj326fr2sh34k" path="res://planets/landing/images/e44babbc-77e8-45dc-912f-a73b967e9724.jpg" id="1_pqg2x"]
-[ext_resource type="Resource" uid="uid://cllvivdb0vf3t" path="res://planets/resources/mars.tres" id="2_enlpl"]
 [ext_resource type="Script" path="res://addons/markdownlabel/markdownlabel.gd" id="2_yg35i"]
 [ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h1_format.gd" id="3_qyo7t"]
 [ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h2_format.gd" id="4_pkq2t"]
@@ -76,7 +75,6 @@ title = "Mars"
 initial_position = 2
 size = Vector2i(900, 600)
 script = ExtResource("1_h6plc")
-planet = ExtResource("2_enlpl")
 bar_button = NodePath("PanelContainer/VBoxContainer/HFlowContainer/BarButton")
 trading_button = NodePath("PanelContainer/VBoxContainer/HFlowContainer/TradingButton")
 missions_button = NodePath("PanelContainer/VBoxContainer/HFlowContainer/MissionsButton")

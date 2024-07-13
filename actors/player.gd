@@ -129,14 +129,30 @@ func _jump_to_hyperspace() -> void:
     self.hyperspace_controller.start_jump()
 
 func _land() -> void:
-    var window: Window = self.landing_scene.instantiate()
-    self.ship.add_sibling(window)
+    var planet_instances: Array[PlanetInstance] = []
+    planet_instances.assign(self.get_tree().get_nodes_in_group("planets"))
+
+    # TODO: Pick the closest one
+    var planet: Planet = null
+    for planet_instance in planet_instances:
+        if not planet_instance.planet:
+            continue
+        
+        planet = planet_instance.planet
+    
+    if not planet:
+        push_error("Cannot find a planet to land on")
+        return
+
+    var landing: Landing = self.landing_scene.instantiate()
+    landing.planet = planet
+    self.ship.add_sibling(landing)
     self.ship.get_parent().remove_child(self.ship)
 
-    window.show()
-    window.visibility_changed.connect(func() -> void:
-        window.add_sibling(self.ship)
-        window.queue_free()
+    landing.show()
+    landing.visibility_changed.connect(func() -> void:
+        landing.add_sibling(self.ship)
+        landing.queue_free()
         self._depart_from_planet())
 
 func _depart_from_planet() -> void:

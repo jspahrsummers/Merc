@@ -10,5 +10,8 @@ enum {
     REFUEL = 0x20
 }
 
+## The name of this planet.
+@export var name: String
+
 ## Facilities available on this planet.
 @export_flags("Bar", "Trading", "Missions", "Outfitter", "Shipyard", "Refuel") var facilities: int = BAR|TRADING|MISSIONS|REFUEL

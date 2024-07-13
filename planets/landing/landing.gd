@@ -1,6 +1,5 @@
 extends Window
-
-@export var planet: Planet
+class_name Landing
 
 @export var bar_button: Button
 @export var trading_button: Button
@@ -9,7 +8,11 @@ extends Window
 @export var shipyard_button: Button
 @export var refuel_button: Button
 
+# The planet to land on. Must be set before displaying.
+var planet: Planet
+
 func _ready() -> void:
+    self.title = self.planet.name
     self.bar_button.visible = (self.planet.facilities&Planet.BAR)
     self.trading_button.visible = (self.planet.facilities&Planet.TRADING)
     self.missions_button.visible = (self.planet.facilities&Planet.MISSIONS)
