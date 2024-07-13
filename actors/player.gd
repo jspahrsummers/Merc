@@ -6,6 +6,7 @@ class_name Player
 ## [b]This script expects the parent node to be a [Ship].[/b]
 
 @export var hyperspace_controller: HyperspaceController
+@export var landing_scene: PackedScene
 
 @onready var ship := get_parent() as Ship
 
@@ -114,6 +115,10 @@ func _unhandled_key_input(event: InputEvent) -> void:
         self.ship.targeting_system.target = _next_target()
         self.get_viewport().set_input_as_handled()
 
+    if event.is_action_pressed("land", true):
+        self._land()
+        self.get_viewport().set_input_as_handled()
+
 func _jump_to_hyperspace() -> void:
     if not self.hyperspace_controller.jump_destination:
         return
@@ -123,6 +128,11 @@ func _jump_to_hyperspace() -> void:
     self.ship.rigid_body_direction.direction = Vector3.ZERO
     self.ship.rigid_body_turner.turning = 0.0
     self.hyperspace_controller.start_jump()
+
+func _land() -> void:
+    var window: Window = self.landing_scene.instantiate()
+    self.get_tree().root.add_child(window)
+    window.show()
 
 func _absolute_input_direction() -> Vector3:
     var input_direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
