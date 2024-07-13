@@ -131,7 +131,7 @@ func _jump_to_hyperspace() -> void:
 
 func _land() -> void:
     var window: Window = self.landing_scene.instantiate()
-    self.get_tree().root.add_child(window)
+    self.ship.add_sibling(window)
     window.show()
     window.visibility_changed.connect(func() -> void:
         window.queue_free()
