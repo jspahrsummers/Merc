@@ -176,6 +176,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 text = "Depart"
 
+[connection signal="close_requested" from="." to="." method="_on_depart"]
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/BarButton" to="." method="_on_bar_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/TradingButton" to="." method="_on_trading_button_pressed"]
@@ -183,4 +184,4 @@ text = "Depart"
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/OutfitterButton" to="." method="_on_outfitter_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/ShipyardButton" to="." method="_on_shipyard_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/RefuelButton" to="." method="_on_refuel_button_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/DepartButton" to="." method="_on_depart_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/DepartButton" to="." method="_on_depart"]
