@@ -143,7 +143,11 @@ func _land() -> void:
         self._depart_from_planet())
 
 func _depart_from_planet() -> void:
-    pass
+    self.ship.rigid_body_thruster.throttle = 0.0
+    self.ship.rigid_body_direction.direction = Vector3.ZERO
+    self.ship.rigid_body_turner.turning = 0.0
+    self.ship.linear_velocity = Vector3.ZERO
+    self.ship.angular_velocity = Vector3.ZERO
 
 func _absolute_input_direction() -> Vector3:
     var input_direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
