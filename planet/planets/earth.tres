@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Planet" load_steps=3 format=3 uid="uid://cmm0akidhocmo"]
+
+[ext_resource type="Texture2D" uid="uid://c1q6f8geeokma" path="res://screens/landing/images/5bca230e-a0cb-4bbb-ab00-f13001ec54cd.jpg" id="1_26rl7"]
+[ext_resource type="Script" path="res://planet/planet.gd" id="1_duw21"]
+
+[resource]
+script = ExtResource("1_duw21")
+name = "Earth"
+facilities = 1
+landscape_image = ExtResource("1_26rl7")
+description = "As your spacecraft descends, the vast blue expanse of Earth fills your view. Swirling white clouds dance across the planet's surface, revealing glimpses of deep azure oceans and the varied textures of continents below. The curve of the horizon reminds you of the planet's immense scale, yet also of its fragility - a precious oasis suspended in the inky blackness of space.
+
+As you breach the atmosphere, a sense of familiarity washes over you. The pull of gravity increases, grounding you after your time in weightlessness. Your craft glides through wispy clouds, and the abstract patterns below resolve into recognizable landforms - mountain ranges, coastlines, and the patchwork of human civilization.
+
+Descending further, you catch the first whiffs of Earth's atmosphere - a complex bouquet of ocean brine, verdant forests, and the indescribable scent of life itself. A wave of emotion swells within you - relief, excitement, and a profound sense of belonging.
+
+As your landing gear touches down, sending up a swirl of dust, you can't help but smile. No matter how far you've traveled or how long you've been away, there's no mistaking this feeling.
+
+You're home."

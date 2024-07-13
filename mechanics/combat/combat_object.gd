@@ -48,9 +48,14 @@ var _targeted_by: Array[TargetingSystem] = []
 func _ready() -> void:
     if self.destruction:
         self.hull.hull_destroyed.connect(_on_hull_destroyed)
-    
+
+func _enter_tree() -> void:
     if self.shield_mesh_instance:
         self.shield_mesh_instance.transparency = 1.0
+    
+    if self._shield_tween:
+        self._shield_tween.kill()
+        self._shield_tween = null
 
 ## Returns the list of [TargetingSystem]s targeting this object.
 func get_targeted_by() -> Array[TargetingSystem]:
@@ -104,13 +109,9 @@ func _on_hull_destroyed(destroyed_hull: Hull) -> void:
     assert(destroyed_hull == self.hull)
 
     var parent := self.get_parent()
-    var grandparent := parent.get_parent()
 
     var destruction_instance: Node3D = self.destruction.instantiate()
-    if grandparent:
-        grandparent.add_child(destruction_instance)
-    else:
-        get_tree().root.add_child(destruction_instance)
+    parent.add_sibling(destruction_instance)
     destruction_instance.global_transform = self.global_transform
 
     parent.queue_free()

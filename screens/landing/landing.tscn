@@ -1,0 +1,136 @@
+[gd_scene load_steps=6 format=3 uid="uid://d1kbmfvjs6nrv"]
+
+[ext_resource type="Script" path="res://screens/landing/landing.gd" id="1_h6plc"]
+[ext_resource type="AudioStream" uid="uid://bbxl7rk2jq5qi" path="res://screens/landing/audio/HangarDoors.ogg" id="2_g2uae"]
+[ext_resource type="Script" path="res://screens/landing/spaceport_bar.gd" id="2_k5nxq"]
+
+[sub_resource type="Resource" id="Resource_4dtn6"]
+resource_local_to_scene = true
+script = ExtResource("2_k5nxq")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3rern"]
+size = Vector2(1024, 1024)
+
+[node name="Landing" type="Window" node_paths=PackedStringArray("bar_button", "trading_button", "missions_button", "outfitter_button", "shipyard_button", "refuel_button", "landscape_image", "description_label", "bar_dialog")]
+title = "Mars"
+initial_position = 2
+size = Vector2i(900, 600)
+content_scale_mode = 1
+script = ExtResource("1_h6plc")
+bar_button = NodePath("PanelContainer/VBoxContainer/HFlowContainer/BarButton")
+trading_button = NodePath("PanelContainer/VBoxContainer/HFlowContainer/TradingButton")
+missions_button = NodePath("PanelContainer/VBoxContainer/HFlowContainer/MissionsButton")
+outfitter_button = NodePath("PanelContainer/VBoxContainer/HFlowContainer/OutfitterButton")
+shipyard_button = NodePath("PanelContainer/VBoxContainer/HFlowContainer/ShipyardButton")
+refuel_button = NodePath("PanelContainer/VBoxContainer/HFlowContainer/RefuelButton")
+landscape_image = NodePath("PanelContainer/VBoxContainer/HBoxContainer/TextureRect")
+description_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer/MarginContainer/DescriptionLabel")
+bar_dialog = NodePath("BarDialog")
+spaceport_bar = SubResource("Resource_4dtn6")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_3rern")
+expand_mode = 2
+stretch_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "As your ship descends through the atmosphere, a vast desert terrain unfolds before you. Towering red cliffs rise sharply from the barren plains, their jagged peaks reaching toward the sky. The ground is a mix of rusty red sand and scattered boulders, suggesting a harsh and unforgiving environment.
+
+In the distance, a massive planet looms on the horizon, dominating the alien sky. Its surface is marred by craters and swirling clouds, hinting at tumultuous conditions. A smaller celestial body - perhaps a moon - hangs nearby, adding to the otherworldly feel of this system.
+
+The sky itself is a tapestry of warm hues - golds, oranges, and soft pinks - as if the system's star is in a perpetual state of setting. Wispy clouds streak across the upper atmosphere, catching the light and creating a dramatic backdrop for the celestial bodies.
+
+This harsh yet beautiful landscape presents both danger and opportunity. As a merc, you'll need to tread carefully in this alien world, but the potential for discovery and profit is immense. What secrets might be hidden among those towering cliffs or buried beneath the rusty sands?"
+
+[node name="HFlowContainer" type="HFlowContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="BarButton" type="Button" parent="PanelContainer/VBoxContainer/HFlowContainer"]
+custom_minimum_size = Vector2(200, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Spaceport Bar"
+
+[node name="TradingButton" type="Button" parent="PanelContainer/VBoxContainer/HFlowContainer"]
+custom_minimum_size = Vector2(200, 2.08165e-12)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Trade Computer"
+
+[node name="MissionsButton" type="Button" parent="PanelContainer/VBoxContainer/HFlowContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Mission Computer"
+
+[node name="OutfitterButton" type="Button" parent="PanelContainer/VBoxContainer/HFlowContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Outfitter"
+
+[node name="ShipyardButton" type="Button" parent="PanelContainer/VBoxContainer/HFlowContainer"]
+visible = false
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Shipyard"
+
+[node name="RefuelButton" type="Button" parent="PanelContainer/VBoxContainer/HFlowContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+disabled = true
+text = "Refuel"
+
+[node name="DepartButton" type="Button" parent="PanelContainer/VBoxContainer/HFlowContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+text = " Depart "
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_g2uae")
+autoplay = true
+
+[node name="BarDialog" type="AcceptDialog" parent="."]
+title = "Spaceport Bar"
+initial_position = 1
+size = Vector2i(400, 150)
+ok_button_text = "Leave"
+dialog_autowrap = true
+
+[connection signal="close_requested" from="." to="." method="_on_depart"]
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/BarButton" to="." method="_on_bar_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/TradingButton" to="." method="_on_trading_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/MissionsButton" to="." method="_on_missions_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/OutfitterButton" to="." method="_on_outfitter_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/ShipyardButton" to="." method="_on_shipyard_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/RefuelButton" to="." method="_on_refuel_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HFlowContainer/DepartButton" to="." method="_on_depart"]

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bege8n4jjcej5"
-path.s3tc="res://.godot/imported/planet_37.png-4acb3a892a61254c7214400b56ce9697.s3tc.ctex"
+uid="uid://olumucogupnw"
+path.s3tc="res://.godot/imported/planet_04.png-37821cafd49ebd1d7d3511298b8c17b6.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://planets/sprites/planet_37.png"
-dest_files=["res://.godot/imported/planet_37.png-4acb3a892a61254c7214400b56ce9697.s3tc.ctex"]
+source_file="res://planet/sprites/planet_04.png"
+dest_files=["res://.godot/imported/planet_04.png-37821cafd49ebd1d7d3511298b8c17b6.s3tc.ctex"]
 
 [params]
 

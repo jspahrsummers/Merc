@@ -41,9 +41,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [Chunky Explosion](https://opengameart.org/content/chunky-explosion) sound effect created by [Joth](https://opengameart.org/users/joth), licensed under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/):
 - chunky_explosion
 
-[Digital sound effects](https://opengameart.org/content/50-cc0-sci-fi-sfx) created by [rubberduck](https://opengameart.org/users/rubberduck), licensed under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/):
+[50 CC0 Sci-Fi SFX](https://opengameart.org/content/50-cc0-sci-fi-sfx) created by [rubberduck](https://opengameart.org/users/rubberduck), licensed under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/):
 - explosion_01
 - teleport_02
+- beep_03
 
 [Space panorama galaxy](https://pixabay.com/photos/space-panorama-galaxy-cosmos-2638158/) created by [Alex Myers](https://pixabay.com/users/myersalex216-4979749/), licensed under the [Pixabay Content License](https://pixabay.com/service/license-summary/):
 - galaxy-panorama
@@ -57,6 +58,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [Titillium Web font](https://fonts.google.com/specimen/Titillium+Web) copyright (c) 2009-2011 [Accademia di Belle Arti di Urbino](https://www.accademiadiurbino.it/en/) and students of MA course of Visual design. Some rights reserved. Licensed under the [SIL Open Font License (OFL) version 1.1](https://openfontlicense.org/).
 
 [Spaceship Sounds](https://benvibrant.itch.io/spaceship-sounds) created by [Ben Vibrant](https://linktr.ee/benvibrant), purchased for use in this project:
+- Hangar Doors
+- LandingGear
 - THRUSTER LOW
 
 [Laser Bullets Pack 2020](https://wenrexa.itch.io/laser2020) released by [Wenrexa](https://wenrexa.itch.io/), licensed under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/):
@@ -77,8 +80,9 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 - menu_button
 - target_overlay
 
-Icon created by [Justin Spahr-Summers](https://github.com/jspahrsummers) for this project, using [Midjourney](https://www.midjourney.com/):
+Graphics created by [Justin Spahr-Summers](https://github.com/jspahrsummers) for this project, using [Midjourney](https://www.midjourney.com/):
 - icon
+- planet landing images
 
 # Addon licenses
 

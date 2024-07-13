@@ -64,8 +64,7 @@ func load_jump_destination() -> void:
 
     # Replace scene
     for node: Node3D in self.get_tree().get_nodes_in_group("star_system"):
-        node.visible = false
-        node.process_mode = Node.PROCESS_MODE_DISABLED
+        node.get_parent().remove_child(node)
 
     var node: Node3D = self._loaded_system_nodes.get(jump_destination.name)
     if node == null:
@@ -74,12 +73,10 @@ func load_jump_destination() -> void:
         node = new_scene.instantiate()
 
         self._loaded_system_nodes[jump_destination.name] = node
-        get_parent().add_child(node)
     else:
         print("Restoring node for system ", jump_destination.name)
-        node.process_mode = Node.PROCESS_MODE_INHERIT
-        node.visible = true
 
+    self.add_sibling(node)
     current_system = jump_destination
     jump_destination = null
 
