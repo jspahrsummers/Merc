@@ -1,76 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://d1kbmfvjs6nrv"]
+[gd_scene load_steps=3 format=3 uid="uid://d1kbmfvjs6nrv"]
 
 [ext_resource type="Script" path="res://planets/landing/landing.gd" id="1_h6plc"]
-[ext_resource type="Texture2D" uid="uid://bj326fr2sh34k" path="res://planets/landing/images/e44babbc-77e8-45dc-912f-a73b967e9724.jpg" id="1_pqg2x"]
-[ext_resource type="Script" path="res://addons/markdownlabel/markdownlabel.gd" id="2_yg35i"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h1_format.gd" id="3_qyo7t"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h2_format.gd" id="4_pkq2t"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h3_format.gd" id="5_qic03"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h4_format.gd" id="6_arb8h"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="7_i6mci"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="8_8ji3a"]
 
-[sub_resource type="Resource" id="Resource_tb1un"]
-resource_local_to_scene = true
-script = ExtResource("3_qyo7t")
-font_size = 2.285
-is_bold = false
-is_italic = false
-is_underlined = false
-override_font_color = false
-font_color = Color(1, 1, 1, 1)
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3rern"]
+size = Vector2(1024, 1024)
 
-[sub_resource type="Resource" id="Resource_15wrs"]
-resource_local_to_scene = true
-script = ExtResource("4_pkq2t")
-font_size = 1.714
-is_bold = false
-is_italic = false
-is_underlined = false
-override_font_color = false
-font_color = Color(1, 1, 1, 1)
-
-[sub_resource type="Resource" id="Resource_vnt4x"]
-resource_local_to_scene = true
-script = ExtResource("5_qic03")
-font_size = 1.428
-is_bold = false
-is_italic = false
-is_underlined = false
-override_font_color = false
-font_color = Color(1, 1, 1, 1)
-
-[sub_resource type="Resource" id="Resource_8k4n7"]
-resource_local_to_scene = true
-script = ExtResource("6_arb8h")
-font_size = 1.142
-is_bold = false
-is_italic = false
-is_underlined = false
-override_font_color = false
-font_color = Color(1, 1, 1, 1)
-
-[sub_resource type="Resource" id="Resource_cbud8"]
-resource_local_to_scene = true
-script = ExtResource("7_i6mci")
-font_size = 1.0
-is_bold = false
-is_italic = false
-is_underlined = false
-override_font_color = false
-font_color = Color(1, 1, 1, 1)
-
-[sub_resource type="Resource" id="Resource_3w4qr"]
-resource_local_to_scene = true
-script = ExtResource("8_8ji3a")
-font_size = 0.857
-is_bold = false
-is_italic = false
-is_underlined = false
-override_font_color = false
-font_color = Color(1, 1, 1, 1)
-
-[node name="Landing" type="Window" node_paths=PackedStringArray("bar_button", "trading_button", "missions_button", "outfitter_button", "shipyard_button", "refuel_button")]
+[node name="Landing" type="Window" node_paths=PackedStringArray("bar_button", "trading_button", "missions_button", "outfitter_button", "shipyard_button", "refuel_button", "landscape_image", "description_label")]
 title = "Mars"
 initial_position = 2
 size = Vector2i(900, 600)
@@ -81,6 +16,8 @@ missions_button = NodePath("PanelContainer/VBoxContainer/HFlowContainer/Missions
 outfitter_button = NodePath("PanelContainer/VBoxContainer/HFlowContainer/OutfitterButton")
 shipyard_button = NodePath("PanelContainer/VBoxContainer/HFlowContainer/ShipyardButton")
 refuel_button = NodePath("PanelContainer/VBoxContainer/HFlowContainer/RefuelButton")
+landscape_image = NodePath("PanelContainer/VBoxContainer/HBoxContainer/TextureRect")
+description_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer/MarginContainer/DescriptionLabel")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -101,7 +38,7 @@ alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-texture = ExtResource("1_pqg2x")
+texture = SubResource("PlaceholderTexture2D_3rern")
 expand_mode = 2
 stretch_mode = 4
 
@@ -109,7 +46,7 @@ stretch_mode = 4
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="MarkdownLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer/MarginContainer"]
+[node name="DescriptionLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 bbcode_enabled = true
 text = "As your ship descends through the atmosphere, a vast desert terrain unfolds before you. Towering red cliffs rise sharply from the barren plains, their jagged peaks reaching toward the sky. The ground is a mix of rusty red sand and scattered boulders, suggesting a harsh and unforgiving environment.
@@ -119,20 +56,6 @@ In the distance, a massive planet looms on the horizon, dominating the alien sky
 The sky itself is a tapestry of warm hues - golds, oranges, and soft pinks - as if the system's star is in a perpetual state of setting. Wispy clouds streak across the upper atmosphere, catching the light and creating a dramatic backdrop for the celestial bodies.
 
 This harsh yet beautiful landscape presents both danger and opportunity. As a merc, you'll need to tread carefully in this alien world, but the potential for discovery and profit is immense. What secrets might be hidden among those towering cliffs or buried beneath the rusty sands?"
-script = ExtResource("2_yg35i")
-markdown_text = "As your ship descends through the atmosphere, a vast desert terrain unfolds before you. Towering red cliffs rise sharply from the barren plains, their jagged peaks reaching toward the sky. The ground is a mix of rusty red sand and scattered boulders, suggesting a harsh and unforgiving environment.
-
-In the distance, a massive planet looms on the horizon, dominating the alien sky. Its surface is marred by craters and swirling clouds, hinting at tumultuous conditions. A smaller celestial body - perhaps a moon - hangs nearby, adding to the otherworldly feel of this system.
-
-The sky itself is a tapestry of warm hues - golds, oranges, and soft pinks - as if the system's star is in a perpetual state of setting. Wispy clouds streak across the upper atmosphere, catching the light and creating a dramatic backdrop for the celestial bodies.
-
-This harsh yet beautiful landscape presents both danger and opportunity. As a merc, you'll need to tread carefully in this alien world, but the potential for discovery and profit is immense. What secrets might be hidden among those towering cliffs or buried beneath the rusty sands?"
-h1 = SubResource("Resource_tb1un")
-h2 = SubResource("Resource_15wrs")
-h3 = SubResource("Resource_vnt4x")
-h4 = SubResource("Resource_8k4n7")
-h5 = SubResource("Resource_cbud8")
-h6 = SubResource("Resource_3w4qr")
 
 [node name="HFlowContainer" type="HFlowContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2

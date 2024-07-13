@@ -7,6 +7,8 @@ class_name Landing
 @export var outfitter_button: Button
 @export var shipyard_button: Button
 @export var refuel_button: Button
+@export var landscape_image: TextureRect
+@export var description_label: RichTextLabel
 
 # The planet to land on. Must be set before displaying.
 var planet: Planet
@@ -19,6 +21,8 @@ func _ready() -> void:
     self.outfitter_button.visible = (self.planet.facilities&Planet.OUTFITTER)
     self.shipyard_button.visible = (self.planet.facilities&Planet.SHIPYARD)
     self.refuel_button.visible = (self.planet.facilities&Planet.REFUEL)
+    self.landscape_image.texture = self.planet.landscape_image
+    self.description_label.text = self.planet.description
 
 func _on_bar_button_pressed() -> void:
     pass # Replace with function body.

@@ -1,8 +1,17 @@
-[gd_resource type="Resource" script_class="Planet" load_steps=2 format=3 uid="uid://cllvivdb0vf3t"]
+[gd_resource type="Resource" script_class="Planet" load_steps=3 format=3 uid="uid://cllvivdb0vf3t"]
 
+[ext_resource type="Texture2D" uid="uid://bj326fr2sh34k" path="res://planets/landing/images/e44babbc-77e8-45dc-912f-a73b967e9724.jpg" id="1_6cmr6"]
 [ext_resource type="Script" path="res://planets/planet.gd" id="1_ri415"]
 
 [resource]
 script = ExtResource("1_ri415")
 name = "Mars"
 facilities = 5
+landscape_image = ExtResource("1_6cmr6")
+description = "As your ship descends through the atmosphere, a vast desert terrain unfolds before you. Towering red cliffs rise sharply from the barren plains, their jagged peaks reaching toward the sky. The ground is a mix of rusty red sand and scattered boulders, suggesting a harsh and unforgiving environment.
+
+In the distance, a massive planet looms on the horizon, dominating the alien sky. Its surface is marred by craters and swirling clouds, hinting at tumultuous conditions. A smaller celestial body - perhaps a moon - hangs nearby, adding to the otherworldly feel of this system.
+
+The sky itself is a tapestry of warm hues - golds, oranges, and soft pinks - as if the system's star is in a perpetual state of setting. Wispy clouds streak across the upper atmosphere, catching the light and creating a dramatic backdrop for the celestial bodies.
+
+This harsh yet beautiful landscape presents both danger and opportunity. As a merc, you'll need to tread carefully in this alien world, but the potential for discovery and profit is immense. What secrets might be hidden among those towering cliffs or buried beneath the rusty sands?"

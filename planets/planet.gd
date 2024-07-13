@@ -15,3 +15,11 @@ enum {
 
 ## Facilities available on this planet.
 @export_flags("Bar", "Trading", "Missions", "Outfitter", "Shipyard", "Refuel") var facilities: int = BAR|TRADING|MISSIONS|REFUEL
+
+## A visual depiction of this planet's landscape.
+@export var landscape_image: Texture2D
+
+## A human-readable description of this planet, to present when landing.
+##
+## BBCode can be used to format this description.
+@export_multiline var description: String
