@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=56 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://utils/shader_precompiler.gd" id="2_if3rk"]
@@ -33,6 +33,7 @@
 [ext_resource type="Texture2D" uid="uid://dcg5m8doqdfc" path="res://screens/game/hud/images/target_info/heading_border.png" id="31_53obm"]
 [ext_resource type="PackedScene" uid="uid://bpav2va7o5qt4" path="res://screens/game/hud/target_fill_bar.tscn" id="32_pyrqo"]
 [ext_resource type="Texture2D" uid="uid://bsf3tqgocto7h" path="res://screens/game/hud/images/target_info/shields_fill.png" id="33_jftfh"]
+[ext_resource type="Script" path="res://screens/game/hud/landing_target_name.gd" id="34_ddwxb"]
 [ext_resource type="Script" path="res://screens/game/game_over.gd" id="34_ipa71"]
 [ext_resource type="Script" path="res://screens/game/message_log.gd" id="35_8pupt"]
 [ext_resource type="PackedScene" uid="uid://btc568gwt7fuc" path="res://screens/main_menu/main_menu.tscn" id="35_x8atu"]
@@ -468,6 +469,22 @@ layout_mode = 2
 stream = ExtResource("24_oh7qv")
 volume_db = -10.0
 
+[node name="LandingTargetName" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar" node_paths=PackedStringArray("pick_sound")]
+modulate = Color(1, 1, 1, 0.498039)
+layout_mode = 2
+tooltip_text = "Hyperspace jump destination"
+mouse_filter = 1
+theme_type_variation = &"HUDLabel"
+horizontal_alignment = 1
+text_overrun_behavior = 3
+uppercase = true
+script = ExtResource("34_ddwxb")
+pick_sound = NodePath("PickSound")
+
+[node name="PickSound" type="AudioStreamPlayer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/LandingTargetName"]
+stream = ExtResource("24_oh7qv")
+volume_db = -10.0
+
 [node name="MessageLog" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer" node_paths=PackedStringArray("new_message_audio")]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -551,6 +568,7 @@ galaxy = ExtResource("5_3nony")
 [connection signal="jump_started" from="HyperspaceController" to="MainCameraTransform/MainCamera/HyperspaceEffect" method="_on_jump_started"]
 [connection signal="jump_started" from="HyperspaceController" to="InGameGUI/GalaxyMapWindow/SubViewportContainer/SubViewport/GalaxyMap" method="_on_jump_started"]
 [connection signal="hull_changed" from="PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_hull_changed"]
+[connection signal="landing_target_changed" from="PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/LandingTargetName" method="_on_landing_target_changed"]
 [connection signal="power_changed" from="PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_power_changed"]
 [connection signal="shield_changed" from="PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_shield_changed"]
 [connection signal="ship_destroyed" from="PlayerCorvette/Player" to="InGameGUI/GameOverDialog" method="_on_player_ship_destroyed"]

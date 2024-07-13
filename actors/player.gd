@@ -37,7 +37,7 @@ var landing_target: PlanetInstance = null:
             return
         
         landing_target = value
-        self.landing_target_changed.emit(self, value)
+        self.landing_target_changed.emit(self, landing_target)
 
 ## When using the "absolute" control scheme, this is the tolerance (in radians) for being slightly off-rotated while enabling thrusters.
 const ABSOLUTE_DIRECTION_TOLERANCE_RAD = 0.1745
@@ -129,7 +129,7 @@ func _available_landing_targets() -> Array[PlanetInstance]:
 
 func _closest_landing_target() -> PlanetInstance:
     var nearest_planet_instance: PlanetInstance = null
-    var nearest_distance := MAX_LANDING_DISTANCE
+    var nearest_distance := INF
     for planet_instance in self._available_landing_targets():
         var distance := planet_instance.global_transform.origin.distance_to(self.ship.global_transform.origin)
         if distance <= nearest_distance:
@@ -187,8 +187,12 @@ func _land() -> void:
         self.landing_target = self._closest_landing_target()
         if not self.landing_target:
             return
+    
+    # Run the following checks only after a target is selected, to avoid spamming the message log.
+    if self.landing_target.global_transform.origin.distance_to(self.ship.global_transform.origin) > MAX_LANDING_DISTANCE:
+        self.message_log.add_message("Too far away to land.")
+        return
 
-    # Check this only after a target is selected, to avoid spamming the message log.
     if self.ship.linear_velocity.length() > MAX_LANDING_VELOCITY:
         self.message_log.add_message("Moving too fast to land.")
         return
