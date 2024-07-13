@@ -206,8 +206,9 @@ shield = SubResource("Resource_p0y82")
 [node name="Blaster" parent="PlayerCorvette" index="9"]
 battery = SubResource("Resource_jcr0a")
 
-[node name="Player" parent="PlayerCorvette" node_paths=PackedStringArray("hyperspace_controller") instance=ExtResource("16_lqltb")]
+[node name="Player" parent="PlayerCorvette" node_paths=PackedStringArray("hyperspace_controller", "message_log") instance=ExtResource("16_lqltb")]
 hyperspace_controller = NodePath("../../HyperspaceController")
+message_log = NodePath("../../InGameGUI/MarginContainer/HBoxContainer/MessageLog")
 landing_scene = ExtResource("17_qchu6")
 
 [node name="MinimapCameraRemoteTransform" parent="PlayerCorvette/Player" index="0"]
