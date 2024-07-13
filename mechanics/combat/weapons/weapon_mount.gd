@@ -26,7 +26,7 @@ func fire() -> bool:
         return false
     
     var projectile_instance: RigidBody3D = self.weapon.projectile.instantiate()
-    get_tree().root.add_child(projectile_instance)
+    get_parent().add_sibling(projectile_instance)
     projectile_instance.add_collision_exception_with(self._rigid_body)
     projectile_instance.global_transform = self.global_transform
     projectile_instance.linear_velocity = self._rigid_body.linear_velocity

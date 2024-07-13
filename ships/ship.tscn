@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c0eitctnmmfyq"]
+[gd_scene load_steps=11 format=3 uid="uid://c0eitctnmmfyq"]
 
 [ext_resource type="Script" path="res://mechanics/combat/combat_object.gd" id="1_71hcp"]
 [ext_resource type="Script" path="res://ships/ship.gd" id="1_ge1ie"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://mechanics/physics/rigid_body_direction.gd" id="3_5a5el"]
 [ext_resource type="PackedScene" uid="uid://ikpmfsfblp3i" path="res://fx/target_overlay/target_overlay.tscn" id="4_o8dwl"]
 [ext_resource type="Script" path="res://mechanics/physics/rigid_body_thruster.gd" id="5_66pr6"]
+[ext_resource type="Script" path="res://fx/target_overlay/combat_target_overlay.gd" id="5_ysmk8"]
 [ext_resource type="Script" path="res://mechanics/power/power_management_unit.gd" id="6_4hum8"]
 [ext_resource type="PackedScene" uid="uid://dmneg7pw872n2" path="res://mechanics/radar/radar_object.tscn" id="8_lf0ki"]
 
@@ -32,6 +33,13 @@ script = ExtResource("1_71hcp")
 script = ExtResource("2_a7xhq")
 
 [node name="TargetOverlay" parent="CombatObject" instance=ExtResource("4_o8dwl")]
+script = ExtResource("5_ysmk8")
+
+[node name="Left" parent="CombatObject/TargetOverlay" index="0"]
+modulate = Color(0.258824, 0.811765, 1, 1)
+
+[node name="Right" parent="CombatObject/TargetOverlay" index="1"]
+modulate = Color(0.258824, 0.811765, 1, 1)
 
 [node name="RigidBodyDirection" type="Node3D" parent="."]
 script = ExtResource("3_5a5el")
@@ -46,3 +54,5 @@ script = ExtResource("6_4hum8")
 
 [connection signal="targeted_by_changed" from="CombatObject" to="CombatObject/TargetOverlay" method="_on_targeted_by_changed"]
 [connection signal="targeted_by_changed" from="CombatObject" to="RadarObject" method="_on_targeted_by_changed"]
+
+[editable path="CombatObject/TargetOverlay"]

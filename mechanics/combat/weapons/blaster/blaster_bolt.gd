@@ -20,7 +20,7 @@ func _process(_delta: float) -> void:
 
 func _on_body_entered(body: Node) -> void:
     var explosion_instance: AnimatedSprite3D = self.explosion.instantiate()
-    get_parent().add_child(explosion_instance)
+    self.add_sibling(explosion_instance)
     explosion_instance.global_position = self.global_position
     explosion_instance.global_rotation = self.global_rotation
     explosion_instance.scale = Vector3.ONE * 0.2
