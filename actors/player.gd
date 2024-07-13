@@ -133,6 +133,16 @@ func _land() -> void:
     var window: Window = self.landing_scene.instantiate()
     self.get_tree().root.add_child(window)
     window.show()
+    window.visibility_changed.connect(func() -> void:
+        window.queue_free()
+        self._depart_from_planet())
+    
+    self.ship.visible = false
+    self.ship.freeze = true
+
+func _depart_from_planet() -> void:
+    self.ship.visible = true
+    self.ship.freeze = false
 
 func _absolute_input_direction() -> Vector3:
     var input_direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")

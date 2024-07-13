@@ -20,7 +20,3 @@ func _on_refuel_button_pressed() -> void:
 
 func _on_depart_button_pressed() -> void:
     self.hide()
-
-func _on_visibility_changed() -> void:
-    if not self.visible:
-        self.queue_free()
