@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=56 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://utils/shader_precompiler.gd" id="2_if3rk"]
@@ -37,6 +37,7 @@
 [ext_resource type="Script" path="res://screens/game/game_over.gd" id="34_ipa71"]
 [ext_resource type="Script" path="res://screens/game/message_log.gd" id="35_8pupt"]
 [ext_resource type="PackedScene" uid="uid://btc568gwt7fuc" path="res://screens/main_menu/main_menu.tscn" id="35_x8atu"]
+[ext_resource type="AudioStream" uid="uid://d35n48x47d8dy" path="res://screens/shared_ui/audio/beep_03.ogg" id="36_3gr28"]
 [ext_resource type="Script" path="res://screens/game/exit_dialog.gd" id="36_7hsbd"]
 [ext_resource type="Script" path="res://screens/shared_ui/fps_counter.gd" id="37_e11x7"]
 [ext_resource type="PackedScene" uid="uid://kqong7nrl4p2" path="res://galaxy/map/galaxy_map.tscn" id="38_r6s3m"]
@@ -466,7 +467,7 @@ layout_mode = 2
 stream = ExtResource("24_oh7qv")
 volume_db = -10.0
 
-[node name="MessageLog" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer"]
+[node name="MessageLog" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer" node_paths=PackedStringArray("new_message_audio")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -474,6 +475,10 @@ vertical_alignment = 2
 clip_text = true
 text_overrun_behavior = 3
 script = ExtResource("35_8pupt")
+new_message_audio = NodePath("AudioStreamPlayer")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="InGameGUI/MarginContainer/HBoxContainer/MessageLog"]
+stream = ExtResource("36_3gr28")
 
 [node name="FPSCounter" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer"]
 layout_mode = 2
