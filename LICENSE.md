@@ -58,6 +58,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 [Titillium Web font](https://fonts.google.com/specimen/Titillium+Web) copyright (c) 2009-2011 [Accademia di Belle Arti di Urbino](https://www.accademiadiurbino.it/en/) and students of MA course of Visual design. Some rights reserved. Licensed under the [SIL Open Font License (OFL) version 1.1](https://openfontlicense.org/).
 
 [Spaceship Sounds](https://benvibrant.itch.io/spaceship-sounds) created by [Ben Vibrant](https://linktr.ee/benvibrant), purchased for use in this project:
+- Hangar Doors
+- LandingGear
 - THRUSTER LOW
 
 [Laser Bullets Pack 2020](https://wenrexa.itch.io/laser2020) released by [Wenrexa](https://wenrexa.itch.io/), licensed under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/):

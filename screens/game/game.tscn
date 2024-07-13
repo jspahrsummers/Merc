@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=55 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://utils/shader_precompiler.gd" id="2_if3rk"]
@@ -16,7 +16,6 @@
 [ext_resource type="Script" path="res://mechanics/combat/hull.gd" id="14_bcf1o"]
 [ext_resource type="Script" path="res://mechanics/power/battery.gd" id="15_sjw8q"]
 [ext_resource type="PackedScene" uid="uid://cxlg0yj8cjbrf" path="res://actors/player.tscn" id="16_lqltb"]
-[ext_resource type="PackedScene" uid="uid://d1kbmfvjs6nrv" path="res://planet/landing/landing.tscn" id="17_qchu6"]
 [ext_resource type="PackedScene" uid="uid://2mdsbbko7baw" path="res://galaxy/star_systems/scenes/sol.tscn" id="17_wjgyf"]
 [ext_resource type="Script" path="res://screens/game/in_game_gui.gd" id="18_y74ml"]
 [ext_resource type="Texture2D" uid="uid://bphfuhdpceacb" path="res://mechanics/radar/images/radar_bg.png" id="19_vr47x"]
@@ -210,7 +209,6 @@ battery = SubResource("Resource_jcr0a")
 [node name="Player" parent="PlayerCorvette" node_paths=PackedStringArray("hyperspace_controller", "message_log") instance=ExtResource("16_lqltb")]
 hyperspace_controller = NodePath("../../HyperspaceController")
 message_log = NodePath("../../InGameGUI/MarginContainer/HBoxContainer/MessageLog")
-landing_scene = ExtResource("17_qchu6")
 
 [node name="MinimapCameraRemoteTransform" parent="PlayerCorvette/Player" index="0"]
 remote_path = NodePath("../../../MinimapViewport/MinimapCameraTransform")
@@ -220,6 +218,9 @@ remote_path = NodePath("../../../MainCameraTransform")
 
 [node name="StarfieldRemoteTransform" parent="PlayerCorvette/Player" index="2"]
 remote_path = NodePath("../../../StarfieldTransform")
+
+[node name="TakeoffSound" parent="PlayerCorvette/Player" index="3"]
+pitch_scale = 2.0
 
 [node name="MinimapViewport" type="SubViewport" parent="."]
 transparent_bg = true
