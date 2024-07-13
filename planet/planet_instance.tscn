@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b04hfgkcuq7k6"]
+[gd_scene load_steps=6 format=3 uid="uid://b04hfgkcuq7k6"]
 
 [ext_resource type="Script" path="res://planet/planet_instance.gd" id="1_f2834"]
 [ext_resource type="Texture2D" uid="uid://olumucogupnw" path="res://planet/sprites/planet_04.png" id="1_w3ph5"]
+[ext_resource type="PackedScene" uid="uid://ikpmfsfblp3i" path="res://fx/target_overlay/target_overlay.tscn" id="3_sdnoe"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0y335"]
 shading_mode = 0
@@ -19,6 +20,7 @@ cap_bottom = false
 script = ExtResource("1_f2834")
 
 [node name="MinimapIcon" type="MeshInstance3D" parent="."]
+visible = false
 layers = 2
 cast_shadow = 0
 gi_mode = 0
@@ -32,3 +34,16 @@ pixel_size = 0.005
 axis = 1
 double_sided = false
 texture = ExtResource("1_w3ph5")
+
+[node name="TargetOverlay" parent="." instance=ExtResource("3_sdnoe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -1, 2.08165e-12)
+
+[node name="Left" parent="TargetOverlay" index="0"]
+transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, -1.5, 2.08165e-12, 2.08165e-12)
+pixel_size = 0.01
+
+[node name="Right" parent="TargetOverlay" index="1"]
+transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, 1.5, 2.08165e-12, 2.08165e-12)
+pixel_size = 0.01
+
+[editable path="TargetOverlay"]
