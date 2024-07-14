@@ -45,6 +45,9 @@ var landing_target: PlanetInstance = null:
         if landing_target:
             landing_target.targeted_by_player = true
 
+## Created to turn the [Ship] when using the relative control scheme.
+var _rigid_body_turner: RigidBodyTurner
+
 ## When using the "absolute" control scheme, this is the tolerance (in radians) for being slightly off-rotated while enabling thrusters.
 const ABSOLUTE_DIRECTION_TOLERANCE_RAD = 0.1745
 
@@ -54,11 +57,10 @@ const MAX_LANDING_DISTANCE = 2.0
 const MAX_LANDING_VELOCITY = 4.0
 
 func _ready() -> void:
-    var turner: RigidBodyTurner = RigidBodyTurner.new()
-    turner.spin_thruster = self.ship.rigid_body_direction.spin_thruster
-    turner.battery = self.ship.rigid_body_direction.battery
-    self.ship.add_child.call_deferred(turner)
-    self.ship.rigid_body_turner = turner
+    self._rigid_body_turner = RigidBodyTurner.new()
+    self._rigid_body_turner.spin_thruster = self.ship.rigid_body_direction.spin_thruster
+    self._rigid_body_turner.battery = self.ship.rigid_body_direction.battery
+    self.ship.add_child.call_deferred(self._rigid_body_turner)
     self.ship.radar_object.iff = RadarObject.IFF.SELF
     self.ship.targeting_system.is_player = true
 
@@ -219,7 +221,7 @@ func _depart_from_planet() -> void:
 func _reset_controls() -> void:
     self.ship.rigid_body_thruster.throttle = 0.0
     self.ship.rigid_body_direction.direction = Vector3.ZERO
-    self.ship.rigid_body_turner.turning = 0.0
+    self._rigid_body_turner.turning = 0.0
 
 func _reset_velocity() -> void:
     self.ship.linear_velocity = Vector3.ZERO
@@ -254,11 +256,11 @@ func _physics_process(_delta: float) -> void:
 
             self.ship.rigid_body_direction.direction = Vector3.ZERO
             if Input.is_action_pressed("turn_left"):
-                self.ship.rigid_body_turner.turning = -1.0
+                self._rigid_body_turner.turning = -1.0
             elif Input.is_action_pressed("turn_right"):
-                self.ship.rigid_body_turner.turning = 1.0
+                self._rigid_body_turner.turning = 1.0
             else:
-                self.ship.rigid_body_turner.turning = 0.0
+                self._rigid_body_turner.turning = 0.0
 
         UserPreferences.ControlScheme.ABSOLUTE:
             var desired_direction := self._absolute_input_direction()
