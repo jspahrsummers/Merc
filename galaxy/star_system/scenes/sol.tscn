@@ -1,6 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://2mdsbbko7baw"]
+[gd_scene load_steps=18 format=3 uid="uid://2mdsbbko7baw"]
 
+[ext_resource type="Script" path="res://galaxy/star_system/star_system_instance.gd" id="1_6tnek"]
 [ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://stars/star.tscn" id="1_j8iws"]
+[ext_resource type="Resource" uid="uid://cew4x137v08q" path="res://galaxy/star_system/star_systems/sol.tres" id="2_gs8wx"]
 [ext_resource type="PackedScene" uid="uid://b04hfgkcuq7k6" path="res://planet/planet_instance.tscn" id="3_7gpxn"]
 [ext_resource type="Resource" uid="uid://cmm0akidhocmo" path="res://planet/planets/earth.tres" id="3_qvwl4"]
 [ext_resource type="Texture2D" uid="uid://bqxxjmbapro8l" path="res://planet/sprites/planet_02.png" id="4_afp06"]
@@ -34,6 +36,8 @@ max_power = 300.0
 power = 300.0
 
 [node name="Sol" type="Node3D" groups=["star_system"]]
+script = ExtResource("1_6tnek")
+star_system = ExtResource("2_gs8wx")
 
 [node name="Star" parent="." instance=ExtResource("1_j8iws")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.08165e-12, -3)

@@ -1,6 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://d3qpe4ne3bgww"]
+[gd_scene load_steps=16 format=3 uid="uid://d3qpe4ne3bgww"]
 
 [ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://stars/star.tscn" id="1_p0ggc"]
+[ext_resource type="Script" path="res://galaxy/star_system/star_system_instance.gd" id="1_sih83"]
+[ext_resource type="Resource" uid="uid://di0bekcy5g0ya" path="res://galaxy/star_system/star_systems/wolf_359.tres" id="2_byjpf"]
 [ext_resource type="Texture2D" uid="uid://dh0obx8nl0ltx" path="res://stars/sprites/star_red03.png" id="2_sinon"]
 [ext_resource type="PackedScene" uid="uid://cdvbol3xj7jr5" path="res://ships/frigate03/frigate03.tscn" id="3_1cx0e"]
 [ext_resource type="Script" path="res://mechanics/combat/shield.gd" id="4_y3muj"]
@@ -49,6 +51,8 @@ max_power = 300.0
 power = 300.0
 
 [node name="Wolf 359" type="Node3D" groups=["star_system"]]
+script = ExtResource("1_sih83")
+star_system = ExtResource("2_byjpf")
 
 [node name="Star" parent="." instance=ExtResource("1_p0ggc")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -7.65186, 2.08165e-12, 2.24275)
@@ -114,4 +118,6 @@ battery = SubResource("Resource_1cdp5")
 
 [editable path="Star"]
 [editable path="Frigate"]
+[editable path="Frigate/CombatObject/TargetOverlay"]
 [editable path="Frigate2"]
+[editable path="Frigate2/CombatObject/TargetOverlay"]

@@ -1,7 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cghdtnx2qen2u"]
+[gd_scene load_steps=13 format=3 uid="uid://cghdtnx2qen2u"]
 
 [ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://stars/star.tscn" id="1_dt7yu"]
+[ext_resource type="Script" path="res://galaxy/star_system/star_system_instance.gd" id="1_pqej6"]
 [ext_resource type="Texture2D" uid="uid://bsgwmdcreel60" path="res://stars/sprites/star_red02.png" id="2_xr5lq"]
+[ext_resource type="Resource" uid="uid://shiglva7yxl0" path="res://galaxy/star_system/star_systems/barnard's_star.tres" id="2_y4tl8"]
 [ext_resource type="Script" path="res://mechanics/combat/shield.gd" id="4_avs2c"]
 [ext_resource type="Script" path="res://mechanics/combat/hull.gd" id="5_4e6ev"]
 [ext_resource type="Script" path="res://mechanics/power/battery.gd" id="6_s58bt"]
@@ -29,6 +31,8 @@ max_power = 300.0
 power = 300.0
 
 [node name="Barnard\'s Star" type="Node3D" groups=["star_system"]]
+script = ExtResource("1_pqej6")
+star_system = ExtResource("2_y4tl8")
 
 [node name="Star" parent="." instance=ExtResource("1_dt7yu")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.65429, 2.08165e-12, 11.1402)
@@ -69,3 +73,4 @@ battery = SubResource("Resource_62daw")
 
 [editable path="Star"]
 [editable path="Frigate"]
+[editable path="Frigate/CombatObject/TargetOverlay"]
