@@ -25,6 +25,9 @@ class_name Ship
 ## An optional shield recharger for this ship.
 @export var shield_recharger: ShieldRecharger
 
+## The ship's hyperdrive.
+@export var hyperdrive: Hyperdrive
+
 @export var weapon_mounts: Array[WeaponMount]
 
 func _to_string() -> String:
