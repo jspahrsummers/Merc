@@ -52,6 +52,7 @@ script = ExtResource("6_4hum8")
 
 [node name="RadarObject" parent="." instance=ExtResource("8_lf0ki")]
 
+[connection signal="input_event" from="." to="CombatObject" method="_on_collision_object_input_event"]
 [connection signal="targeted_by_changed" from="CombatObject" to="CombatObject/TargetOverlay" method="_on_targeted_by_changed"]
 [connection signal="targeted_by_changed" from="CombatObject" to="RadarObject" method="_on_targeted_by_changed"]
 
