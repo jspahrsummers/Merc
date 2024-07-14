@@ -53,7 +53,7 @@ func start_jump() -> void:
     assert(current_system != jump_destination, "Current system should not be the same as the jump destination")
 
     if not self._loaded_system_nodes.has(jump_destination.name):
-        ResourceLoader.load_threaded_request(jump_destination.scene_path())
+        ResourceLoader.load_threaded_request(jump_destination.scene_path)
 
     jumping = true
     self.emit_signal("jump_started", jump_destination)
@@ -69,7 +69,7 @@ func load_jump_destination() -> void:
     var node: Node3D = self._loaded_system_nodes.get(jump_destination.name)
     if node == null:
         print("Instantiating node for system ", jump_destination.name)
-        var new_scene := ResourceLoader.load_threaded_get(jump_destination.scene_path()) as PackedScene
+        var new_scene := ResourceLoader.load_threaded_get(jump_destination.scene_path) as PackedScene
         node = new_scene.instantiate()
 
         self._loaded_system_nodes[jump_destination.name] = node
