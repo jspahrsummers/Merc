@@ -8,6 +8,10 @@ class_name Galaxy
 ## A list of all systems in the galaxy.
 @export var systems: Array[StarSystem]
 
+func _init() -> void:
+    for system in self.systems:
+        system.galaxy = weakref(self)
+
 ## Looks up a system by name.
 func get_system(name: StringName) -> StarSystem:
     for system in systems:
