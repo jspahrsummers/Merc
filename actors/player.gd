@@ -215,6 +215,7 @@ func _land() -> void:
         return
 
     var landing: Landing = self.landing_scene.instantiate()
+    landing.player = self
     landing.planet = planet
     self.ship.add_sibling(landing)
     self.ship.get_parent().remove_child(self.ship)
