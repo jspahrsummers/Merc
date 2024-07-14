@@ -7,3 +7,4 @@ script = ExtResource("1_go4uk")
 name = &"Wolf 359"
 connections = Array[StringName]([&"Sol", &"Alpha Centauri"])
 position = Vector3(-2, 2.08165e-12, -2)
+scene_path = "res://galaxy/star_system/scenes/wolf_359.tscn"
