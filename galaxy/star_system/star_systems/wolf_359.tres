@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="StarSystem" load_steps=2 format=3 uid="uid://di0bekcy5g0ya"]
+
+[ext_resource type="Script" path="res://galaxy/star_system/star_system.gd" id="1_go4uk"]
+
+[resource]
+script = ExtResource("1_go4uk")
+name = &"Wolf 359"
+connections = Array[StringName]([&"Sol", &"Alpha Centauri"])
+position = Vector3(-2, 2.08165e-12, -2)
