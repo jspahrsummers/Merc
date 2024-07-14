@@ -4,7 +4,7 @@ extends MeshInstance3D
 ##
 ## Besides being visually interesting, this effect also serves to hide the scene transition, where otherwise nodes would pop in and out.
 
-@export var hyperspace_controller: HyperspaceController
+@export var hyperspace_scene_switcher: HyperspaceSceneSwitcher
 @export var hyperspace_viewport: SubViewport
 
 ## An audio clip to play when a hyperspace jump begins.
@@ -32,7 +32,10 @@ func _random_rotation() -> Vector3:
         _random_radians(),
     )
 
-func _on_jump_started(_destination: StarSystem) -> void:
+func _on_jumping_changed(hyperdrive_system: HyperdriveSystem) -> void:
+    if not hyperdrive_system.jumping:
+        return
+
     self.hyperspace_viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
     self.rotation = self.initial_rotation
     self.scale = self.initial_scale
@@ -47,7 +50,7 @@ func _on_jump_started(_destination: StarSystem) -> void:
 
     await tween.finished
 
-    self.hyperspace_controller.load_jump_destination()
+    self.hyperspace_scene_switcher.load_jump_destination()
 
     # Jump in effect
     tween = self.create_tween()
@@ -57,4 +60,4 @@ func _on_jump_started(_destination: StarSystem) -> void:
     await tween.finished
 
     self.visible = false
-    self.hyperspace_controller.finish_jump()
+    self.hyperspace_scene_switcher.finish_jump()

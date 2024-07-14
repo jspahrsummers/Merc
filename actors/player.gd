@@ -5,7 +5,7 @@ class_name Player
 ##
 ## [b]This script expects the parent node to be a [Ship].[/b]
 
-@export var hyperspace_controller: HyperspaceController
+@export var hyperspace_scene_switcher: HyperspaceSceneSwitcher
 @export var message_log: MessageLog
 @export var landing_scene: PackedScene
 @export var takeoff_sound: AudioStreamPlayer
@@ -93,18 +93,20 @@ func _on_hull_destroyed(hull: Hull) -> void:
 func _on_target_changed(targeting_system: TargetingSystem) -> void:
     self.target_changed.emit(self, targeting_system.target)
 
-func _on_jump_destination_loaded(_system: StarSystem) -> void:
+func _on_jump_destination_loaded(_new_system_instance: StarSystemInstance) -> void:
     self._reset_velocity()
     self.ship.position = MathUtils.random_unit_vector() * HYPERSPACE_ARRIVAL_RADIUS
     self.ship.targeting_system.target = null
 
 func _next_system_connection() -> StarSystem:
     var current_destination_name: Variant = null
-    if self.hyperspace_controller.jump_destination:
-        current_destination_name = self.hyperspace_controller.jump_destination.name
+    if self.ship.hyperdrive_system.jump_destination:
+        current_destination_name = self.ship.hyperdrive_system.jump_destination.name
 
-    var next_destination_name: Variant = ArrayUtils.cycle_through(self.hyperspace_controller.current_system.connections, current_destination_name)
-    return self.hyperspace_controller.galaxy.get_system(next_destination_name as StringName) if next_destination_name else null
+    var current_system := self.ship.hyperdrive_system.current_system()
+    var galaxy: Galaxy = current_system.galaxy.get_ref()
+    var next_destination_name: Variant = ArrayUtils.cycle_through(current_system.connections, current_destination_name)
+    return galaxy.get_system(next_destination_name as StringName) if next_destination_name else null
 
 func _next_target() -> CombatObject:
     var available_targets := self.ship.targeting_system.get_available_targets()
@@ -132,11 +134,11 @@ func _closest_landing_target() -> PlanetInstance:
     return nearest_planet_instance
 
 func _unhandled_key_input(event: InputEvent) -> void:
-    if self.hyperspace_controller.jumping:
+    if self.ship.hyperdrive_system.jumping:
         return
 
     if event.is_action_pressed("cycle_jump_destination", true):
-        self.hyperspace_controller.set_jump_destination(self._next_system_connection())
+        self.ship.hyperdrive_system.jump_destination = self._next_system_connection()
         self.get_viewport().set_input_as_handled()
 
     if event.is_action_pressed("cycle_target", true):
@@ -173,14 +175,16 @@ func _on_broadcasted_input_event(receiver: Node, event: InputEvent) -> void:
         return
 
 func _jump_to_hyperspace() -> void:
-    if not self.hyperspace_controller.jump_destination:
+    if not self.ship.hyperdrive_system.jump_destination:
         return
     
+    if not self.hyperspace_scene_switcher.start_jump():
+        return
+
     self.landing_target = null
 
     # Lock controls
     self._reset_controls()
-    self.hyperspace_controller.start_jump()
 
 func _land() -> void:
     if not self.landing_target:
@@ -232,7 +236,7 @@ func _absolute_input_direction() -> Vector3:
     return Vector3(input_direction.x, 0, input_direction.y)
 
 func _physics_process(_delta: float) -> void:
-    if self.hyperspace_controller.jumping:
+    if self.ship.hyperdrive_system.jumping:
         return
 
     if Input.is_action_pressed("jump"):

@@ -2,7 +2,7 @@ extends Node3D
 
 ## Presents the in-game galaxy map, showing all star systems.
 
-@export var hyperspace_controller: HyperspaceController
+@export var hyperdrive_system: HyperdriveSystem
 
 ## The galaxy to display.
 @export var galaxy: Galaxy
@@ -20,13 +20,14 @@ extends Node3D
 var _system_nodes: Dictionary = {}
 
 func _ready() -> void:
+    var current_system := self.hyperdrive_system.current_system()
     for system in galaxy.systems:
         var system_node: GalaxyMapSystem = self.galaxy_map_system.instantiate()
         self._system_nodes[system.name] = system_node
         system_node.clicked.connect(func(node: GalaxyMapSystem) -> void: self._on_system_clicked(system, node))
 
         system_node.name = system.name
-        system_node.current = (system == self.hyperspace_controller.current_system)
+        system_node.current = (system == current_system)
         self.add_child(system_node)
 
         system_node.transform.origin = system.position
@@ -41,14 +42,16 @@ func _ready() -> void:
             hyperlane.ending_position = connected_system.position
             self.add_child(hyperlane)
 
-func _on_jump_started(_destination: StarSystem) -> void:
-    var current_name := self.hyperspace_controller.current_system.name
-    self._system_nodes[current_name].current = false
+func _on_jumping_changed(_hyperdrive_system: HyperdriveSystem) -> void:
+    assert(self.hyperdrive_system == _hyperdrive_system)
 
-func _on_jump_finished(new_system: StarSystem) -> void:
-    var new_name := new_system.name
-    self.camera.center = new_system.position
-    self._system_nodes[new_name].current = true
+    if self.hyperdrive_system.jumping:
+        var current_name := self.hyperdrive_system.current_system().name
+        self._system_nodes[current_name].current = false
+    else:
+        var new_system := self.hyperdrive_system.current_system()
+        self.camera.center = new_system.position
+        self._system_nodes[new_system.name].current = true
 
 func _input(event: InputEvent) -> void:
     if event.is_action_pressed("toggle_galaxy_map"):
@@ -59,24 +62,25 @@ func _on_window_close_requested() -> void:
     self.get_window().visible = false
 
 func _on_system_clicked(star_system: StarSystem, _system_node: GalaxyMapSystem) -> void:
-    if self.hyperspace_controller.jumping:
+    if self.hyperdrive_system.jumping:
         return
 
-    if star_system.name not in self.hyperspace_controller.current_system.connections:
+    if star_system.name not in self.hyperdrive_system.current_system().connections:
         return
 
-    self.hyperspace_controller.set_jump_destination(star_system)
+    self.hyperdrive_system.jump_destination = star_system
 
 func _on_hyperlane_clicked(from_system: StarSystem, to_system: StarSystem, _hyperlane_node: GalaxyMapHyperlane) -> void:
-    if self.hyperspace_controller.jumping:
+    if self.hyperdrive_system.jumping:
         return
-    
+
+    var current_system := self.hyperdrive_system.current_system()
     var connection: StarSystem
-    if from_system == self.hyperspace_controller.current_system:
+    if from_system == current_system:
         connection = to_system
-    elif to_system == self.hyperspace_controller.current_system:
+    elif to_system == current_system:
         connection = from_system
     else:
         return
 
-    self.hyperspace_controller.set_jump_destination(connection)
+    self.hyperdrive_system.jump_destination = connection
