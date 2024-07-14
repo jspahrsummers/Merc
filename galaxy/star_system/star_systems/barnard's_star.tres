@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="StarSystem" load_steps=2 format=3 uid="uid://shiglva7yxl0"]
+
+[ext_resource type="Script" path="res://galaxy/star_system/star_system.gd" id="1_bblmw"]
+
+[resource]
+script = ExtResource("1_bblmw")
+name = &"Barnard\'s Star"
+connections = Array[StringName]([&"Sol"])
+position = Vector3(3, 2.08165e-12, 3)
+scene_path = "res://galaxy/star_system/scenes/barnard's_star.tscn"

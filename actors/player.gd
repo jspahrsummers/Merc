@@ -5,7 +5,7 @@ class_name Player
 ##
 ## [b]This script expects the parent node to be a [Ship].[/b]
 
-@export var hyperspace_controller: HyperspaceController
+@export var hyperspace_scene_switcher: HyperspaceSceneSwitcher
 @export var message_log: MessageLog
 @export var landing_scene: PackedScene
 @export var takeoff_sound: AudioStreamPlayer
@@ -30,6 +30,9 @@ signal target_changed(player: Player, target: CombatObject)
 ## Fires when the player changes their landing target.
 signal landing_target_changed(player: Player, target: PlanetInstance)
 
+## Fires when the ship's hyperdrive changes.
+signal hyperdrive_changed(player: Player, hyperdrive: Hyperdrive)
+
 ## The current target for landing, if any.
 var landing_target: PlanetInstance = null:
     set(value):
@@ -45,6 +48,9 @@ var landing_target: PlanetInstance = null:
         if landing_target:
             landing_target.targeted_by_player = true
 
+## Created to turn the [Ship] when using the relative control scheme.
+var _rigid_body_turner: RigidBodyTurner
+
 ## When using the "absolute" control scheme, this is the tolerance (in radians) for being slightly off-rotated while enabling thrusters.
 const ABSOLUTE_DIRECTION_TOLERANCE_RAD = 0.1745
 
@@ -54,11 +60,10 @@ const MAX_LANDING_DISTANCE = 2.0
 const MAX_LANDING_VELOCITY = 4.0
 
 func _ready() -> void:
-    var turner: RigidBodyTurner = RigidBodyTurner.new()
-    turner.spin_thruster = self.ship.rigid_body_direction.spin_thruster
-    turner.battery = self.ship.rigid_body_direction.battery
-    self.ship.add_child.call_deferred(turner)
-    self.ship.rigid_body_turner = turner
+    self._rigid_body_turner = RigidBodyTurner.new()
+    self._rigid_body_turner.spin_thruster = self.ship.rigid_body_direction.spin_thruster
+    self._rigid_body_turner.battery = self.ship.rigid_body_direction.battery
+    self.ship.add_child.call_deferred(self._rigid_body_turner)
     self.ship.radar_object.iff = RadarObject.IFF.SELF
     self.ship.targeting_system.is_player = true
 
@@ -67,6 +72,7 @@ func _ready() -> void:
     self.ship.combat_object.shield.changed.connect(_on_shield_changed)
     self.ship.power_management_unit.battery.changed.connect(_on_power_changed)
     self.ship.targeting_system.target_changed.connect(_on_target_changed)
+    self.ship.hyperdrive_system.hyperdrive.changed.connect(_on_hyperdrive_changed)
 
     InputEventBroadcaster.input_event.connect(_on_broadcasted_input_event)
 
@@ -74,6 +80,7 @@ func _ready() -> void:
     self._on_hull_changed()
     self._on_shield_changed()
     self._on_power_changed()
+    self._on_hyperdrive_changed()
 
 func _on_hull_changed() -> void:
     self.hull_changed.emit(self, self.ship.combat_object.hull)
@@ -91,18 +98,23 @@ func _on_hull_destroyed(hull: Hull) -> void:
 func _on_target_changed(targeting_system: TargetingSystem) -> void:
     self.target_changed.emit(self, targeting_system.target)
 
-func _on_jump_destination_loaded(_system: StarSystem) -> void:
+func _on_jump_destination_loaded(_new_system_instance: StarSystemInstance) -> void:
     self._reset_velocity()
     self.ship.position = MathUtils.random_unit_vector() * HYPERSPACE_ARRIVAL_RADIUS
     self.ship.targeting_system.target = null
 
+func _on_hyperdrive_changed() -> void:
+    self.hyperdrive_changed.emit(self, self.ship.hyperdrive_system.hyperdrive)
+
 func _next_system_connection() -> StarSystem:
     var current_destination_name: Variant = null
-    if self.hyperspace_controller.jump_destination:
-        current_destination_name = self.hyperspace_controller.jump_destination.name
+    if self.ship.hyperdrive_system.jump_destination:
+        current_destination_name = self.ship.hyperdrive_system.jump_destination.name
 
-    var next_destination_name: Variant = ArrayUtils.cycle_through(self.hyperspace_controller.current_system.connections, current_destination_name)
-    return self.hyperspace_controller.galaxy.get_system(next_destination_name as StringName) if next_destination_name else null
+    var current_system := self.ship.hyperdrive_system.current_system()
+    var galaxy: Galaxy = current_system.galaxy.get_ref()
+    var next_destination_name: Variant = ArrayUtils.cycle_through(current_system.connections, current_destination_name)
+    return galaxy.get_system(next_destination_name as StringName) if next_destination_name else null
 
 func _next_target() -> CombatObject:
     var available_targets := self.ship.targeting_system.get_available_targets()
@@ -130,11 +142,11 @@ func _closest_landing_target() -> PlanetInstance:
     return nearest_planet_instance
 
 func _unhandled_key_input(event: InputEvent) -> void:
-    if self.hyperspace_controller.jumping:
+    if self.ship.hyperdrive_system.jumping:
         return
 
     if event.is_action_pressed("cycle_jump_destination", true):
-        self.hyperspace_controller.set_jump_destination(self._next_system_connection())
+        self.ship.hyperdrive_system.jump_destination = self._next_system_connection()
         self.get_viewport().set_input_as_handled()
 
     if event.is_action_pressed("cycle_target", true):
@@ -171,14 +183,16 @@ func _on_broadcasted_input_event(receiver: Node, event: InputEvent) -> void:
         return
 
 func _jump_to_hyperspace() -> void:
-    if not self.hyperspace_controller.jump_destination:
+    if not self.ship.hyperdrive_system.jump_destination:
         return
     
+    if not self.hyperspace_scene_switcher.start_jump():
+        return
+
     self.landing_target = null
 
     # Lock controls
     self._reset_controls()
-    self.hyperspace_controller.start_jump()
 
 func _land() -> void:
     if not self.landing_target:
@@ -201,6 +215,7 @@ func _land() -> void:
         return
 
     var landing: Landing = self.landing_scene.instantiate()
+    landing.player = self
     landing.planet = planet
     self.ship.add_sibling(landing)
     self.ship.get_parent().remove_child(self.ship)
@@ -219,7 +234,7 @@ func _depart_from_planet() -> void:
 func _reset_controls() -> void:
     self.ship.rigid_body_thruster.throttle = 0.0
     self.ship.rigid_body_direction.direction = Vector3.ZERO
-    self.ship.rigid_body_turner.turning = 0.0
+    self._rigid_body_turner.turning = 0.0
 
 func _reset_velocity() -> void:
     self.ship.linear_velocity = Vector3.ZERO
@@ -230,7 +245,7 @@ func _absolute_input_direction() -> Vector3:
     return Vector3(input_direction.x, 0, input_direction.y)
 
 func _physics_process(_delta: float) -> void:
-    if self.hyperspace_controller.jumping:
+    if self.ship.hyperdrive_system.jumping:
         return
 
     if Input.is_action_pressed("jump"):
@@ -254,11 +269,11 @@ func _physics_process(_delta: float) -> void:
 
             self.ship.rigid_body_direction.direction = Vector3.ZERO
             if Input.is_action_pressed("turn_left"):
-                self.ship.rigid_body_turner.turning = -1.0
+                self._rigid_body_turner.turning = -1.0
             elif Input.is_action_pressed("turn_right"):
-                self.ship.rigid_body_turner.turning = 1.0
+                self._rigid_body_turner.turning = 1.0
             else:
-                self.ship.rigid_body_turner.turning = 0.0
+                self._rigid_body_turner.turning = 0.0
 
         UserPreferences.ControlScheme.ABSOLUTE:
             var desired_direction := self._absolute_input_direction()

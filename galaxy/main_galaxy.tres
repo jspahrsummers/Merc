@@ -1,27 +1,11 @@
-[gd_resource type="Resource" script_class="Galaxy" load_steps=7 format=3 uid="uid://bcva4l4cpt70c"]
+[gd_resource type="Resource" script_class="Galaxy" load_steps=6 format=3 uid="uid://bcva4l4cpt70c"]
 
 [ext_resource type="Script" path="res://galaxy/galaxy.gd" id="1_bckai"]
-[ext_resource type="Script" path="res://galaxy/star_systems/star_system.gd" id="2_mnbif"]
-[ext_resource type="Resource" uid="uid://cew4x137v08q" path="res://galaxy/star_systems/sol.tres" id="2_va8e4"]
-
-[sub_resource type="Resource" id="Resource_44mst"]
-script = ExtResource("2_mnbif")
-name = &"Alpha Centauri"
-connections = Array[StringName]([&"Sol", &"Wolf 359"])
-position = Vector3(2.5, 0.2, -3.7)
-
-[sub_resource type="Resource" id="Resource_uo457"]
-script = ExtResource("2_mnbif")
-name = &"Barnard\'s Star"
-connections = Array[StringName]([&"Sol"])
-position = Vector3(3, 2.08165e-12, 3)
-
-[sub_resource type="Resource" id="Resource_v2b8x"]
-script = ExtResource("2_mnbif")
-name = &"Wolf 359"
-connections = Array[StringName]([&"Sol", &"Alpha Centauri"])
-position = Vector3(-2, 2.08165e-12, -2)
+[ext_resource type="Resource" uid="uid://cew4x137v08q" path="res://galaxy/star_system/star_systems/sol.tres" id="2_va8e4"]
+[ext_resource type="Resource" uid="uid://cs1x8gyt6a7kw" path="res://galaxy/star_system/star_systems/alpha_centauri.tres" id="3_ulruw"]
+[ext_resource type="Resource" uid="uid://shiglva7yxl0" path="res://galaxy/star_system/star_systems/barnard's_star.tres" id="4_jkjw5"]
+[ext_resource type="Resource" uid="uid://di0bekcy5g0ya" path="res://galaxy/star_system/star_systems/wolf_359.tres" id="5_8a1bp"]
 
 [resource]
 script = ExtResource("1_bckai")
-systems = Array[ExtResource("2_mnbif")]([ExtResource("2_va8e4"), SubResource("Resource_44mst"), SubResource("Resource_uo457"), SubResource("Resource_v2b8x")])
+systems = Array[Resource("res://galaxy/star_system/star_system.gd")]([ExtResource("2_va8e4"), ExtResource("3_ulruw"), ExtResource("4_jkjw5"), ExtResource("5_8a1bp")])

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://olcyotwl42v1"
-path="res://.godot/imported/radio_normal.png-2a1d34b89858dd1eef13677ab9858425.ctex"
+uid="uid://bl3sv43f2a23p"
+path="res://.godot/imported/node_unpowered.png-27e7c1fe971b0a567d0c5c099fc6d622.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://screens/shared_ui/images/radio/radio_normal.png"
-dest_files=["res://.godot/imported/radio_normal.png-2a1d34b89858dd1eef13677ab9858425.ctex"]
+source_file="res://screens/game/hud/images/player_vitals/node_unpowered.png"
+dest_files=["res://.godot/imported/node_unpowered.png-27e7c1fe971b0a567d0c5c099fc6d622.ctex"]
 
 [params]
 

@@ -1,9 +1,10 @@
 [gd_resource type="Resource" script_class="StarSystem" load_steps=2 format=3 uid="uid://cew4x137v08q"]
 
-[ext_resource type="Script" path="res://galaxy/star_systems/star_system.gd" id="1_ewhsc"]
+[ext_resource type="Script" path="res://galaxy/star_system/star_system.gd" id="1_ewhsc"]
 
 [resource]
 script = ExtResource("1_ewhsc")
 name = &"Sol"
 connections = Array[StringName]([&"Alpha Centauri", &"Barnard\'s Star", &"Wolf 359"])
 position = Vector3(0, 0, 0)
+scene_path = "res://galaxy/star_system/scenes/sol.tscn"

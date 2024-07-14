@@ -15,5 +15,12 @@ class_name StarSystem
 @export var position: Vector3
 
 ## The resource path to this star system's scene.
-func scene_path() -> String:
-    return "res://galaxy/star_systems/scenes/%s.tscn" % self.name.to_snake_case()
+@export_file("*.tscn") var scene_path: String
+
+## A weak reference to the [Galaxy] that this system is part of.
+##
+## This is populated when the galaxy is initialized.
+var galaxy: WeakRef
+
+func _to_string() -> String:
+    return "StarSystem:" + self.name
