@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://cs1x8gyt6a7kw" path="res://galaxy/star_system/star_systems/alpha_centauri.tres" id="2_ex383"]
 [ext_resource type="Texture2D" uid="uid://dfmoa1t4rv4kk" path="res://stars/sprites/star_red01.png" id="2_hng7k"]
 
-[node name="Alpha Centauri" type="Node3D" groups=["star_system"]]
+[node name="Alpha Centauri" type="Node3D"]
 script = ExtResource("1_hu4s2")
 star_system = ExtResource("2_ex383")
 

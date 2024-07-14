@@ -21,3 +21,6 @@ class_name StarSystem
 ##
 ## This is populated when the galaxy is initialized.
 var galaxy: WeakRef
+
+func _to_string() -> String:
+    return "StarSystem:" + self.name

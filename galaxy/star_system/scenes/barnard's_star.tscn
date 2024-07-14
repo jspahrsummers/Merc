@@ -30,7 +30,7 @@ script = ExtResource("6_s58bt")
 max_power = 300.0
 power = 300.0
 
-[node name="Barnard\'s Star" type="Node3D" groups=["star_system"]]
+[node name="Barnard\'s Star" type="Node3D"]
 script = ExtResource("1_pqej6")
 star_system = ExtResource("2_y4tl8")
 

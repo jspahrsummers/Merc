@@ -9,6 +9,9 @@ class_name Galaxy
 @export var systems: Array[StarSystem]
 
 func _init() -> void:
+    self._connect_backref.call_deferred()
+
+func _connect_backref() -> void:
     for system in self.systems:
         system.galaxy = weakref(self)
 
