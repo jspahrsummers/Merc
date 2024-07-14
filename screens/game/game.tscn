@@ -3,7 +3,7 @@
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://utils/shader_precompiler.gd" id="2_if3rk"]
 [ext_resource type="PackedScene" uid="uid://b7tckdwyjwpso" path="res://mechanics/combat/weapons/blaster/blaster_bolt.tscn" id="3_juk8d"]
-[ext_resource type="Script" path="res://mechanics/hyperspace_controller.gd" id="4_yyrkm"]
+[ext_resource type="Script" path="res://mechanics/hyperspace/hyperspace_controller.gd" id="4_yyrkm"]
 [ext_resource type="Resource" uid="uid://bcva4l4cpt70c" path="res://galaxy/main_galaxy.tres" id="5_3nony"]
 [ext_resource type="Resource" uid="uid://cew4x137v08q" path="res://galaxy/star_systems/sol.tres" id="6_xi4oj"]
 [ext_resource type="Material" uid="uid://tpd4rufhhe4h" path="res://fx/starfield/starfield.tres" id="7_gr6ce"]
