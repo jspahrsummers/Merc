@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=62 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://utils/shader_precompiler.gd" id="2_if3rk"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://mechanics/combat/shield.gd" id="13_xvthq"]
 [ext_resource type="Script" path="res://mechanics/combat/hull.gd" id="14_bcf1o"]
 [ext_resource type="Script" path="res://mechanics/power/battery.gd" id="15_sjw8q"]
+[ext_resource type="Script" path="res://mechanics/hyperspace/hyperdrive_system.gd" id="16_6olqp"]
 [ext_resource type="PackedScene" uid="uid://cxlg0yj8cjbrf" path="res://actors/player.tscn" id="16_lqltb"]
 [ext_resource type="PackedScene" uid="uid://2mdsbbko7baw" path="res://galaxy/star_system/scenes/sol.tscn" id="17_wjgyf"]
 [ext_resource type="Script" path="res://screens/game/in_game_gui.gd" id="18_y74ml"]
@@ -72,12 +73,6 @@ material = SubResource("StandardMaterial3D_y8uu3")
 radius = 4.0
 height = 8.0
 
-[sub_resource type="Resource" id="Resource_6rayh"]
-resource_local_to_scene = true
-script = ExtResource("13_q2g24")
-max_fuel = 6.0
-fuel = 6.0
-
 [sub_resource type="Resource" id="Resource_p0y82"]
 resource_local_to_scene = true
 script = ExtResource("13_xvthq")
@@ -97,6 +92,12 @@ resource_local_to_scene = true
 script = ExtResource("15_sjw8q")
 max_power = 100.0
 power = 100.0
+
+[sub_resource type="Resource" id="Resource_xnk78"]
+resource_local_to_scene = true
+script = ExtResource("13_q2g24")
+max_fuel = 6.0
+fuel = 6.0
 
 [sub_resource type="Environment" id="Environment_skmw1"]
 background_color = Color(0.0728426, 0.0728426, 0.0728426, 1)
@@ -194,9 +195,9 @@ stream = ExtResource("11_tu1c7")
 volume_db = 2.0
 mix_target = 1
 
-[node name="PlayerCorvette" parent="." instance=ExtResource("12_bj83b")]
+[node name="PlayerCorvette" parent="." node_paths=PackedStringArray("hyperdrive_system") instance=ExtResource("12_bj83b")]
 physics_material_override = null
-hyperdrive = SubResource("Resource_6rayh")
+hyperdrive_system = NodePath("HyperdriveSystem")
 
 [node name="CombatObject" parent="PlayerCorvette" index="3"]
 shield = SubResource("Resource_p0y82")
@@ -217,6 +218,10 @@ shield = SubResource("Resource_p0y82")
 
 [node name="Blaster" parent="PlayerCorvette" index="9"]
 battery = SubResource("Resource_jcr0a")
+
+[node name="HyperdriveSystem" type="Node3D" parent="PlayerCorvette"]
+script = ExtResource("16_6olqp")
+hyperdrive = SubResource("Resource_xnk78")
 
 [node name="Player" parent="PlayerCorvette" node_paths=PackedStringArray("hyperspace_controller", "message_log") instance=ExtResource("16_lqltb")]
 hyperspace_controller = NodePath("../../HyperspaceController")

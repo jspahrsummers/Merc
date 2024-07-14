@@ -25,9 +25,12 @@ class_name Ship
 ## An optional shield recharger for this ship.
 @export var shield_recharger: ShieldRecharger
 
-## The ship's hyperdrive.
-@export var hyperdrive: Hyperdrive
+## An optional hyperdrive system for this ship.
+##
+## This isn't necessary, for example, for AI ships that will never leave the system they're in.
+@export var hyperdrive_system: HyperdriveSystem
 
+## Any weapons mounted on this ship.
 @export var weapon_mounts: Array[WeaponMount]
 
 func _to_string() -> String:
