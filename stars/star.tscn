@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cji43wyk7116p"]
+[gd_scene load_steps=5 format=3 uid="uid://cji43wyk7116p"]
 
 [ext_resource type="Texture2D" uid="uid://6ijlgdb1n5rc" path="res://stars/sprites/star_orange02.png" id="1_so3uy"]
 
@@ -9,6 +9,9 @@ shading_mode = 0
 material = SubResource("StandardMaterial3D_6m41v")
 size = Vector2(2, 2)
 orientation = 1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_w8mb7"]
+radius = 8.0
 
 [node name="Star" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
@@ -35,3 +38,14 @@ gi_mode = 0
 axis = 1
 double_sided = false
 texture = ExtResource("1_so3uy")
+
+[node name="Area3D" type="Area3D" parent="Sprite3D"]
+gravity_space_override = 3
+gravity_point = true
+gravity_point_unit_distance = 4.0
+gravity_point_center = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+gravity_direction = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+gravity = 1.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/Area3D"]
+shape = SubResource("SphereShape3D_w8mb7")
