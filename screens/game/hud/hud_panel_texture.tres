@@ -1,0 +1,13 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://bu1t76eyvll57"]
+
+[ext_resource type="Texture2D" uid="uid://22uk26e8fbc0" path="res://screens/game/hud/images/player_vitals/bg.png" id="1_a1b1n"]
+
+[resource]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+texture = ExtResource("1_a1b1n")
+texture_margin_top = 5.0
+texture_margin_bottom = 5.0
+region_rect = Rect2(0, 0, 157, 161)

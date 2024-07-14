@@ -30,6 +30,9 @@ signal target_changed(player: Player, target: CombatObject)
 ## Fires when the player changes their landing target.
 signal landing_target_changed(player: Player, target: PlanetInstance)
 
+## Fires when the ship's hyperdrive changes.
+signal hyperdrive_changed(player: Player, hyperdrive: Hyperdrive)
+
 ## The current target for landing, if any.
 var landing_target: PlanetInstance = null:
     set(value):
@@ -69,6 +72,7 @@ func _ready() -> void:
     self.ship.combat_object.shield.changed.connect(_on_shield_changed)
     self.ship.power_management_unit.battery.changed.connect(_on_power_changed)
     self.ship.targeting_system.target_changed.connect(_on_target_changed)
+    self.ship.hyperdrive_system.hyperdrive.changed.connect(_on_hyperdrive_changed)
 
     InputEventBroadcaster.input_event.connect(_on_broadcasted_input_event)
 
@@ -76,6 +80,7 @@ func _ready() -> void:
     self._on_hull_changed()
     self._on_shield_changed()
     self._on_power_changed()
+    self._on_hyperdrive_changed()
 
 func _on_hull_changed() -> void:
     self.hull_changed.emit(self, self.ship.combat_object.hull)
@@ -97,6 +102,9 @@ func _on_jump_destination_loaded(_new_system_instance: StarSystemInstance) -> vo
     self._reset_velocity()
     self.ship.position = MathUtils.random_unit_vector() * HYPERSPACE_ARRIVAL_RADIUS
     self.ship.targeting_system.target = null
+
+func _on_hyperdrive_changed() -> void:
+    self.hyperdrive_changed.emit(self, self.ship.hyperdrive_system.hyperdrive)
 
 func _next_system_connection() -> StarSystem:
     var current_destination_name: Variant = null
