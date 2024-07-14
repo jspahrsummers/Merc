@@ -202,7 +202,7 @@ cycle_landing_target={
 3d_render/layer_3="Hyperspace Effect"
 3d_render/layer_4="Hyperspace Starfield"
 3d_render/layer_5="Main Starfield"
-3d_physics/layer_1="Ships"
+3d_physics/layer_1="Ships and Object Picking"
 3d_physics/layer_2="Weapons"
 
 [physics]

@@ -164,6 +164,11 @@ func _on_broadcasted_input_event(receiver: Node, event: InputEvent) -> void:
     if combat_object:
         self.ship.targeting_system.target = combat_object
         return
+    
+    var planet_instance := receiver as PlanetInstance
+    if planet_instance:
+        self.landing_target = planet_instance
+        return
 
 func _jump_to_hyperspace() -> void:
     if not self.hyperspace_controller.jump_destination:
