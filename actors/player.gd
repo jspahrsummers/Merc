@@ -68,6 +68,8 @@ func _ready() -> void:
     self.ship.power_management_unit.battery.changed.connect(_on_power_changed)
     self.ship.targeting_system.target_changed.connect(_on_target_changed)
 
+    InputEventBroadcaster.input_event.connect(_on_broadcasted_input_event)
+
     # Initial notifications so the UI can update.
     self._on_hull_changed()
     self._on_shield_changed()
@@ -149,6 +151,19 @@ func _unhandled_key_input(event: InputEvent) -> void:
         var next_target: PlanetInstance = ArrayUtils.cycle_through(self._available_landing_targets(), self.landing_target)
         self.landing_target = next_target
         self.get_viewport().set_input_as_handled()
+
+func _on_broadcasted_input_event(receiver: Node, event: InputEvent) -> void:
+    var mouse_button_event := event as InputEventMouseButton
+    if not mouse_button_event:
+        return
+    
+    if mouse_button_event.button_index != MOUSE_BUTTON_LEFT or not mouse_button_event.pressed:
+        return
+    
+    var combat_object := receiver as CombatObject
+    if combat_object:
+        self.ship.targeting_system.target = combat_object
+        return
 
 func _jump_to_hyperspace() -> void:
     if not self.hyperspace_controller.jump_destination:
