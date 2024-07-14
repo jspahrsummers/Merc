@@ -14,10 +14,17 @@ class_name Landing
 ## Defines how the spaceport bar should behave on this landing.
 @export var spaceport_bar: SpaceportBar
 
-# The planet to land on. Must be set before displaying.
+## The player. Must be set before displaying.
+var player: Player
+
+## The planet to land on. Must be set before displaying.
 var planet: Planet
 
+var _hyperdrive: Hyperdrive
+
 func _ready() -> void:
+    self._hyperdrive = self.player.ship.hyperdrive_system.hyperdrive
+
     self.title = self.planet.name
     self.bar_button.visible = (self.planet.facilities&Planet.BAR)
     self.trading_button.visible = (self.planet.facilities&Planet.TRADING)
@@ -27,6 +34,8 @@ func _ready() -> void:
     self.refuel_button.visible = (self.planet.facilities&Planet.REFUEL)
     self.landscape_image.texture = self.planet.landscape_image
     self.description_label.text = self.planet.description
+
+    self.refuel_button.disabled = self._hyperdrive.fuel >= self._hyperdrive.max_fuel
 
 func _on_bar_button_pressed() -> void:
     self.bar_dialog.dialog_text = self.spaceport_bar.get_description()
@@ -45,7 +54,9 @@ func _on_shipyard_button_pressed() -> void:
     pass # Replace with function body.
 
 func _on_refuel_button_pressed() -> void:
-    pass # Replace with function body.
+    # TODO: Player should have to pay for this
+    self._hyperdrive.refuel(self._hyperdrive.max_fuel)
+    self.refuel_button.disabled = true
 
 func _on_depart() -> void:
     self.hide()

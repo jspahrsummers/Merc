@@ -1,0 +1,76 @@
+[gd_scene load_steps=13 format=3 uid="uid://cghdtnx2qen2u"]
+
+[ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://stars/star.tscn" id="1_dt7yu"]
+[ext_resource type="Script" path="res://galaxy/star_system/star_system_instance.gd" id="1_pqej6"]
+[ext_resource type="Texture2D" uid="uid://bsgwmdcreel60" path="res://stars/sprites/star_red02.png" id="2_xr5lq"]
+[ext_resource type="Resource" uid="uid://shiglva7yxl0" path="res://galaxy/star_system/star_systems/barnard's_star.tres" id="2_y4tl8"]
+[ext_resource type="Script" path="res://mechanics/combat/shield.gd" id="4_avs2c"]
+[ext_resource type="Script" path="res://mechanics/combat/hull.gd" id="5_4e6ev"]
+[ext_resource type="Script" path="res://mechanics/power/battery.gd" id="6_s58bt"]
+[ext_resource type="PackedScene" uid="uid://c5l6qgyy2mumc" path="res://actors/ai/archetypes/pirate.tscn" id="7_20prt"]
+[ext_resource type="PackedScene" uid="uid://cdvbol3xj7jr5" path="res://ships/frigate03/frigate03.tscn" id="7_lnhbv"]
+
+[sub_resource type="Resource" id="Resource_33hy8"]
+resource_local_to_scene = true
+script = ExtResource("4_avs2c")
+max_integrity = 100.0
+integrity = 100.0
+recharge_rate = 10.0
+power_efficiency = 1.0
+
+[sub_resource type="Resource" id="Resource_nccb4"]
+resource_local_to_scene = true
+script = ExtResource("5_4e6ev")
+max_integrity = 100.0
+integrity = 100.0
+
+[sub_resource type="Resource" id="Resource_62daw"]
+resource_local_to_scene = true
+script = ExtResource("6_s58bt")
+max_power = 300.0
+power = 300.0
+
+[node name="Barnard\'s Star" type="Node3D"]
+script = ExtResource("1_pqej6")
+star_system = ExtResource("2_y4tl8")
+
+[node name="Star" parent="." instance=ExtResource("1_dt7yu")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2.65429, 2.08165e-12, 11.1402)
+
+[node name="OmniLight3D" parent="Star" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+light_color = Color(1, 0.504962, 0.438302, 1)
+light_energy = 5.0
+omni_range = 10.0
+
+[node name="Sprite3D" parent="Star" index="2"]
+texture = ExtResource("2_xr5lq")
+
+[node name="Frigate" parent="." instance=ExtResource("7_lnhbv")]
+transform = Transform3D(0.866897, -1.28496e-16, 0.498488, 3.48787e-16, 1, -3.48787e-16, -0.498488, 4.76228e-16, 0.866897, -8.39, 2.08165e-12, 1.15)
+
+[node name="CombatObject" parent="Frigate" index="2"]
+shield = SubResource("Resource_33hy8")
+hull = SubResource("Resource_nccb4")
+
+[node name="RigidBodyDirection" parent="Frigate" index="3"]
+battery = SubResource("Resource_62daw")
+
+[node name="RigidBodyThruster" parent="Frigate" index="4"]
+battery = SubResource("Resource_62daw")
+
+[node name="PowerManagementUnit" parent="Frigate" index="5"]
+battery = SubResource("Resource_62daw")
+
+[node name="ShieldRecharger" parent="Frigate" index="7"]
+battery = SubResource("Resource_62daw")
+shield = SubResource("Resource_33hy8")
+
+[node name="Blaster" parent="Frigate" index="8"]
+battery = SubResource("Resource_62daw")
+
+[node name="Pirate" parent="Frigate" instance=ExtResource("7_20prt")]
+
+[editable path="Star"]
+[editable path="Frigate"]
+[editable path="Frigate/CombatObject/TargetOverlay"]

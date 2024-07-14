@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://olcyotwl42v1"
-path="res://.godot/imported/radio_normal.png-2a1d34b89858dd1eef13677ab9858425.ctex"
+uid="uid://daxs3rsyr3jfg"
+path="res://.godot/imported/blue_button_disabled.png-507940041aaecf84cb9fb244e4c6c374.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://screens/shared_ui/images/radio/radio_normal.png"
-dest_files=["res://.godot/imported/radio_normal.png-2a1d34b89858dd1eef13677ab9858425.ctex"]
+source_file="res://screens/shared_ui/images/button/blue_button_disabled.png"
+dest_files=["res://.godot/imported/blue_button_disabled.png-507940041aaecf84cb9fb244e4c6c374.ctex"]
 
 [params]
 
@@ -21,11 +21,11 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
-roughness/mode=1
+roughness/mode=0
 roughness/src_normal=""
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false

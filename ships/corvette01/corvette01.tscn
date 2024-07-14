@@ -1,7 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://dsuln1s4j366a"]
+[gd_scene load_steps=27 format=3 uid="uid://dsuln1s4j366a"]
 
 [ext_resource type="PackedScene" uid="uid://c0eitctnmmfyq" path="res://ships/ship.tscn" id="1_cmgif"]
 [ext_resource type="ArrayMesh" uid="uid://40a23nnu1j37" path="res://ships/corvette01/corvette01_mesh.tres" id="1_yacfo"]
+[ext_resource type="Script" path="res://mechanics/hyperspace/hyperdrive.gd" id="2_juqa7"]
 [ext_resource type="PackedScene" uid="uid://cdyo800b83x5i" path="res://fx/explosions/explosion002.tscn" id="2_xcc1t"]
 [ext_resource type="PackedScene" uid="uid://c4l7cg26n051d" path="res://ships/corvette01/target_view.tscn" id="3_v410k"]
 [ext_resource type="Script" path="res://mechanics/combat/shield.gd" id="4_v1dlu"]
@@ -16,6 +17,12 @@
 [ext_resource type="Script" path="res://mechanics/combat/shield_recharger.gd" id="14_mp2y5"]
 [ext_resource type="Script" path="res://mechanics/combat/weapons/weapon_mount.gd" id="15_douxu"]
 [ext_resource type="Resource" uid="uid://cw1tu3qdxdgfi" path="res://mechanics/combat/weapons/blaster/blaster.tres" id="16_17v50"]
+
+[sub_resource type="Resource" id="Resource_qpspc"]
+resource_local_to_scene = true
+script = ExtResource("2_juqa7")
+max_fuel = 6.0
+fuel = 6.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7odoe"]
 radius = 0.362506
@@ -61,6 +68,7 @@ rate_of_power = 5.0
 [node name="Corvette" node_paths=PackedStringArray("shield_recharger", "weapon_mounts") instance=ExtResource("1_cmgif")]
 mass = 10.0
 shield_recharger = NodePath("ShieldRecharger")
+hyperdrive = SubResource("Resource_qpspc")
 weapon_mounts = [NodePath("Blaster")]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="0"]
@@ -124,3 +132,5 @@ transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, 1.62168
 script = ExtResource("15_douxu")
 weapon = ExtResource("16_17v50")
 battery = SubResource("Resource_ftwkb")
+
+[editable path="CombatObject/TargetOverlay"]
