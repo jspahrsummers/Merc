@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=63 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://utils/shader_precompiler.gd" id="2_if3rk"]
@@ -24,8 +24,8 @@
 [ext_resource type="Texture2D" uid="uid://cmyn742dooo0n" path="res://mechanics/radar/images/radar_circles.png" id="21_bomkk"]
 [ext_resource type="Script" path="res://screens/game/hud/system_name.gd" id="22_xta3d"]
 [ext_resource type="Script" path="res://screens/game/hud/jump_destination_name.gd" id="23_1qfwo"]
+[ext_resource type="StyleBox" uid="uid://bu1t76eyvll57" path="res://screens/game/hud/hud_panel_texture.tres" id="23_lvs05"]
 [ext_resource type="AudioStream" uid="uid://dqsuscukdo5oa" path="res://screens/shared_ui/audio/itempick1.wav" id="24_oh7qv"]
-[ext_resource type="Texture2D" uid="uid://22uk26e8fbc0" path="res://screens/game/hud/images/player_vitals/bg.png" id="25_2kecg"]
 [ext_resource type="Texture2D" uid="uid://bl3sv43f2a23p" path="res://screens/game/hud/images/player_vitals/node_unpowered.png" id="25_d2hsf"]
 [ext_resource type="Script" path="res://screens/game/hud/fuel_bar.gd" id="25_hno5u"]
 [ext_resource type="Texture2D" uid="uid://c2nr462gj84yf" path="res://screens/game/hud/images/player_vitals/heading_bg.png" id="26_mxja1"]
@@ -132,14 +132,6 @@ shader_parameter/margin = 3.0
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_akdok"]
 viewport_path = NodePath("MinimapViewport")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gooxh"]
-content_margin_left = 12.0
-content_margin_top = 12.0
-content_margin_right = 12.0
-content_margin_bottom = 12.0
-texture = ExtResource("25_2kecg")
-region_rect = Rect2(0, 0, 157, 161)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lc8il"]
 texture = ExtResource("29_1nwk2")
@@ -372,7 +364,14 @@ text_overrun_behavior = 3
 uppercase = true
 script = ExtResource("22_xta3d")
 
-[node name="JumpDestinationName" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar" node_paths=PackedStringArray("pick_sound")]
+[node name="PanelContainer" type="PanelContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("23_lvs05")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PanelContainer"]
+layout_mode = 2
+
+[node name="JumpDestinationName" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PanelContainer/VBoxContainer" node_paths=PackedStringArray("pick_sound")]
 modulate = Color(1, 1, 1, 0.498039)
 layout_mode = 2
 tooltip_text = "Hyperspace jump destination"
@@ -384,48 +383,43 @@ uppercase = true
 script = ExtResource("23_1qfwo")
 pick_sound = NodePath("PickSound")
 
-[node name="PickSound" type="AudioStreamPlayer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/JumpDestinationName"]
+[node name="PickSound" type="AudioStreamPlayer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PanelContainer/VBoxContainer/JumpDestinationName"]
 stream = ExtResource("24_oh7qv")
 volume_db = -10.0
 
-[node name="FuelBar" type="Control" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar" node_paths=PackedStringArray("background", "fill")]
+[node name="FuelBar" type="CenterContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PanelContainer/VBoxContainer" node_paths=PackedStringArray("background", "fill")]
 clip_contents = true
 custom_minimum_size = Vector2(2.08165e-12, 12)
 layout_mode = 2
 size_flags_vertical = 4
 script = ExtResource("25_hno5u")
 background = NodePath("Background")
-fill = NodePath("Fill")
+fill = NodePath("Background/Fill")
 
-[node name="Background" type="NinePatchRect" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/FuelBar"]
-custom_minimum_size = Vector2(2.08165e-12, 10)
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -5.0
-offset_bottom = 5.0
-grow_vertical = 2
+[node name="Background" type="NinePatchRect" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PanelContainer/VBoxContainer/FuelBar"]
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
 texture = ExtResource("25_d2hsf")
-region_rect = Rect2(1, 0, 8, 9)
+region_rect = Rect2(2.08165e-12, 2.08165e-12, 10, 9)
 axis_stretch_horizontal = 1
 
-[node name="Fill" type="NinePatchRect" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/FuelBar"]
+[node name="Fill" type="NinePatchRect" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PanelContainer/VBoxContainer/FuelBar/Background"]
 custom_minimum_size = Vector2(2.08165e-12, 20)
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_top = -10.0
+offset_right = 50.0
 offset_bottom = 10.0
 grow_vertical = 2
 texture = ExtResource("26_wxv14")
-region_rect = Rect2(6, 1, 8, 19)
+region_rect = Rect2(4, 1, 10, 19)
 axis_stretch_horizontal = 1
 
 [node name="PlayerVitalsContainer" type="PanelContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_gooxh")
+theme_override_styles/panel = ExtResource("23_lvs05")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer"]
 layout_mode = 2
@@ -649,10 +643,11 @@ galaxy = ExtResource("5_3nony")
 
 [connection signal="jump_destination_loaded" from="HyperspaceSceneSwitcher" to="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" method="_on_jump_destination_loaded"]
 [connection signal="jump_destination_loaded" from="HyperspaceSceneSwitcher" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/SystemName" method="_on_jump_destination_loaded"]
-[connection signal="jump_destination_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/HyperdriveSystem" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/JumpDestinationName" method="_on_jump_destination_changed"]
+[connection signal="jump_destination_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/HyperdriveSystem" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PanelContainer/VBoxContainer/JumpDestinationName" method="_on_jump_destination_changed"]
 [connection signal="jumping_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/HyperdriveSystem" to="MainCameraTransform/MainCamera/HyperspaceEffect" method="_on_jumping_changed"]
 [connection signal="jumping_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/HyperdriveSystem" to="InGameGUI/GalaxyMapWindow/SubViewportContainer/SubViewport/GalaxyMap" method="_on_jumping_changed"]
 [connection signal="hull_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_hull_changed"]
+[connection signal="hyperdrive_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PanelContainer/VBoxContainer/FuelBar" method="_on_player_hyperdrive_changed"]
 [connection signal="landing_target_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/LandingTargetName" method="_on_landing_target_changed"]
 [connection signal="power_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_power_changed"]
 [connection signal="shield_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_shield_changed"]
