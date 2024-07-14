@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c5758vgaejxam"
-path.s3tc="res://.godot/imported/node_powered.png-47d6c43a4a320a6e8e3f4370da8fea89.s3tc.ctex"
+path="res://.godot/imported/node_powered.png-47d6c43a4a320a6e8e3f4370da8fea89.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://screens/game/hud/images/player_vitals/node_powered.png"
-dest_files=["res://.godot/imported/node_powered.png-47d6c43a4a320a6e8e3f4370da8fea89.s3tc.ctex"]
+dest_files=["res://.godot/imported/node_powered.png-47d6c43a4a320a6e8e3f4370da8fea89.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
