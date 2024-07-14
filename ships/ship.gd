@@ -13,9 +13,6 @@ class_name Ship
 ## A [RigidBodyDirection] for pointing this ship.
 @export var rigid_body_direction: RigidBodyDirection
 
-## An optional [RigidBody] turner to turn this ship.
-@export var rigid_body_turner: RigidBodyTurner
-
 ## This ship's power management unit.
 @export var power_management_unit: PowerManagementUnit
 
