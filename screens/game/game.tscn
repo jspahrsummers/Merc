@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=59 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://utils/shader_precompiler.gd" id="2_if3rk"]
@@ -25,7 +25,10 @@
 [ext_resource type="Script" path="res://screens/game/hud/jump_destination_name.gd" id="23_1qfwo"]
 [ext_resource type="AudioStream" uid="uid://dqsuscukdo5oa" path="res://screens/shared_ui/audio/itempick1.wav" id="24_oh7qv"]
 [ext_resource type="Texture2D" uid="uid://22uk26e8fbc0" path="res://screens/game/hud/images/player_vitals/bg.png" id="25_2kecg"]
+[ext_resource type="Texture2D" uid="uid://bl3sv43f2a23p" path="res://screens/game/hud/images/player_vitals/node_unpowered.png" id="25_d2hsf"]
+[ext_resource type="Script" path="res://screens/game/hud/fuel_bar.gd" id="25_hno5u"]
 [ext_resource type="Texture2D" uid="uid://c2nr462gj84yf" path="res://screens/game/hud/images/player_vitals/heading_bg.png" id="26_mxja1"]
+[ext_resource type="Texture2D" uid="uid://c5758vgaejxam" path="res://screens/game/hud/images/player_vitals/node_powered.png" id="26_wxv14"]
 [ext_resource type="Script" path="res://screens/game/hud/player_vitals.gd" id="27_mar8l"]
 [ext_resource type="PackedScene" uid="uid://dl3xau7i06twf" path="res://screens/game/hud/vitals_fill_bar.tscn" id="28_7l7fi"]
 [ext_resource type="Texture2D" uid="uid://s173r8o180gv" path="res://screens/game/hud/images/target_info/target_bg.png" id="29_1nwk2"]
@@ -336,6 +339,41 @@ pick_sound = NodePath("PickSound")
 [node name="PickSound" type="AudioStreamPlayer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/JumpDestinationName"]
 stream = ExtResource("24_oh7qv")
 volume_db = -10.0
+
+[node name="FuelBar" type="Control" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar" node_paths=PackedStringArray("background", "fill")]
+clip_contents = true
+custom_minimum_size = Vector2(2.08165e-12, 12)
+layout_mode = 2
+size_flags_vertical = 4
+script = ExtResource("25_hno5u")
+background = NodePath("Background")
+fill = NodePath("Fill")
+
+[node name="Background" type="NinePatchRect" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/FuelBar"]
+custom_minimum_size = Vector2(2.08165e-12, 10)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -5.0
+offset_bottom = 5.0
+grow_vertical = 2
+texture = ExtResource("25_d2hsf")
+region_rect = Rect2(1, 0, 8, 9)
+axis_stretch_horizontal = 1
+
+[node name="Fill" type="NinePatchRect" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/FuelBar"]
+custom_minimum_size = Vector2(2.08165e-12, 20)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -10.0
+offset_bottom = 10.0
+grow_vertical = 2
+texture = ExtResource("26_wxv14")
+region_rect = Rect2(6, 1, 8, 19)
+axis_stretch_horizontal = 1
 
 [node name="PlayerVitalsContainer" type="PanelContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar"]
 layout_mode = 2
