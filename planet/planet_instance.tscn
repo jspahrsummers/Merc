@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b04hfgkcuq7k6"]
+[gd_scene load_steps=7 format=3 uid="uid://b04hfgkcuq7k6"]
 
 [ext_resource type="Script" path="res://planet/planet_instance.gd" id="1_f2834"]
 [ext_resource type="Texture2D" uid="uid://olumucogupnw" path="res://planet/sprites/planet_04.png" id="1_w3ph5"]
@@ -16,9 +16,12 @@ bottom_radius = 1.0
 height = 0.001
 cap_bottom = false
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_rec32"]
+size = Vector3(2.2, 1, 2.2)
+
 [node name="PlanetInstance" type="Node3D" node_paths=PackedStringArray("target_overlay") groups=["planets"]]
 script = ExtResource("1_f2834")
-target_overlay = NodePath("TargetOverlay")
+target_overlay = NodePath("Sprite3D/TargetOverlay")
 
 [node name="MinimapIcon" type="MeshInstance3D" parent="."]
 visible = false
@@ -36,15 +39,24 @@ axis = 1
 double_sided = false
 texture = ExtResource("1_w3ph5")
 
-[node name="TargetOverlay" parent="." instance=ExtResource("3_sdnoe")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -1, 2.08165e-12)
+[node name="ClickableArea" type="Area3D" parent="Sprite3D"]
+collision_mask = 0
+monitoring = false
+monitorable = false
 
-[node name="Left" parent="TargetOverlay" index="0"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/ClickableArea"]
+shape = SubResource("BoxShape3D_rec32")
+
+[node name="TargetOverlay" parent="Sprite3D" instance=ExtResource("3_sdnoe")]
+
+[node name="Left" parent="Sprite3D/TargetOverlay" index="0"]
 transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, -1.5, 2.08165e-12, 2.08165e-12)
 pixel_size = 0.01
 
-[node name="Right" parent="TargetOverlay" index="1"]
+[node name="Right" parent="Sprite3D/TargetOverlay" index="1"]
 transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, 1.5, 2.08165e-12, 2.08165e-12)
 pixel_size = 0.01
 
-[editable path="TargetOverlay"]
+[connection signal="input_event" from="Sprite3D/ClickableArea" to="." method="_on_input_event"]
+
+[editable path="Sprite3D/TargetOverlay"]

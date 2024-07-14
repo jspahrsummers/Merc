@@ -38,17 +38,6 @@ power = 300.0
 [node name="Star" parent="." instance=ExtResource("1_j8iws")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.08165e-12, -3)
 
-[node name="Earth" parent="." instance=ExtResource("3_7gpxn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.38638, 0, 6.14048)
-planet = ExtResource("3_qvwl4")
-
-[node name="Mars" parent="." instance=ExtResource("3_7gpxn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0726, 0, 12.0475)
-planet = ExtResource("4_b0o1w")
-
-[node name="Sprite3D" parent="Mars" index="1"]
-texture = ExtResource("4_afp06")
-
 [node name="Mercury" parent="." instance=ExtResource("3_7gpxn")]
 transform = Transform3D(0.71043, 0, 0, 0, 1, 0, 0, 0, 0.71043, 10.4139, 0, -4.93606)
 
@@ -60,6 +49,17 @@ transform = Transform3D(0.71043, 0, 0, 0, 1, 0, 0, 0, 0.71043, 12.5408, 0, 0.722
 
 [node name="Sprite3D" parent="Venus" index="1"]
 texture = ExtResource("5_k6fyb")
+
+[node name="Earth" parent="." instance=ExtResource("3_7gpxn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.38638, 0, 6.14048)
+planet = ExtResource("3_qvwl4")
+
+[node name="Mars" parent="." instance=ExtResource("3_7gpxn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0726, 0, 12.0475)
+planet = ExtResource("4_b0o1w")
+
+[node name="Sprite3D" parent="Mars" index="1"]
+texture = ExtResource("4_afp06")
 
 [node name="Freighter" parent="." instance=ExtResource("6_uk08c")]
 transform = Transform3D(0.759975, 0, -0.649952, 0, 1, 0, 0.649952, 0, 0.759975, -5.22228, 0, -4.59493)
@@ -88,8 +88,11 @@ rigid_body_thruster = NodePath("../RigidBodyThruster")
 rigid_body_direction = NodePath("../RigidBodyDirection")
 destination = Vector3(12.5408, 0, 0.72235)
 
-[editable path="Mars"]
 [editable path="Mercury"]
+[editable path="Mercury/Sprite3D/TargetOverlay"]
 [editable path="Venus"]
+[editable path="Venus/Sprite3D/TargetOverlay"]
+[editable path="Mars"]
+[editable path="Mars/Sprite3D/TargetOverlay"]
 [editable path="Freighter"]
 [editable path="Freighter/CombatObject/TargetOverlay"]

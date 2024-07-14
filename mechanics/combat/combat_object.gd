@@ -138,3 +138,7 @@ func _show_shields() -> void:
 
 func _to_string() -> String:
     return "CombatObject:" + self.combat_name
+
+func _on_collision_object_input_event(_camera: Node, event: InputEvent, _position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
+    if event is InputEventMouseButton:
+        InputEventBroadcaster.broadcast(self, event)
