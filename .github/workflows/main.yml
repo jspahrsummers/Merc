@@ -119,7 +119,5 @@ jobs:
       - uses: tsickert/discord-webhook@v6.0.0
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          # Suppress embeds
-          flags: 4
           content: |
-            New build available! Get it from: https://jspahrsummers.itch.io/merc
+            New build available! Get it from: <https://jspahrsummers.itch.io/merc>
