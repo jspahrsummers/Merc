@@ -49,6 +49,7 @@ max_integrity = 150.0
 integrity = 150.0
 recharge_rate = 5.0
 power_efficiency = 1.0
+only_recharge_above = 0.2
 
 [sub_resource type="Resource" id="Resource_f0l3y"]
 resource_local_to_scene = true
@@ -69,6 +70,7 @@ max_integrity = 80.0
 integrity = 80.0
 recharge_rate = 5.0
 power_efficiency = 1.0
+only_recharge_above = 0.2
 
 [sub_resource type="Resource" id="Resource_rdvmt"]
 resource_local_to_scene = true

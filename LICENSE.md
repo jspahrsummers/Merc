@@ -46,8 +46,12 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 - teleport_02
 - beep_03
 
-[Space panorama galaxy](https://pixabay.com/photos/space-panorama-galaxy-cosmos-2638158/) created by [Alex Myers](https://pixabay.com/users/myersalex216-4979749/), licensed under the [Pixabay Content License](https://pixabay.com/service/license-summary/):
-- galaxy-panorama
+[HDRi Space Spheremaps](https://www.spacespheremaps.com/hdr-spheremaps/) copyright (c) [Space Spheremaps](https://www.spacespheremaps.com/) 2024, "released under terms similar to Creative Commons BY 4.0, in that anyone is free to:
+Share — copy and redistribute the material in any medium or format for any purpose, even commercially.
+Adapt — remix, transform, and build upon the material for any purpose, even commercially.
+However, no attribution is necessary, though it is appreciated.
+As mentioned before, the one stipulation is that these images aren’t to be used for AI image scraping. However, they can be modifed with AI tools if the user so wishes."
+- nebula
 
 [Sci-fi computer sounds and beeps](https://opengameart.org/content/9-sci-fi-computer-sounds-and-beeps) created by Michel Baradari, licensed under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/):
 - itempick1

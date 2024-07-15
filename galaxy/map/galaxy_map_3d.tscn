@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://kqong7nrl4p2"]
 
-[ext_resource type="Texture2D" uid="uid://dvvqwximvkwop" path="res://galaxy/map/galaxy-panorama.jpg" id="1_2p7w6"]
+[ext_resource type="Texture2D" uid="uid://bg6scgrmluxuv" path="res://galaxy/map/nebula.hdr" id="2_323g3"]
 [ext_resource type="Script" path="res://galaxy/map/galaxy_map_camera.gd" id="3_h6pmd"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_fcs3v"]
-panorama = ExtResource("1_2p7w6")
+panorama = ExtResource("2_323g3")
 
 [sub_resource type="Sky" id="Sky_5teur"]
 sky_material = SubResource("PanoramaSkyMaterial_fcs3v")
