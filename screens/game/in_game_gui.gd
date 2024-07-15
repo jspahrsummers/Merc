@@ -2,7 +2,7 @@ extends CanvasLayer
 
 @export var galaxy_map_window: Window
 @export var game_over_scene: PackedScene
-@export var exit_dialog: Window
+@export var exit_dialog_scene: PackedScene
 
 func _on_player_ship_destroyed(_player: Player) -> void:
     var game_over_window: Window = game_over_scene.instantiate()
@@ -13,4 +13,6 @@ func _unhandled_input(event: InputEvent) -> void:
     if event.is_action_pressed("toggle_galaxy_map"):
        self.galaxy_map_window.visible = true
     elif event.is_action_pressed("exit"):
-        self.exit_dialog.visible = true
+        var exit_dialog: Window = exit_dialog_scene.instantiate()
+        self.add_child(exit_dialog)
+        exit_dialog.show()

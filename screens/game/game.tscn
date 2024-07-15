@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=59 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperspace_scene_switcher.gd" id="4_yyrkm"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://cxlg0yj8cjbrf" path="res://actors/player.tscn" id="16_lqltb"]
 [ext_resource type="PackedScene" uid="uid://2mdsbbko7baw" path="res://galaxy/star_system/scenes/sol.tscn" id="17_wjgyf"]
 [ext_resource type="PackedScene" uid="uid://b6tdj2tjqldnt" path="res://screens/game/game_over/game_over.tscn" id="17_yidh7"]
+[ext_resource type="PackedScene" uid="uid://ca3awvk1a7xyi" path="res://screens/game/exit_dialog/exit_dialog.tscn" id="18_hl4w3"]
 [ext_resource type="Script" path="res://screens/game/in_game_gui.gd" id="18_y74ml"]
 [ext_resource type="Texture2D" uid="uid://bphfuhdpceacb" path="res://mechanics/radar/images/radar_bg.png" id="19_vr47x"]
 [ext_resource type="Shader" path="res://screens/shared_ui/shaders/circular_mask.gdshader" id="20_wa4c1"]
@@ -38,9 +39,7 @@
 [ext_resource type="Texture2D" uid="uid://bsf3tqgocto7h" path="res://screens/game/hud/images/target_info/shields_fill.png" id="33_jftfh"]
 [ext_resource type="Script" path="res://screens/game/hud/landing_target_name.gd" id="34_ddwxb"]
 [ext_resource type="Script" path="res://screens/game/message_log.gd" id="35_8pupt"]
-[ext_resource type="PackedScene" uid="uid://btc568gwt7fuc" path="res://screens/main_menu/main_menu.tscn" id="35_x8atu"]
 [ext_resource type="AudioStream" uid="uid://d35n48x47d8dy" path="res://screens/shared_ui/audio/beep_03.ogg" id="36_3gr28"]
-[ext_resource type="Script" path="res://screens/game/exit_dialog.gd" id="36_7hsbd"]
 [ext_resource type="Script" path="res://screens/shared_ui/fps_counter.gd" id="37_e11x7"]
 [ext_resource type="PackedScene" uid="uid://kqong7nrl4p2" path="res://galaxy/map/galaxy_map.tscn" id="38_r6s3m"]
 
@@ -292,11 +291,11 @@ gi_mode = 0
 mesh = SubResource("QuadMesh_7oe51")
 skeleton = NodePath("../..")
 
-[node name="InGameGUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("galaxy_map_window", "exit_dialog")]
+[node name="InGameGUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("galaxy_map_window")]
 script = ExtResource("18_y74ml")
 galaxy_map_window = NodePath("GalaxyMapWindow")
 game_over_scene = ExtResource("17_yidh7")
-exit_dialog = NodePath("ExitDialog")
+exit_dialog_scene = ExtResource("18_hl4w3")
 
 [node name="MarginContainer" type="MarginContainer" parent="InGameGUI"]
 anchors_preset = 15
@@ -568,19 +567,6 @@ text = "30 FPS
 horizontal_alignment = 2
 script = ExtResource("37_e11x7")
 
-[node name="ExitDialog" type="ConfirmationDialog" parent="InGameGUI"]
-scaling_3d_scale = 2.0
-title = "EXIT GAME?"
-initial_position = 2
-size = Vector2i(400, 150)
-ok_button_text = "EXIT TO MAIN MENU"
-dialog_text = "Do you wish to end the game in progress?"
-dialog_hide_on_ok = false
-dialog_autowrap = true
-cancel_button_text = "CANCEL"
-script = ExtResource("36_7hsbd")
-main_menu_scene = ExtResource("35_x8atu")
-
 [node name="GalaxyMapWindow" type="Window" parent="InGameGUI"]
 own_world_3d = true
 title = "Galaxy Map"
@@ -621,8 +607,6 @@ galaxy = ExtResource("5_3nony")
 [connection signal="shield_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_shield_changed"]
 [connection signal="ship_destroyed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI" method="_on_player_ship_destroyed"]
 [connection signal="target_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TargetInfoContainer" method="_on_player_target_changed"]
-[connection signal="canceled" from="InGameGUI/ExitDialog" to="InGameGUI/ExitDialog" method="_on_canceled"]
-[connection signal="confirmed" from="InGameGUI/ExitDialog" to="InGameGUI/ExitDialog" method="_on_confirmed"]
 [connection signal="close_requested" from="InGameGUI/GalaxyMapWindow" to="InGameGUI/GalaxyMapWindow/SubViewportContainer/SubViewport/GalaxyMap" method="_on_window_close_requested"]
 
 [editable path="HyperspaceSceneSwitcher/Sol"]

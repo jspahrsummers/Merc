@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://ca3awvk1a7xyi"]
+
+[ext_resource type="Script" path="res://screens/game/exit_dialog/exit_dialog.gd" id="1_7whrb"]
+[ext_resource type="PackedScene" uid="uid://btc568gwt7fuc" path="res://screens/main_menu/main_menu.tscn" id="2_dfrt5"]
+
+[node name="ExitDialog" type="ConfirmationDialog"]
+scaling_3d_scale = 2.0
+title = "EXIT GAME?"
+initial_position = 2
+size = Vector2i(400, 150)
+ok_button_text = "EXIT TO MAIN MENU"
+dialog_text = "Do you wish to end the game in progress?"
+dialog_hide_on_ok = false
+dialog_autowrap = true
+cancel_button_text = "CANCEL"
+script = ExtResource("1_7whrb")
+main_menu_scene = ExtResource("2_dfrt5")
+
+[connection signal="canceled" from="." to="." method="_on_canceled"]
+[connection signal="confirmed" from="." to="." method="_on_confirmed"]
