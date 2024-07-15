@@ -1,8 +1,6 @@
-[gd_scene load_steps=63 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=60 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
-[ext_resource type="Script" path="res://utils/shader_precompiler.gd" id="2_if3rk"]
-[ext_resource type="PackedScene" uid="uid://b7tckdwyjwpso" path="res://mechanics/combat/weapons/blaster/blaster_bolt.tscn" id="3_juk8d"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperspace_scene_switcher.gd" id="4_yyrkm"]
 [ext_resource type="Resource" uid="uid://bcva4l4cpt70c" path="res://galaxy/main_galaxy.tres" id="5_3nony"]
 [ext_resource type="Material" uid="uid://tpd4rufhhe4h" path="res://fx/starfield/starfield.tres" id="7_gr6ce"]
@@ -45,9 +43,6 @@
 [ext_resource type="Script" path="res://screens/game/exit_dialog.gd" id="36_7hsbd"]
 [ext_resource type="Script" path="res://screens/shared_ui/fps_counter.gd" id="37_e11x7"]
 [ext_resource type="PackedScene" uid="uid://kqong7nrl4p2" path="res://galaxy/map/galaxy_map.tscn" id="38_r6s3m"]
-
-[sub_resource type="World3D" id="World3D_pvg5q"]
-environment = ExtResource("1_pqled")
 
 [sub_resource type="Resource" id="Resource_rwdpp"]
 resource_local_to_scene = true
@@ -141,21 +136,6 @@ texture_margin_right = 15.0
 texture_margin_bottom = 10.0
 
 [node name="Game" type="Node3D"]
-
-[node name="ShaderPrecompiler" type="SubViewport" parent="."]
-world_3d = SubResource("World3D_pvg5q")
-gui_disable_input = true
-size = Vector2i(2048, 2048)
-render_target_update_mode = 4
-script = ExtResource("2_if3rk")
-precompile = Array[PackedScene]([ExtResource("3_juk8d")])
-
-[node name="Camera3D" type="Camera3D" parent="ShaderPrecompiler"]
-transform = Transform3D(1, -6.97574e-16, -1.5246e-23, -1.5246e-23, -4.37114e-08, 1, -6.97574e-16, -1, -4.37114e-08, 2.08165e-12, 10, 2.08165e-12)
-projection = 1
-current = true
-near = 1.0
-far = 20.0
 
 [node name="HyperspaceSceneSwitcher" type="Node3D" parent="." node_paths=PackedStringArray("hyperdrive_system")]
 script = ExtResource("4_yyrkm")
