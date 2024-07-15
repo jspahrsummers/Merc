@@ -15,6 +15,10 @@ func _ready() -> void:
     self.set_physics_process(should_enable)
 
 func _physics_process(delta: float) -> void:
+    if self.battery.power / self.battery.max_power <= self.shield.only_recharge_above:
+        # Battery too low, skip recharging.
+        return
+
     var desired_recharge := self.shield.max_integrity - self.shield.integrity
     var max_recharge := self.shield.recharge_rate * delta
 
