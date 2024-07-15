@@ -1,8 +1,7 @@
-[gd_scene load_steps=59 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=58 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperspace_scene_switcher.gd" id="4_yyrkm"]
-[ext_resource type="Resource" uid="uid://bcva4l4cpt70c" path="res://galaxy/main_galaxy.tres" id="5_3nony"]
 [ext_resource type="Material" uid="uid://tpd4rufhhe4h" path="res://fx/starfield/starfield.tres" id="7_gr6ce"]
 [ext_resource type="Script" path="res://fx/starfield/starfield_parallax.gd" id="8_ueist"]
 [ext_resource type="Script" path="res://fx/main_camera.gd" id="9_v2hcn"]
@@ -15,6 +14,7 @@
 [ext_resource type="Script" path="res://mechanics/power/battery.gd" id="15_sjw8q"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperdrive_system.gd" id="16_6olqp"]
 [ext_resource type="PackedScene" uid="uid://cxlg0yj8cjbrf" path="res://actors/player.tscn" id="16_lqltb"]
+[ext_resource type="PackedScene" uid="uid://bksd1ida60ymi" path="res://galaxy/map/galaxy_map_window.tscn" id="17_4w17v"]
 [ext_resource type="PackedScene" uid="uid://2mdsbbko7baw" path="res://galaxy/star_system/scenes/sol.tscn" id="17_wjgyf"]
 [ext_resource type="PackedScene" uid="uid://b6tdj2tjqldnt" path="res://screens/game/game_over/game_over.tscn" id="17_yidh7"]
 [ext_resource type="PackedScene" uid="uid://ca3awvk1a7xyi" path="res://screens/game/exit_dialog/exit_dialog.tscn" id="18_hl4w3"]
@@ -41,7 +41,6 @@
 [ext_resource type="Script" path="res://screens/game/message_log.gd" id="35_8pupt"]
 [ext_resource type="AudioStream" uid="uid://d35n48x47d8dy" path="res://screens/shared_ui/audio/beep_03.ogg" id="36_3gr28"]
 [ext_resource type="Script" path="res://screens/shared_ui/fps_counter.gd" id="37_e11x7"]
-[ext_resource type="PackedScene" uid="uid://kqong7nrl4p2" path="res://galaxy/map/galaxy_map.tscn" id="38_r6s3m"]
 
 [sub_resource type="Resource" id="Resource_rwdpp"]
 resource_local_to_scene = true
@@ -291,11 +290,12 @@ gi_mode = 0
 mesh = SubResource("QuadMesh_7oe51")
 skeleton = NodePath("../..")
 
-[node name="InGameGUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("galaxy_map_window")]
+[node name="InGameGUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("18_y74ml")
-galaxy_map_window = NodePath("GalaxyMapWindow")
+galaxy_map_scene = ExtResource("17_4w17v")
 game_over_scene = ExtResource("17_yidh7")
 exit_dialog_scene = ExtResource("18_hl4w3")
+player = NodePath("../HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player")
 
 [node name="MarginContainer" type="MarginContainer" parent="InGameGUI"]
 anchors_preset = 15
@@ -567,39 +567,10 @@ text = "30 FPS
 horizontal_alignment = 2
 script = ExtResource("37_e11x7")
 
-[node name="GalaxyMapWindow" type="Window" parent="InGameGUI"]
-own_world_3d = true
-title = "Galaxy Map"
-initial_position = 2
-size = Vector2i(1000, 1000)
-visible = false
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="InGameGUI/GalaxyMapWindow"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="InGameGUI/GalaxyMapWindow/SubViewportContainer"]
-own_world_3d = true
-handle_input_locally = false
-physics_object_picking = true
-size = Vector2i(1000, 1000)
-render_target_update_mode = 0
-
-[node name="GalaxyMap" parent="InGameGUI/GalaxyMapWindow/SubViewportContainer/SubViewport" node_paths=PackedStringArray("hyperdrive_system") instance=ExtResource("38_r6s3m")]
-hyperdrive_system = NodePath("../../../../../HyperspaceSceneSwitcher/Sol/PlayerCorvette/HyperdriveSystem")
-galaxy = ExtResource("5_3nony")
-
 [connection signal="jump_destination_loaded" from="HyperspaceSceneSwitcher" to="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" method="_on_jump_destination_loaded"]
 [connection signal="jump_destination_loaded" from="HyperspaceSceneSwitcher" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/SystemName" method="_on_jump_destination_loaded"]
 [connection signal="jump_destination_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/HyperdriveSystem" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PanelContainer/VBoxContainer/JumpDestinationName" method="_on_jump_destination_changed"]
 [connection signal="jumping_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/HyperdriveSystem" to="MainCameraTransform/MainCamera/HyperspaceEffect" method="_on_jumping_changed"]
-[connection signal="jumping_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/HyperdriveSystem" to="InGameGUI/GalaxyMapWindow/SubViewportContainer/SubViewport/GalaxyMap" method="_on_jumping_changed"]
 [connection signal="hull_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_hull_changed"]
 [connection signal="hyperdrive_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PanelContainer/VBoxContainer/FuelBar" method="_on_player_hyperdrive_changed"]
 [connection signal="landing_target_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/LandingTargetName" method="_on_landing_target_changed"]
@@ -607,7 +578,6 @@ galaxy = ExtResource("5_3nony")
 [connection signal="shield_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_shield_changed"]
 [connection signal="ship_destroyed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI" method="_on_player_ship_destroyed"]
 [connection signal="target_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TargetInfoContainer" method="_on_player_target_changed"]
-[connection signal="close_requested" from="InGameGUI/GalaxyMapWindow" to="InGameGUI/GalaxyMapWindow/SubViewportContainer/SubViewport/GalaxyMap" method="_on_window_close_requested"]
 
 [editable path="HyperspaceSceneSwitcher/Sol"]
 [editable path="HyperspaceSceneSwitcher/Sol/Mercury"]
