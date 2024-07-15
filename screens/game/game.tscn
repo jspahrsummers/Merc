@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperdrive_system.gd" id="16_6olqp"]
 [ext_resource type="PackedScene" uid="uid://cxlg0yj8cjbrf" path="res://actors/player.tscn" id="16_lqltb"]
 [ext_resource type="PackedScene" uid="uid://2mdsbbko7baw" path="res://galaxy/star_system/scenes/sol.tscn" id="17_wjgyf"]
+[ext_resource type="PackedScene" uid="uid://b6tdj2tjqldnt" path="res://screens/game/game_over/game_over.tscn" id="17_yidh7"]
 [ext_resource type="Script" path="res://screens/game/in_game_gui.gd" id="18_y74ml"]
 [ext_resource type="Texture2D" uid="uid://bphfuhdpceacb" path="res://mechanics/radar/images/radar_bg.png" id="19_vr47x"]
 [ext_resource type="Shader" path="res://screens/shared_ui/shaders/circular_mask.gdshader" id="20_wa4c1"]
@@ -36,7 +37,6 @@
 [ext_resource type="PackedScene" uid="uid://bpav2va7o5qt4" path="res://screens/game/hud/target_fill_bar.tscn" id="32_pyrqo"]
 [ext_resource type="Texture2D" uid="uid://bsf3tqgocto7h" path="res://screens/game/hud/images/target_info/shields_fill.png" id="33_jftfh"]
 [ext_resource type="Script" path="res://screens/game/hud/landing_target_name.gd" id="34_ddwxb"]
-[ext_resource type="Script" path="res://screens/game/game_over.gd" id="34_ipa71"]
 [ext_resource type="Script" path="res://screens/game/message_log.gd" id="35_8pupt"]
 [ext_resource type="PackedScene" uid="uid://btc568gwt7fuc" path="res://screens/main_menu/main_menu.tscn" id="35_x8atu"]
 [ext_resource type="AudioStream" uid="uid://d35n48x47d8dy" path="res://screens/shared_ui/audio/beep_03.ogg" id="36_3gr28"]
@@ -295,6 +295,7 @@ skeleton = NodePath("../..")
 [node name="InGameGUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("galaxy_map_window", "exit_dialog")]
 script = ExtResource("18_y74ml")
 galaxy_map_window = NodePath("GalaxyMapWindow")
+game_over_scene = ExtResource("17_yidh7")
 exit_dialog = NodePath("ExitDialog")
 
 [node name="MarginContainer" type="MarginContainer" parent="InGameGUI"]
@@ -567,19 +568,6 @@ text = "30 FPS
 horizontal_alignment = 2
 script = ExtResource("37_e11x7")
 
-[node name="GameOverDialog" type="AcceptDialog" parent="InGameGUI"]
-scaling_3d_scale = 2.0
-title = "GAME OVER"
-initial_position = 2
-size = Vector2i(400, 150)
-ok_button_text = "EXIT TO MAIN MENU"
-dialog_text = "Your ship has been destroyed, and you along with it."
-dialog_hide_on_ok = false
-dialog_close_on_escape = false
-dialog_autowrap = true
-script = ExtResource("34_ipa71")
-main_menu_scene = ExtResource("35_x8atu")
-
 [node name="ExitDialog" type="ConfirmationDialog" parent="InGameGUI"]
 scaling_3d_scale = 2.0
 title = "EXIT GAME?"
@@ -631,9 +619,8 @@ galaxy = ExtResource("5_3nony")
 [connection signal="landing_target_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/LandingTargetName" method="_on_landing_target_changed"]
 [connection signal="power_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_power_changed"]
 [connection signal="shield_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_shield_changed"]
-[connection signal="ship_destroyed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/GameOverDialog" method="_on_player_ship_destroyed"]
+[connection signal="ship_destroyed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI" method="_on_player_ship_destroyed"]
 [connection signal="target_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TargetInfoContainer" method="_on_player_target_changed"]
-[connection signal="confirmed" from="InGameGUI/GameOverDialog" to="InGameGUI/GameOverDialog" method="_on_confirmed"]
 [connection signal="canceled" from="InGameGUI/ExitDialog" to="InGameGUI/ExitDialog" method="_on_canceled"]
 [connection signal="confirmed" from="InGameGUI/ExitDialog" to="InGameGUI/ExitDialog" method="_on_confirmed"]
 [connection signal="close_requested" from="InGameGUI/GalaxyMapWindow" to="InGameGUI/GalaxyMapWindow/SubViewportContainer/SubViewport/GalaxyMap" method="_on_window_close_requested"]

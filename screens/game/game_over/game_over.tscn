@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6tdj2tjqldnt"]
+
+[ext_resource type="Script" path="res://screens/game/game_over/game_over.gd" id="1_3h6he"]
+[ext_resource type="PackedScene" uid="uid://btc568gwt7fuc" path="res://screens/main_menu/main_menu.tscn" id="2_pxfub"]
+
+[node name="GameOverDialog" type="AcceptDialog"]
+scaling_3d_scale = 2.0
+title = "GAME OVER"
+initial_position = 2
+size = Vector2i(400, 150)
+visible = true
+ok_button_text = "EXIT TO MAIN MENU"
+dialog_text = "Your ship has been destroyed, and you along with it."
+dialog_hide_on_ok = false
+dialog_close_on_escape = false
+dialog_autowrap = true
+script = ExtResource("1_3h6he")
+main_menu_scene = ExtResource("2_pxfub")
+
+[connection signal="confirmed" from="." to="." method="_on_confirmed"]
