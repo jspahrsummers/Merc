@@ -10,7 +10,7 @@
 own_world_3d = true
 title = "Galaxy Map"
 initial_position = 2
-size = Vector2i(1000, 1000)
+size = Vector2i(800, 800)
 script = ExtResource("1_ksqdq")
 galaxy_map_3d = NodePath("SubViewportContainer/SubViewport/GalaxyMap3D")
 galaxy = ExtResource("2_okeml")
@@ -31,8 +31,9 @@ stretch = true
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 own_world_3d = true
 handle_input_locally = false
+scaling_3d_scale = 2.0
 physics_object_picking = true
-size = Vector2i(1000, 1000)
+size = Vector2i(800, 800)
 render_target_update_mode = 4
 
 [node name="GalaxyMap3D" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_rlhp4")]
