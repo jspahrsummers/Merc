@@ -22,8 +22,6 @@ config/icon="res://screens/shared_ui/images/icon.png"
 [autoload]
 
 UserPreferences="*res://utils/user_preferences.gd"
-MathUtils="*res://utils/math_utils.gd"
-ArrayUtils="*res://utils/array_utils.gd"
 InputEventBroadcaster="*res://utils/input_event_broadcaster.gd"
 
 [debug]
