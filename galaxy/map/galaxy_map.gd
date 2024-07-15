@@ -1,8 +1,10 @@
-extends Node3D
+extends Window
+class_name GalaxyMap
 
 ## Presents the in-game galaxy map, showing all star systems.
 
-@export var hyperdrive_system: HyperdriveSystem
+## The 3D node displaying the galaxy map visualization.
+@export var galaxy_map_3d: Node3D
 
 ## The galaxy to display.
 @export var galaxy: Galaxy
@@ -16,6 +18,9 @@ extends Node3D
 ## The camera observing the 3D galaxy.
 @export var camera: GalaxyMapCamera
 
+## The player's [HyperdriveSystem]. Must be set before displaying.
+var hyperdrive_system: HyperdriveSystem
+
 ## Maps from each [member StarSystem.name] to the [GalaxyMapSystem] used to represent it.
 var _system_nodes: Dictionary = {}
 
@@ -28,7 +33,7 @@ func _ready() -> void:
 
         system_node.name = system.name
         system_node.current = (system == current_system)
-        self.add_child(system_node)
+        self.galaxy_map_3d.add_child(system_node)
 
         system_node.transform.origin = system.position
 
@@ -40,7 +45,7 @@ func _ready() -> void:
             hyperlane.name = "%s > %s" % [system.name, connection]
             hyperlane.starting_position = system.position
             hyperlane.ending_position = connected_system.position
-            self.add_child(hyperlane)
+            self.galaxy_map_3d.add_child(hyperlane)
 
 func _on_jumping_changed(_hyperdrive_system: HyperdriveSystem) -> void:
     assert(self.hyperdrive_system == _hyperdrive_system)
@@ -55,11 +60,11 @@ func _on_jumping_changed(_hyperdrive_system: HyperdriveSystem) -> void:
 
 func _input(event: InputEvent) -> void:
     if event.is_action_pressed("toggle_galaxy_map"):
-        self.get_window().visible = false
         self.get_viewport().set_input_as_handled()
+        self.queue_free()
 
 func _on_window_close_requested() -> void:
-    self.get_window().visible = false
+    self.queue_free()
 
 func _on_system_clicked(star_system: StarSystem, _system_node: GalaxyMapSystem) -> void:
     if self.hyperdrive_system.jumping:

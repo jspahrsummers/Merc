@@ -1,18 +1,23 @@
 extends CanvasLayer
 
-@export var galaxy_map_window: Window
+@export var galaxy_map_scene: PackedScene
 @export var game_over_scene: PackedScene
 @export var exit_dialog_scene: PackedScene
+@export var player: Player
 
 func _on_player_ship_destroyed(_player: Player) -> void:
-    var game_over_window: Window = game_over_scene.instantiate()
-    self.add_child(game_over_window)
-    game_over_window.show()
+    self._instantiate_and_show_window(self.game_over_scene)
 
 func _unhandled_input(event: InputEvent) -> void:
     if event.is_action_pressed("toggle_galaxy_map"):
-       self.galaxy_map_window.visible = true
+        var galaxy_map: GalaxyMap = self.galaxy_map_scene.instantiate()
+        galaxy_map.hyperdrive_system = self.player.ship.hyperdrive_system
+        self.add_child(galaxy_map)
+        galaxy_map.show()
     elif event.is_action_pressed("exit"):
-        var exit_dialog: Window = exit_dialog_scene.instantiate()
-        self.add_child(exit_dialog)
-        exit_dialog.show()
+        self._instantiate_and_show_window(self.exit_dialog_scene)
+
+func _instantiate_and_show_window(scene: PackedScene) -> void:
+    var window: Window = scene.instantiate()
+    self.add_child(window)
+    window.show()

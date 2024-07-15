@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://bksd1ida60ymi"]
+
+[ext_resource type="Script" path="res://galaxy/map/galaxy_map.gd" id="1_ksqdq"]
+[ext_resource type="PackedScene" uid="uid://kqong7nrl4p2" path="res://galaxy/map/galaxy_map_3d.tscn" id="1_rlhp4"]
+[ext_resource type="Resource" uid="uid://bcva4l4cpt70c" path="res://galaxy/main_galaxy.tres" id="2_okeml"]
+[ext_resource type="PackedScene" uid="uid://ckdnlnrybk4mh" path="res://galaxy/map/galaxy_map_system.tscn" id="3_do8cs"]
+[ext_resource type="PackedScene" uid="uid://d3lphosly5y8b" path="res://galaxy/map/galaxy_map_hyperlane.tscn" id="4_1iwcw"]
+
+[node name="GalaxyMapWindow" type="Window" node_paths=PackedStringArray("galaxy_map_3d", "camera")]
+own_world_3d = true
+title = "Galaxy Map"
+initial_position = 2
+size = Vector2i(1000, 1000)
+script = ExtResource("1_ksqdq")
+galaxy_map_3d = NodePath("SubViewportContainer/SubViewport/GalaxyMap3D")
+galaxy = ExtResource("2_okeml")
+galaxy_map_system = ExtResource("3_do8cs")
+galaxy_map_hyperlane = ExtResource("4_1iwcw")
+camera = NodePath("SubViewportContainer/SubViewport/GalaxyMap3D/Camera3D")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+own_world_3d = true
+handle_input_locally = false
+physics_object_picking = true
+size = Vector2i(1000, 1000)
+render_target_update_mode = 4
+
+[node name="GalaxyMap3D" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_rlhp4")]
+
+[connection signal="close_requested" from="." to="SubViewportContainer/SubViewport/GalaxyMap3D" method="_on_window_close_requested"]
+
+[editable path="SubViewportContainer/SubViewport/GalaxyMap3D"]
