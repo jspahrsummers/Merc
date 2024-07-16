@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cji43wyk7116p"]
 
-[ext_resource type="Texture2D" uid="uid://6ijlgdb1n5rc" path="res://stars/sprites/star_orange02.png" id="1_so3uy"]
+[ext_resource type="Texture2D" uid="uid://6ijlgdb1n5rc" path="res://stars/sprites/star_orange02.png" id="1_0bkwj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6m41v"]
 shading_mode = 0
@@ -10,7 +10,7 @@ material = SubResource("StandardMaterial3D_6m41v")
 size = Vector2(2, 2)
 orientation = 1
 
-[node name="Star" type="Node3D"]
+[node name="Star Class G" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
@@ -34,4 +34,4 @@ cast_shadow = 0
 gi_mode = 0
 axis = 1
 double_sided = false
-texture = ExtResource("1_so3uy")
+texture = ExtResource("1_0bkwj")
