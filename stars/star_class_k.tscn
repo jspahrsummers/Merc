@@ -9,5 +9,5 @@
 light_energy = 8.0
 
 [node name="Sprite3D" parent="." index="2"]
-transform = Transform3D(0.775, 0, 0, 0, 0.775, 0, 0, 0, 0.775, 2.08165e-12, -1, 2.08165e-12)
+transform = Transform3D(0.775, 0, 0, 0, 1, 0, 0, 0, 0.775, 2.08165e-12, -1, 2.08165e-12)
 texture = ExtResource("2_s03sh")

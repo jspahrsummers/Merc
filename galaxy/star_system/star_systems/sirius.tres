@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="StarSystem" load_steps=2 format=3 uid="uid://clcig3aieyop5"]
+
+[ext_resource type="Script" path="res://galaxy/star_system/star_system.gd" id="1_78j6h"]
+
+[resource]
+script = ExtResource("1_78j6h")
+name = &"Sirius"
+connections = Array[StringName]([&"Wolf 359", &"Alpha Centauri"])
+position = Vector3(1.5, -0.5, -6)
+scene_path = "res://galaxy/star_system/scenes/sirius.tscn"
