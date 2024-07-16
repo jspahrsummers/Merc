@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_ewhsc")
 name = &"Sol"
-connections = Array[StringName]([&"Alpha Centauri", &"Barnard\'s Star", &"Wolf 359"])
+connections = Array[StringName]([&"Alpha Centauri", &"Barnard\'s Star", &"Sirius"])
 position = Vector3(0, 0, 0)
 scene_path = "res://galaxy/star_system/scenes/sol.tscn"

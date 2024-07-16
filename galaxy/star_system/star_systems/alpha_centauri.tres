@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_un4y1")
 name = &"Alpha Centauri"
-connections = Array[StringName]([&"Sol", &"Sirius"])
-position = Vector3(2.5, 0.2, -3.7)
+connections = Array[StringName]([&"Sol", &"Wolf 359"])
+position = Vector3(-1.5, 0.2, -2.3)
 scene_path = "res://galaxy/star_system/scenes/alpha_centauri.tscn"
