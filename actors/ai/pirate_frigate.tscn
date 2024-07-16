@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://culoat6jnbwc8"]
+
+[ext_resource type="PackedScene" uid="uid://cdvbol3xj7jr5" path="res://ships/frigate03/frigate03.tscn" id="1_nyytj"]
+[ext_resource type="Script" path="res://mechanics/combat/shield.gd" id="2_ul77l"]
+[ext_resource type="Script" path="res://mechanics/combat/hull.gd" id="3_0v7o8"]
+[ext_resource type="Script" path="res://mechanics/power/battery.gd" id="4_hxgp6"]
+[ext_resource type="Script" path="res://actors/ai/archetypes/pirate.gd" id="5_rnf12"]
+
+[sub_resource type="Resource" id="Resource_3qkd3"]
+resource_local_to_scene = true
+script = ExtResource("2_ul77l")
+max_integrity = 100.0
+integrity = 100.0
+recharge_rate = 10.0
+power_efficiency = 1.0
+only_recharge_above = 0.2
+
+[sub_resource type="Resource" id="Resource_8xvdn"]
+resource_local_to_scene = true
+script = ExtResource("3_0v7o8")
+max_integrity = 100.0
+integrity = 100.0
+
+[sub_resource type="Resource" id="Resource_mdanj"]
+resource_local_to_scene = true
+script = ExtResource("4_hxgp6")
+max_power = 300.0
+power = 300.0
+
+[node name="PirateFrigate" instance=ExtResource("1_nyytj")]
+
+[node name="CombatObject" parent="." index="2"]
+shield = SubResource("Resource_3qkd3")
+hull = SubResource("Resource_8xvdn")
+
+[node name="RigidBodyDirection" parent="." index="3"]
+battery = SubResource("Resource_mdanj")
+
+[node name="RigidBodyThruster" parent="." index="4"]
+battery = SubResource("Resource_mdanj")
+
+[node name="PowerManagementUnit" parent="." index="5"]
+battery = SubResource("Resource_mdanj")
+
+[node name="ShieldRecharger" parent="." index="7"]
+battery = SubResource("Resource_mdanj")
+shield = SubResource("Resource_3qkd3")
+
+[node name="Blaster" parent="." index="8"]
+battery = SubResource("Resource_mdanj")
+
+[node name="Pirate" type="Node3D" parent="." index="9"]
+script = ExtResource("5_rnf12")
+
+[editable path="CombatObject/TargetOverlay"]
