@@ -24,6 +24,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 - star_red01
 - star_red02
 - star_red03
+- star_white02
+- star_white03
 
 [Planet sprites](https://v-ktor.itch.io/planet-sprites) created by [Viktor Hahn](https://v-ktor.itch.io/) (Viktor.Hahn@web.de), licensed under [CC BY-SA 4.0 license](https://creativecommons.org/licenses/by-sa/4.0/):
 - planet_02
