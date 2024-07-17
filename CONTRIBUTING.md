@@ -1,17 +1,6 @@
 # Contributing
 
-At the moment, this is basically just a personal project, so I'm not looking for contributions. But if you're interested in contributing, feel free to reach out to me and we can discuss it.
-
-## Coding conventions
-
-All Godot scripting in this project uses [GDScript](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/index.html), following these conventions:
-* Everything should have static typing, to the extent possible.
-* All private variables and methods (those not meant to be visible to the editor or callers) should be prefixed with an underscore.
-* No implicit `self`. Calls to methods or properties on the same instance should always explicitly start with `self.` This makes it clearer to readers of the code what is happening.
-* Use methods that give you static types instead of those that just use `StringName`s. For example:
-    * Prefer `self.some_signal.emit()` over `self.emit_signal("some_signal")`
-    * Prefer `self.some_method.call_deferred()` over `self.call_deferred("some_method")`
-* Prefer declaring properties with `@export` and connecting them in the editor, over using `@onready` with `NodePath`s, `get_node()`, etc.
+At the moment, this is basically just a personal project, so I'm not looking for contributions. But if you're interested in contributing nonetheless, read on!
 
 ## Content creation
 
@@ -50,3 +39,20 @@ The most basic way to add a ship to the scene is to just instantiate the scene o
 * Add an [`AINavigation`](actors/ai/ai_navigation.gd) node to make the ship navigate toward a particular location, without engaging in combat.
 
 To instead introduce ships that have behaviors already defined, instantiate any of the templates in [actors/ai/](actors/ai/) (e.g., `pirate_frigate`).
+
+## Code
+
+All Godot scripting in this project uses [GDScript](https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/index.html). Please follow these conventions when writing new code:
+* Everything should have static typing, to the extent possible.
+* All private variables and methods (those not meant to be visible to the editor or callers) should be prefixed with an underscore.
+* No implicit `self`. Calls to methods or properties on the same instance should always explicitly start with `self.` This makes it clearer to readers of the code what is happening.
+* Use methods that give you static types instead of those that just use `StringName`s. For example:
+    * Prefer `self.some_signal.emit()` over `self.emit_signal("some_signal")`
+    * Prefer `self.some_method.call_deferred()` over `self.call_deferred("some_method")`
+* Prefer declaring properties with `@export` and connecting them in the editor, over using `@onready` with `NodePath`s, `get_node()`, etc.
+
+### In-game AI
+
+It's always great to have additional AI options for [non-player ships](#non-player-ships)! You can find the existing implementations in [actors/ai/](actors/ai/), to use as a jumping-off point for implementing new behaviors.
+
+_Note:_ if multiple [actor](actors/) implementations start to have a lot in common, it's a sign that we should probably factor out additional types of [mechanics](mechanics/) that can be shared between them.
