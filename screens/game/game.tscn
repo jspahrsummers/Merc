@@ -308,7 +308,9 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/margin_left = 8
-theme_override_constants/margin_right = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 14
+theme_override_constants/margin_bottom = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="InGameGUI/MarginContainer"]
 layout_mode = 2
