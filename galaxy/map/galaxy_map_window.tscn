@@ -38,6 +38,6 @@ render_target_update_mode = 4
 
 [node name="GalaxyMap3D" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_rlhp4")]
 
-[connection signal="close_requested" from="." to="SubViewportContainer/SubViewport/GalaxyMap3D" method="_on_window_close_requested"]
+[connection signal="close_requested" from="." to="." method="_on_window_close_requested"]
 
 [editable path="SubViewportContainer/SubViewport/GalaxyMap3D"]
