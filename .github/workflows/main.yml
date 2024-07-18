@@ -68,11 +68,11 @@ jobs:
 
           (GODOT_MACOS_NOTARIZATION_API_KEY="$PRIVATE_KEY_FILE" "$RUNNER_TEMP/Godot.app/Contents/MacOS/Godot" --headless --export-release macOS 2>&1) | tee build.log
 
-          # Wait for notarization to complete
+          echo "Waiting for notarization…"
           NOTARIZATION_REQUEST_UUID=$(awk -F'"' '/Notarization request UUID:/ {print $2}' build.log)
           xcrun notarytool wait --key "$PRIVATE_KEY_FILE" --key-id "$GODOT_MACOS_NOTARIZATION_API_KEY_ID" --issuer "$GODOT_MACOS_NOTARIZATION_API_UUID" "$NOTARIZATION_REQUEST_UUID"
 
-          # Staple notarization ticket
+          echo "Stapling notarization ticket"
           xcrun stapler staple build/Merc.app
 
       - name: Push to itch.io
