@@ -57,6 +57,13 @@ jobs:
           mkdir -p ~/Library/Application\ Support/Godot/export_templates/4.2.2.stable
           mv build/export_templates/* ~/Library/Application\ Support/Godot/export_templates/4.2.2.stable/
 
+      - name: Cache .godot
+        uses: actions/cache@v4
+        with:
+          path: .godot
+          key: dot-godot-${{ runner.os }}
+          restore-keys: dot-godot-
+
       - name: Export build
         env:
           GODOT_MACOS_NOTARIZATION_API_UUID: ${{ secrets.APPLE_NOTARY_ISSUER_ID }}
@@ -105,6 +112,13 @@ jobs:
         run: |
           mkdir -p ~/.local/share/godot/export_templates/4.2.2.stable
           mv build/export_templates/* ~/.local/share/godot/export_templates/4.2.2.stable/
+
+      - name: Cache .godot
+        uses: actions/cache@v4
+        with:
+          path: .godot
+          key: dot-godot-${{ runner.os }}
+          restore-keys: dot-godot-
 
       - name: Export build
         run: |
