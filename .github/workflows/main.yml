@@ -120,4 +120,4 @@ jobs:
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
           content: |
-            New build available! Get it from: https://jspahrsummers.itch.io/merc
+            New build available! Get it from: <https://jspahrsummers.itch.io/merc>

@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://kqong7nrl4p2"]
+
+[ext_resource type="Texture2D" uid="uid://bg6scgrmluxuv" path="res://galaxy/map/nebula.hdr" id="2_323g3"]
+[ext_resource type="Script" path="res://galaxy/map/galaxy_map_camera.gd" id="3_h6pmd"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_fcs3v"]
+panorama = ExtResource("2_323g3")
+
+[sub_resource type="Sky" id="Sky_5teur"]
+sky_material = SubResource("PanoramaSkyMaterial_fcs3v")
+
+[sub_resource type="Environment" id="Environment_3vvef"]
+background_mode = 2
+background_color = Color(1, 1, 1, 1)
+sky = SubResource("Sky_5teur")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 0.2
+reflected_light_source = 1
+volumetric_fog_density = 0.012
+
+[node name="GalaxyMap3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 1.19043, -1.19753)
+shadow_enabled = true
+sky_mode = 1
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, -6.97574e-16, -1.5246e-23, -1.5246e-23, -4.37114e-08, 1, -6.97574e-16, -1, -4.37114e-08, 2.08165e-12, 5, 2.08165e-12)
+current = true
+near = 1.0
+far = 50.0
+script = ExtResource("3_h6pmd")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3vvef")

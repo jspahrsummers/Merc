@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://olcyotwl42v1"
-path.s3tc="res://.godot/imported/radio_normal.png-2a1d34b89858dd1eef13677ab9858425.s3tc.ctex"
+path="res://.godot/imported/radio_normal.png-2a1d34b89858dd1eef13677ab9858425.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://screens/shared_ui/images/radio/radio_normal.png"
-dest_files=["res://.godot/imported/radio_normal.png-2a1d34b89858dd1eef13677ab9858425.s3tc.ctex"]
+dest_files=["res://.godot/imported/radio_normal.png-2a1d34b89858dd1eef13677ab9858425.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

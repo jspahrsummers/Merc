@@ -46,3 +46,18 @@ class_name Shield
         
         power_efficiency = value
         self.emit_changed()
+
+## Only recharge this shield from the ship's battery when the total battery level is above this percentage.
+##
+## This is used to avoid the shield draining all the battery necessary for ship manuevering.
+@export_range(0.0, 1.0, 0.1) var only_recharge_above: float = 0.2:
+    set(value):
+        value = clampf(value, 0.0, 1.0)
+        if is_equal_approx(value, 1.0):
+            push_error("Setting only_recharge_above to 1 will disable shield recharging; if this is what you meant to do, set recharge_rate to 0 instead.")
+
+        if is_equal_approx(only_recharge_above, value):
+            return
+        
+        only_recharge_above = value
+        self.emit_changed()

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=37 format=3 uid="uid://r4w2xa3q1twa"]
+[gd_resource type="Theme" load_steps=39 format=3 uid="uid://r4w2xa3q1twa"]
 
 [ext_resource type="FontFile" uid="uid://csj4t4r3hegan" path="res://screens/shared_ui/fonts/TitilliumWeb-Regular.ttf" id="1_7lr26"]
 [ext_resource type="Texture2D" uid="uid://rwqxyhvnkuqr" path="res://screens/shared_ui/images/button/blue_button_h.png" id="1_gtllp"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://kh5sojs5lrwe" path="res://screens/shared_ui/images/button/blue_button_n.png" id="1_w360u"]
 [ext_resource type="Texture2D" uid="uid://i2bubylkxpws" path="res://screens/shared_ui/images/button/blue_button_p.png" id="2_42fg3"]
 [ext_resource type="Texture2D" uid="uid://5qx45b7i3p04" path="res://screens/shared_ui/images/dropdown/drop_button_box_hover.png" id="2_ps7t7"]
+[ext_resource type="Texture2D" uid="uid://daxs3rsyr3jfg" path="res://screens/shared_ui/images/button/blue_button_disabled.png" id="2_vpgfx"]
 [ext_resource type="Texture2D" uid="uid://bbckd0oqc5t7h" path="res://screens/shared_ui/images/dropdown/drop_button_box_normal.png" id="3_4pta7"]
 [ext_resource type="Texture2D" uid="uid://d3qjohnoxaugd" path="res://screens/shared_ui/images/radio/radio_selected.png" id="4_ct7r0"]
 [ext_resource type="Texture2D" uid="uid://ohx5g482xiku" path="res://screens/shared_ui/images/content_box/cb_content_default.png" id="4_vhwfr"]
@@ -22,6 +23,13 @@ texture_margin_left = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 region_rect = Rect2(0, 5, 50, 45)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dtlic"]
+texture = ExtResource("2_vpgfx")
+texture_margin_left = 12.0
+texture_margin_top = 8.0
+texture_margin_right = 12.0
+texture_margin_bottom = 8.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ywsr3"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -152,6 +160,7 @@ Button/colors/font_color = Color(0.545098, 0.858824, 1, 1)
 Button/colors/font_focus_color = Color(0.545098, 0.858824, 1, 1)
 Button/colors/font_hover_color = Color(1, 1, 1, 1)
 Button/colors/font_pressed_color = Color(0.282353, 0.678431, 0.941176, 1)
+Button/styles/disabled = SubResource("StyleBoxTexture_dtlic")
 Button/styles/focus = SubResource("StyleBoxFlat_ywsr3")
 Button/styles/hover = SubResource("StyleBoxTexture_8h68k")
 Button/styles/normal = SubResource("StyleBoxTexture_102yo")
@@ -172,8 +181,8 @@ MainMenuButton/styles/hover = SubResource("StyleBoxEmpty_hrktx")
 MainMenuButton/styles/normal = SubResource("StyleBoxEmpty_a4mtl")
 MainMenuButton/styles/pressed = SubResource("StyleBoxEmpty_cvfq2")
 MarginContainer/constants/margin_bottom = 8
-MarginContainer/constants/margin_left = 16
-MarginContainer/constants/margin_right = 16
+MarginContainer/constants/margin_left = 8
+MarginContainer/constants/margin_right = 8
 MarginContainer/constants/margin_top = 8
 OptionButton/colors/font_color = Color(0.396078, 0.807843, 0.992157, 1)
 OptionButton/colors/font_focus_color = Color(0.396078, 0.807843, 0.992157, 1)

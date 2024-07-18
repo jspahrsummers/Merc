@@ -24,7 +24,6 @@ script = ExtResource("1_f2834")
 target_overlay = NodePath("Sprite3D/TargetOverlay")
 
 [node name="MinimapIcon" type="MeshInstance3D" parent="."]
-visible = false
 layers = 2
 cast_shadow = 0
 gi_mode = 0

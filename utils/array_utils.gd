@@ -1,7 +1,7 @@
-extends Node
+class_name ArrayUtils
 
 ## Finds the next object in [param array] after [param starting_from], wrapping around to `null` if the end of the array is reached.
-func cycle_through(array: Array, starting_from: Variant) -> Variant:
+static func cycle_through(array: Array, starting_from: Variant) -> Variant:
     if array.size() == 0:
         return null
     
