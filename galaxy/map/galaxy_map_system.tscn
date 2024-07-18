@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://ckdnlnrybk4mh"]
+[gd_scene load_steps=8 format=3 uid="uid://ckdnlnrybk4mh"]
 
 [ext_resource type="Script" path="res://galaxy/map/galaxy_map_system.gd" id="1_jbywj"]
 [ext_resource type="Material" uid="uid://wjykkjty1dt5" path="res://galaxy/map/galaxy_map_current_mat.tres" id="2_ddy2j"]
 [ext_resource type="FontFile" uid="uid://csj4t4r3hegan" path="res://screens/shared_ui/fonts/TitilliumWeb-Regular.ttf" id="3_747hn"]
+[ext_resource type="Texture2D" uid="uid://lllwynbx0xg7" path="res://galaxy/map/selected_galaxy_node.png" id="4_211rw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_idixh"]
 emission_enabled = true
@@ -19,12 +20,13 @@ rings = 16
 [sub_resource type="SphereShape3D" id="SphereShape3D_05nlo"]
 radius = 0.2
 
-[node name="System Node" type="StaticBody3D" node_paths=PackedStringArray("name_label", "mesh")]
+[node name="System Node" type="StaticBody3D" node_paths=PackedStringArray("name_label", "mesh", "selected_sprite")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
 script = ExtResource("1_jbywj")
 name_label = NodePath("NameLabel")
 mesh = NodePath("MeshInstance3D")
 current_node_material = ExtResource("2_ddy2j")
+selected_sprite = NodePath("SelectionSprite")
 
 [node name="NameLabel" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22321, 0)
@@ -39,3 +41,8 @@ mesh = SubResource("SphereMesh_ojctd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_05nlo")
+
+[node name="SelectionSprite" type="Sprite3D" parent="."]
+pixel_size = 0.003
+axis = 1
+texture = ExtResource("4_211rw")
