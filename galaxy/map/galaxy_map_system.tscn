@@ -4,10 +4,13 @@
 [ext_resource type="Material" uid="uid://wjykkjty1dt5" path="res://galaxy/map/galaxy_map_current_mat.tres" id="2_ddy2j"]
 [ext_resource type="FontFile" uid="uid://csj4t4r3hegan" path="res://screens/shared_ui/fonts/TitilliumWeb-Regular.ttf" id="3_747hn"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j7i3l"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_idixh"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 3.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_ojctd"]
-material = SubResource("StandardMaterial3D_j7i3l")
+material = SubResource("StandardMaterial3D_idixh")
 radius = 0.1
 height = 0.2
 radial_segments = 32

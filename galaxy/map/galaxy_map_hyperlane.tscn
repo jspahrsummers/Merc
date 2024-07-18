@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" path="res://galaxy/map/galaxy_map_hyperlane.gd" id="1_qtr5l"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t1fyw"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_futeo"]
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 3.0
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_d88wk"]
-material = SubResource("StandardMaterial3D_t1fyw")
+material = SubResource("StandardMaterial3D_futeo")
 top_radius = 0.01
 bottom_radius = 0.01
 radial_segments = 16
