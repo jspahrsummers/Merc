@@ -9,7 +9,7 @@ func _on_player_ship_destroyed(_player: Player) -> void:
     self._instantiate_and_show_window(self.game_over_scene)
 
 func _unhandled_input(event: InputEvent) -> void:
-    if event.is_action_pressed("toggle_galaxy_map"):
+    if event.is_action_pressed("toggle_galaxy_map") and is_instance_valid(self.player):
         var galaxy_map: GalaxyMap = self.galaxy_map_scene.instantiate()
         galaxy_map.hyperdrive_system = self.player.ship.hyperdrive_system
         self.add_child(galaxy_map)
