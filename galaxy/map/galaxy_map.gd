@@ -67,7 +67,7 @@ func _on_window_close_requested() -> void:
     self.queue_free()
 
 func _on_system_clicked(star_system: StarSystem, _system_node: GalaxyMapSystem) -> void:
-    if self.hyperdrive_system.jumping:
+    if not is_instance_valid(self.hyperdrive_system) or self.hyperdrive_system.jumping:
         return
 
     if star_system.name not in self.hyperdrive_system.current_system().connections:
@@ -76,7 +76,7 @@ func _on_system_clicked(star_system: StarSystem, _system_node: GalaxyMapSystem) 
     self.hyperdrive_system.jump_destination = star_system
 
 func _on_hyperlane_clicked(from_system: StarSystem, to_system: StarSystem, _hyperlane_node: GalaxyMapHyperlane) -> void:
-    if self.hyperdrive_system.jumping:
+    if not is_instance_valid(self.hyperdrive_system) or self.hyperdrive_system.jumping:
         return
 
     var current_system := self.hyperdrive_system.current_system()
