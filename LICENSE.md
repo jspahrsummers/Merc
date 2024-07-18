@@ -85,6 +85,7 @@ As mentioned before, the one stipulation is that these images aren’t to be use
 - button
 - menu_button
 - target_overlay
+- selected_galaxy_node
 
 Graphics created by [Justin Spahr-Summers](https://github.com/jspahrsummers) for this project, using [Midjourney](https://www.midjourney.com/):
 - icon

@@ -14,18 +14,24 @@ class_name GalaxyMapSystem
 
 ## Whether the system represented by this node is the player's current system.
 @export var current: bool:
-    get:
-        return self._current
     set(value):
-        self._current = value
+        current = value
         self.mesh.material_override = self.current_node_material if value else null
+
+## When [member selected] is true, this sprite is shown.
+@export var selected_sprite: Sprite3D
+
+## Whether this system has been selected by the player in the galaxy map.
+@export var selected: bool:
+    set(value):
+        selected = value
+        self.selected_sprite.visible = value
 
 ## Fires when this system node is clicked.
 signal clicked(system: GalaxyMapSystem)
 
-var _current: bool = false
-
 func _ready() -> void:
+    self.selected_sprite.visible = false
     self.name_label.text = self.name
 
 func _input_event(_camera: Camera3D, event: InputEvent, _position: Vector3, _normal: Vector3, _shape_idx: int) -> void:

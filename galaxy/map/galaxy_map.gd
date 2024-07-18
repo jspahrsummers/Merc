@@ -25,7 +25,11 @@ var hyperdrive_system: HyperdriveSystem
 var _system_nodes: Dictionary = {}
 
 func _ready() -> void:
+    self.hyperdrive_system.jumping_changed.connect(_on_jumping_changed)
+    self.hyperdrive_system.jump_destination_changed.connect(_on_jump_destination_changed)
+
     var current_system := self.hyperdrive_system.current_system()
+
     for system in galaxy.systems:
         var system_node: GalaxyMapSystem = self.galaxy_map_system.instantiate()
         self._system_nodes[system.name] = system_node
@@ -46,6 +50,8 @@ func _ready() -> void:
             hyperlane.starting_position = system.position
             hyperlane.ending_position = connected_system.position
             self.galaxy_map_3d.add_child(hyperlane)
+    
+    self._update_selection_state()
 
 func _on_jumping_changed(_hyperdrive_system: HyperdriveSystem) -> void:
     assert(self.hyperdrive_system == _hyperdrive_system)
@@ -57,6 +63,15 @@ func _on_jumping_changed(_hyperdrive_system: HyperdriveSystem) -> void:
         var new_system := self.hyperdrive_system.current_system()
         self.camera.center = new_system.position
         self._system_nodes[new_system.name].current = true
+
+func _on_jump_destination_changed(_hyperdrive_system: HyperdriveSystem) -> void:
+    assert(self.hyperdrive_system == _hyperdrive_system)
+    self._update_selection_state()
+
+func _update_selection_state() -> void:
+    for system_name: String in self._system_nodes:
+        var node: GalaxyMapSystem = self._system_nodes[system_name]
+        node.selected = self.hyperdrive_system.jump_destination.name == system_name
 
 func _input(event: InputEvent) -> void:
     if event.is_action_pressed("toggle_galaxy_map"):
