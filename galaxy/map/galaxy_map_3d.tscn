@@ -17,6 +17,8 @@ ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_energy = 0.2
 reflected_light_source = 1
+glow_enabled = true
+glow_blend_mode = 0
 volumetric_fog_density = 0.012
 
 [node name="GalaxyMap3D" type="Node3D"]
