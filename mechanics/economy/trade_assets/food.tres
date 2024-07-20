@@ -6,5 +6,5 @@
 script = ExtResource("1_rtg6c")
 name = "Food"
 tangible = true
-volume_per_kg = 1.0
+volume_per_kg = 1.2
 currency = false
