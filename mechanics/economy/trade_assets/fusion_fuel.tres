@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TradeAsset" load_steps=2 format=3 uid="uid://braihcb6cofi3"]
+
+[ext_resource type="Script" path="res://mechanics/economy/trade_asset.gd" id="1_hvcck"]
+
+[resource]
+script = ExtResource("1_hvcck")
+name = "Fusion Fuel"
+tangible = true
+volume_per_kg = 5.0
+currency = false

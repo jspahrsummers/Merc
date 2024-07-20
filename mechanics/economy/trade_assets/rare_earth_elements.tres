@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TradeAsset" load_steps=2 format=3 uid="uid://dl132ceubbcos"]
+
+[ext_resource type="Script" path="res://mechanics/economy/trade_asset.gd" id="1_by4tb"]
+
+[resource]
+script = ExtResource("1_by4tb")
+name = "Rare Earth Elements"
+tangible = true
+volume_per_kg = 0.3
+currency = false
