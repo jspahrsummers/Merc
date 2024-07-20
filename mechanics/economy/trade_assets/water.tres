@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TradeAsset" load_steps=2 format=3 uid="uid://bnw61s2hj8a0m"]
+
+[ext_resource type="Script" path="res://mechanics/economy/trade_asset.gd" id="1_uy65i"]
+
+[resource]
+script = ExtResource("1_uy65i")
+name = "Water"
+tangible = true
+volume_per_kg = 1.0
+currency = false

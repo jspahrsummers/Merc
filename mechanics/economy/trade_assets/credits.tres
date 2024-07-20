@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TradeAsset" load_steps=2 format=3 uid="uid://dw20pb6fh6qoy"]
+
+[ext_resource type="Script" path="res://mechanics/economy/trade_asset.gd" id="1_trm0c"]
+
+[resource]
+script = ExtResource("1_trm0c")
+name = "Credits"
+tangible = false
+volume_per_kg = 0.0
+currency = true

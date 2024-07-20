@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TradeAsset" load_steps=2 format=3 uid="uid://bj7201uluhfpk"]
+
+[ext_resource type="Script" path="res://mechanics/economy/trade_asset.gd" id="1_2pooj"]
+
+[resource]
+script = ExtResource("1_2pooj")
+name = "Semiconductors"
+tangible = true
+volume_per_kg = 0.0
+currency = false
