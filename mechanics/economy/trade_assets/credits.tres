@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_trm0c")
 name = "Credits"
-tangible = false
-volume_per_kg = 0.0
+mass = 2.08165e-12
+volume = 0.0
 currency = true

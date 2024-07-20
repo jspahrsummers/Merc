@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_5suu6")
 name = "Biological Samples"
-tangible = true
-volume_per_kg = 4.0
+mass = 0.1
+volume = 4.0
 currency = false

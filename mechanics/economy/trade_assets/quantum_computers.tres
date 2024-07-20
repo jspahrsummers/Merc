@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_y6b3s")
 name = "Quantum Computers"
-tangible = true
-volume_per_kg = 3.0
+mass = 0.1
+volume = 3.0
 currency = false
