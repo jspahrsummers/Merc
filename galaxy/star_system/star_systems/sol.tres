@@ -1,6 +1,41 @@
-[gd_resource type="Resource" script_class="StarSystem" load_steps=2 format=3 uid="uid://cew4x137v08q"]
+[gd_resource type="Resource" script_class="StarSystem" load_steps=18 format=3 uid="uid://cew4x137v08q"]
 
 [ext_resource type="Script" path="res://galaxy/star_system/star_system.gd" id="1_ewhsc"]
+[ext_resource type="Resource" uid="uid://bnw61s2hj8a0m" path="res://mechanics/economy/commodities/water.tres" id="1_g3m08"]
+[ext_resource type="Resource" uid="uid://dnutrj5jdgiaj" path="res://mechanics/economy/commodities/food.tres" id="2_qhtq3"]
+[ext_resource type="Resource" uid="uid://dd63q3wg4vrk" path="res://mechanics/economy/commodities/biological_samples.tres" id="3_yqu3j"]
+[ext_resource type="Resource" uid="uid://cg1jhl250i8xu" path="res://mechanics/economy/commodities/cybernetics.tres" id="4_pfw2w"]
+[ext_resource type="Resource" uid="uid://skhvwlendqx7" path="res://mechanics/economy/commodities/exotic_matter.tres" id="5_c3x1c"]
+[ext_resource type="Resource" uid="uid://braihcb6cofi3" path="res://mechanics/economy/commodities/fusion_fuel.tres" id="6_06kxo"]
+[ext_resource type="Resource" uid="uid://ccvds2nloqvwn" path="res://mechanics/economy/commodities/industrial_equipment.tres" id="7_hwyq6"]
+[ext_resource type="Resource" uid="uid://n8yvfo8aytg" path="res://mechanics/economy/commodities/luxury_goods.tres" id="8_nh73y"]
+[ext_resource type="Resource" uid="uid://dhxbtnaoc1nuo" path="res://mechanics/economy/commodities/medical_supplies.tres" id="9_663u3"]
+[ext_resource type="Resource" uid="uid://lkpwswpw8ss4" path="res://mechanics/economy/commodities/precious_metals.tres" id="10_pajqi"]
+[ext_resource type="Resource" uid="uid://xqh4cm1k62tx" path="res://mechanics/economy/commodities/quantum_computers.tres" id="11_3o50m"]
+[ext_resource type="Resource" uid="uid://dl132ceubbcos" path="res://mechanics/economy/commodities/rare_earth_elements.tres" id="12_wobus"]
+[ext_resource type="Resource" uid="uid://bj7201uluhfpk" path="res://mechanics/economy/commodities/semiconductors.tres" id="13_qtdhe"]
+[ext_resource type="Resource" uid="uid://b764gd8q3il6s" path="res://mechanics/economy/currencies/credits.tres" id="14_yyru0"]
+[ext_resource type="Script" path="res://mechanics/economy/market.gd" id="15_v0bfu"]
+
+[sub_resource type="Resource" id="Resource_tj2o3"]
+script = ExtResource("15_v0bfu")
+main_currency = ExtResource("14_yyru0")
+currencies = {}
+commodities = {
+ExtResource("1_g3m08"): 1200,
+ExtResource("2_qhtq3"): 4700,
+ExtResource("3_yqu3j"): 976500,
+ExtResource("4_pfw2w"): 1483200,
+ExtResource("5_c3x1c"): 5217800,
+ExtResource("6_06kxo"): 82300,
+ExtResource("7_hwyq6"): 47800,
+ExtResource("8_nh73y"): 328700,
+ExtResource("9_663u3"): 114200,
+ExtResource("10_pajqi"): 789400,
+ExtResource("11_3o50m"): 2654300,
+ExtResource("12_wobus"): 532100,
+ExtResource("13_qtdhe"): 215600
+}
 
 [resource]
 script = ExtResource("1_ewhsc")
@@ -8,3 +43,4 @@ name = &"Sol"
 connections = Array[StringName]([&"Alpha Centauri", &"Barnard\'s Star", &"Sirius"])
 position = Vector3(0, 0, 0)
 scene_path = "res://galaxy/star_system/scenes/sol.tscn"
+market = SubResource("Resource_tj2o3")

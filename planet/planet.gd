@@ -24,5 +24,5 @@ enum {
 ## BBCode can be used to format this description.
 @export_multiline var description: String
 
-## The trading market for this planet, if any.
-@export var market: Market
+func _to_string() -> String:
+    return "Planet:" + self.name

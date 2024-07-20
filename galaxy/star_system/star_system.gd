@@ -17,6 +17,9 @@ class_name StarSystem
 ## The resource path to this star system's scene.
 @export_file("*.tscn") var scene_path: String
 
+## The trading market in this star system, if any.
+@export var market: Market
+
 ## A weak reference to the [Galaxy] that this system is part of.
 ##
 ## This is populated when the galaxy is initialized.
