@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TradeAsset" load_steps=2 format=3 uid="uid://cg1jhl250i8xu"]
+
+[ext_resource type="Script" path="res://mechanics/economy/trade_asset.gd" id="1_pxlxs"]
+
+[resource]
+script = ExtResource("1_pxlxs")
+name = "Cybernetics"
+tangible = true
+volume_per_kg = 1.8
+currency = false
