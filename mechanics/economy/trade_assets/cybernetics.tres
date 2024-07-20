@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_pxlxs")
 name = "Cybernetics"
-tangible = true
-volume_per_kg = 1.8
+mass = 0.1
+volume = 1.8
 currency = false

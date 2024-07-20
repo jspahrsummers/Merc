@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_hvcck")
 name = "Fusion Fuel"
-tangible = true
-volume_per_kg = 5.0
+mass = 0.1
+volume = 5.0
 currency = false
