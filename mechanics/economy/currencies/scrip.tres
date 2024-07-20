@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Currency" load_steps=2 format=3 uid="uid://detw7hkt8hr2l"]
+
+[ext_resource type="Script" path="res://mechanics/economy/currency.gd" id="1_m4b8m"]
+
+[resource]
+script = ExtResource("1_m4b8m")
+name = "Scrip"
