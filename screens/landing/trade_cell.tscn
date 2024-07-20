@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://screens/landing/trade_cell.gd" id="1_aolaa"]
 
-[node name="TradeCell" type="HBoxContainer" node_paths=PackedStringArray("label")]
+[node name="TradeCell" type="HBoxContainer" node_paths=PackedStringArray("asset_label", "price_label")]
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
@@ -14,9 +14,10 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 script = ExtResource("1_aolaa")
-label = NodePath("Label")
+asset_label = NodePath("AssetLabel")
+price_label = NodePath("PriceLabel")
 
-[node name="Label" type="Label" parent="."]
+[node name="AssetLabel" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Industrial Goods"
@@ -28,6 +29,11 @@ size_flags_horizontal = 0
 rounded = true
 allow_greater = true
 alignment = 2
+
+[node name="PriceLabel" type="Label" parent="."]
+layout_mode = 2
+text = "x 100 credits"
+vertical_alignment = 1
 
 [node name="BuyButton" type="Button" parent="."]
 layout_mode = 2

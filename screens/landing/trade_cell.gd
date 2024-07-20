@@ -1,4 +1,5 @@
 extends HBoxContainer
 class_name TradeCell
 
-@export var label: Label
+@export var asset_label: Label
+@export var price_label: Label
