@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpihtkm0u6kmb"]
+
+[ext_resource type="PackedScene" uid="uid://cdch6y1bfoxa0" path="res://screens/landing/trade_cell.tscn" id="1_08aeo"]
+
+[node name="TradingWindow" type="Window"]
+title = "Trade Computer"
+initial_position = 1
+size = Vector2i(500, 300)
+transient = true
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TabContainer" type="TabContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Commodities" type="ScrollContainer" parent="PanelContainer/TabContainer"]
+layout_mode = 2
+follow_focus = true
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/TabContainer/Commodities"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/TabContainer/Commodities/MarginContainer"]
+layout_mode = 2
+
+[node name="TradeCell" parent="PanelContainer/TabContainer/Commodities/MarginContainer/VBoxContainer" instance=ExtResource("1_08aeo")]
+layout_mode = 2
+
+[node name="Currencies" type="ScrollContainer" parent="PanelContainer/TabContainer"]
+visible = false
+layout_mode = 2
