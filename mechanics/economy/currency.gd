@@ -17,7 +17,7 @@ class_name Currency
 ## How many pieces one unit of currency can be subdivided into.
 ##
 ## This allows us to use [int]s for computing fractional currency values, without the precision loss of floating-point math.
-const GRANULARITY: int = 100;
+const GRANULARITY: int = 100
 
 func _to_string() -> String:
     return "Currency:" + self.name
