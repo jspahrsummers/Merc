@@ -6,5 +6,5 @@
 script = ExtResource("1_c6r3x")
 name = "Industrial Equipment"
 tangible = true
-volume_per_kg = 0.0
+volume_per_kg = 1.5
 currency = false

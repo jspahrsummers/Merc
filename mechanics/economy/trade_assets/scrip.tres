@@ -6,5 +6,5 @@
 script = ExtResource("1_unldh")
 name = "Scrip"
 tangible = true
-volume_per_kg = 10.0
+volume_per_kg = 1.0
 currency = true

@@ -6,5 +6,5 @@
 script = ExtResource("1_xfjs5")
 name = "Luxury Goods"
 tangible = true
-volume_per_kg = 0.0
+volume_per_kg = 2.0
 currency = false
