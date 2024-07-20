@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Commodity" load_steps=2 format=3 uid="uid://bj7201uluhfpk"]
+
+[ext_resource type="Script" path="res://mechanics/economy/commodity.gd" id="1_2pooj"]
+
+[resource]
+script = ExtResource("1_2pooj")
+name = "Semiconductors"
+mass = 0.1
+volume = 0.5
+currency = false

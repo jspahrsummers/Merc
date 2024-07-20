@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Commodity" load_steps=2 format=3 uid="uid://dnutrj5jdgiaj"]
+
+[ext_resource type="Script" path="res://mechanics/economy/commodity.gd" id="1_rtg6c"]
+
+[resource]
+script = ExtResource("1_rtg6c")
+name = "Food"
+mass = 0.1
+volume = 1.2
+currency = false

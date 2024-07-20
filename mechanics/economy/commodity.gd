@@ -1,7 +1,7 @@
 extends Resource
-class_name TradeAsset
+class_name Commodity
 
-## Represents an asset that can be traded, like a commodity or a currency.
+## Represents a commodity that can be traded.
 
 ## The human-readable name for this asset.
 @export var name: String
@@ -16,10 +16,5 @@ class_name TradeAsset
 ## This can be thought of as the volume per "real-world kg."
 @export var volume: float
 
-## Whether this asset is considered a currency.
-##
-## This affects UI/UX more than anything: it's easier for a player to see their currencies at a glance.
-@export var currency: bool = false
-
 func _to_string() -> String:
-    return "TradeAsset:" + self.name
+    return "Commodity:" + self.name
