@@ -1,7 +1,15 @@
-[gd_resource type="Resource" script_class="Planet" load_steps=3 format=3 uid="uid://cmm0akidhocmo"]
+[gd_resource type="Resource" script_class="Planet" load_steps=6 format=3 uid="uid://cmm0akidhocmo"]
 
 [ext_resource type="Texture2D" uid="uid://c1q6f8geeokma" path="res://screens/landing/images/5bca230e-a0cb-4bbb-ab00-f13001ec54cd.jpg" id="1_26rl7"]
 [ext_resource type="Script" path="res://planet/planet.gd" id="1_duw21"]
+[ext_resource type="Resource" uid="uid://b764gd8q3il6s" path="res://mechanics/economy/currencies/credits.tres" id="2_qk6pw"]
+[ext_resource type="Script" path="res://mechanics/economy/market.gd" id="3_v7tds"]
+
+[sub_resource type="Resource" id="Resource_rfvmc"]
+script = ExtResource("3_v7tds")
+main_currency = ExtResource("2_qk6pw")
+currencies = {}
+commodities = {}
 
 [resource]
 script = ExtResource("1_duw21")
@@ -17,3 +25,4 @@ Descending further, you catch the first whiffs of Earth's atmosphere - a complex
 As your landing gear touches down, sending up a swirl of dust, you can't help but smile. No matter how far you've traveled or how long you've been away, there's no mistaking this feeling.
 
 You're home."
+market = SubResource("Resource_rfvmc")
