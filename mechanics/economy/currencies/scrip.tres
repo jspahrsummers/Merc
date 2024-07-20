@@ -5,3 +5,5 @@
 [resource]
 script = ExtResource("1_m4b8m")
 name = "Scrip"
+mass = 0.001
+volume = 0.01
