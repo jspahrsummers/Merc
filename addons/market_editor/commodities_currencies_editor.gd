@@ -20,10 +20,10 @@ func _init(property_name: String, main_currency: Resource) -> void:
         container.add_child(label)
 
         var spinner := SpinBox.new()
-        spinner.max_value = 10000 * Currency.GRANULARITY
+        spinner.max_value = 10000.0
         spinner.allow_greater = true
-        spinner.rounded = true
-        spinner.custom_arrow_step = Currency.GRANULARITY
+        spinner.step = 1.0 / Currency.GRANULARITY
+        spinner.custom_arrow_step = 1.0
         spinner.value_changed.connect(func(new_value: float) -> void:
             self._on_value_changed(resource, new_value))
         container.add_child(spinner)
@@ -34,7 +34,7 @@ func _on_value_changed(resource: Resource, new_value: float) -> void:
     if self._updating:
         return
 
-    var price := roundi(new_value)
+    var price := roundi(new_value * Currency.GRANULARITY)
     if price > 0:
         self.value[resource] = price
     else:
@@ -47,7 +47,7 @@ func _update_property() -> void:
 
     self.value = self.get_edited_object()[self.get_edited_property()].duplicate()
     for resource in self._spinners:
-        self._spinners[resource].value = self.value.get(resource, 0.0)
+        self._spinners[resource].value = float(self.value.get(resource, 0)) / Currency.GRANULARITY
     
     self._updating = false
 
