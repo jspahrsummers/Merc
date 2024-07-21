@@ -10,6 +10,8 @@ class_name TradingWindow
 var cargo_hold: CargoHold
 var bank_account: BankAccount
 
+var _cargo_labels_by_trade_asset: Dictionary = {}
+
 # @export var currencies_container: Container
 
 func _ready() -> void:
@@ -42,10 +44,8 @@ func _ready() -> void:
         price_label.text = "%s %s" % [float(price) / market.money.granularity, money_suffix]
         self.commodities_container.add_child(price_label)
 
-        # TODO: Live update
-        var cargo: int = self.cargo_hold.commodities.get(trade_asset, 0)
         var cargo_label := Label.new()
-        cargo_label.text = str(cargo) if cargo else ""
+        self._cargo_labels_by_trade_asset[trade_asset] = cargo_label
         self.commodities_container.add_child(cargo_label)
 
         # TODO: Connect buttons
@@ -53,6 +53,13 @@ func _ready() -> void:
         self.commodities_container.add_child(buttons)
 
     self.tab_container.tabs_visible = has_commodities and has_currencies
+    self.cargo_hold.changed.connect(_update_cargo_labels)
 
 func _on_close_requested() -> void:
     self.visible = false
+
+func _update_cargo_labels() -> void:
+    for trade_asset: TradeAsset in self.market.trade_assets:
+        var cargo_label: Label = self._cargo_labels_by_trade_asset[trade_asset]
+        var cargo: int = self.cargo_hold.commodities.get(trade_asset, 0)
+        cargo_label.text = str(cargo) if cargo else ""
