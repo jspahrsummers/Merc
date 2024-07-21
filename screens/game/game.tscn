@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=66 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperspace_scene_switcher.gd" id="4_yyrkm"]
@@ -46,6 +46,7 @@
 [ext_resource type="Script" path="res://screens/shared_ui/fps_counter.gd" id="37_e11x7"]
 [ext_resource type="Script" path="res://screens/game/hud/currencies_container.gd" id="41_7ygkq"]
 [ext_resource type="Script" path="res://mechanics/economy/bank_account.gd" id="42_g774c"]
+[ext_resource type="Script" path="res://screens/game/hud/cargo_container.gd" id="44_e80r5"]
 
 [sub_resource type="Resource" id="Resource_rwdpp"]
 resource_local_to_scene = true
@@ -583,6 +584,24 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/CurrenciesContainer/MarginContainer"]
 layout_mode = 2
+
+[node name="CargoContainer" type="PanelContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar" node_paths=PackedStringArray("label_container", "free_cargo_label")]
+layout_mode = 2
+script = ExtResource("44_e80r5")
+cargo_hold = SubResource("Resource_bsv1l")
+label_container = NodePath("MarginContainer/VBoxContainer")
+free_cargo_label = NodePath("MarginContainer/VBoxContainer/FreeCargoLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/CargoContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/CargoContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="FreeCargoLabel" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/CargoContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "10L free"
+horizontal_alignment = 1
 
 [node name="MessageLog" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer" node_paths=PackedStringArray("new_message_audio")]
 layout_mode = 2
