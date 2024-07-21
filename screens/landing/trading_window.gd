@@ -59,19 +59,29 @@ func _ready() -> void:
     if not has_commodities:
         self.tab_container.current_tab = 1
 
-    self.cargo_hold.changed.connect(_update_quantity_labels)
+    self.cargo_hold.changed.connect(_update)
+    self.bank_account.changed.connect(_update)
+    self._update()
 
 func _on_close_requested() -> void:
     self.visible = false
 
-func _update_quantity_labels() -> void:
+func _update() -> void:
     for trade_asset: TradeAsset in self.market.trade_assets:
         var quantity_label: Label = self._quantity_labels_by_trade_asset[trade_asset]
         var quantity: int = trade_asset.current_amount(self.cargo_hold, self.bank_account)
         quantity_label.text = str(quantity) if quantity else ""
 
-func _update_trade_buttons() -> void:
-    pass
+        var can_pay: bool = self.market.money.current_amount(self.cargo_hold, self.bank_account) >= self.market.trade_assets[trade_asset]
+
+        var can_carry: bool = true
+        var commodity := trade_asset as Commodity
+        if commodity:
+            can_carry = self.cargo_hold.get_occupied_volume() + commodity.volume <= self.cargo_hold.max_volume
+
+        var buttons: TradeButtons = self._trade_buttons_by_trade_asset[trade_asset]
+        buttons.buy_button.disabled = not (can_pay and can_carry)
+        buttons.sell_button.disabled = quantity == 0
 
 func _buy(trade_asset: TradeAsset) -> void:
     pass
