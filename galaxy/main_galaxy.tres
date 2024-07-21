@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Galaxy" load_steps=8 format=3 uid="uid://bcva4l4cpt70c"]
+[gd_resource type="Resource" script_class="Galaxy" load_steps=9 format=3 uid="uid://bcva4l4cpt70c"]
 
 [ext_resource type="Script" path="res://galaxy/galaxy.gd" id="1_bckai"]
 [ext_resource type="Resource" uid="uid://cew4x137v08q" path="res://galaxy/star_system/star_systems/sol.tres" id="2_va8e4"]
@@ -7,7 +7,8 @@
 [ext_resource type="Resource" uid="uid://di0bekcy5g0ya" path="res://galaxy/star_system/star_systems/wolf_359.tres" id="5_8a1bp"]
 [ext_resource type="Resource" uid="uid://clcig3aieyop5" path="res://galaxy/star_system/star_systems/sirius.tres" id="6_jci7t"]
 [ext_resource type="Resource" uid="uid://bowucldo27rjd" path="res://galaxy/star_system/star_systems/zephyria.tres" id="7_puhoc"]
+[ext_resource type="Resource" uid="uid://cu1wn7ldbgeej" path="res://galaxy/star_system/star_systems/thalassa.tres" id="8_4yki3"]
 
 [resource]
 script = ExtResource("1_bckai")
-systems = Array[Resource("res://galaxy/star_system/star_system.gd")]([ExtResource("2_va8e4"), ExtResource("3_ulruw"), ExtResource("4_jkjw5"), ExtResource("5_8a1bp"), ExtResource("6_jci7t"), ExtResource("7_puhoc")])
+systems = Array[Resource("res://galaxy/star_system/star_system.gd")]([ExtResource("2_va8e4"), ExtResource("3_ulruw"), ExtResource("4_jkjw5"), ExtResource("5_8a1bp"), ExtResource("6_jci7t"), ExtResource("7_puhoc"), ExtResource("8_4yki3")])

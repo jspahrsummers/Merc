@@ -1,0 +1,53 @@
+[gd_scene load_steps=11 format=3 uid="uid://b7ego5luosh2x"]
+
+[ext_resource type="Script" path="res://galaxy/star_system/star_system_instance.gd" id="1_rmrq5"]
+[ext_resource type="Resource" uid="uid://cu1wn7ldbgeej" path="res://galaxy/star_system/star_systems/thalassa.tres" id="2_5t60p"]
+[ext_resource type="PackedScene" uid="uid://bqhgqgsbi7ofa" path="res://stars/main_sequence/star_class_k.tscn" id="3_i27l2"]
+[ext_resource type="PackedScene" uid="uid://d27pdcik2lwf1" path="res://stars/main_sequence/star_class_m.tscn" id="4_flex8"]
+[ext_resource type="PackedScene" uid="uid://b04hfgkcuq7k6" path="res://planet/planet_instance.tscn" id="5_p806y"]
+[ext_resource type="Resource" uid="uid://bcxt6a254xlc6" path="res://planet/planets/gaia_prime.tres" id="6_a1qqt"]
+[ext_resource type="Resource" uid="uid://dlabxdxx15pp7" path="res://planet/planets/aeolus.tres" id="7_ffl6i"]
+[ext_resource type="Texture2D" uid="uid://03ncc8x5o5p" path="res://planet/sprites/planet_06.png" id="7_ih7yq"]
+[ext_resource type="Texture2D" uid="uid://c0155fkdfnehk" path="res://planet/sprites/planet_47.png" id="8_o1nyb"]
+[ext_resource type="Texture2D" uid="uid://7ou2232hojfu" path="res://planet/sprites/planet_08.png" id="10_7gbi5"]
+
+[node name="Thalassa" type="Node3D"]
+script = ExtResource("1_rmrq5")
+star_system = ExtResource("2_5t60p")
+
+[node name="Star Class K" parent="." instance=ExtResource("3_i27l2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.34809, 2.08165e-12, 1.56886)
+
+[node name="Star Class M" parent="." instance=ExtResource("4_flex8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4962, 2.08165e-12, 3.09616)
+
+[node name="Gaia Prime" parent="." instance=ExtResource("5_p806y")]
+transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 1.5, -2.88144, 0, -12.6529)
+planet = ExtResource("6_a1qqt")
+
+[node name="Sprite3D" parent="Gaia Prime" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+texture = ExtResource("7_ih7yq")
+
+[node name="Proteus" parent="." instance=ExtResource("5_p806y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.0507, 1.90735e-06, -6.91139)
+
+[node name="Sprite3D" parent="Proteus" index="1"]
+transform = Transform3D(-0.403865, 0, 0.914819, 0, 1, 0, -0.914819, 0, -0.403865, 0, -1, 0)
+pixel_size = 0.002
+texture = ExtResource("8_o1nyb")
+
+[node name="Aeolus" parent="." instance=ExtResource("5_p806y")]
+transform = Transform3D(1.2, 0, 0, 0, 1, 0, 0, 0, 1.2, -18.983, 3.8147e-06, -18.8635)
+planet = ExtResource("7_ffl6i")
+
+[node name="Sprite3D" parent="Aeolus" index="1"]
+transform = Transform3D(-0.439641, 0, 0.898174, 0, 1, 0, -0.898173, 0, -0.439641, 0, -1, 0)
+texture = ExtResource("10_7gbi5")
+
+[editable path="Gaia Prime"]
+[editable path="Gaia Prime/Sprite3D/TargetOverlay"]
+[editable path="Proteus"]
+[editable path="Proteus/Sprite3D/TargetOverlay"]
+[editable path="Aeolus"]
+[editable path="Aeolus/Sprite3D/TargetOverlay"]
