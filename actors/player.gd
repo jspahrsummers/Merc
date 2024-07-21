@@ -9,6 +9,7 @@ class_name Player
 @export var message_log: MessageLog
 @export var landing_scene: PackedScene
 @export var takeoff_sound: AudioStreamPlayer
+@export var bank_account: BankAccount
 
 @onready var ship := get_parent() as Ship
 
