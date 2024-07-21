@@ -39,7 +39,7 @@ ExtResource("13_qtdhe"): 2156.0
 [resource]
 script = ExtResource("1_ewhsc")
 name = &"Sol"
-connections = Array[StringName]([&"Alpha Centauri", &"Barnard\'s Star", &"Sirius"])
+connections = Array[StringName]([&"Alpha Centauri", &"Barnard\'s Star", &"Sirius", &"Thalassa"])
 position = Vector3(0, 0, 0)
 scene_path = "res://galaxy/star_system/scenes/sol.tscn"
 market = SubResource("Resource_tj2o3")

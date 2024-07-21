@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="StarSystem" load_steps=2 format=3 uid="uid://cu1wn7ldbgeej"]
+
+[ext_resource type="Script" path="res://galaxy/star_system/star_system.gd" id="1_0hn02"]
+
+[resource]
+script = ExtResource("1_0hn02")
+name = &"Thalassa"
+connections = Array[StringName]([&"Sol"])
+position = Vector3(-0.5, -0.1, 2.7)
+scene_path = "res://galaxy/star_system/scenes/thalassa.tscn"
+refueling_cost = 0
