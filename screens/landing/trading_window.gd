@@ -18,7 +18,10 @@ func _ready() -> void:
 
     var money_suffix := market.money.name.to_lower()
 
-    for trade_asset: TradeAsset in self.market.trade_assets:
+    var trade_assets := self.market.trade_assets.keys()
+    trade_assets.sort_custom(func(a: TradeAsset, b: TradeAsset) -> bool: return a.name < b.name)
+
+    for trade_asset: TradeAsset in trade_assets:
         var price: int = self.market.trade_assets[trade_asset]
 
         if trade_asset is Currency:
