@@ -30,7 +30,7 @@ If you want the player to be able to land on your new planet, create a [`Planet`
 
 Stars of all kinds can be added by instantiating any of the scenes in [stars/](stars/).
 
-To define a new type of star, create a new inherited scene from `star_class_g.tscn` specifically, which is the base of all the others. Note that we shouldn't need to define _that_ many unique types of stars. 
+To define a new type of star, create a new inherited scene from `base_star.tscn` specifically, which is the base of all the others. Note that we shouldn't need to define _that_ many unique types of stars. 
 
 #### Non-player ships
 

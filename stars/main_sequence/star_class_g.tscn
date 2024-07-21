@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://ct6hx24xakxq3"]
+
+[ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://stars/base_star.tscn" id="1_31f1e"]
+
+[node name="Star Class G" instance=ExtResource("1_31f1e")]
