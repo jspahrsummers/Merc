@@ -21,7 +21,7 @@ size = Vector3(2.2, 1, 2.2)
 
 [node name="PlanetInstance" type="Node3D" node_paths=PackedStringArray("target_overlay") groups=["planets"]]
 script = ExtResource("1_f2834")
-target_overlay = NodePath("Sprite3D/TargetOverlay")
+target_overlay = NodePath("TargetOverlay")
 
 [node name="MinimapIcon" type="MeshInstance3D" parent="."]
 layers = 2
@@ -46,16 +46,17 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/ClickableArea"]
 shape = SubResource("BoxShape3D_rec32")
 
-[node name="TargetOverlay" parent="Sprite3D" instance=ExtResource("3_sdnoe")]
+[node name="TargetOverlay" parent="." instance=ExtResource("3_sdnoe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -1, 2.08165e-12)
 
-[node name="Left" parent="Sprite3D/TargetOverlay" index="0"]
+[node name="Left" parent="TargetOverlay" index="0"]
 transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, -1.5, 2.08165e-12, 2.08165e-12)
 pixel_size = 0.01
 
-[node name="Right" parent="Sprite3D/TargetOverlay" index="1"]
+[node name="Right" parent="TargetOverlay" index="1"]
 transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, 1.5, 2.08165e-12, 2.08165e-12)
 pixel_size = 0.01
 
 [connection signal="input_event" from="Sprite3D/ClickableArea" to="." method="_on_input_event"]
 
-[editable path="Sprite3D/TargetOverlay"]
+[editable path="TargetOverlay"]
