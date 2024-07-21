@@ -1,3 +1,4 @@
+@tool
 extends EditorProperty
 
 const COMMODITIES_DIRECTORY = "res://mechanics/economy/commodities/"
