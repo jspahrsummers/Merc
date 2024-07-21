@@ -107,4 +107,33 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/TabContainer/Currencies/MarginContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/TabContainer/Currencies/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 0
+columns = 4
+
+[node name="CurrencyHeader" type="Label" parent="PanelContainer/TabContainer/Currencies/MarginContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Currency"
+uppercase = true
+
+[node name="PriceHeader" type="Label" parent="PanelContainer/TabContainer/Currencies/MarginContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Price"
+uppercase = true
+
+[node name="BalanceHeader" type="Label" parent="PanelContainer/TabContainer/Currencies/MarginContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Balance"
+uppercase = true
+
+[node name="EmptyHeader" type="Control" parent="PanelContainer/TabContainer/Currencies/MarginContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
