@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://galaxy/star_system/star_system_instance.gd" id="1_sih83"]
 [ext_resource type="Resource" uid="uid://di0bekcy5g0ya" path="res://galaxy/star_system/star_systems/wolf_359.tres" id="2_byjpf"]
-[ext_resource type="PackedScene" uid="uid://d27pdcik2lwf1" path="res://stars/star_class_m.tscn" id="3_wjxxu"]
+[ext_resource type="PackedScene" uid="uid://d27pdcik2lwf1" path="res://stars/main_sequence/star_class_m.tscn" id="3_wjxxu"]
 [ext_resource type="PackedScene" uid="uid://culoat6jnbwc8" path="res://actors/ai/pirate_frigate.tscn" id="4_tean3"]
 
 [node name="Wolf 359" type="Node3D"]

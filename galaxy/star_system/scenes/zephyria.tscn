@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://galaxy/star_system/star_system_instance.gd" id="1_2vv4n"]
 [ext_resource type="Resource" uid="uid://bowucldo27rjd" path="res://galaxy/star_system/star_systems/zephyria.tres" id="2_q8gm3"]
-[ext_resource type="PackedScene" uid="uid://cfvdpnqnalspg" path="res://stars/star_class_red_giant.tscn" id="3_7is3b"]
+[ext_resource type="PackedScene" uid="uid://cfvdpnqnalspg" path="res://stars/giants/star_red_giant.tscn" id="3_7is3b"]
 [ext_resource type="PackedScene" uid="uid://b04hfgkcuq7k6" path="res://planet/planet_instance.tscn" id="4_qafen"]
 [ext_resource type="Resource" uid="uid://crj6o7sd5pos2" path="res://planet/planets/aethoria.tres" id="5_ls4hq"]
 [ext_resource type="Texture2D" uid="uid://cf0g36mpu7enh" path="res://planet/sprites/planet_03.png" id="6_lxy5c"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bqhgqgsbi7ofa"]
 
-[ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://stars/star_class_g.tscn" id="1_fngt1"]
+[ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://stars/base_star.tscn" id="1_fngt1"]
 [ext_resource type="Texture2D" uid="uid://b0m27jnaenria" path="res://stars/sprites/star_orange03.png" id="2_s03sh"]
 
 [node name="Star Class K" instance=ExtResource("1_fngt1")]
@@ -8,6 +8,6 @@
 [node name="OmniLight3D" parent="." index="0"]
 light_energy = 8.0
 
-[node name="Sprite3D" parent="." index="2"]
+[node name="Sprite3D" parent="." index="1"]
 transform = Transform3D(0.775, 0, 0, 0, 1, 0, 0, 0, 0.775, 2.08165e-12, -1, 2.08165e-12)
 texture = ExtResource("2_s03sh")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dkq1xlrnnxrtr"]
 
-[ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://stars/star_class_g.tscn" id="1_2ocmc"]
+[ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://stars/base_star.tscn" id="1_2ocmc"]
 [ext_resource type="Texture2D" uid="uid://b6fx4rbbk627c" path="res://stars/sprites/star_white03.png" id="2_lrikb"]
 
 [node name="Star Class A" instance=ExtResource("1_2ocmc")]
@@ -9,6 +9,6 @@
 light_energy = 15.0
 omni_range = 40.0
 
-[node name="Sprite3D" parent="." index="2"]
+[node name="Sprite3D" parent="." index="1"]
 pixel_size = 0.005
 texture = ExtResource("2_lrikb")

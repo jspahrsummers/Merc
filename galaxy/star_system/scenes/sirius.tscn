@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://galaxy/star_system/star_system_instance.gd" id="1_ibjbp"]
 [ext_resource type="Resource" uid="uid://clcig3aieyop5" path="res://galaxy/star_system/star_systems/sirius.tres" id="2_dc37m"]
-[ext_resource type="PackedScene" uid="uid://dkq1xlrnnxrtr" path="res://stars/star_class_a.tscn" id="3_30bsr"]
-[ext_resource type="PackedScene" uid="uid://clmjmlce3ufwg" path="res://stars/star_white_dwarf.tscn" id="4_0khyd"]
+[ext_resource type="PackedScene" uid="uid://dkq1xlrnnxrtr" path="res://stars/main_sequence/star_class_a.tscn" id="3_30bsr"]
+[ext_resource type="PackedScene" uid="uid://clmjmlce3ufwg" path="res://stars/dwarfs/star_white_dwarf.tscn" id="4_0khyd"]
 
 [node name="Sirius" type="Node3D"]
 script = ExtResource("1_ibjbp")
