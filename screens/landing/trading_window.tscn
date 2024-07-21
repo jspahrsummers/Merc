@@ -1,6 +1,5 @@
 [gd_scene load_steps=19 format=3 uid="uid://dpihtkm0u6kmb"]
 
-[ext_resource type="PackedScene" uid="uid://cdch6y1bfoxa0" path="res://screens/landing/trade_cell.tscn" id="1_08aeo"]
 [ext_resource type="Script" path="res://screens/landing/trading_window.gd" id="1_b1kwq"]
 [ext_resource type="Resource" uid="uid://bnw61s2hj8a0m" path="res://mechanics/economy/commodities/water.tres" id="2_dakxn"]
 [ext_resource type="Resource" uid="uid://dnutrj5jdgiaj" path="res://mechanics/economy/commodities/food.tres" id="3_crfro"]
@@ -17,6 +16,7 @@
 [ext_resource type="Resource" uid="uid://bj7201uluhfpk" path="res://mechanics/economy/commodities/semiconductors.tres" id="14_fr06c"]
 [ext_resource type="Resource" uid="uid://b764gd8q3il6s" path="res://mechanics/economy/currencies/credits.tres" id="15_5n2yb"]
 [ext_resource type="Script" path="res://mechanics/economy/market.gd" id="16_so5ie"]
+[ext_resource type="PackedScene" uid="uid://b04gt254vhyra" path="res://screens/landing/trade_buttons.tscn" id="17_j3rf1"]
 
 [sub_resource type="Resource" id="Resource_a521o"]
 script = ExtResource("16_so5ie")
@@ -37,7 +37,7 @@ ExtResource("13_7qeyl"): 532100,
 ExtResource("14_fr06c"): 215600
 }
 
-[node name="TradingWindow" type="Window" node_paths=PackedStringArray("tab_container", "commodities_container", "currencies_container")]
+[node name="TradingWindow" type="Window" node_paths=PackedStringArray("tab_container", "commodities_container")]
 title = "Trade Computer"
 initial_position = 1
 size = Vector2i(600, 300)
@@ -45,9 +45,8 @@ transient = true
 script = ExtResource("1_b1kwq")
 market = SubResource("Resource_a521o")
 tab_container = NodePath("PanelContainer/TabContainer")
-commodities_container = NodePath("PanelContainer/TabContainer/Commodities/MarginContainer/VBoxContainer")
-currencies_container = NodePath("PanelContainer/TabContainer/Currencies/MarginContainer/VBoxContainer")
-trade_cell_scene = ExtResource("1_08aeo")
+commodities_container = NodePath("PanelContainer/TabContainer/Commodities/MarginContainer/ScrollContainer/GridContainer")
+trade_buttons_scene = ExtResource("17_j3rf1")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -70,7 +69,33 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/TabContainer/Commodities/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/TabContainer/Commodities/MarginContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/TabContainer/Commodities/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 0
+columns = 4
+
+[node name="CommodityHeader" type="Label" parent="PanelContainer/TabContainer/Commodities/MarginContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Commodity"
+uppercase = true
+
+[node name="PriceHeader" type="Label" parent="PanelContainer/TabContainer/Commodities/MarginContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Price"
+uppercase = true
+
+[node name="CargoHoldHeader" type="Label" parent="PanelContainer/TabContainer/Commodities/MarginContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Cargo"
+uppercase = true
+
+[node name="EmptyHeader" type="Control" parent="PanelContainer/TabContainer/Commodities/MarginContainer/ScrollContainer/GridContainer"]
 layout_mode = 2
 
 [node name="Currencies" type="ScrollContainer" parent="PanelContainer/TabContainer"]
@@ -82,5 +107,4 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/TabContainer/Currencies/MarginContainer"]
-layout_mode = 2
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]

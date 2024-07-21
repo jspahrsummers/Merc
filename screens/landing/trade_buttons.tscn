@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://b04gt254vhyra"]
+
+[ext_resource type="Script" path="res://screens/landing/trade_buttons.gd" id="1_xjexx"]
+
+[node name="TradeButtons" type="HBoxContainer" node_paths=PackedStringArray("buy_button", "sell_button")]
+script = ExtResource("1_xjexx")
+buy_button = NodePath("BuyButton")
+sell_button = NodePath("SellButton")
+
+[node name="BuyButton" type="Button" parent="."]
+layout_mode = 2
+text = "BUY"
+
+[node name="SellButton" type="Button" parent="."]
+layout_mode = 2
+text = "SELL"

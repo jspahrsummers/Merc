@@ -12,7 +12,7 @@ script = ExtResource("2_k5nxq")
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3rern"]
 size = Vector2(1024, 1024)
 
-[node name="Landing" type="Window" node_paths=PackedStringArray("bar_button", "trading_button", "missions_button", "outfitter_button", "shipyard_button", "refuel_button", "landscape_image", "description_label", "bar_dialog", "trading_window")]
+[node name="Landing" type="Window" node_paths=PackedStringArray("bar_button", "trading_button", "missions_button", "outfitter_button", "shipyard_button", "refuel_button", "landscape_image", "description_label", "bar_dialog")]
 title = "Mars"
 initial_position = 2
 size = Vector2i(900, 600)
@@ -27,7 +27,7 @@ refuel_button = NodePath("PanelContainer/VBoxContainer/HFlowContainer/RefuelButt
 landscape_image = NodePath("PanelContainer/VBoxContainer/HBoxContainer/TextureRect")
 description_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer/MarginContainer/DescriptionLabel")
 bar_dialog = NodePath("BarDialog")
-trading_window = NodePath("TradingWindow")
+trading_window_scene = ExtResource("4_ci831")
 spaceport_bar = SubResource("Resource_4dtn6")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -130,9 +130,6 @@ initial_position = 1
 size = Vector2i(400, 150)
 ok_button_text = "Leave"
 dialog_autowrap = true
-
-[node name="TradingWindow" parent="." instance=ExtResource("4_ci831")]
-visible = false
 
 [connection signal="close_requested" from="." to="." method="_on_depart"]
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
