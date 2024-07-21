@@ -26,13 +26,14 @@ func _ready() -> void:
     for trade_asset: TradeAsset in trade_assets:
         var price: float = self.market.trade_assets[trade_asset]
 
+        var commodity := trade_asset as Commodity
         var container: GridContainer
-        if trade_asset is Currency:
-            has_currencies = true
-            container = self.currencies_container
-        elif trade_asset is Commodity:
+        if commodity:
             has_commodities = true
             container = self.commodities_container
+        elif trade_asset is Currency:
+            has_currencies = true
+            container = self.currencies_container
         else:
             assert(false, "Unknown trade asset type: %s" % trade_asset)
 
@@ -43,7 +44,14 @@ func _ready() -> void:
 
         var price_label := Label.new()
         price_label.text = "%s %s" % [price, money_suffix]
+        price_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
         container.add_child(price_label)
+
+        if commodity:
+            var volume_label := Label.new()
+            volume_label.text = "%s L" % commodity.volume
+            volume_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+            container.add_child(volume_label)
 
         var quantity_label := Label.new()
         self._quantity_labels_by_trade_asset[trade_asset] = quantity_label

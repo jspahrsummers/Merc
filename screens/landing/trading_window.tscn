@@ -78,7 +78,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/h_separation = 12
 theme_override_constants/v_separation = 0
-columns = 4
+columns = 5
 
 [node name="CommodityHeader" type="Label" parent="PanelContainer/TabContainer/Commodities/MarginContainer/ScrollContainer/GridContainer"]
 layout_mode = 2
@@ -89,6 +89,10 @@ uppercase = true
 layout_mode = 2
 text = "Price"
 uppercase = true
+
+[node name="VolumeHeader" type="Label" parent="PanelContainer/TabContainer/Commodities/MarginContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "VOL"
 
 [node name="CargoHoldHeader" type="Label" parent="PanelContainer/TabContainer/Commodities/MarginContainer/ScrollContainer/GridContainer"]
 layout_mode = 2
