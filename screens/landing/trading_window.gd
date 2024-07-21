@@ -1,4 +1,5 @@
 extends Window
+class_name TradingWindow
 
 @export var market: Market
 @export var tab_container: TabContainer

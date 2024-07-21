@@ -12,7 +12,7 @@ script = ExtResource("2_k5nxq")
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3rern"]
 size = Vector2(1024, 1024)
 
-[node name="Landing" type="Window" node_paths=PackedStringArray("bar_button", "trading_button", "missions_button", "outfitter_button", "shipyard_button", "refuel_button", "landscape_image", "description_label", "bar_dialog")]
+[node name="Landing" type="Window" node_paths=PackedStringArray("bar_button", "trading_button", "missions_button", "outfitter_button", "shipyard_button", "refuel_button", "landscape_image", "description_label", "bar_dialog", "trading_window")]
 title = "Mars"
 initial_position = 2
 size = Vector2i(900, 600)
@@ -27,6 +27,7 @@ refuel_button = NodePath("PanelContainer/VBoxContainer/HFlowContainer/RefuelButt
 landscape_image = NodePath("PanelContainer/VBoxContainer/HBoxContainer/TextureRect")
 description_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer/MarginContainer/DescriptionLabel")
 bar_dialog = NodePath("BarDialog")
+trading_window = NodePath("TradingWindow")
 spaceport_bar = SubResource("Resource_4dtn6")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]

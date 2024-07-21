@@ -10,6 +10,7 @@ class_name Landing
 @export var landscape_image: TextureRect
 @export var description_label: RichTextLabel
 @export var bar_dialog: AcceptDialog
+@export var trading_window: TradingWindow
 
 ## Defines how the spaceport bar should behave on this landing.
 @export var spaceport_bar: SpaceportBar
@@ -33,7 +34,9 @@ func _ready() -> void:
 
     if self.planet.facilities&Planet.TRADING:
         assert(self.star_system.market, "Star system must have a market for the planet to have trading")
+
         self.trading_button.visible = true
+        self.trading_window.market = self.star_system.market
     else:
         self.trading_button.visible = false
 
@@ -51,7 +54,7 @@ func _on_bar_button_pressed() -> void:
     self.bar_dialog.show()
 
 func _on_trading_button_pressed() -> void:
-    pass # Replace with function body.
+    self.trading_window.show()
 
 func _on_missions_button_pressed() -> void:
     pass # Replace with function body.
