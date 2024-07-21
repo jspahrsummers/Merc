@@ -95,10 +95,10 @@ rigid_body_direction = NodePath("../RigidBodyDirection")
 destination = Vector3(12.5408, 0, 0.72235)
 
 [editable path="Mercury"]
-[editable path="Mercury/Sprite3D/TargetOverlay"]
+[editable path="Mercury/TargetOverlay"]
 [editable path="Venus"]
-[editable path="Venus/Sprite3D/TargetOverlay"]
+[editable path="Venus/TargetOverlay"]
 [editable path="Mars"]
-[editable path="Mars/Sprite3D/TargetOverlay"]
+[editable path="Mars/TargetOverlay"]
 [editable path="Freighter"]
 [editable path="Freighter/CombatObject/TargetOverlay"]

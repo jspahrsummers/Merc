@@ -23,4 +23,4 @@ transform = Transform3D(-0.210267, 0, -0.977644, 0, 1, 0, 0.977644, 0, -0.210267
 texture = ExtResource("6_lxy5c")
 
 [editable path="Aethoria"]
-[editable path="Aethoria/Sprite3D/TargetOverlay"]
+[editable path="Aethoria/TargetOverlay"]

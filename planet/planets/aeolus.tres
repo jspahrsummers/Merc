@@ -1,9 +1,17 @@
-[gd_resource type="Resource" script_class="Planet" load_steps=2 format=3 uid="uid://dlabxdxx15pp7"]
+[gd_resource type="Resource" script_class="Planet" load_steps=3 format=3 uid="uid://dlabxdxx15pp7"]
 
+[ext_resource type="Texture2D" uid="uid://rknl8aley68c" path="res://screens/landing/images/1e3db4b9-0718-4ea2-8714-4f74c61c2b4f.jpg" id="1_1ky27"]
 [ext_resource type="Script" path="res://planet/planet.gd" id="1_5srmt"]
 
 [resource]
 script = ExtResource("1_5srmt")
-name = ""
-facilities = 39
-description = ""
+name = "Aeolus"
+facilities = 0
+landscape_image = ExtResource("1_1ky27")
+description = "As your ship touches down on Aeolus, you're greeted by a world of pristine, unforgiving ice. The planet's surface stretches out before you in an endless expanse of white and pale blue, broken only by jagged crystalline formations that catch and refract the dim light of the distant sun.
+
+The atmosphere is thin and bitterly cold, your suit's environmental systems working overtime to keep you warm. Howling winds sweep across the barren landscape, carrying fine particles of ice that patter against your viewport like ethereal sand.
+
+There are no signs of permanent habitation or facilities here. Aeolus remains untamed, a frozen frontier at the edge of civilized space. Your sensors detect pockets of valuable minerals trapped beneath the ice, hinting at the planet's potential wealth – and the reason why the occasional prospector or explorer might brave its hostile conditions.
+
+As you survey the desolate beauty of Aeolus, you can't help but feel a sense of isolation. This is a place where the unprepared could vanish without a trace, swallowed by the endless white. Yet for those with the right equipment and a spirit of adventure, Aeolus offers a glimpse into the raw, untouched wonders of the galaxy."
