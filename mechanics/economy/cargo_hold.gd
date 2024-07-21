@@ -2,6 +2,8 @@ extends Resource
 class_name CargoHold
 
 ## Represents a cargo hold on a ship, containing commodities for trade.
+##
+## Cargo can only be carried in whole units (never fractional).
 
 ## The volume of this cargo hold, in liters, determining the maximum amount of cargo that can be carried.
 @export var max_volume: float:
@@ -14,8 +16,6 @@ class_name CargoHold
         self.emit_changed()
 
 ## The commodities being carried as cargo, structured as a dictionary of [Commodity] keys to [int] amounts.
-##
-## Amounts are units of the [Commodity] multiplied by its [member TradeAsset.granularity].
 @export var commodities: Dictionary = {}
 
 ## Returns how much of the hold's volume is currently occupied by cargo, in liters.
@@ -23,7 +23,7 @@ func get_occupied_volume() -> float:
     var volume := 0.0
     for commodity: Commodity in self.commodities:
         var amount: int = commodities[commodity]
-        volume += float(amount) / commodity.granularity * commodity.volume
+        volume += float(amount) * commodity.volume
     
     return volume
 
@@ -32,7 +32,7 @@ func get_mass() -> float:
     var mass := 0.0
     for commodity: Commodity in self.commodities:
         var amount: int = commodities[commodity]
-        mass += float(amount) / commodity.granularity * commodity.mass
+        mass += float(amount) * commodity.mass
     
     return mass
 
@@ -41,7 +41,7 @@ func get_mass() -> float:
 ## Returns the amount actually added, which may be less than requested if the cargo hold runs out of space.
 func add_up_to(commodity: Commodity, amount: int) -> int:
     var available_volume := self.max_volume - self.get_occupied_volume()
-    var available_amount := floori(available_volume / commodity.volume * commodity.granularity)
+    var available_amount := floori(available_volume / commodity.volume)
 
     var added_amount := mini(amount, available_amount)
     if added_amount == 0:
@@ -71,7 +71,7 @@ func remove_up_to(commodity: Commodity, amount: int) -> int:
 
 ## Attempts to add exactly [param amount] of [param commodity] to the hold, or returns false if there's not enough space.
 func add_exactly(commodity: Commodity, amount: int) -> bool:
-    var needed_volume := float(amount) / commodity.granularity * commodity.volume
+    var needed_volume := float(amount) * commodity.volume
     if self.get_occupied_volume() + needed_volume > self.max_volume:
         return false
     
