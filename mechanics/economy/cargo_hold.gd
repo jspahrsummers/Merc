@@ -5,7 +5,7 @@ class_name CargoHold
 ##
 ## Cargo can only be carried in whole units (never fractional).
 
-## The volume of this cargo hold, in liters, determining the maximum amount of cargo that can be carried.
+## The volume of this cargo hold, in cubic meters, determining the maximum amount of cargo that can be carried.
 @export var max_volume: float:
     set(value):
         assert(max_volume >= 0.0, "Max volume must be non-negative")
@@ -18,7 +18,7 @@ class_name CargoHold
 ## The commodities being carried as cargo, structured as a dictionary of [Commodity] keys to [int] amounts.
 @export var commodities: Dictionary = {}
 
-## Returns how much of the hold's volume is currently occupied by cargo, in liters.
+## Returns how much of the hold's volume is currently occupied by cargo, in cubic meters.
 func get_occupied_volume() -> float:
     var volume := 0.0
     for commodity: Commodity in self.commodities:

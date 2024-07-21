@@ -5,12 +5,12 @@ class_name Commodity
 
 ## The [b]in-game mass[/b] per one unit of this item, in kg.
 ##
-## This is added to ship mass when the asset is being carried. This can also be thought of the scaling factor from "real-world kg" (it usually makes sense to consider 1 unit = 1 real-world kg) to in-game mass for the physics engine.
+## This is added to ship mass when the asset is being carried. This can also be thought of the scaling factor from "real-world metric tonne" (it usually makes sense to consider 1 unit = 1 metric tonne) to in-game kg for the physics engine.
 @export var mass: float = 0.1
 
-## The volume of one unit of this item, in liters.
+## The volume of one unit of this item, in cubic meters.
 ##
-## This can be thought of as the volume per "real-world kg."
+## This can be thought of as the volume per "real-world metric tonne."
 @export var volume: float
 
 func current_amount(cargo_hold: CargoHold, _bank_account: BankAccount) -> float:
