@@ -7,8 +7,9 @@
 
 [node name="OmniLight3D" parent="." index="0"]
 light_color = Color(1, 0.505882, 0.439216, 1)
-light_energy = 15.0
-omni_range = 40.0
+light_energy = 20.0
+light_indirect_energy = 10.0
+omni_range = 60.0
 
 [node name="Sprite3D" parent="." index="1"]
 texture = ExtResource("2_ift00")
