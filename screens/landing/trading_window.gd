@@ -114,7 +114,5 @@ func _sell(trade_asset: TradeAsset) -> void:
 func _desired_trade_amount() -> float:
     if Input.is_key_pressed(KEY_SHIFT):
         return 10.0
-    elif Input.is_key_pressed(KEY_CTRL):
-        return 100.0
     else:
         return 1.0
