@@ -68,11 +68,13 @@ func _on_shipyard_button_pressed() -> void:
 func _on_refuel_button_pressed() -> void:
     var needed_fuel := self._hyperdrive.max_fuel - self._hyperdrive.fuel
     var full_refuel_cost := ceili(needed_fuel * self.star_system.refueling_cost)
-
-    var paid := self.star_system.refueling_money.take_up_to(full_refuel_cost, self.player.ship.cargo_hold, self.player.bank_account)
-    var fuel_paid_for := float(paid) / self.star_system.refueling_cost
-
-    self._hyperdrive.refuel(fuel_paid_for)
+    if full_refuel_cost > 0:
+        var paid := self.star_system.refueling_money.take_up_to(full_refuel_cost, self.player.ship.cargo_hold, self.player.bank_account)
+        var fuel_paid_for := float(paid) / self.star_system.refueling_cost
+        self._hyperdrive.refuel(fuel_paid_for)
+    else:
+        self._hyperdrive.refuel(needed_fuel)
+    
     self.refuel_button.disabled = true
 
 func _on_depart() -> void:
