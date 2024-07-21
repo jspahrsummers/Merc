@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c8pk2eg557fsk"
-path.s3tc="res://.godot/imported/star_white02.png-5fa46207597e7b99da4ea801b2650b90.s3tc.ctex"
+uid="uid://hvnco6sogllx"
+path.s3tc="res://.godot/imported/star_red_giant04.png-a18f7c00fa6ab9548223b93e4039c71f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://stars/sprites/star_white02.png"
-dest_files=["res://.godot/imported/star_white02.png-5fa46207597e7b99da4ea801b2650b90.s3tc.ctex"]
+source_file="res://stars/sprites/star_red_giant04.png"
+dest_files=["res://.godot/imported/star_red_giant04.png-a18f7c00fa6ab9548223b93e4039c71f.s3tc.ctex"]
 
 [params]
 
