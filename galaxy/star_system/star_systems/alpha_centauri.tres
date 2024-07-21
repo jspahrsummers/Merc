@@ -8,3 +8,4 @@ name = &"Alpha Centauri"
 connections = Array[StringName]([&"Sol", &"Wolf 359"])
 position = Vector3(-1.5, 0.2, -2.3)
 scene_path = "res://galaxy/star_system/scenes/alpha_centauri.tscn"
+refueling_cost = 0
