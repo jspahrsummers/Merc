@@ -71,7 +71,7 @@ func _on_jump_destination_changed(_hyperdrive_system: HyperdriveSystem) -> void:
 func _update_selection_state() -> void:
     for system_name: String in self._system_nodes:
         var node: GalaxyMapSystem = self._system_nodes[system_name]
-        node.selected = self.hyperdrive_system.jump_destination.name == system_name
+        node.selected = self.hyperdrive_system.jump_destination and self.hyperdrive_system.jump_destination.name == system_name
 
 func _input(event: InputEvent) -> void:
     if event.is_action_pressed("toggle_galaxy_map"):

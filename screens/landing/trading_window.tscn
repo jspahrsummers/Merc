@@ -1,0 +1,143 @@
+[gd_scene load_steps=19 format=3 uid="uid://dpihtkm0u6kmb"]
+
+[ext_resource type="Script" path="res://screens/landing/trading_window.gd" id="1_b1kwq"]
+[ext_resource type="Resource" uid="uid://bnw61s2hj8a0m" path="res://mechanics/economy/commodities/water.tres" id="2_dakxn"]
+[ext_resource type="Resource" uid="uid://dnutrj5jdgiaj" path="res://mechanics/economy/commodities/food.tres" id="3_crfro"]
+[ext_resource type="Resource" uid="uid://dd63q3wg4vrk" path="res://mechanics/economy/commodities/biological_samples.tres" id="4_glq0v"]
+[ext_resource type="Resource" uid="uid://cg1jhl250i8xu" path="res://mechanics/economy/commodities/cybernetics.tres" id="5_hrqmd"]
+[ext_resource type="Resource" uid="uid://skhvwlendqx7" path="res://mechanics/economy/commodities/exotic_matter.tres" id="6_2cse7"]
+[ext_resource type="Resource" uid="uid://braihcb6cofi3" path="res://mechanics/economy/commodities/fusion_fuel.tres" id="7_hqlku"]
+[ext_resource type="Resource" uid="uid://ccvds2nloqvwn" path="res://mechanics/economy/commodities/industrial_equipment.tres" id="8_ork2c"]
+[ext_resource type="Resource" uid="uid://n8yvfo8aytg" path="res://mechanics/economy/commodities/luxury_goods.tres" id="9_yvr8y"]
+[ext_resource type="Resource" uid="uid://dhxbtnaoc1nuo" path="res://mechanics/economy/commodities/medical_supplies.tres" id="10_s7ndo"]
+[ext_resource type="Resource" uid="uid://lkpwswpw8ss4" path="res://mechanics/economy/commodities/precious_metals.tres" id="11_h5vql"]
+[ext_resource type="Resource" uid="uid://xqh4cm1k62tx" path="res://mechanics/economy/commodities/quantum_computers.tres" id="12_2y7cx"]
+[ext_resource type="Resource" uid="uid://dl132ceubbcos" path="res://mechanics/economy/commodities/rare_earth_elements.tres" id="13_7qeyl"]
+[ext_resource type="Resource" uid="uid://bj7201uluhfpk" path="res://mechanics/economy/commodities/semiconductors.tres" id="14_fr06c"]
+[ext_resource type="Resource" uid="uid://b764gd8q3il6s" path="res://mechanics/economy/currencies/credits.tres" id="15_5n2yb"]
+[ext_resource type="Script" path="res://mechanics/economy/market.gd" id="16_so5ie"]
+[ext_resource type="PackedScene" uid="uid://b04gt254vhyra" path="res://screens/landing/trade_buttons.tscn" id="17_j3rf1"]
+
+[sub_resource type="Resource" id="Resource_a521o"]
+script = ExtResource("16_so5ie")
+money = ExtResource("15_5n2yb")
+trade_assets = {
+ExtResource("2_dakxn"): 1200,
+ExtResource("3_crfro"): 4700,
+ExtResource("4_glq0v"): 976500,
+ExtResource("5_hrqmd"): 1483200,
+ExtResource("6_2cse7"): 5217800,
+ExtResource("7_hqlku"): 82300,
+ExtResource("8_ork2c"): 47800,
+ExtResource("9_yvr8y"): 328700,
+ExtResource("10_s7ndo"): 114200,
+ExtResource("11_h5vql"): 789400,
+ExtResource("12_2y7cx"): 2654300,
+ExtResource("13_7qeyl"): 532100,
+ExtResource("14_fr06c"): 215600
+}
+
+[node name="TradingWindow" type="Window" node_paths=PackedStringArray("tab_container", "commodities_container")]
+title = "Trade Computer"
+initial_position = 1
+size = Vector2i(600, 300)
+transient = true
+script = ExtResource("1_b1kwq")
+market = SubResource("Resource_a521o")
+tab_container = NodePath("PanelContainer/TabContainer")
+commodities_container = NodePath("PanelContainer/TabContainer/Commodities/MarginContainer/ScrollContainer/GridContainer")
+trade_buttons_scene = ExtResource("17_j3rf1")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TabContainer" type="TabContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Commodities" type="ScrollContainer" parent="PanelContainer/TabContainer"]
+layout_mode = 2
+follow_focus = true
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/TabContainer/Commodities"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/TabContainer/Commodities/MarginContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/TabContainer/Commodities/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 0
+columns = 5
+
+[node name="CommodityHeader" type="Label" parent="PanelContainer/TabContainer/Commodities/MarginContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Commodity"
+uppercase = true
+
+[node name="PriceHeader" type="Label" parent="PanelContainer/TabContainer/Commodities/MarginContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Price"
+uppercase = true
+
+[node name="VolumeHeader" type="Label" parent="PanelContainer/TabContainer/Commodities/MarginContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "VOL"
+
+[node name="CargoHoldHeader" type="Label" parent="PanelContainer/TabContainer/Commodities/MarginContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Cargo"
+uppercase = true
+
+[node name="EmptyHeader" type="Control" parent="PanelContainer/TabContainer/Commodities/MarginContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Currencies" type="ScrollContainer" parent="PanelContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/TabContainer/Currencies"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/TabContainer/Currencies/MarginContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer/TabContainer/Currencies/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 0
+columns = 4
+
+[node name="CurrencyHeader" type="Label" parent="PanelContainer/TabContainer/Currencies/MarginContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Currency"
+uppercase = true
+
+[node name="PriceHeader" type="Label" parent="PanelContainer/TabContainer/Currencies/MarginContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Price"
+uppercase = true
+
+[node name="BalanceHeader" type="Label" parent="PanelContainer/TabContainer/Currencies/MarginContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+text = "Balance"
+uppercase = true
+
+[node name="EmptyHeader" type="Control" parent="PanelContainer/TabContainer/Currencies/MarginContainer/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]

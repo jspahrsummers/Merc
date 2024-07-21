@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Commodity" load_steps=2 format=3 uid="uid://skhvwlendqx7"]
+
+[ext_resource type="Script" path="res://mechanics/economy/commodity.gd" id="1_nlnb0"]
+
+[resource]
+script = ExtResource("1_nlnb0")
+name = "Exotic Matter"
+mass = 0.1
+volume = 10.0
+currency = false

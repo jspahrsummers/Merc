@@ -9,6 +9,7 @@ class_name Player
 @export var message_log: MessageLog
 @export var landing_scene: PackedScene
 @export var takeoff_sound: AudioStreamPlayer
+@export var bank_account: BankAccount
 
 @onready var ship := get_parent() as Ship
 
@@ -217,6 +218,7 @@ func _land() -> void:
     var landing: Landing = self.landing_scene.instantiate()
     landing.player = self
     landing.planet = planet
+    landing.star_system = self.ship.hyperdrive_system.current_system()
     self.ship.add_sibling(landing)
     self.ship.get_parent().remove_child(self.ship)
 

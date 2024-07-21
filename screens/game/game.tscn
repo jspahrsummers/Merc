@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=66 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperspace_scene_switcher.gd" id="4_yyrkm"]
@@ -6,6 +6,9 @@
 [ext_resource type="Script" path="res://fx/starfield/starfield_parallax.gd" id="8_ueist"]
 [ext_resource type="Script" path="res://fx/main_camera.gd" id="9_v2hcn"]
 [ext_resource type="Script" path="res://fx/hyperspace/hyperspace_effect.gd" id="10_23l1d"]
+[ext_resource type="Script" path="res://mechanics/physics/rigid_body_cargo.gd" id="10_w7kut"]
+[ext_resource type="Script" path="res://mechanics/economy/cargo_hold.gd" id="11_ag0i7"]
+[ext_resource type="Resource" uid="uid://b764gd8q3il6s" path="res://mechanics/economy/currencies/credits.tres" id="11_cir2n"]
 [ext_resource type="AudioStream" uid="uid://cmjfgigj57eie" path="res://fx/hyperspace/teleport_02_slowed.ogg" id="11_tu1c7"]
 [ext_resource type="PackedScene" uid="uid://dsuln1s4j366a" path="res://ships/corvette01/corvette01.tscn" id="12_bj83b"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperdrive.gd" id="13_q2g24"]
@@ -41,6 +44,9 @@
 [ext_resource type="Script" path="res://screens/game/message_log.gd" id="35_8pupt"]
 [ext_resource type="AudioStream" uid="uid://d35n48x47d8dy" path="res://screens/shared_ui/audio/beep_03.ogg" id="36_3gr28"]
 [ext_resource type="Script" path="res://screens/shared_ui/fps_counter.gd" id="37_e11x7"]
+[ext_resource type="Script" path="res://screens/game/hud/currencies_container.gd" id="41_7ygkq"]
+[ext_resource type="Script" path="res://mechanics/economy/bank_account.gd" id="42_g774c"]
+[ext_resource type="Script" path="res://screens/game/hud/cargo_container.gd" id="44_e80r5"]
 
 [sub_resource type="Resource" id="Resource_rwdpp"]
 resource_local_to_scene = true
@@ -62,6 +68,11 @@ resource_local_to_scene = true
 script = ExtResource("15_sjw8q")
 max_power = 300.0
 power = 300.0
+
+[sub_resource type="Resource" id="Resource_bsv1l"]
+script = ExtResource("11_ag0i7")
+max_volume = 10.0
+commodities = {}
 
 [sub_resource type="Resource" id="Resource_p0y82"]
 resource_local_to_scene = true
@@ -89,6 +100,12 @@ resource_local_to_scene = true
 script = ExtResource("13_q2g24")
 max_fuel = 6.0
 fuel = 6.0
+
+[sub_resource type="Resource" id="Resource_j1y8s"]
+script = ExtResource("42_g774c")
+currencies = {
+ExtResource("11_cir2n"): 10000
+}
 
 [sub_resource type="QuadMesh" id="QuadMesh_7oe51"]
 material = ExtResource("7_gr6ce")
@@ -163,6 +180,7 @@ shield = SubResource("Resource_rwdpp")
 [node name="PlayerCorvette" parent="HyperspaceSceneSwitcher/Sol" node_paths=PackedStringArray("hyperdrive_system") instance=ExtResource("12_bj83b")]
 physics_material_override = null
 hyperdrive_system = NodePath("HyperdriveSystem")
+cargo_hold = SubResource("Resource_bsv1l")
 
 [node name="CombatObject" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="3"]
 shield = SubResource("Resource_p0y82")
@@ -191,6 +209,7 @@ hyperdrive = SubResource("Resource_xnk78")
 [node name="Player" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" node_paths=PackedStringArray("hyperspace_scene_switcher", "message_log") instance=ExtResource("16_lqltb")]
 hyperspace_scene_switcher = NodePath("../../..")
 message_log = NodePath("../../../../InGameGUI/MarginContainer/HBoxContainer/MessageLog")
+bank_account = SubResource("Resource_j1y8s")
 
 [node name="MinimapCameraRemoteTransform" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" index="0"]
 remote_path = NodePath("../../../../../MinimapViewport/MinimapCameraTransform")
@@ -203,6 +222,10 @@ remote_path = NodePath("../../../../../StarfieldTransform")
 
 [node name="TakeoffSound" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" index="3"]
 pitch_scale = 2.0
+
+[node name="RigidBodyCargo" type="Node3D" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette"]
+script = ExtResource("10_w7kut")
+cargo_hold = SubResource("Resource_bsv1l")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("1_pqled")
@@ -549,6 +572,37 @@ pick_sound = NodePath("PickSound")
 stream = ExtResource("24_oh7qv")
 volume_db = -10.0
 
+[node name="CurrenciesContainer" type="PanelContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar" node_paths=PackedStringArray("label_container")]
+layout_mode = 2
+size_flags_vertical = 10
+script = ExtResource("41_7ygkq")
+bank_account = SubResource("Resource_j1y8s")
+label_container = NodePath("MarginContainer/VBoxContainer")
+
+[node name="MarginContainer" type="MarginContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/CurrenciesContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/CurrenciesContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="CargoContainer" type="PanelContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar" node_paths=PackedStringArray("label_container", "free_cargo_label")]
+layout_mode = 2
+script = ExtResource("44_e80r5")
+cargo_hold = SubResource("Resource_bsv1l")
+label_container = NodePath("MarginContainer/VBoxContainer")
+free_cargo_label = NodePath("MarginContainer/VBoxContainer/FreeCargoLabel")
+
+[node name="MarginContainer" type="MarginContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/CargoContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/CargoContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="FreeCargoLabel" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/CargoContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "10L free"
+horizontal_alignment = 1
+
 [node name="MessageLog" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer" node_paths=PackedStringArray("new_message_audio")]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -561,6 +615,7 @@ new_message_audio = NodePath("AudioStreamPlayer")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="InGameGUI/MarginContainer/HBoxContainer/MessageLog"]
 stream = ExtResource("36_3gr28")
+volume_db = -5.0
 
 [node name="FPSCounter" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer"]
 layout_mode = 2

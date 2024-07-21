@@ -17,6 +17,17 @@ class_name StarSystem
 ## The resource path to this star system's scene.
 @export_file("*.tscn") var scene_path: String
 
+## The trading market in this star system, if any.
+@export var market: Market
+
+## The [TradeAsset] used to pay for refueling, on planets where refueling is available.
+##
+## If [member refueling_cost] is 0, refueling is free and this property is ignored.
+@export var refueling_money: TradeAsset
+
+## The cost (per unit of hyperspace fuel) to refuel in this system, in units of [member refueling_money].
+@export var refueling_cost: int
+
 ## A weak reference to the [Galaxy] that this system is part of.
 ##
 ## This is populated when the galaxy is initialized.

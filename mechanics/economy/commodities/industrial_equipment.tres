@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Commodity" load_steps=2 format=3 uid="uid://ccvds2nloqvwn"]
+
+[ext_resource type="Script" path="res://mechanics/economy/commodity.gd" id="1_c6r3x"]
+
+[resource]
+script = ExtResource("1_c6r3x")
+name = "Industrial Equipment"
+mass = 0.1
+volume = 1.5
+currency = false
