@@ -5,14 +5,13 @@ class_name TradingWindow
 
 @export var tab_container: TabContainer
 @export var commodities_container: GridContainer
+@export var currencies_container: GridContainer
 @export var trade_buttons_scene: PackedScene
 
 var cargo_hold: CargoHold
 var bank_account: BankAccount
 
-var _cargo_labels_by_trade_asset: Dictionary = {}
-
-# @export var currencies_container: Container
+var _quantity_labels_by_trade_asset: Dictionary = {}
 
 func _ready() -> void:
     var has_commodities := false
@@ -26,40 +25,44 @@ func _ready() -> void:
     for trade_asset: TradeAsset in trade_assets:
         var price: int = self.market.trade_assets[trade_asset]
 
+        var container: GridContainer
         if trade_asset is Currency:
             has_currencies = true
-            continue
-
-        if not (trade_asset is Commodity):
+            container = self.currencies_container
+        elif trade_asset is Commodity:
+            has_commodities = true
+            container = self.commodities_container
+        else:
             assert(false, "Unknown trade asset type: %s" % trade_asset)
-
-        has_commodities = true
 
         var name_label := Label.new()
         name_label.text = trade_asset.name
         name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-        self.commodities_container.add_child(name_label)
+        container.add_child(name_label)
 
         var price_label := Label.new()
         price_label.text = "%s %s" % [float(price) / market.money.granularity, money_suffix]
-        self.commodities_container.add_child(price_label)
+        container.add_child(price_label)
 
-        var cargo_label := Label.new()
-        self._cargo_labels_by_trade_asset[trade_asset] = cargo_label
-        self.commodities_container.add_child(cargo_label)
+        var quantity_label := Label.new()
+        self._quantity_labels_by_trade_asset[trade_asset] = quantity_label
+        container.add_child(quantity_label)
 
         # TODO: Connect buttons
         var buttons: TradeButtons = self.trade_buttons_scene.instantiate()
-        self.commodities_container.add_child(buttons)
+        container.add_child(buttons)
 
     self.tab_container.tabs_visible = has_commodities and has_currencies
-    self.cargo_hold.changed.connect(_update_cargo_labels)
+    if not has_commodities:
+        self.tab_container.current_tab = 1
+
+    self.cargo_hold.changed.connect(_update_quantity_labels)
 
 func _on_close_requested() -> void:
     self.visible = false
 
-func _update_cargo_labels() -> void:
+func _update_quantity_labels() -> void:
     for trade_asset: TradeAsset in self.market.trade_assets:
-        var cargo_label: Label = self._cargo_labels_by_trade_asset[trade_asset]
+        var cargo_label: Label = self._quantity_labels_by_trade_asset[trade_asset]
         var cargo: int = self.cargo_hold.commodities.get(trade_asset, 0)
         cargo_label.text = str(cargo) if cargo else ""
