@@ -596,6 +596,7 @@ new_message_audio = NodePath("AudioStreamPlayer")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="InGameGUI/MarginContainer/HBoxContainer/MessageLog"]
 stream = ExtResource("36_3gr28")
+volume_db = -5.0
 
 [node name="FPSCounter" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer"]
 layout_mode = 2
