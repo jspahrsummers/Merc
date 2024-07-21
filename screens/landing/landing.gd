@@ -20,6 +20,9 @@ var player: Player
 ## The planet to land on. Must be set before displaying.
 var planet: Planet
 
+## The star system the planet is in. Must be set before displaying.
+var star_system: StarSystem
+
 var _hyperdrive: Hyperdrive
 
 func _ready() -> void:
@@ -27,7 +30,13 @@ func _ready() -> void:
 
     self.title = self.planet.name
     self.bar_button.visible = (self.planet.facilities&Planet.BAR)
-    self.trading_button.visible = (self.planet.facilities&Planet.TRADING)
+
+    if self.planet.facilities&Planet.TRADING:
+        assert(self.star_system.market, "Star system must have a market for the planet to have trading")
+        self.trading_button.visible = true
+    else:
+        self.trading_button.visible = false
+
     self.missions_button.visible = (self.planet.facilities&Planet.MISSIONS)
     self.outfitter_button.visible = (self.planet.facilities&Planet.OUTFITTER)
     self.shipyard_button.visible = (self.planet.facilities&Planet.SHIPYARD)
@@ -54,8 +63,13 @@ func _on_shipyard_button_pressed() -> void:
     pass # Replace with function body.
 
 func _on_refuel_button_pressed() -> void:
-    # TODO: Player should have to pay for this
-    self._hyperdrive.refuel(self._hyperdrive.max_fuel)
+    var needed_fuel := self._hyperdrive.max_fuel - self._hyperdrive.fuel
+    var full_refuel_cost := ceili(needed_fuel * self.star_system.refueling_cost)
+
+    var paid := self.star_system.refueling_money.take_up_to(full_refuel_cost, self.player.ship.cargo_hold, self.player.bank_account)
+    var fuel_paid_for := float(paid) / self.star_system.refueling_cost
+
+    self._hyperdrive.refuel(fuel_paid_for)
     self.refuel_button.disabled = true
 
 func _on_depart() -> void:

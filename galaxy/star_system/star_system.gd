@@ -20,6 +20,14 @@ class_name StarSystem
 ## The trading market in this star system, if any.
 @export var market: Market
 
+## The [TradeAsset] used to pay for refueling, on planets where refueling is available.
+##
+## If not set, refueling is free.
+@export var refueling_money: TradeAsset
+
+## The cost (per unit of hyperspace fuel) to refuel in this system, in units of [member refueling_money] multiplied by the money's [member TradeAsset.granularity].
+@export var refueling_cost: int
+
 ## A weak reference to the [Galaxy] that this system is part of.
 ##
 ## This is populated when the galaxy is initialized.
