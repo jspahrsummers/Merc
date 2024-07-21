@@ -19,9 +19,8 @@
 
 [sub_resource type="Resource" id="Resource_tj2o3"]
 script = ExtResource("15_v0bfu")
-main_currency = ExtResource("14_yyru0")
-currencies = {}
-commodities = {
+money = ExtResource("14_yyru0")
+trade_assets = {
 ExtResource("1_g3m08"): 1200,
 ExtResource("2_qhtq3"): 4700,
 ExtResource("3_yqu3j"): 976500,

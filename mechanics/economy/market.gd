@@ -1,17 +1,14 @@
 extends Resource
 class_name Market
 
-## Describes a trading market (e.g., on a planet).
+## Describes a trading market.
 
-## The main currency used by this market, denominating the prices of all trades.
-@export var main_currency: Currency
-
-## Any currencies that can be traded at the market, structured as a dictionary of [Currency] keys to [int] prices.
+## The [TradeAsset] used as money by this market, denominating the prices of all trades.
 ##
-## Prices are denominated in [constant Currency.GRANULARITY] sub-units of the [member main_currency].
-@export var currencies: Dictionary
+## This is most commonly a [Currency], but frontier worlds might prefer to trade in physical commodities instead.
+@export var money: TradeAsset
 
-## Any commodities that can be traded at the market, structured as a dictionary of [Commodity] keys to [int] prices.
+## Any assets that can be traded at the market, structured as a dictionary of [TradeAsset] keys to [int] prices.
 ##
-## Prices are denominated in [constant Currency.GRANULARITY] sub-units of the [member main_currency].
-@export var commodities: Dictionary
+## Prices are units of [member money] multiplied by the money's [member TradeAsset.granularity].
+@export var trade_assets: Dictionary
