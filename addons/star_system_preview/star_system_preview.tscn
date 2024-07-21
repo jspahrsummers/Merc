@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://5oai8nythdld"]
+
+[ext_resource type="Script" path="res://addons/star_system_preview/star_system_preview.gd" id="1_qjnxh"]
+
+[node name="StarSystemPreview" type="Control"]
+custom_minimum_size = Vector2(2.08165e-12, 200)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_qjnxh")

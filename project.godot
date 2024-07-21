@@ -44,7 +44,7 @@ window/stretch/aspect="expand"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/markdownlabel/plugin.cfg", "res://addons/market_editor/plugin.cfg")
+enabled=PackedStringArray("res://addons/markdownlabel/plugin.cfg", "res://addons/market_editor/plugin.cfg", "res://addons/star_system_preview/plugin.cfg")
 
 [filesystem]
 
