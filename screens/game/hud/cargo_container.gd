@@ -31,5 +31,5 @@ func _update() -> void:
         
         label.text = "%s %s" % [amount, commodity.name.to_lower()]
     
-    self.free_cargo_label.text = "%s L free" % (self.cargo_hold.max_volume - self.cargo_hold.get_occupied_volume())
+    self.free_cargo_label.text = "%s m³ free" % (self.cargo_hold.max_volume - self.cargo_hold.get_occupied_volume())
     self.label_container.add_child(self.free_cargo_label)

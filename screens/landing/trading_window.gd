@@ -49,7 +49,7 @@ func _ready() -> void:
 
         if commodity:
             var volume_label := Label.new()
-            volume_label.text = "%s L" % commodity.volume
+            volume_label.text = "%s m³" % commodity.volume
             volume_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
             container.add_child(volume_label)
 
