@@ -9,6 +9,7 @@ class_name BankAccount
 ## Deposits [param amount] of [param currency] into the account.
 func deposit(currency: Currency, amount: float) -> void:
     self.currencies[currency] = self.currencies.get(currency, 0.0) + amount
+    self.emit_changed()
 
 ## Withdraws up to [param amount] of [param currency] from the account.
 ##
