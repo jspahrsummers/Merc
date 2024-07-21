@@ -43,4 +43,5 @@ connections = Array[StringName]([&"Alpha Centauri", &"Barnard\'s Star", &"Sirius
 position = Vector3(0, 0, 0)
 scene_path = "res://galaxy/star_system/scenes/sol.tscn"
 market = SubResource("Resource_tj2o3")
-refueling_cost = 0
+refueling_money = ExtResource("14_yyru0")
+refueling_cost = 5000
