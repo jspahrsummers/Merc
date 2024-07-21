@@ -84,7 +84,37 @@ func _update() -> void:
         buttons.sell_button.disabled = quantity == 0
 
 func _buy(trade_asset: TradeAsset) -> void:
-    pass
+    var asset_price: float = self.market.trade_assets[trade_asset]
+    var desired_amount := self._desired_trade_amount()
+    var total_cost: float = asset_price * desired_amount
+
+    # Limit to total balance
+    var actual_cost := minf(total_cost, self.market.money.current_amount(self.cargo_hold, self.bank_account))
+    var actual_amount := roundf(actual_cost / asset_price)
+
+    # Limit again to capacity
+    actual_amount = trade_asset.add_up_to(actual_amount, self.cargo_hold, self.bank_account)
+
+    var withdrew := self.market.money.take_exactly(actual_amount * asset_price, self.cargo_hold, self.bank_account)
+    assert(withdrew, "Failed to pay for trade already executed")
 
 func _sell(trade_asset: TradeAsset) -> void:
-    pass
+    var asset_price: float = self.market.trade_assets[trade_asset]
+    var desired_amount := self._desired_trade_amount()
+
+    # Limit to total balance
+    var actual_amount := minf(desired_amount, trade_asset.current_amount(self.cargo_hold, self.bank_account))
+
+    # Limit again to capacity
+    var proceeds := self.market.money.add_up_to(actual_amount * asset_price, self.cargo_hold, self.bank_account)
+
+    var withdrew := trade_asset.take_exactly(roundf(proceeds / asset_price), self.cargo_hold, self.bank_account)
+    assert(withdrew, "Failed to cede asset already sold")
+
+func _desired_trade_amount() -> float:
+    if Input.is_key_pressed(KEY_SHIFT):
+        return 10.0
+    elif Input.is_key_pressed(KEY_CTRL):
+        return 100.0
+    else:
+        return 1.0
