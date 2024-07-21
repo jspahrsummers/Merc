@@ -10,7 +10,7 @@ class_name Landing
 @export var landscape_image: TextureRect
 @export var description_label: RichTextLabel
 @export var bar_dialog: AcceptDialog
-@export var trading_window: TradingWindow
+@export var trading_window_scene: PackedScene
 
 ## Defines how the spaceport bar should behave on this landing.
 @export var spaceport_bar: SpaceportBar
@@ -25,21 +25,14 @@ var planet: Planet
 var star_system: StarSystem
 
 var _hyperdrive: Hyperdrive
+var _trading_window: TradingWindow = null
 
 func _ready() -> void:
     self._hyperdrive = self.player.ship.hyperdrive_system.hyperdrive
 
     self.title = self.planet.name
     self.bar_button.visible = (self.planet.facilities&Planet.BAR)
-
-    if self.planet.facilities&Planet.TRADING:
-        assert(self.star_system.market, "Star system must have a market for the planet to have trading")
-
-        self.trading_button.visible = true
-        self.trading_window.market = self.star_system.market
-    else:
-        self.trading_button.visible = false
-
+    self.trading_button.visible = (self.planet.facilities&Planet.TRADING)
     self.missions_button.visible = (self.planet.facilities&Planet.MISSIONS)
     self.outfitter_button.visible = (self.planet.facilities&Planet.OUTFITTER)
     self.shipyard_button.visible = (self.planet.facilities&Planet.SHIPYARD)
@@ -54,7 +47,17 @@ func _on_bar_button_pressed() -> void:
     self.bar_dialog.show()
 
 func _on_trading_button_pressed() -> void:
-    self.trading_window.show()
+    assert(self.star_system.market, "Star system must have a market for the planet to have trading")
+
+    if not self._trading_window:
+        self._trading_window = self.trading_window_scene.instantiate()
+        self._trading_window.market = self.star_system.market
+        self._trading_window.cargo_hold = self.player.ship.cargo_hold
+        self._trading_window.bank_account = self.player.bank_account
+        self.add_child(self._trading_window)
+
+    self._trading_window.show()
+    self._trading_window.grab_focus()
 
 func _on_missions_button_pressed() -> void:
     pass # Replace with function body.
