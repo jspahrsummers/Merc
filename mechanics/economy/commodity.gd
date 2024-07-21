@@ -1,10 +1,7 @@
-extends Resource
+extends TradeAsset
 class_name Commodity
 
-## Represents a commodity that can be traded.
-
-## The human-readable name for this asset.
-@export var name: String
+## Represents a physical commodity that can be traded.
 
 ## The [b]in-game mass[/b] per one unit of this item, in kg.
 ##

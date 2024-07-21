@@ -5,3 +5,4 @@
 [resource]
 script = ExtResource("1_cgggo")
 name = "Credits"
+granularity = 100

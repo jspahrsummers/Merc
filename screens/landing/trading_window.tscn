@@ -18,11 +18,10 @@
 [ext_resource type="Resource" uid="uid://b764gd8q3il6s" path="res://mechanics/economy/currencies/credits.tres" id="15_5n2yb"]
 [ext_resource type="Script" path="res://mechanics/economy/market.gd" id="16_so5ie"]
 
-[sub_resource type="Resource" id="Resource_8hrp6"]
+[sub_resource type="Resource" id="Resource_a521o"]
 script = ExtResource("16_so5ie")
-main_currency = ExtResource("15_5n2yb")
-currencies = {}
-commodities = {
+money = ExtResource("15_5n2yb")
+trade_assets = {
 ExtResource("2_dakxn"): 1200,
 ExtResource("3_crfro"): 4700,
 ExtResource("4_glq0v"): 976500,
@@ -41,10 +40,10 @@ ExtResource("14_fr06c"): 215600
 [node name="TradingWindow" type="Window" node_paths=PackedStringArray("tab_container", "commodities_container", "currencies_container")]
 title = "Trade Computer"
 initial_position = 1
-size = Vector2i(500, 300)
+size = Vector2i(600, 300)
 transient = true
 script = ExtResource("1_b1kwq")
-market = SubResource("Resource_8hrp6")
+market = SubResource("Resource_a521o")
 tab_container = NodePath("PanelContainer/TabContainer")
 commodities_container = NodePath("PanelContainer/TabContainer/Commodities/MarginContainer/VBoxContainer")
 currencies_container = NodePath("PanelContainer/TabContainer/Currencies/MarginContainer/VBoxContainer")
