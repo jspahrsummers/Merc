@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Commodity" load_steps=2 format=3 uid="uid://detw7hkt8hr2l"]
+
+[ext_resource type="Script" path="res://mechanics/economy/commodity.gd" id="1_5a32j"]
+
+[resource]
+script = ExtResource("1_5a32j")
+mass = 0.001
+volume = 0.01
+name = "Scrip"
+granularity = 100

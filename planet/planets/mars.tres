@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("2_i8uee")
 name = "Mars"
-facilities = 33
+facilities = 35
 landscape_image = ExtResource("1_u4fm6")
 description = "As your ship descends through the atmosphere, a vast desert terrain unfolds before you. Towering red cliffs rise sharply from the barren plains, their jagged peaks reaching toward the sky. The ground is a mix of rusty red sand and scattered boulders, suggesting a harsh and unforgiving environment.
 

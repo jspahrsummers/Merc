@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_duw21")
 name = "Earth"
-facilities = 33
+facilities = 35
 landscape_image = ExtResource("1_26rl7")
 description = "As your spacecraft descends, the vast blue expanse of Earth fills your view. Swirling white clouds dance across the planet's surface, revealing glimpses of deep azure oceans and the varied textures of continents below. The curve of the horizon reminds you of the planet's immense scale, yet also of its fragility - a precious oasis suspended in the inky blackness of space.
 

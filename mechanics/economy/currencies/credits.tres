@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Currency" load_steps=2 format=3 uid="uid://b764gd8q3il6s"]
+
+[ext_resource type="Script" path="res://mechanics/economy/currency.gd" id="1_cgggo"]
+
+[resource]
+script = ExtResource("1_cgggo")
+name = "Credits"
+granularity = 100

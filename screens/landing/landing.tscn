@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://d1kbmfvjs6nrv"]
+[gd_scene load_steps=7 format=3 uid="uid://d1kbmfvjs6nrv"]
 
 [ext_resource type="Script" path="res://screens/landing/landing.gd" id="1_h6plc"]
 [ext_resource type="AudioStream" uid="uid://bbxl7rk2jq5qi" path="res://screens/landing/audio/HangarDoors.ogg" id="2_g2uae"]
 [ext_resource type="Script" path="res://screens/landing/spaceport_bar.gd" id="2_k5nxq"]
+[ext_resource type="PackedScene" uid="uid://dpihtkm0u6kmb" path="res://screens/landing/trading_window.tscn" id="4_ci831"]
 
 [sub_resource type="Resource" id="Resource_4dtn6"]
 resource_local_to_scene = true
@@ -26,6 +27,7 @@ refuel_button = NodePath("PanelContainer/VBoxContainer/HFlowContainer/RefuelButt
 landscape_image = NodePath("PanelContainer/VBoxContainer/HBoxContainer/TextureRect")
 description_label = NodePath("PanelContainer/VBoxContainer/HBoxContainer/MarginContainer/DescriptionLabel")
 bar_dialog = NodePath("BarDialog")
+trading_window_scene = ExtResource("4_ci831")
 spaceport_bar = SubResource("Resource_4dtn6")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
