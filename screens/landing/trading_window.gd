@@ -12,6 +12,7 @@ var cargo_hold: CargoHold
 var bank_account: BankAccount
 
 var _quantity_labels_by_trade_asset: Dictionary = {}
+var _trade_buttons_by_trade_asset: Dictionary = {}
 
 func _ready() -> void:
     var has_commodities := false
@@ -48,8 +49,10 @@ func _ready() -> void:
         self._quantity_labels_by_trade_asset[trade_asset] = quantity_label
         container.add_child(quantity_label)
 
-        # TODO: Connect buttons
         var buttons: TradeButtons = self.trade_buttons_scene.instantiate()
+        buttons.buy_button.pressed.connect(func() -> void: self._buy(trade_asset))
+        buttons.sell_button.pressed.connect(func() -> void: self._sell(trade_asset))
+        self._trade_buttons_by_trade_asset[trade_asset] = buttons
         container.add_child(buttons)
 
     self.tab_container.tabs_visible = has_commodities and has_currencies
@@ -63,6 +66,15 @@ func _on_close_requested() -> void:
 
 func _update_quantity_labels() -> void:
     for trade_asset: TradeAsset in self.market.trade_assets:
-        var cargo_label: Label = self._quantity_labels_by_trade_asset[trade_asset]
-        var cargo: int = self.cargo_hold.commodities.get(trade_asset, 0)
-        cargo_label.text = str(cargo) if cargo else ""
+        var quantity_label: Label = self._quantity_labels_by_trade_asset[trade_asset]
+        var quantity: int = trade_asset.current_amount(self.cargo_hold, self.bank_account)
+        quantity_label.text = str(quantity) if quantity else ""
+
+func _update_trade_buttons() -> void:
+    pass
+
+func _buy(trade_asset: TradeAsset) -> void:
+    pass
+
+func _sell(trade_asset: TradeAsset) -> void:
+    pass
