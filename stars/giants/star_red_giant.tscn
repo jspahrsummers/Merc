@@ -11,5 +11,4 @@ light_energy = 15.0
 omni_range = 40.0
 
 [node name="Sprite3D" parent="." index="1"]
-pixel_size = 0.005
 texture = ExtResource("2_ift00")
