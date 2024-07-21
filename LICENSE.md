@@ -33,8 +33,35 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 - planet_02
 - planet_03
 - planet_04
+- planet_06
+- planet_07
+- planet_08
+- planet_09
+- planet_10
+- planet_11
+- planet_16
+- planet_17
+- planet_18
+- planet_19
+- planet_20
 - planet_23
+- planet_26
+- planet_28
+- planet_29
+- planet_30
+- planet_32
+- planet_33
+- planet_35
+- planet_36
 - planet_37
+- planet_39
+- planet_41
+- planet_42
+- planet_43
+- planet_44
+- planet_45
+- planet_47
+- planet_48
 
 [Explosion sprites](https://matty77.itch.io/explosion-sprite-asset-pack) created by [Matt Lloyd](https://matty77.itch.io/), released with the license:
 > - You CAN use this asset pack for commercial and/or personal projects;
