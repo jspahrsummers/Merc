@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=61 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperspace_scene_switcher.gd" id="4_yyrkm"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://fx/starfield/starfield_parallax.gd" id="8_ueist"]
 [ext_resource type="Script" path="res://fx/main_camera.gd" id="9_v2hcn"]
 [ext_resource type="Script" path="res://fx/hyperspace/hyperspace_effect.gd" id="10_23l1d"]
+[ext_resource type="Script" path="res://mechanics/physics/rigid_body_cargo.gd" id="10_w7kut"]
+[ext_resource type="Script" path="res://mechanics/economy/cargo_hold.gd" id="11_ag0i7"]
 [ext_resource type="AudioStream" uid="uid://cmjfgigj57eie" path="res://fx/hyperspace/teleport_02_slowed.ogg" id="11_tu1c7"]
 [ext_resource type="PackedScene" uid="uid://dsuln1s4j366a" path="res://ships/corvette01/corvette01.tscn" id="12_bj83b"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperdrive.gd" id="13_q2g24"]
@@ -62,6 +64,10 @@ resource_local_to_scene = true
 script = ExtResource("15_sjw8q")
 max_power = 300.0
 power = 300.0
+
+[sub_resource type="Resource" id="Resource_bsv1l"]
+script = ExtResource("11_ag0i7")
+max_volume = 10.0
 
 [sub_resource type="Resource" id="Resource_p0y82"]
 resource_local_to_scene = true
@@ -163,6 +169,7 @@ shield = SubResource("Resource_rwdpp")
 [node name="PlayerCorvette" parent="HyperspaceSceneSwitcher/Sol" node_paths=PackedStringArray("hyperdrive_system") instance=ExtResource("12_bj83b")]
 physics_material_override = null
 hyperdrive_system = NodePath("HyperdriveSystem")
+cargo_hold = SubResource("Resource_bsv1l")
 
 [node name="CombatObject" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="3"]
 shield = SubResource("Resource_p0y82")
@@ -203,6 +210,10 @@ remote_path = NodePath("../../../../../StarfieldTransform")
 
 [node name="TakeoffSound" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" index="3"]
 pitch_scale = 2.0
+
+[node name="RigidBodyCargo" type="Node3D" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette"]
+script = ExtResource("10_w7kut")
+cargo_hold = SubResource("Resource_bsv1l")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("1_pqled")

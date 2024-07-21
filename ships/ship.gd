@@ -30,5 +30,8 @@ class_name Ship
 ## Any weapons mounted on this ship.
 @export var weapon_mounts: Array[WeaponMount]
 
+## An optional cargo hold for this ship.
+@export var cargo_hold: CargoHold
+
 func _to_string() -> String:
     return "Ship:%s (%s)" % [self.name, self.combat_object]
