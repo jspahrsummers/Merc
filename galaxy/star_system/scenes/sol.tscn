@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://2mdsbbko7baw"]
 
 [ext_resource type="Script" path="res://galaxy/star_system/star_system_instance.gd" id="1_6tnek"]
-[ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://stars/star_class_g.tscn" id="1_j8iws"]
+[ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://stars/base_star.tscn" id="1_j8iws"]
 [ext_resource type="Resource" uid="uid://cew4x137v08q" path="res://galaxy/star_system/star_systems/sol.tres" id="2_gs8wx"]
 [ext_resource type="PackedScene" uid="uid://b04hfgkcuq7k6" path="res://planet/planet_instance.tscn" id="3_7gpxn"]
 [ext_resource type="Resource" uid="uid://cmm0akidhocmo" path="res://planet/planets/earth.tres" id="3_qvwl4"]
