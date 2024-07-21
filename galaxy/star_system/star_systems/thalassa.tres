@@ -1,6 +1,28 @@
-[gd_resource type="Resource" script_class="StarSystem" load_steps=2 format=3 uid="uid://cu1wn7ldbgeej"]
+[gd_resource type="Resource" script_class="StarSystem" load_steps=12 format=3 uid="uid://cu1wn7ldbgeej"]
 
 [ext_resource type="Script" path="res://galaxy/star_system/star_system.gd" id="1_0hn02"]
+[ext_resource type="Resource" uid="uid://b764gd8q3il6s" path="res://mechanics/economy/currencies/credits.tres" id="1_add1a"]
+[ext_resource type="Script" path="res://mechanics/economy/market.gd" id="2_xwx77"]
+[ext_resource type="Resource" uid="uid://dd63q3wg4vrk" path="res://mechanics/economy/commodities/biological_samples.tres" id="3_fb44d"]
+[ext_resource type="Resource" uid="uid://bnw61s2hj8a0m" path="res://mechanics/economy/commodities/water.tres" id="4_56h02"]
+[ext_resource type="Resource" uid="uid://dnutrj5jdgiaj" path="res://mechanics/economy/commodities/food.tres" id="5_20rsd"]
+[ext_resource type="Resource" uid="uid://n8yvfo8aytg" path="res://mechanics/economy/commodities/luxury_goods.tres" id="6_gbnx7"]
+[ext_resource type="Resource" uid="uid://dhxbtnaoc1nuo" path="res://mechanics/economy/commodities/medical_supplies.tres" id="7_s2brr"]
+[ext_resource type="Resource" uid="uid://ccvds2nloqvwn" path="res://mechanics/economy/commodities/industrial_equipment.tres" id="8_ei3p8"]
+[ext_resource type="Resource" uid="uid://dl132ceubbcos" path="res://mechanics/economy/commodities/rare_earth_elements.tres" id="9_vsdb2"]
+
+[sub_resource type="Resource" id="Resource_h1m1b"]
+script = ExtResource("2_xwx77")
+money = ExtResource("1_add1a")
+trade_assets = {
+ExtResource("3_fb44d"): 3143.0,
+ExtResource("4_56h02"): 10.0,
+ExtResource("5_20rsd"): 68.0,
+ExtResource("6_gbnx7"): 5211.0,
+ExtResource("7_s2brr"): 2973.0,
+ExtResource("8_ei3p8"): 973.0,
+ExtResource("9_vsdb2"): 4121.0
+}
 
 [resource]
 script = ExtResource("1_0hn02")
@@ -8,4 +30,6 @@ name = &"Thalassa"
 connections = Array[StringName]([&"Sol"])
 position = Vector3(-0.5, -0.1, 2.7)
 scene_path = "res://galaxy/star_system/scenes/thalassa.tscn"
+market = SubResource("Resource_h1m1b")
+refueling_money = ExtResource("1_add1a")
 refueling_cost = 0

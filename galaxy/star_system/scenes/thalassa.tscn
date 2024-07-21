@@ -22,7 +22,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.34809, 2.08165e-12, 1.5688
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4962, 2.08165e-12, 3.09616)
 
 [node name="Gaia Prime" parent="." instance=ExtResource("5_p806y")]
-transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 1.5, -2.88144, 0, -12.6529)
+transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 1.5, -2.33977, 0, -9.75337)
 planet = ExtResource("6_a1qqt")
 
 [node name="Sprite3D" parent="Gaia Prime" index="1"]
@@ -30,7 +30,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 texture = ExtResource("7_ih7yq")
 
 [node name="Proteus" parent="." instance=ExtResource("5_p806y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.0507, 1.90735e-06, -6.91139)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.4024, 1.36424e-12, -5.03147)
 
 [node name="Sprite3D" parent="Proteus" index="1"]
 transform = Transform3D(-0.403865, 0, 0.914819, 0, 1, 0, -0.914819, 0, -0.403865, 0, -1, 0)
@@ -38,7 +38,7 @@ pixel_size = 0.002
 texture = ExtResource("8_o1nyb")
 
 [node name="Aeolus" parent="." instance=ExtResource("5_p806y")]
-transform = Transform3D(1.2, 0, 0, 0, 1, 0, 0, 0, 1.2, -18.983, 3.8147e-06, -18.8635)
+transform = Transform3D(1.2, 0, 0, 0, 1, 0, 0, 0, 1.2, -15.733, 3.8147e-06, -15.8206)
 planet = ExtResource("7_ffl6i")
 
 [node name="Sprite3D" parent="Aeolus" index="1"]
@@ -46,8 +46,8 @@ transform = Transform3D(-0.439641, 0, 0.898174, 0, 1, 0, -0.898173, 0, -0.439641
 texture = ExtResource("10_7gbi5")
 
 [editable path="Gaia Prime"]
-[editable path="Gaia Prime/Sprite3D/TargetOverlay"]
+[editable path="Gaia Prime/TargetOverlay"]
 [editable path="Proteus"]
-[editable path="Proteus/Sprite3D/TargetOverlay"]
+[editable path="Proteus/TargetOverlay"]
 [editable path="Aeolus"]
-[editable path="Aeolus/Sprite3D/TargetOverlay"]
+[editable path="Aeolus/TargetOverlay"]
