@@ -31,19 +31,14 @@ func _init() -> void:
 func _get_money() -> TradeAsset:
     return self.get_edited_object().money
 
-func _get_granularity() -> int:
-    var money := self._get_money()
-    return money.granularity if money else 1
-
 func _on_value_changed(trade_asset: TradeAsset, new_value: float) -> void:
     if self._updating:
         return
 
-    var price := roundi(new_value * self._get_granularity())
-    if price > 0:
-        self._value[trade_asset] = price
-    else:
+    if is_zero_approx(new_value):
         self._value.erase(trade_asset)
+    else:
+        self._value[trade_asset] = new_value
     
     self.emit_changed(self.get_edited_property(), self._value)
 
@@ -58,8 +53,8 @@ func _update_property() -> void:
             spinner.value = 1.0
             spinner.editable = false
         else:
-            spinner.step = 1.0 / self._get_granularity()
-            spinner.value = float(self._value.get(trade_asset, 0)) / self._get_granularity()
+            spinner.step = 1.0 if trade_asset is Commodity else 0.0
+            spinner.value = self._value.get(trade_asset, 0.0)
             spinner.editable = true
     
     self._updating = false

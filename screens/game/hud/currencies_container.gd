@@ -18,7 +18,7 @@ func _update() -> void:
             self._labels_by_currency.erase(currency)
 
     for currency: Currency in self.bank_account.currencies:
-        var amount: int = self.bank_account.currencies[currency]
+        var amount: float = self.bank_account.currencies[currency]
 
         var label: Label = self._labels_by_currency.get(currency)
         if label == null:
@@ -26,4 +26,4 @@ func _update() -> void:
             self.label_container.add_child(label)
             self._labels_by_currency[currency] = label
         
-        label.text = "%s %s" % [float(amount) / currency.granularity, currency.name.to_lower()]
+        label.text = "%s %s" % [amount, currency.name.to_lower()]

@@ -24,7 +24,7 @@ func _ready() -> void:
     trade_assets.sort_custom(func(a: TradeAsset, b: TradeAsset) -> bool: return a.name < b.name)
 
     for trade_asset: TradeAsset in trade_assets:
-        var price: int = self.market.trade_assets[trade_asset]
+        var price: float = self.market.trade_assets[trade_asset]
 
         var container: GridContainer
         if trade_asset is Currency:
@@ -42,7 +42,7 @@ func _ready() -> void:
         container.add_child(name_label)
 
         var price_label := Label.new()
-        price_label.text = "%s %s" % [float(price) / market.money.granularity, money_suffix]
+        price_label.text = "%s %s" % [price, money_suffix]
         container.add_child(price_label)
 
         var quantity_label := Label.new()
@@ -69,10 +69,10 @@ func _on_close_requested() -> void:
 func _update() -> void:
     for trade_asset: TradeAsset in self.market.trade_assets:
         var quantity_label: Label = self._quantity_labels_by_trade_asset[trade_asset]
-        var quantity: int = trade_asset.current_amount(self.cargo_hold, self.bank_account)
-        quantity_label.text = str(quantity) if quantity else ""
+        var quantity := trade_asset.current_amount(self.cargo_hold, self.bank_account)
+        quantity_label.text = "" if is_zero_approx(quantity) else str(quantity)
 
-        var can_pay: bool = self.market.money.current_amount(self.cargo_hold, self.bank_account) >= self.market.trade_assets[trade_asset]
+        var can_pay: bool = self.market.money.current_amount(self.cargo_hold, self.bank_account) - self.market.trade_assets[trade_asset] >= Currency.EPSILON
 
         var can_carry: bool = true
         var commodity := trade_asset as Commodity

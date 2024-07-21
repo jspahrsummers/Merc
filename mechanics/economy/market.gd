@@ -8,7 +8,7 @@ class_name Market
 ## This is most commonly a [Currency], but frontier worlds might prefer to trade in physical commodities instead.
 @export var money: TradeAsset
 
-## Any assets that can be traded at the market, structured as a dictionary of [TradeAsset] keys to [int] prices.
+## Any assets that can be traded at the market, structured as a dictionary of [TradeAsset] keys to [float] prices.
 ##
-## Prices are units of [member money] multiplied by the money's [member TradeAsset.granularity].
+## Prices are units of [member money].
 @export var trade_assets: Dictionary

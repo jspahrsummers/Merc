@@ -25,7 +25,7 @@ class_name StarSystem
 ## If [member refueling_cost] is 0, refueling is free and this property is ignored.
 @export var refueling_money: TradeAsset
 
-## The cost (per unit of hyperspace fuel) to refuel in this system, in units of [member refueling_money] multiplied by the money's [member TradeAsset.granularity].
+## The cost (per unit of hyperspace fuel) to refuel in this system, in units of [member refueling_money].
 @export var refueling_cost: int
 
 ## A weak reference to the [Galaxy] that this system is part of.
