@@ -19,6 +19,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.8458, 0, -0.921964)
 planet = ExtResource("5_ls4hq")
 
 [node name="Sprite3D" parent="Aethoria" index="1"]
+transform = Transform3D(-0.210267, 0, -0.977644, 0, 1, 0, 0.977644, 0, -0.210267, 0, -1, 0)
 texture = ExtResource("6_lxy5c")
 
 [editable path="Aethoria"]
