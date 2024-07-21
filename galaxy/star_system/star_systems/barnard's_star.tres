@@ -8,3 +8,4 @@ name = &"Barnard\'s Star"
 connections = Array[StringName]([&"Sol"])
 position = Vector3(-3, 2.08165e-12, 2.08165e-12)
 scene_path = "res://galaxy/star_system/scenes/barnard's_star.tscn"
+refueling_cost = 0
