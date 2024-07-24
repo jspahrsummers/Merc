@@ -10,6 +10,7 @@ class_name Player
 @export var landing_scene: PackedScene
 @export var takeoff_sound: AudioStreamPlayer
 @export var bank_account: BankAccount
+@export var calendar: Calendar
 
 @onready var ship := get_parent() as Ship
 
@@ -229,6 +230,7 @@ func _land() -> void:
         self._depart_from_planet())
 
 func _depart_from_planet() -> void:
+    self.calendar.increment_kilocycle()
     self._reset_controls()
     self._reset_velocity()
     self.takeoff_sound.play()
