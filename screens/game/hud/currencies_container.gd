@@ -23,6 +23,7 @@ func _update() -> void:
         var label: Label = self._labels_by_currency.get(currency)
         if label == null:
             label = Label.new()
+            label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
             self.label_container.add_child(label)
             self._labels_by_currency[currency] = label
         
