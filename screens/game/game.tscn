@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=69 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperspace_scene_switcher.gd" id="4_yyrkm"]
@@ -47,6 +47,8 @@
 [ext_resource type="Script" path="res://screens/game/hud/currencies_container.gd" id="41_7ygkq"]
 [ext_resource type="Script" path="res://mechanics/economy/bank_account.gd" id="42_g774c"]
 [ext_resource type="Script" path="res://screens/game/hud/cargo_container.gd" id="44_e80r5"]
+[ext_resource type="Script" path="res://screens/game/hud/time_label.gd" id="45_4kcdo"]
+[ext_resource type="Script" path="res://mechanics/time/calendar.gd" id="46_cos1s"]
 
 [sub_resource type="Resource" id="Resource_rwdpp"]
 resource_local_to_scene = true
@@ -151,6 +153,10 @@ texture_margin_left = 14.0
 texture_margin_top = 10.0
 texture_margin_right = 15.0
 texture_margin_bottom = 10.0
+
+[sub_resource type="Resource" id="Resource_jc1pg"]
+script = ExtResource("46_cos1s")
+current_kilocycle = 214
 
 [node name="Game" type="Node3D"]
 
@@ -602,6 +608,24 @@ layout_mode = 2
 layout_mode = 2
 text = "10L free"
 horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimeContainer" type="PanelContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TimeContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TimeContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TimeLabel" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TimeContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "123 GST"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("45_4kcdo")
+calendar = SubResource("Resource_jc1pg")
 
 [node name="MessageLog" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer" node_paths=PackedStringArray("new_message_audio")]
 layout_mode = 2
