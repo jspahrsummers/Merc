@@ -51,7 +51,6 @@
 [ext_resource type="Script" path="res://mechanics/time/calendar.gd" id="46_cos1s"]
 
 [sub_resource type="Resource" id="Resource_jc1pg"]
-resource_local_to_scene = true
 script = ExtResource("46_cos1s")
 current_kilocycle = 214
 
@@ -218,6 +217,7 @@ hyperdrive = SubResource("Resource_xnk78")
 hyperspace_scene_switcher = NodePath("../../..")
 message_log = NodePath("../../../../InGameGUI/MarginContainer/HBoxContainer/MessageLog")
 bank_account = SubResource("Resource_j1y8s")
+calendar = SubResource("Resource_jc1pg")
 
 [node name="MinimapCameraRemoteTransform" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" index="0"]
 remote_path = NodePath("../../../../../MinimapViewport/MinimapCameraTransform")
