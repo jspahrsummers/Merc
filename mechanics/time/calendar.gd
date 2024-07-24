@@ -30,7 +30,13 @@ const TIMEKEEPING_STARTING_YEAR = 2050
 const MAX_RANDOM_CYCLE_OFFSET = 900
 
 ## The current (integral) kilocycle in game.
-@export var current_kilocycle: int = 214 # ~4830 CE
+@export var current_kilocycle: int = 214: # ~4830 CE
+    set(value):
+        if value == current_kilocycle:
+            return
+
+        current_kilocycle = value
+        self.emit_changed()
 
 ## The millisecond tick when the current kilocycle started, used to calculate the current (sub-kilocycle) cycle.
 var _current_kilocycle_start_ticks_msec: int
@@ -51,8 +57,9 @@ func _reset_cycle() -> void:
 ##
 ## Also resets the current cycle count [i]within[/i] the kilocycle.
 func increment_kilocycle(delta: int=1) -> void:
-    self.current_kilocycle += delta
+    # Reset cycle first, since changing the current kilocycle will fire the changed signal.
     self._reset_cycle()
+    self.current_kilocycle += delta
 
 ## Returns the number of cycles that have passed [i]within[/i] the current kilocycle.
 func get_current_cycle() -> float:
