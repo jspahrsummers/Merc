@@ -18,13 +18,13 @@ class_name GalaxyMapCamera
 ## The radius of the sphere along which the camera should move, when rotated.
 ##
 ## Increasing this value zooms out the camera, while decreasing it zooms in.
-@export var radius: float = 10.0
+@export var radius: float = 7.5
 
 ## The minimum radius the camera is allowed to zoom in to.
 @export var min_radius: float = 5.0
 
 ## The maximum radius the camera is allowed to zoom out to.
-@export var max_radius: float = 20.0
+@export var max_radius: float = 10.0
 
 ## How much relative mouse motion should translate into camera rotation.
 @export var mouse_sensitivity: float = 0.005
@@ -55,7 +55,7 @@ func _input(event: InputEvent) -> void:
         self._set_radius(self.radius + pan.delta.y)
         self._update_camera_position()
         self.get_viewport().set_input_as_handled()
-    
+
     if event.is_action_pressed("camera_zoom_in"):
         self._set_radius(self.radius - self.zoom_sensitivity)
         self._update_camera_position()
@@ -74,6 +74,6 @@ func _update_camera_position() -> void:
     var x := self.radius * sin(self._theta) * cos(self._phi)
     var y := self.radius * sin(self._phi)
     var z := self.radius * cos(self._theta) * cos(self._phi)
-    
+
     self.transform.origin = Vector3(x, y, z) + self.center
     self.look_at(self.center, Vector3.UP)
