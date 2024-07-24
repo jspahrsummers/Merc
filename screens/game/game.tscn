@@ -52,7 +52,6 @@
 
 [sub_resource type="Resource" id="Resource_jc1pg"]
 script = ExtResource("46_cos1s")
-current_kilocycle = 214
 
 [sub_resource type="Resource" id="Resource_rwdpp"]
 resource_local_to_scene = true

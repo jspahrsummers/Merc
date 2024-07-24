@@ -56,6 +56,9 @@ var _rigid_body_turner: RigidBodyTurner
 ## When using the "absolute" control scheme, this is the tolerance (in radians) for being slightly off-rotated while enabling thrusters.
 const ABSOLUTE_DIRECTION_TOLERANCE_RAD = 0.1745
 
+## The approximate number of days that should pass with each planetary landing.
+const PLANET_LANDING_APPROXIMATE_DAYS = 1
+
 # TODO: Put this somewhere better (per ship?)
 const HYPERSPACE_ARRIVAL_RADIUS = 8.0
 const MAX_LANDING_DISTANCE = 2.0
@@ -230,7 +233,7 @@ func _land() -> void:
         self._depart_from_planet())
 
 func _depart_from_planet() -> void:
-    self.calendar.increment_kilocycle()
+    self.calendar.pass_approximate_days(PLANET_LANDING_APPROXIMATE_DAYS)
     self._reset_controls()
     self._reset_velocity()
     self.takeoff_sound.play()
