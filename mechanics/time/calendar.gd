@@ -63,4 +63,4 @@ func get_current_cycle() -> float:
 
 ## Formats the current GST timestamp as a string, suitable for presentation.
 func get_gst() -> String:
-    return "%d.%04.4f GST" % [self.current_kilocycle, self.get_current_cycle()]
+    return "%d.%03.3f GST" % [self.current_kilocycle, self.get_current_cycle()]
