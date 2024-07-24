@@ -24,50 +24,43 @@ const ROTATIONS_PER_CYCLE = 2686610
 ## The year (CE) that GST timekeeping began.
 const TIMEKEEPING_STARTING_YEAR = 2050
 
-## When [method increment_kilocycle] is called, the current cycle ([member get_current_cycle]) is reset, then offset by a random amount up to this bound.
-##
-## This is used to give players more interesting timestamps, instead of the cycle always starting at 0.
-const MAX_RANDOM_CYCLE_OFFSET = 900
+## The maximum random variance in cycles to add or subtract when time passes.
+const TIME_PASSING_RANDOMNESS = 0.1
 
-## The current (integral) kilocycle in game.
-@export var current_kilocycle: int = 214: # ~4830 CE
+## The in-game cycle in GST, [i]without[/i] accounting for how many ticks have passed in the game engine.
+var _base_cycle: float:
     set(value):
-        if value == current_kilocycle:
+        if value == _base_cycle:
             return
 
-        current_kilocycle = value
+        _base_cycle = value
         self.emit_changed()
 
-## The millisecond tick when the current kilocycle started, used to calculate the current (sub-kilocycle) cycle.
-var _current_kilocycle_start_ticks_msec: int
-
-## The random offset to add to the current cycle, to make timestamps more interesting.
-##
-## See [constant MAX_RANDOM_CYCLE_OFFSET]
-var _current_cycle_offset: float
+## The millisecond tick when the calendar started timekeeping.
+var _calendar_start_ticks_msec: int
 
 func _init() -> void:
-    self._reset_cycle()
+    self._calendar_start_ticks_msec = Time.get_ticks_msec()
+    self._base_cycle = 214000 + randf_range(0, 999) # ~4830 CE
 
-func _reset_cycle() -> void:
-    self._current_kilocycle_start_ticks_msec = Time.get_ticks_msec()
-    self._current_cycle_offset = randf_range(0, MAX_RANDOM_CYCLE_OFFSET)
+## Advances the in-game clock by approximately the given number of [param days] (converted to GST).
+func pass_approximate_days(days: float) -> void:
+    var cycles_to_pass := days * 24 * randf_range(1 - TIME_PASSING_RANDOMNESS, 1 + TIME_PASSING_RANDOMNESS)
+    self._base_cycle += cycles_to_pass
 
-## Move forward the kilocycle counter by the given [param delta].
-##
-## Also resets the current cycle count [i]within[/i] the kilocycle.
-func increment_kilocycle(delta: int=1) -> void:
-    # Reset cycle first, since changing the current kilocycle will fire the changed signal.
-    self._reset_cycle()
-    self.current_kilocycle += delta
-
-## Returns the number of cycles that have passed [i]within[/i] the current kilocycle.
+## Returns the current in-game cycle in GST, including accounting for actual (wall-clock) time that has passed in the game engine.
 func get_current_cycle() -> float:
-    var msec_passed := Time.get_ticks_msec() - self._current_kilocycle_start_ticks_msec
+    var msec_passed := Time.get_ticks_msec() - self._calendar_start_ticks_msec
     var rotations := msec_passed / PULSAR_ROTATION_PERIOD_MSEC
-    var cycles := rotations / ROTATIONS_PER_CYCLE
-    return cycles + self._current_cycle_offset
+    var cycle_offset := rotations / ROTATIONS_PER_CYCLE
+    return self._base_cycle + cycle_offset
 
 ## Formats the current GST timestamp as a string, suitable for presentation.
 func get_gst() -> String:
-    return "%d.%03.3f GST" % [self.current_kilocycle, self.get_current_cycle()]
+    var current_cycle := self.get_current_cycle()
+
+    var kilocycles := int(current_cycle / 1000)
+    var cycles := int(current_cycle) % 1000
+    var millicycles := int((current_cycle - floorf(current_cycle)) * 1000)
+
+    return "%03d.%03d.%03d GST" % [kilocycles, cycles, millicycles]

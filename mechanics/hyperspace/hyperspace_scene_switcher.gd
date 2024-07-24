@@ -11,6 +11,9 @@ class_name HyperspaceSceneSwitcher
 ## The game [Calendar] to update when jumping, to represent time passing.
 @export var calendar: Calendar
 
+## The approximate number of days that should pass with each hyperspace jump.
+const HYPERSPACE_APPROXIMATE_TRAVEL_DAYS = 3
+
 ## Fires when the hyperspace destination has been loaded and added to the current scene, but before the full visual effect has finished.
 signal jump_destination_loaded(new_system_instance: StarSystemInstance)
 
@@ -58,7 +61,7 @@ func load_jump_destination() -> void:
     star_system_instance.add_child(player_ship)
     self.add_child(star_system_instance)
 
-    calendar.increment_kilocycle()
+    calendar.pass_approximate_days(HYPERSPACE_APPROXIMATE_TRAVEL_DAYS)
 
     self.hyperdrive_system.jump_destination = null
     self.jump_destination_loaded.emit(star_system_instance)
