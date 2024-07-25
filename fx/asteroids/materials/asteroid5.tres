@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://bmwo2lvolrpia"]
+
+[ext_resource type="Texture2D" uid="uid://bqmwgalnxswue" path="res://fx/asteroids/textures/Asteroid5_d.png" id="1_ad8iv"]
+[ext_resource type="Texture2D" uid="uid://6keqysucp0v3" path="res://fx/asteroids/textures/Asteroid5_n.png" id="2_s3wkw"]
+
+[resource]
+albedo_texture = ExtResource("1_ad8iv")
+normal_enabled = true
+normal_texture = ExtResource("2_s3wkw")

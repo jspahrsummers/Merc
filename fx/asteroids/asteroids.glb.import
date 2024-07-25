@@ -1,0 +1,138 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://dwdbyvepc3f70"
+path="res://.godot/imported/asteroids.glb-1a46b919ea1a762f671e57135a1d9f77.scn"
+
+[deps]
+
+source_file="res://fx/asteroids/asteroids.glb"
+dest_files=["res://.godot/imported/asteroids.glb-1a46b919ea1a762f671e57135a1d9f77.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+import_script/path=""
+_subresources={
+"meshes": {
+"asteroids_Asteroid1_LOD0": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://fx/asteroids/asteroid1_lod0.res"
+},
+"asteroids_Asteroid1_LOD1": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://fx/asteroids/asteroid1_lod1.res"
+},
+"asteroids_Asteroid2_LOD0": {
+"save_to_file/enabled": true,
+"save_to_file/path": "res://fx/asteroids/asteroid2_lod0.res"
+},
+"asteroids_Asteroid2_LOD1": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://fx/asteroids/asteroid2_lod1.res"
+},
+"asteroids_Asteroid3_LOD0": {
+"save_to_file/enabled": true,
+"save_to_file/path": "res://fx/asteroids/asteroid3_lod0.res"
+},
+"asteroids_Asteroid3_LOD1": {
+"save_to_file/enabled": true,
+"save_to_file/path": "res://fx/asteroids/asteroid3_lod1.res"
+},
+"asteroids_Asteroid4_LOD0": {
+"save_to_file/enabled": true,
+"save_to_file/path": "res://fx/asteroids/asteroid4_lod0.res"
+},
+"asteroids_Asteroid4_LOD1": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://fx/asteroids/asteroid4_lod1.res"
+},
+"asteroids_Asteroid5_LOD0": {
+"save_to_file/enabled": true,
+"save_to_file/path": "res://fx/asteroids/asteroid5_lod0.res"
+},
+"asteroids_Asteroid5_LOD1": {
+"save_to_file/enabled": true,
+"save_to_file/path": "res://fx/asteroids/asteroid5_lod1.res"
+},
+"asteroids_Asteroid6_LOD0": {
+"save_to_file/enabled": true,
+"save_to_file/path": "res://fx/asteroids/asteroid6_lod0.res"
+},
+"asteroids_Asteroid6_LOD1": {
+"generate/lightmap_uv": 0,
+"generate/lods": 0,
+"generate/shadow_meshes": 0,
+"lods/normal_merge_angle": 60.0,
+"lods/normal_split_angle": 25.0,
+"save_to_file/enabled": true,
+"save_to_file/make_streamable": "",
+"save_to_file/path": "res://fx/asteroids/asteroid6_lod1.res"
+}
+},
+"nodes": {
+"PATH:Asteroid2_LOD0": {
+"import/skip_import": true
+},
+"PATH:Asteroid3_LOD0": {
+"import/skip_import": true
+},
+"PATH:Asteroid3_LOD1": {
+"import/skip_import": true
+},
+"PATH:Asteroid4_LOD0": {
+"import/skip_import": true
+},
+"PATH:Asteroid5_LOD0": {
+"import/skip_import": true
+},
+"PATH:Asteroid5_LOD1": {
+"import/skip_import": true
+},
+"PATH:Asteroid6_LOD0": {
+"import/skip_import": true
+}
+}
+}
+gltf/naming_version=1
+gltf/embedded_image_handling=1

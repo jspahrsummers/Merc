@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://do1lgkbarri7w"]
+
+[ext_resource type="PackedScene" uid="uid://ctl80l3gscqe5" path="res://fx/asteroids/asteroid1.tscn" id="1_8hnll"]
+[ext_resource type="ArrayMesh" uid="uid://djxe4lnj0t0iy" path="res://fx/asteroids/meshes/asteroid4_lod1.res" id="2_bo4xf"]
+
+[node name="Asteroid" instance=ExtResource("1_8hnll")]
+
+[node name="MeshInstance3D" parent="." index="0"]
+mesh = ExtResource("2_bo4xf")
