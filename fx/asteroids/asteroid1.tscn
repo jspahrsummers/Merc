@@ -3,7 +3,7 @@
 [ext_resource type="ArrayMesh" uid="uid://egjrnflmbqnp" path="res://fx/asteroids/meshes/asteroid1_lod0.res" id="1_yxbf8"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_rnydl"]
-radius = 0.37313
+radius = 0.396639
 
 [node name="Asteroid" type="Node3D"]
 

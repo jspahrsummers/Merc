@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dnq7vmwax8u7v"]
+[gd_scene load_steps=6 format=3 uid="uid://dnq7vmwax8u7v"]
 
 [ext_resource type="Script" path="res://galaxy/star_system/star_system_instance.gd" id="1_ibjbp"]
 [ext_resource type="Resource" uid="uid://clcig3aieyop5" path="res://galaxy/star_system/star_systems/sirius.tres" id="2_dc37m"]
 [ext_resource type="PackedScene" uid="uid://dkq1xlrnnxrtr" path="res://stars/main_sequence/star_class_a.tscn" id="3_30bsr"]
 [ext_resource type="PackedScene" uid="uid://clmjmlce3ufwg" path="res://stars/dwarfs/star_white_dwarf.tscn" id="4_0khyd"]
+[ext_resource type="PackedScene" uid="uid://dact6veey3lwy" path="res://fx/asteroids/asteroid_field.tscn" id="5_aah50"]
 
 [node name="Sirius" type="Node3D"]
 script = ExtResource("1_ibjbp")
@@ -14,3 +15,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.864, 0, -0.751286)
 
 [node name="Sirius B" parent="." instance=ExtResource("4_0khyd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.76327, 2.08165e-12, 3.25557)
+
+[node name="AsteroidField" parent="." instance=ExtResource("5_aah50")]
