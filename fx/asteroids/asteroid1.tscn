@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctl80l3gscqe5"]
+
+[ext_resource type="ArrayMesh" uid="uid://egjrnflmbqnp" path="res://fx/asteroids/meshes/asteroid1_lod0.res" id="1_yxbf8"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rnydl"]
+radius = 0.37313
+
+[node name="Asteroid" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.04, 0, 0, 0, 0.04, 0, 0, 0, 0.04, 0, 0, 0)
+mesh = ExtResource("1_yxbf8")
+blend_shapes/var1 = 0.0
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_rnydl")

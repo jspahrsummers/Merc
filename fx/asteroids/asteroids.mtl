@@ -1,0 +1,88 @@
+# Blender MTL File: 'asteroids.blend'
+# Material Count: 7
+
+newmtl A1
+Ns 98.039216
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd Asteroid1_d.png
+map_Bump  Asteroid1_n.png
+map_d  Asteroid1_d.png
+
+newmtl A2
+Ns 98.039216
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd Asteroid2_d.png
+map_Bump  Asteroid2_n.png
+map_d  Asteroid2_d.png
+
+newmtl A3
+Ns 98.039216
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd Asteroid3_d.png
+map_Bump  Asteroid3_n.png
+map_d  Asteroid3_d.png
+
+newmtl A4
+Ns 98.039216
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd Asteroid4_d.png
+map_Bump  Asteroid4_n.png
+map_d  Asteroid4_d.png
+
+newmtl A5
+Ns 98.039216
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd Asteroid5_d.png
+map_Bump  Asteroid5_n.png
+map_d  Asteroid5_d.png
+
+newmtl A6
+Ns 98.039216
+Ka 1.000000 1.000000 1.000000
+Kd 1.000000 1.000000 1.000000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd Asteroid6_d.png
+map_Bump  Asteroid6_n.png
+map_d  Asteroid6_d.png
+
+newmtl None
+Ns 0
+Ka 0.000000 0.000000 0.000000
+Kd 0.8 0.8 0.8
+Ks 0.8 0.8 0.8
+d 1
+illum 2
