@@ -5,6 +5,8 @@ var galaxy: Galaxy
 var dragging_system: StarSystem = null
 var creating_connection: StarSystem = null
 
+var _default_font := ThemeDB.fallback_font
+
 const SCALE = 20
 
 func _ready():
@@ -12,17 +14,17 @@ func _ready():
     update_galaxy_view()
 
 func _draw():
-    self.draw_set_transform(self.size / 2)
+    self.draw_set_transform(self.size / 2, 0, Vector2(2.0, 2.0))
 
     # Draw connections
     for system in galaxy.systems:
         for connection in system.connections:
             var connected_system = galaxy.get_system(connection)
             draw_line(Vector2(system.position.x, system.position.z) * SCALE, Vector2(connected_system.position.x, connected_system.position.z) * SCALE, Color.WHITE)
-    
+
     # Draw systems
     for system in galaxy.systems:
-        draw_circle(Vector2(system.position.x, system.position.z) * SCALE, 5, Color.WHITE)
+        draw_string(self._default_font, Vector2(system.position.x, system.position.z) * SCALE, system.name, HORIZONTAL_ALIGNMENT_CENTER)
 
 func _gui_input(event):
     if event is InputEventMouseButton:
@@ -43,7 +45,7 @@ func _gui_input(event):
             var clicked_system = get_system_at_position(event.position)
             if clicked_system:
                 creating_connection = clicked_system
-    
+
     elif event is InputEventMouseMotion:
         if dragging_system:
             dragging_system.position = event.position
