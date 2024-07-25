@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=69 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperspace_scene_switcher.gd" id="4_yyrkm"]
@@ -49,7 +49,6 @@
 [ext_resource type="Script" path="res://screens/game/hud/cargo_container.gd" id="44_e80r5"]
 [ext_resource type="Script" path="res://screens/game/hud/time_label.gd" id="45_4kcdo"]
 [ext_resource type="Script" path="res://mechanics/time/calendar.gd" id="46_cos1s"]
-[ext_resource type="PackedScene" uid="uid://dact6veey3lwy" path="res://fx/asteroids/asteroid_field.tscn" id="50_507ab"]
 
 [sub_resource type="Resource" id="Resource_jc1pg"]
 script = ExtResource("46_cos1s")
@@ -230,6 +229,9 @@ remote_path = NodePath("../../../../../StarfieldTransform")
 
 [node name="TakeoffSound" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" index="3"]
 pitch_scale = 2.0
+
+[node name="AudioListener3D" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" index="4"]
+current = false
 
 [node name="RigidBodyCargo" type="Node3D" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette"]
 script = ExtResource("10_w7kut")
@@ -651,8 +653,6 @@ text = "30 FPS
 "
 horizontal_alignment = 2
 script = ExtResource("37_e11x7")
-
-[node name="AsteroidField" parent="." instance=ExtResource("50_507ab")]
 
 [connection signal="jump_destination_loaded" from="HyperspaceSceneSwitcher" to="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" method="_on_jump_destination_loaded"]
 [connection signal="jump_destination_loaded" from="HyperspaceSceneSwitcher" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/SystemName" method="_on_jump_destination_loaded"]
