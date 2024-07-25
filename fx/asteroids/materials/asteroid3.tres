@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cmxyllk1cnbyx" path="res://fx/asteroids/textures/Asteroid3_n.png" id="2_xm2qx"]
 
 [resource]
+albedo_color = Color(0.587751, 0.587751, 0.587751, 1)
 albedo_texture = ExtResource("1_xhmvw")
 normal_enabled = true
 normal_texture = ExtResource("2_xm2qx")
