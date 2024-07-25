@@ -5,7 +5,6 @@ var _physics_bodies: Array[RID] = []
 const MAX_LINEAR_VELOCITY = 2.0
 const MAX_ANGULAR_VELOCITY = 3.0
 
-const MESH_SCALE = 0.03
 const SPHERE_SHAPE_RADIUS = 0.4
 
 func _ready() -> void:
@@ -32,5 +31,8 @@ func _ready() -> void:
     
 func _body_moved(state: PhysicsDirectBodyState3D, index: int) -> void:
     var mesh_transform := state.transform
-    mesh_transform.basis *= MESH_SCALE
+
+    # Overwrite the physics scale from the multimesh, because it gets lost for some reason otherwise.
+    mesh_transform.basis = mesh_transform.basis.scaled(multimesh.get_instance_transform(index).basis.get_scale())
+
     multimesh.set_instance_transform(index, mesh_transform)
