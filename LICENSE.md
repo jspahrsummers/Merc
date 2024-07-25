@@ -117,6 +117,26 @@ As mentioned before, the one stipulation is that these images aren’t to be use
 - target_overlay
 - selected_galaxy_node
 
+[Asteroids](https://gargore.itch.io/asteroids) created by [Gargore](https://www.gargore.com/), purchased for use in this project:
+- asteroids
+- asteroid1_lod0
+- asteroid1_lod1
+- asteroid2_lod1
+- asteroid4_lod1
+- asteroid6_lod1
+- Asteroid1_d
+- Asteroid1_n
+- Asteroid2_d
+- Asteroid2_n
+- Asteroid3_d
+- Asteroid3_n
+- Asteroid4_d
+- Asteroid4_n
+- Asteroid5_d
+- Asteroid5_n
+- Asteroid6_d
+- Asteroid6_n
+
 Graphics created by [Justin Spahr-Summers](https://github.com/jspahrsummers) for this project, using [Midjourney](https://www.midjourney.com/):
 - icon
 - planet landing images
