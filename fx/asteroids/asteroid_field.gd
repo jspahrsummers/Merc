@@ -2,8 +2,8 @@ extends MultiMeshInstance3D
 
 var _physics_bodies: Array[RID] = []
 
-const MAX_LINEAR_VELOCITY = 2.0
-const MAX_ANGULAR_VELOCITY = 3.0
+const MAX_LINEAR_VELOCITY = 1.5
+const MAX_ANGULAR_VELOCITY = 1.5
 
 const SPHERE_SHAPE_RADIUS = 0.4
 
