@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cghdtnx2qen2u"]
+[gd_scene load_steps=6 format=3 uid="uid://cghdtnx2qen2u"]
 
 [ext_resource type="Script" path="res://galaxy/star_system/star_system_instance.gd" id="1_pqej6"]
 [ext_resource type="Resource" uid="uid://shiglva7yxl0" path="res://galaxy/star_system/star_systems/barnard's_star.tres" id="2_y4tl8"]
 [ext_resource type="PackedScene" uid="uid://d27pdcik2lwf1" path="res://stars/main_sequence/star_class_m.tscn" id="3_cqasn"]
+[ext_resource type="PackedScene" uid="uid://ccdkamqw03rk7" path="res://fx/asteroids/multi_asteroid_field.tscn" id="5_x1i1i"]
 [ext_resource type="PackedScene" uid="uid://culoat6jnbwc8" path="res://actors/ai/pirate_frigate.tscn" id="9_xdjbl"]
 
 [node name="Barnard\'s Star" type="Node3D"]
@@ -14,3 +15,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.65429, 2.08165e-12, 11.1402
 
 [node name="PirateFrigate" parent="." instance=ExtResource("9_xdjbl")]
 transform = Transform3D(0.866897, -1.28496e-16, 0.498488, 3.48787e-16, 1, -3.48787e-16, -0.498488, 4.76228e-16, 0.866897, -8.39, 2.08165e-12, 1.15)
+
+[node name="AsteroidField" parent="." instance=ExtResource("5_x1i1i")]
