@@ -4,7 +4,7 @@
 [ext_resource type="Resource" uid="uid://clcig3aieyop5" path="res://galaxy/star_system/star_systems/sirius.tres" id="2_dc37m"]
 [ext_resource type="PackedScene" uid="uid://dkq1xlrnnxrtr" path="res://stars/main_sequence/star_class_a.tscn" id="3_30bsr"]
 [ext_resource type="PackedScene" uid="uid://clmjmlce3ufwg" path="res://stars/dwarfs/star_white_dwarf.tscn" id="4_0khyd"]
-[ext_resource type="PackedScene" uid="uid://dact6veey3lwy" path="res://fx/asteroids/asteroid_field.tscn" id="5_aah50"]
+[ext_resource type="PackedScene" uid="uid://ccdkamqw03rk7" path="res://fx/asteroids/multi_asteroid_field.tscn" id="5_aah50"]
 
 [node name="Sirius" type="Node3D"]
 script = ExtResource("1_ibjbp")
