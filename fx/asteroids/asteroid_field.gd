@@ -2,14 +2,17 @@ extends MultiMeshInstance3D
 
 var _physics_bodies: Array[RID] = []
 
-const MESH_SCALE = 0.02
+const MAX_LINEAR_VELOCITY = 2.0
+const MAX_ANGULAR_VELOCITY = 3.0
+
+const MESH_SCALE = 0.03
 const SPHERE_SHAPE_RADIUS = 0.4
 
 func _ready() -> void:
     for i in range(self.multimesh.instance_count):
         var mesh_transform := self.multimesh.get_instance_transform(i)
-        var linear_velocity := Vector3(randf(), 0.0, randf())
-        var angular_velocity := Vector3(randf(), randf(), randf())
+        var linear_velocity := Vector3(randf_range( - MAX_LINEAR_VELOCITY, MAX_LINEAR_VELOCITY), 0.0, randf_range( - MAX_LINEAR_VELOCITY, MAX_LINEAR_VELOCITY))
+        var angular_velocity := Vector3(randf_range( - MAX_ANGULAR_VELOCITY, MAX_ANGULAR_VELOCITY), randf_range( - MAX_ANGULAR_VELOCITY, MAX_ANGULAR_VELOCITY), randf_range( - MAX_ANGULAR_VELOCITY, MAX_ANGULAR_VELOCITY))
 
         var physics_body := PhysicsServer3D.body_create()
         PhysicsServer3D.body_set_mode(physics_body, PhysicsServer3D.BODY_MODE_RIGID)
