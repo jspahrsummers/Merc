@@ -98,6 +98,9 @@ def main() -> None:
 
             case "/exit" | "/quit":
                 sys.exit(0)
+            
+            case "/history":
+                console.print(*messages, sep='\n', style="info")
 
             case _:
                 console.print("Unrecognized command.", style="error")
