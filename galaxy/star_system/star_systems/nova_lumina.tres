@@ -1,11 +1,34 @@
-[gd_resource type="Resource" script_class="StarSystem" load_steps=4 format=3 uid="uid://ku5qjeo4jlkt"]
+[gd_resource type="Resource" script_class="StarSystem" load_steps=15 format=3 uid="uid://ku5qjeo4jlkt"]
 
 [ext_resource type="Script" path="res://galaxy/star_system/star_system.gd" id="1_j0i0x"]
 [ext_resource type="Script" path="res://mechanics/economy/market.gd" id="1_solmg"]
+[ext_resource type="Resource" uid="uid://cp0drexui8j6n" path="res://mechanics/economy/currencies/lumins.tres" id="1_tb2fi"]
+[ext_resource type="Resource" uid="uid://bnw61s2hj8a0m" path="res://mechanics/economy/commodities/water.tres" id="3_5t0m6"]
+[ext_resource type="Resource" uid="uid://dnutrj5jdgiaj" path="res://mechanics/economy/commodities/food.tres" id="4_rtq4r"]
+[ext_resource type="Resource" uid="uid://skhvwlendqx7" path="res://mechanics/economy/commodities/exotic_matter.tres" id="5_dfvel"]
+[ext_resource type="Resource" uid="uid://braihcb6cofi3" path="res://mechanics/economy/commodities/fusion_fuel.tres" id="6_2fo70"]
+[ext_resource type="Resource" uid="uid://ccvds2nloqvwn" path="res://mechanics/economy/commodities/industrial_equipment.tres" id="7_2dxnj"]
+[ext_resource type="Resource" uid="uid://dl132ceubbcos" path="res://mechanics/economy/commodities/rare_earth_elements.tres" id="8_s3opn"]
+[ext_resource type="Resource" uid="uid://dd63q3wg4vrk" path="res://mechanics/economy/commodities/biological_samples.tres" id="9_oangb"]
+[ext_resource type="Resource" uid="uid://n8yvfo8aytg" path="res://mechanics/economy/commodities/luxury_goods.tres" id="10_2w7fm"]
+[ext_resource type="Resource" uid="uid://dhxbtnaoc1nuo" path="res://mechanics/economy/commodities/medical_supplies.tres" id="11_xossq"]
+[ext_resource type="Resource" uid="uid://b764gd8q3il6s" path="res://mechanics/economy/currencies/credits.tres" id="12_x004m"]
 
 [sub_resource type="Resource" id="Resource_7y1hy"]
 script = ExtResource("1_solmg")
-trade_assets = {}
+money = ExtResource("1_tb2fi")
+trade_assets = {
+ExtResource("3_5t0m6"): 5,
+ExtResource("4_rtq4r"): 7,
+ExtResource("5_dfvel"): 1027,
+ExtResource("6_2fo70"): 28,
+ExtResource("7_2dxnj"): 31,
+ExtResource("8_s3opn"): 65,
+ExtResource("9_oangb"): 309,
+ExtResource("10_2w7fm"): 224,
+ExtResource("11_xossq"): 137,
+ExtResource("12_x004m"): 23.0
+}
 
 [resource]
 script = ExtResource("1_j0i0x")
@@ -14,4 +37,5 @@ connections = Array[StringName]([&"Zephyria", &"Wolf 359"])
 position = Vector3(-1.2, 0.4, -7.1)
 scene_path = "res://galaxy/star_system/scenes/nova_lumina.tscn"
 market = SubResource("Resource_7y1hy")
-refueling_cost = 0
+refueling_money = ExtResource("1_tb2fi")
+refueling_cost = 3
