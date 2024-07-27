@@ -1,13 +1,13 @@
 extends MultiMeshInstance3D
 
-var _physics_bodies: Array[RID] = []
+var _created_rids: Array[RID] = []
 
 const MAX_LINEAR_VELOCITY = 1.5
 const MAX_ANGULAR_VELOCITY = 1.5
 
 const SPHERE_SHAPE_RADIUS = 0.4
 
-func _ready() -> void:
+func _enter_tree() -> void:
     for i in range(self.multimesh.instance_count):
         var mesh_transform := self.multimesh.get_instance_transform(i)
         var linear_velocity := Vector3(randf_range( - MAX_LINEAR_VELOCITY, MAX_LINEAR_VELOCITY), 0.0, randf_range( - MAX_LINEAR_VELOCITY, MAX_LINEAR_VELOCITY))
@@ -23,11 +23,18 @@ func _ready() -> void:
         PhysicsServer3D.body_set_collision_layer(physics_body, 1)
         PhysicsServer3D.body_set_collision_mask(physics_body, 2)
         PhysicsServer3D.body_set_axis_lock(physics_body, PhysicsServer3D.BODY_AXIS_LINEAR_Y, true)
-        _physics_bodies.append(physics_body)
+        self._created_rids.append(physics_body)
 
         var shape := PhysicsServer3D.sphere_shape_create()
         PhysicsServer3D.shape_set_data(shape, SPHERE_SHAPE_RADIUS)
         PhysicsServer3D.body_add_shape(physics_body, shape, Transform3D.IDENTITY)
+        self._created_rids.append(shape)
+
+func _exit_tree() -> void:
+    for rid in self._created_rids:
+        PhysicsServer3D.free_rid(rid)
+
+    self._created_rids.clear()
     
 func _body_moved(state: PhysicsDirectBodyState3D, index: int) -> void:
     var mesh_transform := state.transform
