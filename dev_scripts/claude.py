@@ -88,14 +88,15 @@ def sample(messages: list[MessageParam], append_to_system_prompt: str | None = N
                 assert message.stop_sequence == "<file path=\""
 
                 assistant_turn = f"{message.content[0].text}<file path=\""
-                console.print("\nWriting a file…\n", style="info")
 
-                path_message = client.messages.create(model=MODEL, max_tokens=100, system=system_prompt, messages=[*messages, {"role": "assistant", "content": assistant_turn}], stop_sequences=["\">"])
-                assert path_message.content[0].type == "text"
-                file_path = path_message.content[0].text
-                assistant_turn += f"{file_path}\">"
+                with console.status("Writing a file…"):
+                    path_message = client.messages.create(model=MODEL, max_tokens=100, system=system_prompt, messages=[*messages, {"role": "assistant", "content": assistant_turn}], stop_sequences=["\">"])
+                    assert path_message.content[0].type == "text"
+                    file_path = path_message.content[0].text
+                    assistant_turn += f"{file_path}\">"
 
-                contents_message = client.messages.create(model=MODEL, max_tokens=4096, system=system_prompt, messages=[*messages, {"role": "assistant", "content": assistant_turn}], stop_sequences=["</file>"])
+                    contents_message = client.messages.create(model=MODEL, max_tokens=4096, system=system_prompt, messages=[*messages, {"role": "assistant", "content": assistant_turn}], stop_sequences=["</file>"])
+
                 console.print(contents_message.usage.to_json(indent=None), style="info")
                 if contents_message.stop_reason == "max_tokens":
                     console.print("\nReached max tokens.\n", style="info")
