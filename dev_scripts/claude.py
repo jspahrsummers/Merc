@@ -55,7 +55,9 @@ You have the ability to create new files or update existing files in-place. To w
 
 <file path="path/to/write.gd">
 ... file contents omitted for brevity ...
-</file>"""
+</file>
+
+Be concise in your answers and explanations."""
 
 def load_context_from_file(path: Path) -> str:
     contents = path.read_text()
