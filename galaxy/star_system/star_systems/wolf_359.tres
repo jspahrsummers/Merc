@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_go4uk")
 name = &"Wolf 359"
-connections = Array[StringName]([&"Alpha Centauri", &"Sirius"])
+connections = Array[StringName]([&"Alpha Centauri", &"Sirius", &"Nova Lumina"])
 position = Vector3(1, 2.08165e-12, -5)
 scene_path = "res://galaxy/star_system/scenes/wolf_359.tscn"
 refueling_cost = 0

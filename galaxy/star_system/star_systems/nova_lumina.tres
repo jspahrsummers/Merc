@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="StarSystem" load_steps=4 format=3 uid="uid://ku5qjeo4jlkt"]
+
+[ext_resource type="Script" path="res://galaxy/star_system/star_system.gd" id="1_j0i0x"]
+[ext_resource type="Script" path="res://mechanics/economy/market.gd" id="1_solmg"]
+
+[sub_resource type="Resource" id="Resource_7y1hy"]
+script = ExtResource("1_solmg")
+trade_assets = {}
+
+[resource]
+script = ExtResource("1_j0i0x")
+name = &"Nova Lumina"
+connections = Array[StringName]([&"Zephyria", &"Wolf 359"])
+position = Vector3(-1.2, 0.4, -7.1)
+scene_path = "res://galaxy/star_system/scenes/nova_lumina.tscn"
+market = SubResource("Resource_7y1hy")
+refueling_cost = 0

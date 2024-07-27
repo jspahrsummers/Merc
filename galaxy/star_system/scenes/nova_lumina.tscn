@@ -1,0 +1,55 @@
+[gd_scene load_steps=12 format=3 uid="uid://di4weo7brixhh"]
+
+[ext_resource type="Script" path="res://galaxy/star_system/star_system_instance.gd" id="1_fii8b"]
+[ext_resource type="Resource" uid="uid://ku5qjeo4jlkt" path="res://galaxy/star_system/star_systems/nova_lumina.tres" id="2_etutf"]
+[ext_resource type="PackedScene" uid="uid://d1sevq56wdchx" path="res://stars/main_sequence/star_class_b.tscn" id="3_kweak"]
+[ext_resource type="PackedScene" uid="uid://b04hfgkcuq7k6" path="res://planet/planet_instance.tscn" id="3_qge20"]
+[ext_resource type="Resource" uid="uid://ooe0w4eaywk3" path="res://planet/planets/lumina_prime.tres" id="4_mwi45"]
+[ext_resource type="Resource" uid="uid://duf1gpmd1ydk7" path="res://planet/planets/auroris.tres" id="5_kad6o"]
+[ext_resource type="Resource" uid="uid://cq4qs7xackj8j" path="res://planet/planets/novus.tres" id="6_anm5q"]
+[ext_resource type="Texture2D" uid="uid://ckj40oewie2rj" path="res://planet/sprites/planet_16.png" id="6_cyr6t"]
+[ext_resource type="Texture2D" uid="uid://ceccjdfupojph" path="res://planet/sprites/planet_30.png" id="8_7sr4w"]
+[ext_resource type="Texture2D" uid="uid://evirpay5c0bq" path="res://planet/sprites/planet_48.png" id="9_w331x"]
+[ext_resource type="Texture2D" uid="uid://b2qu75vy8ncsx" path="res://planet/sprites/planet_07.png" id="11_o76pq"]
+
+[node name="Nova Lumina" type="Node3D"]
+script = ExtResource("1_fii8b")
+star_system = ExtResource("2_etutf")
+
+[node name="Star Class B" parent="." instance=ExtResource("3_kweak")]
+
+[node name="Auroris" parent="." instance=ExtResource("3_qge20")]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 2, -1.1093, 0, -11.1902)
+planet = ExtResource("5_kad6o")
+
+[node name="Sprite3D" parent="Auroris" index="1"]
+texture = ExtResource("8_7sr4w")
+
+[node name="Lumina Prime" parent="." instance=ExtResource("3_qge20")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7791, 0, -2.37476)
+planet = ExtResource("4_mwi45")
+
+[node name="Sprite3D" parent="Lumina Prime" index="1"]
+texture = ExtResource("6_cyr6t")
+
+[node name="Stellara" parent="." instance=ExtResource("3_qge20")]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 2, -12.3399, 0, 15.6569)
+
+[node name="Sprite3D" parent="Stellara" index="1"]
+texture = ExtResource("9_w331x")
+
+[node name="Novus" parent="." instance=ExtResource("3_qge20")]
+transform = Transform3D(0.75, 0, 0, 0, 1, 0, 0, 0, 0.75, 13.69, 0, 19.5674)
+planet = ExtResource("6_anm5q")
+
+[node name="Sprite3D" parent="Novus" index="1"]
+texture = ExtResource("11_o76pq")
+
+[editable path="Auroris"]
+[editable path="Auroris/TargetOverlay"]
+[editable path="Lumina Prime"]
+[editable path="Lumina Prime/TargetOverlay"]
+[editable path="Stellara"]
+[editable path="Stellara/TargetOverlay"]
+[editable path="Novus"]
+[editable path="Novus/TargetOverlay"]

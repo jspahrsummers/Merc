@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Planet" load_steps=2 format=3 uid="uid://cq4qs7xackj8j"]
+
+[ext_resource type="Script" path="res://planet/planet.gd" id="1_gsf4u"]
+
+[resource]
+script = ExtResource("1_gsf4u")
+name = ""
+facilities = 39
+description = ""

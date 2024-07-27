@@ -19,7 +19,7 @@ ExtResource("5_fyoro"): 233.0
 [resource]
 script = ExtResource("1_psxkv")
 name = &"Zephyria"
-connections = Array[StringName]([&"Alpha Centauri"])
+connections = Array[StringName]([&"Alpha Centauri", &"Nova Lumina"])
 position = Vector3(-2.7, 0.5, -3)
 scene_path = "res://galaxy/star_system/scenes/zephyria.tscn"
 market = SubResource("Resource_6lhwe")
