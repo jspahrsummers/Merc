@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="Planet" load_steps=2 format=3 uid="uid://ooe0w4eaywk3"]
+[gd_resource type="Resource" script_class="Planet" load_steps=3 format=3 uid="uid://ooe0w4eaywk3"]
 
+[ext_resource type="Texture2D" uid="uid://dykye1817bbtj" path="res://screens/landing/images/1e0eb449-d57b-44cd-a3e9-33be96f079e1.jpg" id="1_5xi60"]
 [ext_resource type="Script" path="res://planet/planet.gd" id="1_8vuol"]
 
 [resource]
 script = ExtResource("1_8vuol")
-name = ""
+name = "Lumina Prime"
 facilities = 39
+landscape_image = ExtResource("1_5xi60")
 description = "As your ship breaks through the cloud layer of Lumina Prime, you're greeted by a world that seems to pulse with life and energy. The intense blue-white light of Nova Lumina's young star bathes the landscape in an almost ethereal glow, filtered through a shimmering, opalescent sky - a testament to the planet's advanced atmospheric engineering.
 
 Stretching out below you is a tapestry of vibrant colors. Vast oceans of deep azure are dotted with archipelagos of emerald islands. Continents boast a mix of lush, violet-tinged forests and golden grasslands, their unusual hues a result of native flora adapted to the intense stellar radiation. Winding rivers sparkle like silver threads, connecting a network of gleaming cities that seem to grow organically from the landscape.

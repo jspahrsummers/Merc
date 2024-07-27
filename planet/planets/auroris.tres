@@ -1,11 +1,13 @@
-[gd_resource type="Resource" script_class="Planet" load_steps=2 format=3 uid="uid://duf1gpmd1ydk7"]
+[gd_resource type="Resource" script_class="Planet" load_steps=3 format=3 uid="uid://duf1gpmd1ydk7"]
 
+[ext_resource type="Texture2D" uid="uid://ck5gmxfhw6i7" path="res://screens/landing/images/75c7ed5b-f828-48af-aad8-e77735774a4d.jpg" id="1_j5cvo"]
 [ext_resource type="Script" path="res://planet/planet.gd" id="1_m5fwf"]
 
 [resource]
 script = ExtResource("1_m5fwf")
-name = ""
+name = "Auroris"
 facilities = 63
+landscape_image = ExtResource("1_j5cvo")
 description = "As your ship descends through the thick, swirling atmosphere of Auroris, the true nature of this giant planet comes into stark relief. The planet's immense gravity tugs at your vessel, the inertial dampeners straining to compensate. Through the viewscreen, the landscape unfolds - a world of extremes bathed in the intense blue-white light of Nova Lumina's young star.
 
 Vast, ruby-red deserts stretch as far as the eye can see, their surfaces glittering with metal-rich sands. In the distance, you spot the shimmering mirages of shallow, acidic seas, their surfaces roiling with turbulent winds. The sky above is a thick blanket of rusty orange, occasionally split by arcs of lightning that dance between the heavy, roiling clouds.
