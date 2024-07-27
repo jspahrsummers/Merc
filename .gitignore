@@ -15,3 +15,6 @@ mono_crash.*.json
 
 # Build outputs folder
 build/
+
+# Python virtual environment
+.venv/
