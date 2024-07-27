@@ -5,10 +5,12 @@ from anthropic import Anthropic
 from anthropic.types import Message, MessageParam
 from dotenv import load_dotenv
 from pathlib import Path
+from rich.console import Console
 
 load_dotenv()
 
 client = Anthropic()
+console = Console()
 
 CONTEXT_PATHS = [
     'actors/**/*.gd',
@@ -51,8 +53,8 @@ def sample(messages: Iterable[MessageParam], append_to_system_prompt: str | None
 
     with client.messages.stream(model="claude-3-5-sonnet-20240620", max_tokens=4096, system=system_prompt, messages=messages) as stream:
         for text in stream.text_stream:
-            print(text, end='', flush=True)
-        print()
+            console.print(text, end='', style="dodger_blue2")
+        console.print()
 
         return stream.get_final_message()
 
@@ -62,22 +64,24 @@ def main() -> None:
     messages = []
     while True:
         try:
-            prompt = input('> ')
+            prompt = console.input('> ')
         except KeyboardInterrupt:
             return
         except EOFError:
             return
 
-        print()
+        console.print()
 
         user_message: MessageParam = {"role": "user", "content": prompt}
 
         try:
-            assistant_message = sample(messages + [user_message], append_to_system_prompt=f"Use these files from the project to help with your response:\n{project_context}")
+            with console.status("Sampling…"):
+                assistant_message = sample(messages + [user_message], append_to_system_prompt=f"Use these files from the project to help with your response:\n{project_context}")
+
             messages += [user_message, assistant_message]
-            print()
+            console.print()
         except KeyboardInterrupt:
-            print("\n\n[interrupted, discarding last turn]")
+            console.print("\n\n[interrupted, discarding last turn]", style="bright_black")
 
 if __name__ == '__main__':
     main()
