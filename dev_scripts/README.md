@@ -9,8 +9,8 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-Then run scripts as usual with Python:
+Then invoke scripts directly, from the repository root:
 
 ```sh
-python dev_scripts/some_script.py
+./dev_scripts/claude.py
 ```
