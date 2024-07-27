@@ -17,7 +17,7 @@ console_theme = Theme({
     "error": "rgb(215,0,0)",
     "assistant": "rgb(0,95,255)",
 })
-console = Console(theme=console_theme)
+console = Console(theme=console_theme, soft_wrap=True)
 
 client = Anthropic()
 
