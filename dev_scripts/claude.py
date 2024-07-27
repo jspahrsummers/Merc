@@ -66,13 +66,16 @@ def sample(messages: Iterable[MessageParam], append_to_system_prompt: str | None
 
 def main() -> None:
     paths = list(itertools.chain.from_iterable(Path('.').glob(path_glob) for path_glob in CONTEXT_PATHS))
-    project_context = load_context_from_paths(paths)
+    context = load_context_from_paths(paths)
     messages = []
 
     def handle_command(command: str) -> None:
         match command:
             case "/paths":
                 console.print(*paths, sep='\n', style="info")
+            
+            case "/context":
+                console.print(context, style="info")
 
             case "/exit" | "/quit":
                 sys.exit(0)
@@ -98,7 +101,7 @@ def main() -> None:
 
         try:
             with console.status("Sampling…"):
-                assistant_message = sample(messages + [user_message], append_to_system_prompt=f"Use these files from the project to help with your response:\n{project_context}")
+                assistant_message = sample(messages + [user_message], append_to_system_prompt=f"Use these files from the project to help with your response:\n{context}")
 
             messages += [user_message, assistant_message]
             console.print()
