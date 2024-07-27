@@ -1,10 +1,8 @@
 #!.venv/bin/python
 
+import atexit
 import itertools
-
-# Don't delete this import! Used by `rich`.
 import readline
-
 import sys
 from typing import Iterable
 from anthropic import Anthropic
@@ -132,6 +130,16 @@ def sample(messages: list[MessageParam], append_to_system_prompt: str | None = N
         return message.content[0].text
 
 def main() -> None:
+    histfile = Path(__file__).with_name(".claude_history")
+    try:
+        readline.read_history_file(histfile)
+        # default history len is -1 (infinite), which may grow unruly
+        readline.set_history_length(1000)
+    except FileNotFoundError:
+        pass
+
+    atexit.register(readline.write_history_file, histfile)
+
     paths = list(itertools.chain.from_iterable(Path('.').glob(path_glob) for path_glob in CONTEXT_PATHS))
     context = load_context_from_paths(paths)
     messages: list[MessageParam] = []

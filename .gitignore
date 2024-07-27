@@ -21,3 +21,6 @@ build/
 
 # Environment files
 .env*
+
+# claude.py history file
+.claude_history
