@@ -1,16 +1,25 @@
 #!.venv/bin/python
 
-from typing import Iterable
+import itertools
+import sys
+from typing import Iterable, Iterator
 from anthropic import Anthropic
 from anthropic.types import Message, MessageParam
 from dotenv import load_dotenv
 from pathlib import Path
 from rich.console import Console
+from rich.theme import Theme
 
 load_dotenv()
 
+console_theme = Theme({
+    "info": "rgb(127,127,127)",
+    "error": "rgb(215,0,0)",
+    "assistant": "rgb(0,95,255)",
+})
+console = Console(theme=console_theme)
+
 client = Anthropic()
-console = Console()
 
 CONTEXT_PATHS = [
     'actors/**/*.gd',
@@ -40,11 +49,8 @@ def load_context_from_file(path: Path) -> str:
 {contents}
 </file>"""
 
-def load_context_from_path(path_glob: str) -> str:
-    return "\n".join([load_context_from_file(file) for file in Path('.').glob(path_glob)])
-
-def load_project_context() -> str:
-    return "\n".join([load_context_from_path(path) for path in CONTEXT_PATHS])
+def load_context_from_paths(paths: Iterable[Path]) -> str:
+    return "\n".join(load_context_from_file(path) for path in paths)
 
 def sample(messages: Iterable[MessageParam], append_to_system_prompt: str | None = None) -> Message:
     system_prompt = SYSTEM_PROMPT
@@ -53,15 +59,29 @@ def sample(messages: Iterable[MessageParam], append_to_system_prompt: str | None
 
     with client.messages.stream(model="claude-3-5-sonnet-20240620", max_tokens=4096, system=system_prompt, messages=messages) as stream:
         for text in stream.text_stream:
-            console.print(text, end='', style="dodger_blue2")
+            console.print(text, end='', style="assistant")
         console.print()
 
         return stream.get_final_message()
 
 def main() -> None:
-    project_context = load_project_context()
-
+    paths = list(itertools.chain.from_iterable(Path('.').glob(path_glob) for path_glob in CONTEXT_PATHS))
+    project_context = load_context_from_paths(paths)
     messages = []
+
+    def handle_command(command: str) -> None:
+        match command:
+            case "/paths":
+                console.print(*paths, sep='\n', style="info")
+
+            case "/exit" | "/quit":
+                sys.exit(0)
+
+            case _:
+                console.print("Unrecognized command.", style="error")
+        
+        console.print()
+
     while True:
         try:
             prompt = console.input('> ')
@@ -70,7 +90,9 @@ def main() -> None:
         except EOFError:
             return
 
-        console.print()
+        if prompt.startswith("/"):
+            handle_command(prompt)
+            continue
 
         user_message: MessageParam = {"role": "user", "content": prompt}
 
@@ -81,7 +103,7 @@ def main() -> None:
             messages += [user_message, assistant_message]
             console.print()
         except KeyboardInterrupt:
-            console.print("\n\n[interrupted, discarding last turn]", style="bright_black")
+            console.print("\n\nInterrupted. Discarding last turn.\n", style="info")
 
 if __name__ == '__main__':
     main()
