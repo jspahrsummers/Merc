@@ -1,7 +1,10 @@
 #!.venv/bin/python
 
 import itertools
+
+# Don't delete this import! Used by `rich`.
 import readline
+
 import sys
 from typing import Iterable
 from anthropic import Anthropic
@@ -71,10 +74,12 @@ def sample(messages: list[MessageParam], append_to_system_prompt: str | None = N
 
     with client.messages.stream(model=MODEL, max_tokens=4096, system=system_prompt, messages=messages, stop_sequences=["<file path=\""]) as stream:
         for text in stream.text_stream:
-            console.print(text, end='', style="assistant")
-        console.print()
+            console.out(text, end='', style="assistant")
+
+        console.out()
 
         message = stream.get_final_message()
+        console.print(message.usage.to_json(indent=None), style="info")
         assert message.content[0].type == "text"
 
         match message.stop_reason:
@@ -82,6 +87,7 @@ def sample(messages: list[MessageParam], append_to_system_prompt: str | None = N
                 assert message.stop_sequence == "<file path=\""
 
                 assistant_turn = message.content[0].text
+                console.print("\nWriting a file…\n", style="info")
 
                 path_message = client.messages.create(model=MODEL, max_tokens=100, system=system_prompt, messages=[*messages, {"role": "assistant", "content": assistant_turn}], stop_sequences=["\">"])
                 assert path_message.content[0].type == "text"
@@ -89,6 +95,7 @@ def sample(messages: list[MessageParam], append_to_system_prompt: str | None = N
                 assistant_turn += file_path
 
                 contents_message = client.messages.create(model=MODEL, max_tokens=4096, system=system_prompt, messages=[*messages, {"role": "assistant", "content": assistant_turn}], stop_sequences=["</file>"])
+                console.print(contents_message.usage.to_json(indent=None), style="info")
                 if contents_message.stop_reason == "max_tokens":
                     console.print("\nReached max tokens.\n", style="info")
 
@@ -124,6 +131,9 @@ def main() -> None:
     messages: list[MessageParam] = []
 
     def handle_command(command: str) -> None:
+        nonlocal paths
+        nonlocal context
+        
         parts = command.split()
         match parts[0]:
             case "/paths":
@@ -149,6 +159,11 @@ def main() -> None:
 
                     paths.remove(remove_path)
                     console.print(f"Removed: {remove_path}", style="info")
+            
+            case "/clear":
+                paths = []
+                context = ""
+                console.print("Context cleared.", style="info")
 
             case "/exit" | "/quit":
                 sys.exit(0)
@@ -178,9 +193,7 @@ def main() -> None:
         user_message: MessageParam = {"role": "user", "content": prompt}
 
         try:
-            with console.status("Sampling…"):
-                assistant_message = sample(messages + [user_message], append_to_system_prompt=f"Use these files from the project to help with your response:\n{context}")
-
+            assistant_message = sample(messages + [user_message], append_to_system_prompt=f"Use these files from the project to help with your response:\n{context}")
             messages += [user_message, {"role": "assistant", "content": assistant_message}]
             console.print()
         except KeyboardInterrupt:
