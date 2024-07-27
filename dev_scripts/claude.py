@@ -70,31 +70,52 @@ def main() -> None:
     messages = []
 
     def handle_command(command: str) -> None:
-        match command:
+        parts = command.split()
+        match parts[0]:
             case "/paths":
                 console.print(*paths, sep='\n', style="info")
             
             case "/context":
                 console.print(context, style="info")
+            
+            case "/add":
+                path_glob = parts[1]
+                for new_path in Path('.').glob(path_glob):
+                    if new_path in paths:
+                        continue
+
+                    paths.append(new_path)
+                    console.print(f"Added: {new_path}", style="info")
+            
+            case "/remove":
+                path_glob = parts[1]
+                for remove_path in Path('.').glob(path_glob):
+                    if remove_path not in paths:
+                        continue
+
+                    paths.remove(remove_path)
+                    console.print(f"Removed: {remove_path}", style="info")
 
             case "/exit" | "/quit":
                 sys.exit(0)
 
             case _:
                 console.print("Unrecognized command.", style="error")
-        
-        console.print()
 
     while True:
         try:
-            prompt = console.input('> ')
+            prompt = console.input('\n> ')
         except KeyboardInterrupt:
             return
         except EOFError:
             return
 
         if prompt.startswith("/"):
-            handle_command(prompt)
+            try:
+                handle_command(prompt)
+            except Exception as err:
+                console.print(f"Exception handling command: {err}", style="error")
+
             continue
 
         user_message: MessageParam = {"role": "user", "content": prompt}
