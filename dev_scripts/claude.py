@@ -201,6 +201,9 @@ def main() -> None:
             return
         except EOFError:
             return
+        
+        if not prompt.strip():
+            continue
 
         if prompt.startswith("/"):
             try:
