@@ -88,6 +88,10 @@ def sample(messages: list[MessageParam], append_to_system_prompt: str | None = N
                 assert message.stop_sequence == "<file path=\""
 
                 assistant_turn = f"{message.content[0].text}<file path=\""
+                if messages[-1]["role"] == "assistant":
+                    last_assistant_message = messages[-1]
+                    messages = messages[:-1]
+                    assistant_turn = f"{last_assistant_message["content"]}{assistant_turn}"
 
                 with console.status("Writing a file…"):
                     path_message = client.messages.create(model=MODEL, max_tokens=100, system=system_prompt, messages=[*messages, {"role": "assistant", "content": assistant_turn}], stop_sequences=["\">"])
