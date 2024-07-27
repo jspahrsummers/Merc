@@ -19,6 +19,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 - freighter
 
 [Star sprites](https://v-ktor.itch.io/star-sprites) created by [Viktor Hahn](https://v-ktor.itch.io/) (Viktor.Hahn@web.de), licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/):
+- star_blue03
 - star_orange02
 - star_orange03
 - star_red01
