@@ -2,24 +2,29 @@
 
 import itertools
 import sys
-from typing import Iterable, Iterator
+from typing import Iterable
 from anthropic import Anthropic
-from anthropic.types import Message, MessageParam
+from anthropic.types import MessageParam
 from dotenv import load_dotenv
 from pathlib import Path
 from rich.console import Console
+from rich.prompt import Confirm
+from rich.syntax import Syntax
 from rich.theme import Theme
 
 load_dotenv()
 
 console_theme = Theme({
     "info": "rgb(127,127,127)",
+    "warning": "rgb(255,135,0)",
     "error": "rgb(215,0,0)",
     "assistant": "rgb(0,95,255)",
 })
 console = Console(theme=console_theme, soft_wrap=True)
 
 client = Anthropic()
+
+MODEL = "claude-3-5-sonnet-20240620"
 
 CONTEXT_PATHS = [
     'actors/**/*.gd',
@@ -40,7 +45,13 @@ Aid with designing the game Merc, an Escape Velocity-like game created with Godo
 
 When designing new star systems and planets, keep the following in mind:
 - There can only be one trading market for a whole star system. All planets within the system share the same trading market (meaning the same list of commodities and prices).
-- Planetary descriptions should be interesting and captivating, but limit them to approximately five or so paragraphs."""
+- Planetary descriptions should be interesting and captivating, but limit them to approximately five or so paragraphs.
+
+You have the ability to create new files or update existing files in-place. To write to files, include <file> tags somewhere in your response, like this:
+
+<file path="path/to/write.gd">
+... file contents omitted for brevity ...
+</file>"""
 
 def load_context_from_file(path: Path) -> str:
     contents = path.read_text()
@@ -52,22 +63,64 @@ def load_context_from_file(path: Path) -> str:
 def load_context_from_paths(paths: Iterable[Path]) -> str:
     return "\n".join(load_context_from_file(path) for path in paths)
 
-def sample(messages: Iterable[MessageParam], append_to_system_prompt: str | None = None) -> Message:
+def sample(messages: list[MessageParam], append_to_system_prompt: str | None = None) -> str:
     system_prompt = SYSTEM_PROMPT
     if append_to_system_prompt is not None:
         system_prompt += f"\n\n{append_to_system_prompt}"
 
-    with client.messages.stream(model="claude-3-5-sonnet-20240620", max_tokens=4096, system=system_prompt, messages=messages) as stream:
+    with client.messages.stream(model=MODEL, max_tokens=4096, system=system_prompt, messages=messages, stop_sequences=["<file path=\""]) as stream:
         for text in stream.text_stream:
             console.print(text, end='', style="assistant")
         console.print()
 
-        return stream.get_final_message()
+        message = stream.get_final_message()
+        assert message.content[0].type == "text"
+
+        match message.stop_reason:
+            case "stop_sequence":
+                assert message.stop_sequence == "<file path=\""
+
+                assistant_turn = message.content[0].text
+
+                path_message = client.messages.create(model=MODEL, max_tokens=100, system=system_prompt, messages=[*messages, {"role": "assistant", "content": assistant_turn}], stop_sequences=["\">"])
+                assert path_message.content[0].type == "text"
+                file_path = path_message.content[0].text
+                assistant_turn += file_path
+
+                contents_message = client.messages.create(model=MODEL, max_tokens=4096, system=system_prompt, messages=[*messages, {"role": "assistant", "content": assistant_turn}], stop_sequences=["</file>"])
+                if contents_message.stop_reason == "max_tokens":
+                    console.print("\nReached max tokens.\n", style="info")
+
+                assert contents_message.content[0].type == "text"
+                file_contents = contents_message.content[0].text
+                assistant_turn += file_contents
+
+                syntax = Syntax(code=file_contents, lexer=Syntax.guess_lexer(path=file_path, code=file_contents))
+                console.print(syntax)
+                if Confirm.ask(f"\nWrite to file {file_path}?", default=False):
+                    Path(file_path).write_text(file_contents)
+                
+                console.print()
+
+                messages = [*messages, {"role": "assistant", "content": assistant_turn}]
+                remaining_text = sample(messages=messages, append_to_system_prompt=append_to_system_prompt)
+                return assistant_turn + remaining_text
+
+            case "end_turn":
+                pass
+
+            case "max_tokens":
+                console.print("\nReached max tokens.\n", style="info")
+            
+            case other:
+                console.print("\nUnexpected stop reason:", other, style="error")
+
+        return message.content[0].text
 
 def main() -> None:
     paths = list(itertools.chain.from_iterable(Path('.').glob(path_glob) for path_glob in CONTEXT_PATHS))
     context = load_context_from_paths(paths)
-    messages = []
+    messages: list[MessageParam] = []
 
     def handle_command(command: str) -> None:
         parts = command.split()
@@ -127,7 +180,7 @@ def main() -> None:
             with console.status("Sampling…"):
                 assistant_message = sample(messages + [user_message], append_to_system_prompt=f"Use these files from the project to help with your response:\n{context}")
 
-            messages += [user_message, assistant_message]
+            messages += [user_message, {"role": "assistant", "content": assistant_message}]
             console.print()
         except KeyboardInterrupt:
             console.print("\n\nInterrupted. Discarding last turn.\n", style="info")
