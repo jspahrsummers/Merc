@@ -18,3 +18,6 @@ build/
 
 # Python virtual environment
 .venv/
+
+# Environment files
+.env*
