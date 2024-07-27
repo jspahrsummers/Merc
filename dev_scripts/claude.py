@@ -32,15 +32,14 @@ MODEL = "claude-3-5-sonnet-20240620"
 
 CONTEXT_PATHS = [
     'actors/**/*.gd',
-    'galaxy/**/*.gd',
+    'galaxy/*.gd',
     'galaxy/main_galaxy.tres',
+    'galaxy/star_system/**/*.gd',
     'galaxy/star_system/star_systems/*.tres',
     'mechanics/**/*.gd',
     'mechanics/**/*.tres',
     'planet/**/*.gd',
-    'screens/landing/**/*.gd',
     'ships/**/*.gd',
-    'ships/**/*.tscn',
     'utils/**/*.gd',
 ]
 
