@@ -19,9 +19,9 @@ func _enter_tree() -> void:
         PhysicsServer3D.body_set_state(physics_body, PhysicsServer3D.BODY_STATE_ANGULAR_VELOCITY, angular_velocity)
         PhysicsServer3D.body_set_state(physics_body, PhysicsServer3D.BODY_STATE_LINEAR_VELOCITY, linear_velocity)
         PhysicsServer3D.body_set_space(physics_body, self.get_world_3d().space)
-        PhysicsServer3D.body_set_force_integration_callback(physics_body, _body_moved, i)
-        PhysicsServer3D.body_set_collision_layer(physics_body, 1)
-        PhysicsServer3D.body_set_collision_mask(physics_body, 2)
+        PhysicsServer3D.body_set_force_integration_callback(physics_body, _force_integration_callback, i)
+        PhysicsServer3D.body_set_collision_layer(physics_body, 0b01)
+        PhysicsServer3D.body_set_collision_mask(physics_body, 0b10)
         PhysicsServer3D.body_set_axis_lock(physics_body, PhysicsServer3D.BODY_AXIS_LINEAR_Y, true)
         self._created_rids.append(physics_body)
 
@@ -36,7 +36,7 @@ func _exit_tree() -> void:
 
     self._created_rids.clear()
     
-func _body_moved(state: PhysicsDirectBodyState3D, index: int) -> void:
+func _force_integration_callback(state: PhysicsDirectBodyState3D, index: int) -> void:
     var mesh_transform := state.transform
 
     # Overwrite the physics scale from the multimesh, because it gets lost for some reason otherwise.
