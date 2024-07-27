@@ -71,11 +71,13 @@ def main() -> None:
         print()
 
         user_message: MessageParam = {"role": "user", "content": prompt}
-        messages.append(user_message)
 
-        assistant_message = sample(messages, append_to_system_prompt=f"Use these files from the project to help with your response:\n{project_context}")
-        messages.append(assistant_message)
-        print()
+        try:
+            assistant_message = sample(messages + [user_message], append_to_system_prompt=f"Use these files from the project to help with your response:\n{project_context}")
+            messages += [user_message, assistant_message]
+            print()
+        except KeyboardInterrupt:
+            print("\n\n[interrupted, discarding last turn]")
 
 if __name__ == '__main__':
     main()
