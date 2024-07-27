@@ -20,8 +20,8 @@ func _ready() -> void:
         PhysicsServer3D.body_set_state(physics_body, PhysicsServer3D.BODY_STATE_LINEAR_VELOCITY, linear_velocity)
         PhysicsServer3D.body_set_space(physics_body, self.get_world_3d().space)
         PhysicsServer3D.body_set_force_integration_callback(physics_body, _body_moved, i)
-        PhysicsServer3D.body_set_collision_layer(physics_body, 0)
-        PhysicsServer3D.body_set_collision_mask(physics_body, 0)
+        PhysicsServer3D.body_set_collision_layer(physics_body, 1)
+        PhysicsServer3D.body_set_collision_mask(physics_body, 2)
         PhysicsServer3D.body_set_axis_lock(physics_body, PhysicsServer3D.BODY_AXIS_LINEAR_Y, true)
         _physics_bodies.append(physics_body)
 
