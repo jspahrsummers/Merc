@@ -105,7 +105,7 @@ def sample(messages: list[MessageParam], append_to_system_prompt: str | None = N
                 file_contents = contents_message.content[0].text
                 assistant_turn += f"{file_contents}</file>"
 
-                syntax = Syntax(code=file_contents, lexer=Syntax.guess_lexer(path=file_path, code=file_contents))
+                syntax = Syntax(code=file_contents, lexer=Syntax.guess_lexer(path=file_path, code=file_contents), theme="ansi_light")
                 console.print(syntax)
                 if Confirm.ask(f"\nWrite to file {file_path}?", default=False):
                     Path(file_path).write_text(file_contents)
