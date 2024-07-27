@@ -2,12 +2,12 @@ extends Resource
 class_name Planet
 
 enum {
-    BAR = 0x1,
-    TRADING = 0x2,
-    MISSIONS = 0x4,
-    OUTFITTER = 0x8,
-    SHIPYARD = 0x10,
-    REFUEL = 0x20
+    BAR = 0b1,
+    TRADING = 0b10,
+    MISSIONS = 0b100,
+    OUTFITTER = 0b1000,
+    SHIPYARD = 0b1000_0,
+    REFUEL = 0b1000_00,
 }
 
 ## The name of this planet.
