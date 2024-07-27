@@ -1,6 +1,7 @@
 #!.venv/bin/python
 
 import itertools
+import readline
 import sys
 from typing import Iterable
 from anthropic import Anthropic
