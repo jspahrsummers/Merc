@@ -37,7 +37,7 @@ ExtResource("13_7qeyl"): 532100,
 ExtResource("14_fr06c"): 215600
 }
 
-[node name="TradingWindow" type="Window" node_paths=PackedStringArray("tab_container", "commodities_container")]
+[node name="TradingWindow" type="Window" node_paths=PackedStringArray("tab_container", "commodities_container", "currencies_container")]
 title = "Trade Computer"
 initial_position = 1
 size = Vector2i(600, 300)
@@ -46,6 +46,7 @@ script = ExtResource("1_b1kwq")
 market = SubResource("Resource_a521o")
 tab_container = NodePath("PanelContainer/TabContainer")
 commodities_container = NodePath("PanelContainer/TabContainer/Commodities/MarginContainer/ScrollContainer/GridContainer")
+currencies_container = NodePath("PanelContainer/TabContainer/Currencies/MarginContainer/ScrollContainer/GridContainer")
 trade_buttons_scene = ExtResource("17_j3rf1")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
