@@ -141,6 +141,12 @@ def main() -> None:
             case "/paths":
                 console.print(*paths, sep='\n', style="info")
             
+            case "/bytes":
+                sizes = {path: path.stat().st_size for path in paths}
+                sorted_sizes = sorted(sizes.items(), key=lambda item: item[1], reverse=True)
+                for path, size in sorted_sizes:
+                    console.print(f"{path} ({size} bytes)", style="info")
+            
             case "/context":
                 console.print(context, style="info")
             
