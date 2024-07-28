@@ -34,7 +34,7 @@ func price_in_other_currency(currency: Currency) -> float:
     return currency.price_in_credits / self.price_in_credits
 
 func price_converted_from_credits(price: float) -> float:
-    return self.round(price / self.price_in_credits)
+    return self.round(price * self.price_in_credits)
 
 func amount_as_string(amount: float) -> String:
     return "%s %s" % [self.round(amount), self.name.to_lower()]
