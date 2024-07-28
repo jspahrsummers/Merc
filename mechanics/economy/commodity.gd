@@ -27,11 +27,7 @@ const EXPENSIVE_THRESHOLD = 5000.0
 
 ## Calculates the actual price, in credits, based on a relative price between 0 and 1.
 func price_in_credits(relative_price: float) -> float:
-    assert(relative_price >= 0.0 and relative_price <= 1.0, "Relative price is out of bounds")
-    
-    var max_deviation := self._max_deviation()
-    var deviation := (relative_price - 0.5) * 2 * max_deviation
-    return self.base_price_in_credits * (1 + deviation)
+    return MathUtils.relative_to_absolute_price(relative_price, self.base_price_in_credits, self._max_deviation())
 
 ## Calculates the maximum price deviation based on the commodity's base price.
 func _max_deviation() -> float:
@@ -52,6 +48,10 @@ func add_up_to(amount: float, cargo_hold: CargoHold, _bank_account: BankAccount)
 
 func add_exactly(amount: float, cargo_hold: CargoHold, _bank_account: BankAccount) -> bool:
     return cargo_hold.add_exactly(self, floori(amount))
+
+func price_converted_from_credits(price: float) -> float:
+    # TODO: This exchange rate mechanism probably isn't thought-out enough…
+    return roundf(price / self.base_price_in_credits)
 
 func _to_string() -> String:
     return "Commodity:" + self.name

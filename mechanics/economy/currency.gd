@@ -29,6 +29,9 @@ func add_exactly(amount: float, _cargo_hold: CargoHold, bank_account: BankAccoun
     bank_account.deposit(self, amount)
     return true
 
+func price_converted_from_credits(price: float) -> float:
+    return self.round(price / self.price_in_credits)
+
 func amount_as_string(amount: float) -> String:
     return "%s %s" % [self.round(amount), self.name.to_lower()]
 

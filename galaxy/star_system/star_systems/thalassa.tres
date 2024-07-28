@@ -32,4 +32,4 @@ position = Vector3(-0.5, -0.1, 2.7)
 scene_path = "res://galaxy/star_system/scenes/thalassa.tscn"
 market = SubResource("Resource_h1m1b")
 refueling_money = ExtResource("1_add1a")
-refueling_cost = 0
+refueling_relative_price = 0.63

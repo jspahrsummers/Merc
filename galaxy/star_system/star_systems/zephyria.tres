@@ -24,4 +24,4 @@ position = Vector3(-2.7, 0.5, -3)
 scene_path = "res://galaxy/star_system/scenes/zephyria.tscn"
 market = SubResource("Resource_6lhwe")
 refueling_money = ExtResource("1_gu0r8")
-refueling_cost = 100
+refueling_relative_price = 0.347
