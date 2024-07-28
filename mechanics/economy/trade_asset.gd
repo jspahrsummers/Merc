@@ -39,5 +39,9 @@ func add_exactly(_amount: float, _cargo_hold: CargoHold, _bank_account: BankAcco
     assert(false, "Meant to be implemented by subclasses")
     return false
 
+## Displays an amount of this asset in human-readable format.
+func amount_as_string(amount: float) -> String:
+    return "%s %s" % [amount, self.name.to_lower()]
+
 func _to_string() -> String:
     return "TradeAsset:" + self.name

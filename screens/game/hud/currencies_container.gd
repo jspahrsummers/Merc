@@ -27,4 +27,4 @@ func _update() -> void:
             self.label_container.add_child(label)
             self._labels_by_currency[currency] = label
         
-        label.text = "%s %s" % [amount, currency.name.to_lower()]
+        label.text = currency.amount_as_string(amount)

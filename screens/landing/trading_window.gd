@@ -13,8 +13,6 @@ var _quantity_labels: Dictionary = {}
 var _trade_buttons: Dictionary = {}
 
 func _ready() -> void:
-    var money_suffix := market.money.name.to_lower()
-
     var commodities := self.market.commodities.keys()
     commodities.sort_custom(func(a: Commodity, b: Commodity) -> bool: return a.name < b.name)
 
@@ -27,7 +25,7 @@ func _ready() -> void:
         self.commodities_container.add_child(name_label)
 
         var price_label := Label.new()
-        price_label.text = "%s %s" % [price, money_suffix]
+        price_label.text = market.money.amount_as_string(price)
         price_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
         self.commodities_container.add_child(price_label)
 
