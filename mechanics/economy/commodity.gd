@@ -13,6 +13,9 @@ class_name Commodity
 ## This can be thought of as the volume per "real-world metric tonne."
 @export var volume: float
 
+## A base price for this commodity, in credits, used to compute relative prices across the galaxy and in other currencies.
+@export var base_price_in_credits: float
+
 func current_amount(cargo_hold: CargoHold, _bank_account: BankAccount) -> float:
     return cargo_hold.commodities.get(self, 0)
 

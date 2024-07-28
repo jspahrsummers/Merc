@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_xfjs5")
-name = "Luxury Goods"
 mass = 0.1
 volume = 2.0
-currency = false
+base_price_in_credits = 3000.0
+name = "Luxury Goods"

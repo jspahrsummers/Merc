@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_by4tb")
-name = "Rare Earth Elements"
 mass = 0.1
 volume = 0.3
-currency = false
+base_price_in_credits = 3500.0
+name = "Rare Earth Elements"

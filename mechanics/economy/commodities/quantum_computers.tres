@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_y6b3s")
-name = "Quantum Computers"
 mass = 0.1
 volume = 3.0
-currency = false
+base_price_in_credits = 7500.0
+name = "Quantum Computers"
