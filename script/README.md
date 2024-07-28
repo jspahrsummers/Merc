@@ -12,5 +12,5 @@ source .venv/bin/activate
 Then invoke scripts directly, from the repository root:
 
 ```sh
-./dev_scripts/claude.py
+./script/claude.py
 ```
