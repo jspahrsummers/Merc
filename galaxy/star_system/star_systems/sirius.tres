@@ -8,4 +8,4 @@ name = &"Sirius"
 connections = Array[StringName]([&"Wolf 359", &"Sol"])
 position = Vector3(4, -0.5, -1)
 scene_path = "res://galaxy/star_system/scenes/sirius.tscn"
-refueling_cost = 0
+refueling_relative_price = 0.0

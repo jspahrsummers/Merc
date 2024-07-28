@@ -39,5 +39,14 @@ func add_exactly(_amount: float, _cargo_hold: CargoHold, _bank_account: BankAcco
     assert(false, "Meant to be implemented by subclasses")
     return false
 
+## Converts a price denominated in credits into a price denominated by this asset.
+func price_converted_from_credits(_price_in_credits: float) -> float:
+    assert(false, "Meant to be implemented by subclasses")
+    return NAN
+
+## Displays an amount of this asset in human-readable format.
+func amount_as_string(amount: float) -> String:
+    return "%s %s" % [amount, self.name.to_lower()]
+
 func _to_string() -> String:
     return "TradeAsset:" + self.name

@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_c6r3x")
-name = "Industrial Equipment"
 mass = 0.1
 volume = 1.5
-currency = false
+base_price_in_credits = 1500.0
+name = "Industrial Equipment"

@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_uy65i")
-name = "Water"
 mass = 0.1
 volume = 1.0
-currency = false
+base_price_in_credits = 50.0
+name = "Water"

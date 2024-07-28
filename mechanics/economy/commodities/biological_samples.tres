@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_5suu6")
-name = "Biological Samples"
 mass = 0.1
 volume = 4.0
-currency = false
+base_price_in_credits = 2500.0
+name = "Biological Samples"

@@ -14,14 +14,14 @@
 [sub_resource type="Resource" id="Resource_h1m1b"]
 script = ExtResource("2_xwx77")
 money = ExtResource("1_add1a")
-trade_assets = {
-ExtResource("3_fb44d"): 3143.0,
-ExtResource("4_56h02"): 10.0,
-ExtResource("5_20rsd"): 68.0,
-ExtResource("6_gbnx7"): 5211.0,
-ExtResource("7_s2brr"): 2973.0,
-ExtResource("8_ei3p8"): 973.0,
-ExtResource("9_vsdb2"): 4121.0
+commodities = {
+ExtResource("3_fb44d"): 0.19,
+ExtResource("4_56h02"): 0.06,
+ExtResource("5_20rsd"): 0.26,
+ExtResource("6_gbnx7"): 0.75,
+ExtResource("7_s2brr"): 0.71,
+ExtResource("8_ei3p8"): 0.5,
+ExtResource("9_vsdb2"): 0.58
 }
 
 [resource]
@@ -32,4 +32,4 @@ position = Vector3(-0.5, -0.1, 2.7)
 scene_path = "res://galaxy/star_system/scenes/thalassa.tscn"
 market = SubResource("Resource_h1m1b")
 refueling_money = ExtResource("1_add1a")
-refueling_cost = 0
+refueling_relative_price = 0.63
