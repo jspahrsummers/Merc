@@ -6,6 +6,9 @@ class_name Currency
 ## Epsilon for floating-point comparisons of currency values.
 const EPSILON = 0.001
 
+## How many credits one unit of this currency is worth.
+@export var price_in_credits: float
+
 func current_amount(_cargo_hold: CargoHold, bank_account: BankAccount) -> float:
     return bank_account.currencies.get(self, 0.0)
 
