@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_nlnb0")
-name = "Exotic Matter"
 mass = 0.1
 volume = 10.0
-currency = false
+base_price_in_credits = 10000.0
+name = "Exotic Matter"
