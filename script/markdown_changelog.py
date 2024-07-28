@@ -13,6 +13,7 @@ from github.WorkflowRun import WorkflowRun
 load_dotenv()
 
 GITHUB_TOKEN = os.environ["GITHUB_TOKEN"]
+LENGTH_LIMIT = 1600
 
 auth = Auth.Token(GITHUB_TOKEN)
 client = Github(auth=auth, per_page=1)
@@ -51,13 +52,27 @@ def main():
     from_commit = last_successful_run.head_sha
     head_commit = subprocess.check_output(["git", "rev-parse", "HEAD"]).decode().strip()
 
+    preamble = f"[Changes](<https://github.com/jspahrsummers/Merc/compare/{from_commit}...{head_commit}>):\n"
+    commits = list(
+        iterate_commits_first_parent(repo, base=from_commit, head=head_commit)
+    )
+
     commit_log = "\n".join(
         f"* [{summary_from_commit_message(c.commit.message)}](<{c.commit.html_url}>)"
-        for c in iterate_commits_first_parent(repo, base=from_commit, head=head_commit)
+        for c in commits
     )
-    print(
-        f"[Changes](<https://github.com/jspahrsummers/Merc/compare/{from_commit}...{head_commit}>):\n{commit_log}"
-    )
+    if len(preamble) + len(commit_log) > LENGTH_LIMIT:
+        # Redo without per-commit links
+        commit_log = "\n".join(
+            f"* {summary_from_commit_message(c.commit.message)}" for c in commits
+        )
+
+    message = preamble + commit_log
+    if len(message) > LENGTH_LIMIT:
+        # Extra buffer just in case this Unicode character counts as more than one
+        message = message[: LENGTH_LIMIT - 3] + "…"
+
+    print(message)
 
 
 if __name__ == "__main__":
