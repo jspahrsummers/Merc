@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_hvcck")
-name = "Fusion Fuel"
 mass = 0.1
 volume = 5.0
-currency = false
+base_price_in_credits = 750.0
+name = "Fusion Fuel"
