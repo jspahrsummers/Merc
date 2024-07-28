@@ -12,6 +12,7 @@ Instructions:
 * J to jump to hyperspace
 * ` (backtick) or § to select a planet to land on
 * L to land
+* C to open the currency trading window
 * Scroll wheel to zoom in and out
 
 ## Development

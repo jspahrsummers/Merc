@@ -29,6 +29,10 @@ func add_exactly(amount: float, _cargo_hold: CargoHold, bank_account: BankAccoun
     bank_account.deposit(self, amount)
     return true
 
+## Returns the cost of one unit of this currency, denominated in the price of [param currency].
+func price_in_other_currency(currency: Currency) -> float:
+    return currency.price_in_credits / self.price_in_credits
+
 func price_converted_from_credits(price: float) -> float:
     return self.round(price / self.price_in_credits)
 
