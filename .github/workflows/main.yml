@@ -137,6 +137,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -145,8 +146,17 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
+      - name: Generate changelog
+        id: changelog
+        run: |
+          echo "changelog=$(python ./script/markdown_changelog.py)" >> $GITHUB_OUTPUT
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: tsickert/discord-webhook@v6.0.0
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
           content: |
             New build available! Get it from: <https://jspahrsummers.itch.io/merc>
+
+            ${{ steps.changelog.outputs.changelog }}
