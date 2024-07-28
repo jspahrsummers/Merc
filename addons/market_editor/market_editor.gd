@@ -7,9 +7,9 @@ func _parse_property(object: Object, type: int, name: String, hint_type: int, hi
     if not (object is Market):
         return false
     
-    if name != "trade_assets":
+    if name != "commodities":
         return false
     
-    var control := preload ("res://addons/market_editor/commodities_currencies_editor.gd").new()
+    var control := preload ("res://addons/market_editor/commodities_editor.gd").new()
     self.add_property_editor(name, control)
     return true
