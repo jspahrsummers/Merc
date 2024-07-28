@@ -1,0 +1,84 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1yvdsvgyesj5"]
+
+[ext_resource type="Script" path="res://screens/game/currency_trading/currency_trading_window.gd" id="1_a2pkb"]
+
+[node name="CurrencyTradingWindow" type="Window" node_paths=PackedStringArray("buy_spin_box", "buy_option_button", "buy_balance_label", "trade_button", "sell_spin_box", "sell_option_button", "sell_balance_label")]
+title = "Currency Exchange"
+initial_position = 2
+size = Vector2i(600, 200)
+script = ExtResource("1_a2pkb")
+buy_spin_box = NodePath("PanelContainer/GridContainer/BuyContainer/BuySpinBox")
+buy_option_button = NodePath("PanelContainer/GridContainer/BuyContainer/BuyOptionButton")
+buy_balance_label = NodePath("PanelContainer/GridContainer/BuyBalanceLabel")
+trade_button = NodePath("PanelContainer/GridContainer/SellContainer/TradeButton")
+sell_spin_box = NodePath("PanelContainer/GridContainer/SellContainer/SellSpinBox")
+sell_option_button = NodePath("PanelContainer/GridContainer/SellContainer/SellOptionButton")
+sell_balance_label = NodePath("PanelContainer/GridContainer/SellBalanceLabel")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="GridContainer" type="GridContainer" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+columns = 4
+
+[node name="BuyLabel" type="Label" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+text = "BUY "
+
+[node name="BuyContainer" type="HBoxContainer" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+
+[node name="BuySpinBox" type="SpinBox" parent="PanelContainer/GridContainer/BuyContainer"]
+layout_mode = 2
+custom_arrow_step = 1.0
+
+[node name="BuyOptionButton" type="OptionButton" parent="PanelContainer/GridContainer/BuyContainer"]
+layout_mode = 2
+
+[node name="SellLabel" type="Label" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+text = " FOR "
+
+[node name="SellContainer" type="HBoxContainer" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+
+[node name="SellSpinBox" type="SpinBox" parent="PanelContainer/GridContainer/SellContainer"]
+layout_mode = 2
+custom_arrow_step = 1.0
+
+[node name="SellOptionButton" type="OptionButton" parent="PanelContainer/GridContainer/SellContainer"]
+layout_mode = 2
+
+[node name="TradeButton" type="Button" parent="PanelContainer/GridContainer/SellContainer"]
+layout_mode = 2
+text = "TRADE"
+
+[node name="Empty" type="Control" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+
+[node name="BuyBalanceLabel" type="Label" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+text = "Balance: 123 credits"
+
+[node name="Empty2" type="Control" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+
+[node name="SellBalanceLabel" type="Label" parent="PanelContainer/GridContainer"]
+layout_mode = 2
+text = "Balance: 123 lumins"
+
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="value_changed" from="PanelContainer/GridContainer/BuyContainer/BuySpinBox" to="." method="_on_buy_spin_box_value_changed"]
+[connection signal="item_selected" from="PanelContainer/GridContainer/BuyContainer/BuyOptionButton" to="." method="_on_buy_option_button_item_selected"]
+[connection signal="value_changed" from="PanelContainer/GridContainer/SellContainer/SellSpinBox" to="." method="_on_sell_spin_box_value_changed"]
+[connection signal="item_selected" from="PanelContainer/GridContainer/SellContainer/SellOptionButton" to="." method="_on_sell_option_button_item_selected"]
+[connection signal="pressed" from="PanelContainer/GridContainer/SellContainer/TradeButton" to="." method="_on_trade_button_pressed"]

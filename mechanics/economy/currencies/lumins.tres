@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_nu2tg")
-price_in_credits = 23.0
+price_in_credits = 0.043
 precision = 1
 name = "Lumins"

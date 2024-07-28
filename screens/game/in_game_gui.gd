@@ -3,6 +3,7 @@ extends CanvasLayer
 @export var galaxy_map_scene: PackedScene
 @export var game_over_scene: PackedScene
 @export var exit_dialog_scene: PackedScene
+@export var currency_trading_scene: PackedScene
 @export var player: Player
 
 func _on_player_ship_destroyed(_player: Player) -> void:
@@ -14,6 +15,11 @@ func _unhandled_input(event: InputEvent) -> void:
         galaxy_map.hyperdrive_system = self.player.ship.hyperdrive_system
         self.add_child(galaxy_map)
         galaxy_map.show()
+    elif event.is_action_pressed("toggle_currency_trading") and is_instance_valid(self.player):
+        var currency_trading: CurrencyTradingWindow = self.currency_trading_scene.instantiate()
+        currency_trading.bank_account = self.player.bank_account
+        self.add_child(currency_trading)
+        currency_trading.show()
     elif event.is_action_pressed("exit"):
         self._instantiate_and_show_window(self.exit_dialog_scene)
 
