@@ -54,6 +54,7 @@ import/fbx/enabled=false
 [gui]
 
 theme/custom="res://screens/shared_ui/theme.tres"
+timers/tooltip_delay_sec=0.2
 
 [importer_defaults]
 
