@@ -17,13 +17,4 @@ class_name Market
 func price(commodity: Commodity) -> float:
     var relative_price: float = self.commodities.get(commodity, 0.5)
     var price_in_credits := commodity.price_in_credits(relative_price)
-
-    var currency := self.money as Currency
-    if currency:
-        return currency.round(price_in_credits / currency.price_in_credits)
-    else:
-        var commodity_money := self.money as Commodity
-        assert(commodity_money, "Expected money to be a currency or a commodity")
-
-        # TODO: This exchange rate mechanism probably isn't thought-out enough…
-        return roundf(price_in_credits / commodity_money.base_price_in_credits)
+    return self.money.price_converted_from_credits(price_in_credits)

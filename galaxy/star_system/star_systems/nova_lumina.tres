@@ -38,4 +38,4 @@ position = Vector3(-1.2, 0.4, -7.1)
 scene_path = "res://galaxy/star_system/scenes/nova_lumina.tscn"
 market = SubResource("Resource_7y1hy")
 refueling_money = ExtResource("1_tb2fi")
-refueling_cost = 3
+refueling_relative_price = 0.237

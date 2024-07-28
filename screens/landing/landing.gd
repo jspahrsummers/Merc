@@ -69,11 +69,12 @@ func _on_shipyard_button_pressed() -> void:
     pass # Replace with function body.
 
 func _on_refuel_button_pressed() -> void:
+    var refueling_price := self.star_system.refueling_price()
     var needed_fuel := self._hyperdrive.max_fuel - self._hyperdrive.fuel
-    var full_refuel_cost := needed_fuel * self.star_system.refueling_cost
+    var full_refuel_cost := needed_fuel * refueling_price
     if full_refuel_cost > 0:
         var paid := self.star_system.refueling_money.take_up_to(full_refuel_cost, self.player.ship.cargo_hold, self.player.bank_account)
-        var fuel_paid_for := paid / self.star_system.refueling_cost
+        var fuel_paid_for := paid / refueling_price
         self._hyperdrive.refuel(fuel_paid_for)
     else:
         self._hyperdrive.refuel(needed_fuel)
