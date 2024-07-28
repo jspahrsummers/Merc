@@ -54,14 +54,15 @@ func _on_close_requested() -> void:
 func _update() -> void:
     for commodity: Commodity in self.market.commodities:
         var quantity_label: Label = self._quantity_labels[commodity]
-        var quantity := commodity.current_amount(self.cargo_hold, self.bank_account)
-        quantity_label.text = "" if is_zero_approx(quantity) else str(quantity)
+        var quantity: int = self.cargo_hold.commodities.get(commodity, 0)
+        quantity_label.text = "" if quantity == 0 else str(quantity)
 
-        var can_pay: bool = self.market.money.current_amount(self.cargo_hold, self.bank_account) - self.market.commodities[commodity] >= Currency.EPSILON
+        var price := self.market.price(commodity)
+        var can_pay: bool = self.market.money.current_amount(self.cargo_hold, self.bank_account) - price >= Currency.EPSILON
         var can_carry := self.cargo_hold.get_occupied_volume() + commodity.volume <= self.cargo_hold.max_volume
 
         var buttons: TradeButtons = self._trade_buttons[commodity]
-        buttons.buy_button.disabled = not (can_pay and can_carry)
+        buttons.buy_button.disabled = not can_pay or not can_carry
         buttons.sell_button.disabled = quantity == 0
 
 func _buy(commodity: Commodity) -> void:
