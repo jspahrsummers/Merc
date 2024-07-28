@@ -67,33 +67,36 @@ func _update() -> void:
 func _buy(commodity: Commodity) -> void:
     var price := self.market.price(commodity)
     var desired_amount := self._desired_trade_amount()
-    var total_cost: float = price * desired_amount
+    var available_amount := floori((self.cargo_hold.max_volume - self.cargo_hold.get_occupied_volume()) / commodity.volume)
+    var trade_amount := mini(desired_amount, available_amount)
 
-    # Limit to total balance
+    var total_cost: float = price * trade_amount
+
+    # Limit to current balance
     var actual_cost := minf(total_cost, self.market.money.current_amount(self.cargo_hold, self.bank_account))
-    var actual_amount := roundf(actual_cost / price)
+    trade_amount = floori(actual_cost / price)
+    assert(trade_amount <= available_amount, "Failed to limit trade amount to available space")
 
-    # Limit again to capacity
-    actual_amount = commodity.add_up_to(actual_amount, self.cargo_hold, self.bank_account)
+    var withdrew := self.market.money.take_exactly(trade_amount * price, self.cargo_hold, self.bank_account)
+    assert(withdrew, "Failed to pay for trade")
 
-    var withdrew := self.market.money.take_exactly(actual_amount * price, self.cargo_hold, self.bank_account)
-    assert(withdrew, "Failed to pay for trade already executed")
+    var deposited := self.cargo_hold.add_exactly(commodity, trade_amount)
+    assert(deposited, "Failed to deposit cargo")
 
 func _sell(commodity: Commodity) -> void:
     var price := self.market.price(commodity)
     var desired_amount := self._desired_trade_amount()
+    var available_amount: int = self.cargo_hold.commodities.get(commodity, 0)
+    var trade_amount := mini(desired_amount, available_amount)
 
-    # Limit to total balance
-    var actual_amount := minf(desired_amount, commodity.current_amount(self.cargo_hold, self.bank_account))
+    # Limit to maximum cargo space (bank accounts have no limit)
+    var proceeds := self.market.money.add_up_to(trade_amount * price, self.cargo_hold, self.bank_account)
 
-    # Limit again to capacity
-    var proceeds := self.market.money.add_up_to(actual_amount * price, self.cargo_hold, self.bank_account)
+    var withdrew := self.cargo_hold.remove_exactly(commodity, floori(proceeds / price))
+    assert(withdrew, "Failed to sell cargo")
 
-    var withdrew := commodity.take_exactly(roundf(proceeds / price), self.cargo_hold, self.bank_account)
-    assert(withdrew, "Failed to cede asset already sold")
-
-func _desired_trade_amount() -> float:
+func _desired_trade_amount() -> int:
     if Input.is_key_pressed(KEY_SHIFT):
-        return 10.0
+        return 10
     else:
-        return 1.0
+        return 1
