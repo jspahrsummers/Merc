@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_nu2tg")
-name = "Lumins"
 price_in_credits = 23.0
+name = "Lumins"

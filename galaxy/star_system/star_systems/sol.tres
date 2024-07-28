@@ -20,20 +20,20 @@
 [sub_resource type="Resource" id="Resource_tj2o3"]
 script = ExtResource("15_v0bfu")
 money = ExtResource("14_yyru0")
-trade_assets = {
-ExtResource("1_g3m08"): 12.0,
-ExtResource("2_qhtq3"): 47.0,
-ExtResource("3_yqu3j"): 9765.0,
-ExtResource("4_pfw2w"): 14832.0,
-ExtResource("5_c3x1c"): 52178.0,
-ExtResource("6_06kxo"): 823.0,
-ExtResource("7_hwyq6"): 478.0,
-ExtResource("8_nh73y"): 3287.0,
-ExtResource("9_663u3"): 1142.0,
-ExtResource("10_pajqi"): 7894.0,
-ExtResource("11_3o50m"): 26543.0,
-ExtResource("12_wobus"): 5321.0,
-ExtResource("13_qtdhe"): 2156.0
+commodities = {
+ExtResource("3_yqu3j"): 0.8,
+ExtResource("4_pfw2w"): 0.42,
+ExtResource("5_c3x1c"): 0.75,
+ExtResource("2_qhtq3"): 0.13,
+ExtResource("6_06kxo"): 0.58,
+ExtResource("7_hwyq6"): 0.35,
+ExtResource("8_nh73y"): 0.25,
+ExtResource("9_663u3"): 0.35,
+ExtResource("10_pajqi"): 0.6,
+ExtResource("11_3o50m"): 0.4,
+ExtResource("12_wobus"): 0.67,
+ExtResource("13_qtdhe"): 0.4,
+ExtResource("1_g3m08"): 0.21
 }
 
 [resource]

@@ -1,33 +1,33 @@
 [gd_resource type="Resource" script_class="StarSystem" load_steps=15 format=3 uid="uid://ku5qjeo4jlkt"]
 
 [ext_resource type="Script" path="res://galaxy/star_system/star_system.gd" id="1_j0i0x"]
+[ext_resource type="Resource" uid="uid://dd63q3wg4vrk" path="res://mechanics/economy/commodities/biological_samples.tres" id="1_jupt3"]
 [ext_resource type="Script" path="res://mechanics/economy/market.gd" id="1_solmg"]
 [ext_resource type="Resource" uid="uid://cp0drexui8j6n" path="res://mechanics/economy/currencies/lumins.tres" id="1_tb2fi"]
-[ext_resource type="Resource" uid="uid://bnw61s2hj8a0m" path="res://mechanics/economy/commodities/water.tres" id="3_5t0m6"]
-[ext_resource type="Resource" uid="uid://dnutrj5jdgiaj" path="res://mechanics/economy/commodities/food.tres" id="4_rtq4r"]
-[ext_resource type="Resource" uid="uid://skhvwlendqx7" path="res://mechanics/economy/commodities/exotic_matter.tres" id="5_dfvel"]
-[ext_resource type="Resource" uid="uid://braihcb6cofi3" path="res://mechanics/economy/commodities/fusion_fuel.tres" id="6_2fo70"]
-[ext_resource type="Resource" uid="uid://ccvds2nloqvwn" path="res://mechanics/economy/commodities/industrial_equipment.tres" id="7_2dxnj"]
-[ext_resource type="Resource" uid="uid://dl132ceubbcos" path="res://mechanics/economy/commodities/rare_earth_elements.tres" id="8_s3opn"]
-[ext_resource type="Resource" uid="uid://dd63q3wg4vrk" path="res://mechanics/economy/commodities/biological_samples.tres" id="9_oangb"]
-[ext_resource type="Resource" uid="uid://n8yvfo8aytg" path="res://mechanics/economy/commodities/luxury_goods.tres" id="10_2w7fm"]
-[ext_resource type="Resource" uid="uid://dhxbtnaoc1nuo" path="res://mechanics/economy/commodities/medical_supplies.tres" id="11_xossq"]
-[ext_resource type="Resource" uid="uid://b764gd8q3il6s" path="res://mechanics/economy/currencies/credits.tres" id="12_x004m"]
+[ext_resource type="Resource" uid="uid://skhvwlendqx7" path="res://mechanics/economy/commodities/exotic_matter.tres" id="2_y4ndb"]
+[ext_resource type="Resource" uid="uid://dnutrj5jdgiaj" path="res://mechanics/economy/commodities/food.tres" id="3_c855x"]
+[ext_resource type="Resource" uid="uid://braihcb6cofi3" path="res://mechanics/economy/commodities/fusion_fuel.tres" id="4_pvnyq"]
+[ext_resource type="Resource" uid="uid://ccvds2nloqvwn" path="res://mechanics/economy/commodities/industrial_equipment.tres" id="5_ju1ds"]
+[ext_resource type="Resource" uid="uid://n8yvfo8aytg" path="res://mechanics/economy/commodities/luxury_goods.tres" id="6_ma6jc"]
+[ext_resource type="Resource" uid="uid://dhxbtnaoc1nuo" path="res://mechanics/economy/commodities/medical_supplies.tres" id="7_koy3i"]
+[ext_resource type="Resource" uid="uid://lkpwswpw8ss4" path="res://mechanics/economy/commodities/precious_metals.tres" id="8_3gu2w"]
+[ext_resource type="Resource" uid="uid://dl132ceubbcos" path="res://mechanics/economy/commodities/rare_earth_elements.tres" id="9_ce4dd"]
+[ext_resource type="Resource" uid="uid://bnw61s2hj8a0m" path="res://mechanics/economy/commodities/water.tres" id="10_k521h"]
 
 [sub_resource type="Resource" id="Resource_7y1hy"]
 script = ExtResource("1_solmg")
 money = ExtResource("1_tb2fi")
-trade_assets = {
-ExtResource("3_5t0m6"): 5,
-ExtResource("4_rtq4r"): 7,
-ExtResource("5_dfvel"): 1027,
-ExtResource("6_2fo70"): 28,
-ExtResource("7_2dxnj"): 31,
-ExtResource("8_s3opn"): 65,
-ExtResource("9_oangb"): 309,
-ExtResource("10_2w7fm"): 224,
-ExtResource("11_xossq"): 137,
-ExtResource("12_x004m"): 23.0
+commodities = {
+ExtResource("1_jupt3"): 0.4,
+ExtResource("2_y4ndb"): 0.41,
+ExtResource("3_c855x"): 0.34,
+ExtResource("4_pvnyq"): 0.18,
+ExtResource("5_ju1ds"): 0.5,
+ExtResource("6_ma6jc"): 0.64,
+ExtResource("7_koy3i"): 0.59,
+ExtResource("8_3gu2w"): 0.44,
+ExtResource("9_ce4dd"): 0.62,
+ExtResource("10_k521h"): 0.11
 }
 
 [resource]
