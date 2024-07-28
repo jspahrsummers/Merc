@@ -20,10 +20,10 @@ func price(commodity: Commodity) -> float:
 
     var currency := self.money as Currency
     if currency:
-        return price_in_credits / currency.price_in_credits
-    
-    var commodity_money := self.money as Commodity
-    assert(commodity_money, "Expected money to be a currency or a commodity")
+        return currency.round(price_in_credits / currency.price_in_credits)
+    else:
+        var commodity_money := self.money as Commodity
+        assert(commodity_money, "Expected money to be a currency or a commodity")
 
-    # TODO: This exchange rate mechanism probably isn't thought-out enough…
-    return price_in_credits / commodity_money.base_price_in_credits
+        # TODO: This exchange rate mechanism probably isn't thought-out enough…
+        return roundf(price_in_credits / commodity_money.base_price_in_credits)
