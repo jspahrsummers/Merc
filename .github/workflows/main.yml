@@ -154,7 +154,9 @@ jobs:
       - name: Generate changelog
         id: changelog
         run: |
-          echo "changelog=$(python ./script/markdown_changelog.py)" >> $GITHUB_OUTPUT
+          echo "changelog<<EOF" >> "$GITHUB_OUTPUT"
+          python ./script/markdown_changelog.py >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
