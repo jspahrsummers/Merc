@@ -40,7 +40,7 @@ func _ready() -> void:
     self.landscape_image.texture = self.planet.landscape_image
     self.description_label.text = self.planet.description
 
-    self.refuel_button.disabled = self._hyperdrive.fuel >= self._hyperdrive.max_fuel
+    self._update_refuel_button()
 
 func _on_bar_button_pressed() -> void:
     self.bar_dialog.dialog_text = self.spaceport_bar.get_description()
@@ -68,18 +68,35 @@ func _on_outfitter_button_pressed() -> void:
 func _on_shipyard_button_pressed() -> void:
     pass # Replace with function body.
 
+func _update_refuel_button() -> void:
+    var full := self._hyperdrive.fuel >= self._hyperdrive.max_fuel
+    var can_pay := self.star_system.refueling_money == null \
+        or self.star_system.refueling_money.current_amount(self.player.ship.cargo_hold, self.player.bank_account) >= self.star_system.refueling_price()
+
+    if full:
+        self.refuel_button.disabled = true
+        self.refuel_button.tooltip_text = "Already full"
+    elif not can_pay:
+        self.refuel_button.disabled = true
+        self.refuel_button.tooltip_text = "Cannot afford %s" % self.star_system.refueling_money.amount_as_string(self.star_system.refueling_price())
+    else:
+        var needed_fuel := self._hyperdrive.max_fuel - self._hyperdrive.fuel
+        var full_refuel_cost := needed_fuel * self.star_system.refueling_price()
+        self.refuel_button.disabled = false
+        self.refuel_button.tooltip_text = "Refuel for %s" % self.star_system.refueling_money.amount_as_string(full_refuel_cost)
+
 func _on_refuel_button_pressed() -> void:
-    var refueling_price := self.star_system.refueling_price()
     var needed_fuel := self._hyperdrive.max_fuel - self._hyperdrive.fuel
-    var full_refuel_cost := needed_fuel * refueling_price
-    if full_refuel_cost > 0:
+    if self.star_system.refueling_money == null:
+        self._hyperdrive.refuel(needed_fuel)
+    else:
+        var refueling_price := self.star_system.refueling_price()
+        var full_refuel_cost := needed_fuel * refueling_price
         var paid := self.star_system.refueling_money.take_up_to(full_refuel_cost, self.player.ship.cargo_hold, self.player.bank_account)
         var fuel_paid_for := paid / refueling_price
         self._hyperdrive.refuel(fuel_paid_for)
-    else:
-        self._hyperdrive.refuel(needed_fuel)
     
-    self.refuel_button.disabled = true
+    self._update_refuel_button()
 
 func _on_depart() -> void:
     self.hide()
