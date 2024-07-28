@@ -1,4 +1,4 @@
-[gd_scene load_steps=69 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=70 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperspace_scene_switcher.gd" id="4_yyrkm"]
@@ -29,6 +29,7 @@
 [ext_resource type="Script" path="res://screens/game/hud/jump_destination_name.gd" id="23_1qfwo"]
 [ext_resource type="StyleBox" uid="uid://bu1t76eyvll57" path="res://screens/game/hud/hud_panel_texture.tres" id="23_lvs05"]
 [ext_resource type="AudioStream" uid="uid://dqsuscukdo5oa" path="res://screens/shared_ui/audio/itempick1.wav" id="24_oh7qv"]
+[ext_resource type="PackedScene" uid="uid://b1yvdsvgyesj5" path="res://screens/game/currency_trading/currency_trading_window.tscn" id="25_57wc6"]
 [ext_resource type="Texture2D" uid="uid://bl3sv43f2a23p" path="res://screens/game/hud/images/player_vitals/node_unpowered.png" id="25_d2hsf"]
 [ext_resource type="Script" path="res://screens/game/hud/fuel_bar.gd" id="25_hno5u"]
 [ext_resource type="Texture2D" uid="uid://c2nr462gj84yf" path="res://screens/game/hud/images/player_vitals/heading_bg.png" id="26_mxja1"]
@@ -330,6 +331,7 @@ script = ExtResource("18_y74ml")
 galaxy_map_scene = ExtResource("17_4w17v")
 game_over_scene = ExtResource("17_yidh7")
 exit_dialog_scene = ExtResource("18_hl4w3")
+currency_trading_scene = ExtResource("25_57wc6")
 player = NodePath("../HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player")
 
 [node name="MarginContainer" type="MarginContainer" parent="InGameGUI"]

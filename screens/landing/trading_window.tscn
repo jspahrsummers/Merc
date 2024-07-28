@@ -1,26 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://dpihtkm0u6kmb"]
+[gd_scene load_steps=3 format=3 uid="uid://dpihtkm0u6kmb"]
 
 [ext_resource type="Script" path="res://screens/landing/trading_window.gd" id="1_b1kwq"]
-[ext_resource type="Resource" uid="uid://b764gd8q3il6s" path="res://mechanics/economy/currencies/credits.tres" id="15_5n2yb"]
-[ext_resource type="Script" path="res://mechanics/economy/market.gd" id="16_so5ie"]
 [ext_resource type="PackedScene" uid="uid://b04gt254vhyra" path="res://screens/landing/trade_buttons.tscn" id="17_j3rf1"]
 
-[sub_resource type="Resource" id="Resource_a521o"]
-script = ExtResource("16_so5ie")
-money = ExtResource("15_5n2yb")
-commodities = {}
-
-[node name="TradingWindow" type="Window" node_paths=PackedStringArray("tab_container", "commodities_container", "currencies_container")]
+[node name="TradingWindow" type="Window" node_paths=PackedStringArray("commodities_container")]
 title = "Trade Computer"
 initial_position = 1
 size = Vector2i(600, 300)
 transient = true
 script = ExtResource("1_b1kwq")
-market = SubResource("Resource_a521o")
-trade_buttons_scene = ExtResource("17_j3rf1")
-tab_container = NodePath("")
 commodities_container = NodePath("PanelContainer/Commodities/MarginContainer/ScrollContainer/GridContainer")
-currencies_container = NodePath("")
+trade_buttons_scene = ExtResource("17_j3rf1")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
