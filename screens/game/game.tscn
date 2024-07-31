@@ -160,7 +160,7 @@ texture_margin_bottom = 10.0
 
 [node name="Game" type="Node3D"]
 
-[node name="HyperspaceSceneSwitcher" type="Node3D" parent="." node_paths=PackedStringArray("hyperdrive_system")]
+[node name="HyperspaceSceneSwitcher" type="Node3D" parent="." node_paths=PackedStringArray("hyperdrive_system") groups=["saveable"]]
 script = ExtResource("4_yyrkm")
 hyperdrive_system = NodePath("Sol/PlayerCorvette/HyperdriveSystem")
 calendar = SubResource("Resource_jc1pg")
