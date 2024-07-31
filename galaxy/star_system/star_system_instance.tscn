@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://fxemun7o6rix"]
+
+[ext_resource type="Script" path="res://galaxy/star_system/star_system_instance.gd" id="1_isso2"]
+
+[node name="StarSystemInstance" type="Node3D" groups=["saveable"]]
+script = ExtResource("1_isso2")
