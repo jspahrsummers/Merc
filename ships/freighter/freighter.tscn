@@ -28,6 +28,7 @@ max_integrity = 150.0
 integrity = 150.0
 recharge_rate = 5.0
 power_efficiency = 1.0
+only_recharge_above = 0.2
 
 [sub_resource type="Resource" id="Resource_t05wf"]
 resource_local_to_scene = true
