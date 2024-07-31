@@ -12,7 +12,7 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_gsr85"]
 
-[node name="Ship" type="RigidBody3D" node_paths=PackedStringArray("combat_object", "targeting_system", "rigid_body_thruster", "rigid_body_direction", "power_management_unit", "radar_object") groups=["ships"]]
+[node name="Ship" type="RigidBody3D" node_paths=PackedStringArray("combat_object", "targeting_system", "rigid_body_thruster", "rigid_body_direction", "power_management_unit", "radar_object") groups=["saveable", "ships"]]
 collision_mask = 2
 axis_lock_linear_y = true
 axis_lock_angular_x = true
