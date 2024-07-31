@@ -1,4 +1,4 @@
-extends Resource
+extends SaveableResource
 class_name Shield
 
 ## Represents shields that can take damage.

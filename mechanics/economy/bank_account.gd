@@ -1,4 +1,4 @@
-extends Resource
+extends SaveableResource
 class_name BankAccount
 
 ## Represents a bank account or digital wallet of currencies.
@@ -31,9 +31,9 @@ func withdraw_up_to(currency: Currency, amount: float) -> float:
 ## Withdraws exactly [param amount] of [param currency] from the account.
 ##
 ## If [param allow_negative] is set, the account can go into negative balance; otherwise, an attempt to draw down more than the balance will fail and return false.
-func withdraw_exactly(currency: Currency, amount: float, allow_negative: bool=false) -> bool:
+func withdraw_exactly(currency: Currency, amount: float, allow_negative: bool = false) -> bool:
     var available_amount: float = self.currencies.get(currency, 0.0)
-    if available_amount - amount <= - Currency.EPSILON and not allow_negative:
+    if available_amount - amount <= -Currency.EPSILON and not allow_negative:
         return false
     
     if is_equal_approx(available_amount, amount):

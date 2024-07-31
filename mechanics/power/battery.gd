@@ -1,4 +1,4 @@
-extends Resource
+extends SaveableResource
 class_name Battery
 
 ## Represents a battery that can hold power and be recharged, and from which power can be consumed.
