@@ -1,4 +1,4 @@
-extends Resource
+extends SaveableResource
 class_name CargoHold
 
 ## Represents a cargo hold on a ship, containing commodities for trade.

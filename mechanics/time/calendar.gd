@@ -1,4 +1,4 @@
-extends Resource
+extends SaveableResource
 class_name Calendar
 
 ## The in-game clock and calendar for the Merc universe.
