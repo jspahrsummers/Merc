@@ -1,20 +1,19 @@
 [gd_scene load_steps=6 format=3 uid="uid://cyoasaafloxke"]
 
-[ext_resource type="Script" path="res://galaxy/star_system/star_system_instance.gd" id="1_hu4s2"]
 [ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://stars/base_star.tscn" id="1_hyeo5"]
 [ext_resource type="Resource" uid="uid://cs1x8gyt6a7kw" path="res://galaxy/star_system/star_systems/alpha_centauri.tres" id="2_ex383"]
 [ext_resource type="PackedScene" uid="uid://bqhgqgsbi7ofa" path="res://stars/main_sequence/star_class_k.tscn" id="4_daplr"]
 [ext_resource type="PackedScene" uid="uid://d27pdcik2lwf1" path="res://stars/main_sequence/star_class_m.tscn" id="5_gjyye"]
+[ext_resource type="PackedScene" uid="uid://fxemun7o6rix" path="res://galaxy/star_system/star_system_instance.tscn" id="star_system_instance"]
 
-[node name="Alpha Centauri" type="Node3D"]
-script = ExtResource("1_hu4s2")
+[node name="Alpha Centauri" instance=ExtResource("star_system_instance")]
 star_system = ExtResource("2_ex383")
 
-[node name="Rigil Kentaurus" parent="." instance=ExtResource("1_hyeo5")]
+[node name="Rigil Kentaurus" parent="." index="0" instance=ExtResource("1_hyeo5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5019, 2.08165e-12, -4.44388)
 
-[node name="Toliman" parent="." instance=ExtResource("4_daplr")]
+[node name="Toliman" parent="." index="1" instance=ExtResource("4_daplr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.83202, 2.08165e-12, 3.46602)
 
-[node name="Proxima Centauri" parent="." instance=ExtResource("5_gjyye")]
+[node name="Proxima Centauri" parent="." index="2" instance=ExtResource("5_gjyye")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.8751, 2.08165e-12, -15.3346)

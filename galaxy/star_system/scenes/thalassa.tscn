@@ -1,6 +1,5 @@
 [gd_scene load_steps=11 format=3 uid="uid://b7ego5luosh2x"]
 
-[ext_resource type="Script" path="res://galaxy/star_system/star_system_instance.gd" id="1_rmrq5"]
 [ext_resource type="Resource" uid="uid://cu1wn7ldbgeej" path="res://galaxy/star_system/star_systems/thalassa.tres" id="2_5t60p"]
 [ext_resource type="PackedScene" uid="uid://bqhgqgsbi7ofa" path="res://stars/main_sequence/star_class_k.tscn" id="3_i27l2"]
 [ext_resource type="PackedScene" uid="uid://d27pdcik2lwf1" path="res://stars/main_sequence/star_class_m.tscn" id="4_flex8"]
@@ -10,18 +9,18 @@
 [ext_resource type="Texture2D" uid="uid://03ncc8x5o5p" path="res://planet/sprites/planet_06.png" id="7_ih7yq"]
 [ext_resource type="Texture2D" uid="uid://c0155fkdfnehk" path="res://planet/sprites/planet_47.png" id="8_o1nyb"]
 [ext_resource type="Texture2D" uid="uid://7ou2232hojfu" path="res://planet/sprites/planet_08.png" id="10_7gbi5"]
+[ext_resource type="PackedScene" uid="uid://fxemun7o6rix" path="res://galaxy/star_system/star_system_instance.tscn" id="star_system_instance"]
 
-[node name="Thalassa" type="Node3D"]
-script = ExtResource("1_rmrq5")
+[node name="Thalassa" instance=ExtResource("star_system_instance")]
 star_system = ExtResource("2_5t60p")
 
-[node name="Star Class K" parent="." instance=ExtResource("3_i27l2")]
+[node name="Star Class K" parent="." index="0" instance=ExtResource("3_i27l2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.34809, 2.08165e-12, 1.56886)
 
-[node name="Star Class M" parent="." instance=ExtResource("4_flex8")]
+[node name="Star Class M" parent="." index="1" instance=ExtResource("4_flex8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4962, 2.08165e-12, 3.09616)
 
-[node name="Gaia Prime" parent="." instance=ExtResource("5_p806y")]
+[node name="Gaia Prime" parent="." index="2" instance=ExtResource("5_p806y")]
 transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 1.5, -2.33977, 0, -9.75337)
 planet = ExtResource("6_a1qqt")
 
@@ -29,7 +28,7 @@ planet = ExtResource("6_a1qqt")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 texture = ExtResource("7_ih7yq")
 
-[node name="Proteus" parent="." instance=ExtResource("5_p806y")]
+[node name="Proteus" parent="." index="3" instance=ExtResource("5_p806y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.4024, 1.36424e-12, -5.03147)
 
 [node name="Sprite3D" parent="Proteus" index="1"]
@@ -37,7 +36,7 @@ transform = Transform3D(-0.403865, 0, 0.914819, 0, 1, 0, -0.914819, 0, -0.403865
 pixel_size = 0.002
 texture = ExtResource("8_o1nyb")
 
-[node name="Aeolus" parent="." instance=ExtResource("5_p806y")]
+[node name="Aeolus" parent="." index="4" instance=ExtResource("5_p806y")]
 transform = Transform3D(1.2, 0, 0, 0, 1, 0, 0, 0, 1.2, -15.733, 3.8147e-06, -15.8206)
 planet = ExtResource("7_ffl6i")
 

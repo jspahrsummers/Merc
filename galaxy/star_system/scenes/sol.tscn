@@ -1,6 +1,5 @@
 [gd_scene load_steps=18 format=3 uid="uid://2mdsbbko7baw"]
 
-[ext_resource type="Script" path="res://galaxy/star_system/star_system_instance.gd" id="1_6tnek"]
 [ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://stars/base_star.tscn" id="1_j8iws"]
 [ext_resource type="Resource" uid="uid://cew4x137v08q" path="res://galaxy/star_system/star_systems/sol.tres" id="2_gs8wx"]
 [ext_resource type="PackedScene" uid="uid://b04hfgkcuq7k6" path="res://planet/planet_instance.tscn" id="3_7gpxn"]
@@ -14,6 +13,7 @@
 [ext_resource type="Script" path="res://mechanics/combat/hull.gd" id="8_ibfoc"]
 [ext_resource type="Script" path="res://mechanics/power/battery.gd" id="9_w4i7k"]
 [ext_resource type="Script" path="res://actors/ai/ai_navigation.gd" id="10_2xj23"]
+[ext_resource type="PackedScene" uid="uid://fxemun7o6rix" path="res://galaxy/star_system/star_system_instance.tscn" id="star_system_instance"]
 
 [sub_resource type="Resource" id="Resource_oen30"]
 resource_local_to_scene = true
@@ -36,38 +36,37 @@ script = ExtResource("9_w4i7k")
 max_power = 300.0
 power = 300.0
 
-[node name="Sol" type="Node3D"]
-script = ExtResource("1_6tnek")
+[node name="Sol" instance=ExtResource("star_system_instance")]
 star_system = ExtResource("2_gs8wx")
 
-[node name="Star" parent="." instance=ExtResource("1_j8iws")]
+[node name="Star" parent="." index="0" instance=ExtResource("1_j8iws")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2.08165e-12, -3)
 
-[node name="Mercury" parent="." instance=ExtResource("3_7gpxn")]
+[node name="Mercury" parent="." index="1" instance=ExtResource("3_7gpxn")]
 transform = Transform3D(0.71043, 0, 0, 0, 1, 0, 0, 0, 0.71043, 10.4139, 0, -4.93606)
 
 [node name="Sprite3D" parent="Mercury" index="1"]
 texture = ExtResource("5_hnp7v")
 
-[node name="Venus" parent="." instance=ExtResource("3_7gpxn")]
+[node name="Venus" parent="." index="2" instance=ExtResource("3_7gpxn")]
 transform = Transform3D(0.71043, 0, 0, 0, 1, 0, 0, 0, 0.71043, 12.5408, 0, 0.72235)
 
 [node name="Sprite3D" parent="Venus" index="1"]
 transform = Transform3D(-0.993252, 0, -0.115977, 0, 1, 0, 0.115977, 0, -0.993252, 0, -1, 0)
 texture = ExtResource("5_k6fyb")
 
-[node name="Earth" parent="." instance=ExtResource("3_7gpxn")]
+[node name="Earth" parent="." index="3" instance=ExtResource("3_7gpxn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.38638, 0, 6.14048)
 planet = ExtResource("3_qvwl4")
 
-[node name="Mars" parent="." instance=ExtResource("3_7gpxn")]
+[node name="Mars" parent="." index="4" instance=ExtResource("3_7gpxn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0726, 0, 12.0475)
 planet = ExtResource("4_b0o1w")
 
 [node name="Sprite3D" parent="Mars" index="1"]
 texture = ExtResource("4_afp06")
 
-[node name="Freighter" parent="." instance=ExtResource("6_uk08c")]
+[node name="Freighter" parent="." index="5" instance=ExtResource("6_uk08c")]
 transform = Transform3D(0.759975, 0, -0.649952, 0, 1, 0, 0.649952, 0, 0.759975, -5.22228, 0, -4.59493)
 physics_material_override = null
 
@@ -88,7 +87,7 @@ battery = SubResource("Resource_eyrkq")
 battery = SubResource("Resource_eyrkq")
 shield = SubResource("Resource_oen30")
 
-[node name="AINavigation" type="Node3D" parent="Freighter" node_paths=PackedStringArray("rigid_body_thruster", "rigid_body_direction")]
+[node name="AINavigation" type="Node3D" parent="Freighter" index="8" node_paths=PackedStringArray("rigid_body_thruster", "rigid_body_direction")]
 script = ExtResource("10_2xj23")
 rigid_body_thruster = NodePath("../RigidBodyThruster")
 rigid_body_direction = NodePath("../RigidBodyDirection")
