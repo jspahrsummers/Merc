@@ -165,8 +165,12 @@ func serialize_vector3(vector: Vector3) -> Array[float]:
     return [vector.x, vector.y, vector.z]
 
 func deserialize_vector3(value: Variant) -> Vector3:
-    var array: Array[float] = value
-    return Vector3(array[0], array[1], array[2])
+    var array: Array = value
+
+    var x: float = array[0]
+    var y: float = array[0]
+    var z: float = array[0]
+    return Vector3(x, y, z)
 
 func serialize_basis(basis: Basis) -> Array[Array]:
     return [
@@ -176,7 +180,7 @@ func serialize_basis(basis: Basis) -> Array[Array]:
     ]
 
 func deserialize_basis(value: Variant) -> Basis:
-    var array: Array[Array] = value
+    var array: Array = value
     return Basis(
         deserialize_vector3(array[0]),
         deserialize_vector3(array[1]),
@@ -191,8 +195,8 @@ func serialize_transform(transform: Transform3D) -> Dictionary:
 
 func deserialize_transform(value: Variant) -> Transform3D:
     var dict: Dictionary = value
-    var basis: Array[Array] = dict["basis"]
-    var origin: Array[float] = dict["origin"]
+    var basis: Array = dict["basis"]
+    var origin: Array = dict["origin"]
 
     return Transform3D(
         deserialize_basis(basis),
