@@ -27,15 +27,17 @@ class_name Pirate
 @export var patrol_target_tolerance: float = 1.0
 
 ## State machine for this AI. How it behaves will depend on which state it's in at any given time.
+##
+## Note that these values are saved via [SaveGame], so be careful not to break backwards compatibility!
 enum State {
     ## Patrolling around, waiting to detect a target.
-    PATROL,
+    PATROL = 0,
 
     ## Engaging a target.
-    ENGAGE,
+    ENGAGE = 1,
 
     ## Retreating from the target.
-    RETREAT,
+    RETREAT = 2,
 }
 
 @onready var _ship := self.get_parent() as Ship
@@ -165,3 +167,15 @@ func _on_damage_received() -> void:
     if attacker != self._ship.targeting_system.target:
         self._ship.targeting_system.target = attacker
         self._current_state = State.ENGAGE
+
+## See [SaveGame].
+func save_to_dict() -> Dictionary:
+    var result := {}
+    result["current_state"] = self._current_state
+    result["patrol_target"] = SaveGame.serialize_vector3(self._patrol_target)
+    return result
+
+## See [SaveGame].
+func load_from_dict(dict: Dictionary) -> void:
+    self._current_state = dict["current_state"]
+    self._patrol_target = SaveGame.deserialize_vector3(dict["patrol_target"])
