@@ -19,6 +19,7 @@ static func save(scene_tree: SceneTree, path: String) -> Error:
 
     file.store_string(json)
     file.close()
+    print("Saved game to: ", path)
     return OK
 
 ## Serializes all [i]saveable[/i] nodes in the scene tree to a JSON-compatible dictionary.
@@ -54,6 +55,7 @@ static func load(scene_tree: SceneTree, path: String) -> Error:
         return ERR_PARSE_ERROR
     
     load_tree_from_dict(scene_tree, dict)
+    print("Loaded game from: ", path)
     return OK
 
 ## Loads saveable nodes from a JSON dictionary into the scene tree, merging with existing nodes.
