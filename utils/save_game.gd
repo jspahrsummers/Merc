@@ -109,3 +109,41 @@ static func save_resource_property_into_dict(object: Object, dict: Dictionary, p
         return
 
     dict[property_name] = resource.save_to_dict()
+
+static func serialize_vector3(vector: Vector3) -> Array[float]:
+    return [vector.x, vector.y, vector.z]
+
+static func deserialize_vector3(value: Variant) -> Vector3:
+    var array: Array[float] = value
+    return Vector3(array[0], array[1], array[2])
+
+static func serialize_basis(basis: Basis) -> Array[Array]:
+    return [
+        serialize_vector3(basis.x),
+        serialize_vector3(basis.y),
+        serialize_vector3(basis.z),
+    ]
+
+static func deserialize_basis(value: Variant) -> Basis:
+    var array: Array[Array] = value
+    return Basis(
+        deserialize_vector3(array[0]),
+        deserialize_vector3(array[1]),
+        deserialize_vector3(array[2]),
+    )
+
+static func serialize_transform(transform: Transform3D) -> Dictionary:
+    return {
+        "origin": serialize_vector3(transform.origin),
+        "basis": serialize_basis(transform.basis),
+    }
+
+static func deserialize_transform(value: Variant) -> Transform3D:
+    var dict: Dictionary = value
+    var basis: Array[Array] = dict["basis"]
+    var origin: Array[float] = dict["origin"]
+
+    return Transform3D(
+        deserialize_basis(basis),
+        deserialize_vector3(origin),
+   )

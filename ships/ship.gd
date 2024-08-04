@@ -85,6 +85,10 @@ func save_to_dict() -> Dictionary:
     SaveGame.save_resource_property_into_dict(self, result, "shield")
     SaveGame.save_resource_property_into_dict(self, result, "hyperdrive")
     SaveGame.save_resource_property_into_dict(self, result, "cargo_hold")
+
+    result["transform"] = SaveGame.serialize_transform(self.transform)
+    result["linear_velocity"] = SaveGame.serialize_vector3(self.linear_velocity)
+    result["angular_velocity"] = SaveGame.serialize_vector3(self.angular_velocity)
     return result
 
 ## See [SaveGame].
@@ -94,3 +98,7 @@ func load_from_dict(dict: Dictionary) -> void:
     SaveGame.load_resource_property_from_dict(self, dict, "shield")
     SaveGame.load_resource_property_from_dict(self, dict, "hyperdrive")
     SaveGame.load_resource_property_from_dict(self, dict, "cargo_hold")
+
+    self.transform = SaveGame.deserialize_transform(dict["transform"])
+    self.linear_velocity = SaveGame.deserialize_vector3(dict["linear_velocity"])
+    self.angular_velocity = SaveGame.deserialize_vector3(dict["angular_velocity"])
