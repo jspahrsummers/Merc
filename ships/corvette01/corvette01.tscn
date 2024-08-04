@@ -17,12 +17,11 @@
 [ext_resource type="Script" path="res://mechanics/combat/weapons/weapon_mount.gd" id="15_douxu"]
 [ext_resource type="Resource" uid="uid://cw1tu3qdxdgfi" path="res://mechanics/combat/weapons/blaster/blaster.tres" id="16_17v50"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7odoe"]
-radius = 0.362506
-height = 3.94075
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_28kwx"]
-size = Vector3(0.361725, 0.247406, 0.331055)
+[sub_resource type="Resource" id="Resource_5twpq"]
+resource_local_to_scene = true
+script = ExtResource("5_uewxf")
+max_integrity = 40.0
+integrity = 40.0
 
 [sub_resource type="Resource" id="Resource_alskh"]
 resource_local_to_scene = true
@@ -33,22 +32,23 @@ recharge_rate = 5.0
 power_efficiency = 1.0
 only_recharge_above = 0.2
 
-[sub_resource type="Resource" id="Resource_5twpq"]
-resource_local_to_scene = true
-script = ExtResource("5_uewxf")
-max_integrity = 40.0
-integrity = 40.0
-
-[sub_resource type="Resource" id="Resource_fijlt"]
-script = ExtResource("8_4hne6")
-turning_rate = 8.0
-power_consumption_rate = 5.0
-
 [sub_resource type="Resource" id="Resource_ftwkb"]
 resource_local_to_scene = true
 script = ExtResource("9_8bmn0")
 max_power = 100.0
 power = 100.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7odoe"]
+radius = 0.362506
+height = 3.94075
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_28kwx"]
+size = Vector3(0.361725, 0.247406, 0.331055)
+
+[sub_resource type="Resource" id="Resource_fijlt"]
+script = ExtResource("8_4hne6")
+turning_rate = 8.0
+power_consumption_rate = 5.0
 
 [sub_resource type="Resource" id="Resource_7vep7"]
 script = ExtResource("10_ffov7")
@@ -63,6 +63,9 @@ rate_of_power = 5.0
 mass = 10.0
 shield_recharger = NodePath("ShieldRecharger")
 weapon_mounts = [NodePath("Blaster")]
+hull = SubResource("Resource_5twpq")
+shield = SubResource("Resource_alskh")
+battery = SubResource("Resource_ftwkb")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="0"]
 transform = Transform3D(-0.2, 6.97574e-17, -1.74846e-08, 6.97574e-17, 0.2, -6.97574e-17, 1.74846e-08, -6.97574e-17, -0.2, 0, 0, 0)
