@@ -79,8 +79,18 @@ func _to_string() -> String:
 
 ## See [SaveGame].
 func save_to_dict() -> Dictionary:
-    return {}
+    var result := {}
+    SaveGame.save_resource_property_into_dict(self, result, "hull")
+    SaveGame.save_resource_property_into_dict(self, result, "battery")
+    SaveGame.save_resource_property_into_dict(self, result, "shield")
+    SaveGame.save_resource_property_into_dict(self, result, "hyperdrive")
+    SaveGame.save_resource_property_into_dict(self, result, "cargo_hold")
+    return result
 
 ## See [SaveGame].
 func load_from_dict(dict: Dictionary) -> void:
-    pass
+    SaveGame.load_resource_property_from_dict(self, dict, "hull")
+    SaveGame.load_resource_property_from_dict(self, dict, "battery")
+    SaveGame.load_resource_property_from_dict(self, dict, "shield")
+    SaveGame.load_resource_property_from_dict(self, dict, "hyperdrive")
+    SaveGame.load_resource_property_from_dict(self, dict, "cargo_hold")
