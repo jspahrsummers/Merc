@@ -20,6 +20,9 @@ static func save(scene_tree: SceneTree, path: String) -> Error:
 
 ## Serializes all [i]saveable[/i] nodes in the scene tree to a JSON-compatible dictionary.
 static func save_tree_to_dict(scene_tree: SceneTree) -> Dictionary:
+    # Hook to allow nodes to prepare for saving.
+    scene_tree.call_group(SAVEABLE_GROUP, "before_save")
+
     var saveable_nodes := scene_tree.get_nodes_in_group(SAVEABLE_GROUP)
     var save_dict := {}
     for node in saveable_nodes:
@@ -27,7 +30,8 @@ static func save_tree_to_dict(scene_tree: SceneTree) -> Dictionary:
         var node_dict := {_SCENE_FILE_PATH_KEY: node.scene_file_path}
         node_dict.merge(node.call("save_to_dict") as Dictionary)
         save_dict[node_path] = node_dict
-    
+
+    scene_tree.call_group_flags(SceneTree.GROUP_CALL_REVERSE, SAVEABLE_GROUP, "after_save")
     return save_dict
 
 ## Loads saveable nodes from a file into the scene tree, merging with existing nodes.
