@@ -78,3 +78,5 @@ func load_from_dict(dict: Dictionary) -> void:
 
             _:
                 self.set(property_name, value)
+
+    self.emit_changed()
