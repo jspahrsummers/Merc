@@ -6,10 +6,10 @@ class_name HyperspaceSceneSwitcher
 ## This node must contain exactly one [StarSystemInstance] child at all times.
 
 ## The player's [HyperdriveSystem].
-@export var hyperdrive_system: HyperdriveSystem
+var hyperdrive_system: HyperdriveSystem
 
 ## The game [Calendar] to update when jumping, to represent time passing.
-@export var calendar: Calendar
+var calendar: Calendar
 
 ## The approximate number of days that should pass with each hyperspace jump.
 const HYPERSPACE_APPROXIMATE_TRAVEL_DAYS = 3
