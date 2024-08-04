@@ -23,6 +23,7 @@ config/icon="res://screens/shared_ui/images/icon.png"
 
 UserPreferences="*res://utils/user_preferences.gd"
 InputEventBroadcaster="*res://utils/input_event_broadcaster.gd"
+SaveGame="*res://utils/save_game.gd"
 
 [debug]
 

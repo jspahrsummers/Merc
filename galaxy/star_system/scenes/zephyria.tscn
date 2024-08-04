@@ -1,20 +1,19 @@
 [gd_scene load_steps=7 format=3 uid="uid://cy4rio5cdb5xy"]
 
-[ext_resource type="Script" path="res://galaxy/star_system/star_system_instance.gd" id="1_2vv4n"]
 [ext_resource type="Resource" uid="uid://bowucldo27rjd" path="res://galaxy/star_system/star_systems/zephyria.tres" id="2_q8gm3"]
 [ext_resource type="PackedScene" uid="uid://cfvdpnqnalspg" path="res://stars/giants/star_red_giant.tscn" id="3_7is3b"]
 [ext_resource type="PackedScene" uid="uid://b04hfgkcuq7k6" path="res://planet/planet_instance.tscn" id="4_qafen"]
 [ext_resource type="Resource" uid="uid://crj6o7sd5pos2" path="res://planet/planets/aethoria.tres" id="5_ls4hq"]
 [ext_resource type="Texture2D" uid="uid://cf0g36mpu7enh" path="res://planet/sprites/planet_03.png" id="6_lxy5c"]
+[ext_resource type="PackedScene" uid="uid://fxemun7o6rix" path="res://galaxy/star_system/star_system_instance.tscn" id="star_system_instance"]
 
-[node name="Zephyria" type="Node3D"]
-script = ExtResource("1_2vv4n")
+[node name="Zephyria" instance=ExtResource("star_system_instance")]
 star_system = ExtResource("2_q8gm3")
 
-[node name="Red Giant" parent="." instance=ExtResource("3_7is3b")]
+[node name="Red Giant" parent="." index="0" instance=ExtResource("3_7is3b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.9103, 2.08165e-12, -10.3797)
 
-[node name="Aethoria" parent="." instance=ExtResource("4_qafen")]
+[node name="Aethoria" parent="." index="1" instance=ExtResource("4_qafen")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.8458, 0, -0.921964)
 planet = ExtResource("5_ls4hq")
 

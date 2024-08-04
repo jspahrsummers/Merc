@@ -27,15 +27,17 @@ class_name Pirate
 @export var patrol_target_tolerance: float = 1.0
 
 ## State machine for this AI. How it behaves will depend on which state it's in at any given time.
+##
+## Note that these values are saved via [SaveGame], so be careful not to break backwards compatibility!
 enum State {
     ## Patrolling around, waiting to detect a target.
-    PATROL,
+    PATROL = 0,
 
     ## Engaging a target.
-    ENGAGE,
+    ENGAGE = 1,
 
     ## Retreating from the target.
-    RETREAT,
+    RETREAT = 2,
 }
 
 @onready var _ship := self.get_parent() as Ship
@@ -50,8 +52,8 @@ func _ready() -> void:
     self._connect_notifications.call_deferred()
 
 func _connect_notifications() -> void:
-    self._ship.combat_object.hull.changed.connect(_on_damage_received)
-    self._ship.combat_object.shield.changed.connect(_on_damage_received)
+    self._ship.hull.changed.connect(_on_damage_received)
+    self._ship.shield.changed.connect(_on_damage_received)
 
 func _select_new_patrol_target() -> void:
     self._patrol_target = MathUtils.random_unit_vector() * self.patrol_radius
@@ -74,12 +76,12 @@ func _desired_direction() -> Vector3:
     var target := self._ship.targeting_system.target
     if target:
         var target_direction := (target.global_transform.origin - self._ship.global_transform.origin).normalized()
-        return target_direction if self._current_state != State.RETREAT else - target_direction
+        return target_direction if self._current_state != State.RETREAT else -target_direction
     else:
         return (self._patrol_target - self._ship.global_transform.origin).normalized()
 
 func _pointing_in_direction(direction: Vector3) -> bool:
-    var current_direction := - self._ship.global_transform.basis.z
+    var current_direction := -self._ship.global_transform.basis.z
     return current_direction.angle_to(direction) <= self.direction_tolerance
 
 func _patrol_behavior(_delta: float) -> void:
@@ -165,3 +167,15 @@ func _on_damage_received() -> void:
     if attacker != self._ship.targeting_system.target:
         self._ship.targeting_system.target = attacker
         self._current_state = State.ENGAGE
+
+## See [SaveGame].
+func save_to_dict() -> Dictionary:
+    var result := {}
+    result["current_state"] = self._current_state
+    result["patrol_target"] = SaveGame.serialize_vector3(self._patrol_target)
+    return result
+
+## See [SaveGame].
+func load_from_dict(dict: Dictionary) -> void:
+    self._current_state = dict["current_state"]
+    self._patrol_target = SaveGame.deserialize_vector3(dict["patrol_target"])

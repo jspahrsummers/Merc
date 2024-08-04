@@ -28,15 +28,15 @@ var _hyperdrive: Hyperdrive
 var _trading_window: TradingWindow = null
 
 func _ready() -> void:
-    self._hyperdrive = self.player.ship.hyperdrive_system.hyperdrive
+    self._hyperdrive = self.player.ship.hyperdrive
 
     self.title = self.planet.name
-    self.bar_button.visible = (self.planet.facilities&Planet.BAR)
-    self.trading_button.visible = (self.planet.facilities&Planet.TRADING)
-    self.missions_button.visible = (self.planet.facilities&Planet.MISSIONS)
-    self.outfitter_button.visible = (self.planet.facilities&Planet.OUTFITTER)
-    self.shipyard_button.visible = (self.planet.facilities&Planet.SHIPYARD)
-    self.refuel_button.visible = (self.planet.facilities&Planet.REFUEL)
+    self.bar_button.visible = (self.planet.facilities & Planet.BAR)
+    self.trading_button.visible = (self.planet.facilities & Planet.TRADING)
+    self.missions_button.visible = (self.planet.facilities & Planet.MISSIONS)
+    self.outfitter_button.visible = (self.planet.facilities & Planet.OUTFITTER)
+    self.shipyard_button.visible = (self.planet.facilities & Planet.SHIPYARD)
+    self.refuel_button.visible = (self.planet.facilities & Planet.REFUEL)
     self.landscape_image.texture = self.planet.landscape_image
     self.description_label.text = self.planet.description
 

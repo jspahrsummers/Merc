@@ -19,8 +19,11 @@
 [ext_resource type="Script" path="res://mechanics/combat/weapons/weapon_mount.gd" id="16_xra8r"]
 [ext_resource type="Resource" uid="uid://cw1tu3qdxdgfi" path="res://mechanics/combat/weapons/blaster/blaster.tres" id="17_h1u5w"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ou7uu"]
-size = Vector3(1.98299, 0.832642, 1.04932)
+[sub_resource type="Resource" id="Resource_am8dk"]
+resource_local_to_scene = true
+script = ExtResource("4_6j23n")
+max_integrity = 100.0
+integrity = 100.0
 
 [sub_resource type="Resource" id="Resource_rw3nb"]
 resource_local_to_scene = true
@@ -29,12 +32,16 @@ max_integrity = 100.0
 integrity = 100.0
 recharge_rate = 10.0
 power_efficiency = 1.0
+only_recharge_above = 0.2
 
-[sub_resource type="Resource" id="Resource_am8dk"]
+[sub_resource type="Resource" id="Resource_p601o"]
 resource_local_to_scene = true
-script = ExtResource("4_6j23n")
-max_integrity = 100.0
-integrity = 100.0
+script = ExtResource("9_7c238")
+max_power = 300.0
+power = 300.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ou7uu"]
+size = Vector3(1.98299, 0.832642, 1.04932)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_pmc4q"]
 
@@ -64,12 +71,6 @@ script = ExtResource("8_74gsh")
 turning_rate = 1.0
 power_consumption_rate = 5.0
 
-[sub_resource type="Resource" id="Resource_p601o"]
-resource_local_to_scene = true
-script = ExtResource("9_7c238")
-max_power = 300.0
-power = 300.0
-
 [sub_resource type="Resource" id="Resource_1r5ug"]
 script = ExtResource("10_6f48k")
 thrust_force = 100.0
@@ -94,6 +95,9 @@ rate_of_power = 2.0
 mass = 100.0
 shield_recharger = NodePath("ShieldRecharger")
 weapon_mounts = [NodePath("Blaster")]
+hull = SubResource("Resource_am8dk")
+shield = SubResource("Resource_rw3nb")
+battery = SubResource("Resource_p601o")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." index="0"]
 transform = Transform3D(-0.4, 1.39515e-16, 3.49691e-08, 1.39515e-16, 0.4, -1.39515e-16, -3.49691e-08, -1.39515e-16, -0.4, 1.40849e-16, -1.40849e-16, -0.199324)
@@ -107,9 +111,7 @@ shape = SubResource("BoxShape3D_ou7uu")
 [node name="CombatObject" parent="." index="2" node_paths=PackedStringArray("shield_mesh_instance")]
 combat_name = "Frigate"
 target_view = ExtResource("3_bcien")
-shield = SubResource("Resource_rw3nb")
 shield_mesh_instance = NodePath("ShieldEffect")
-hull = SubResource("Resource_am8dk")
 destruction = ExtResource("2_xcc1t")
 
 [node name="ShieldEffect" parent="CombatObject" index="1" instance=ExtResource("11_lwnic")]
@@ -126,11 +128,9 @@ pixel_size = 0.011
 
 [node name="RigidBodyDirection" parent="." index="3"]
 spin_thruster = SubResource("Resource_likrw")
-battery = SubResource("Resource_p601o")
 
 [node name="RigidBodyThruster" parent="." index="4" node_paths=PackedStringArray("thruster_audio")]
 thruster = SubResource("Resource_1r5ug")
-battery = SubResource("Resource_p601o")
 thruster_audio = NodePath("AudioStreamPlayer3D")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="RigidBodyThruster" index="0"]
@@ -143,18 +143,14 @@ transform = Transform3D(0.433459, -4.84158e-17, 1.6528e-16, 1.51185e-16, 0.13881
 mesh = SubResource("QuadMesh_j7d31")
 
 [node name="PowerManagementUnit" parent="." index="5"]
-battery = SubResource("Resource_p601o")
 power_generator = SubResource("Resource_0m3cu")
 
 [node name="ShieldRecharger" type="Node3D" parent="." index="7"]
 script = ExtResource("15_ik8m4")
-battery = SubResource("Resource_p601o")
-shield = SubResource("Resource_rw3nb")
 
 [node name="Blaster" type="Node3D" parent="." index="8"]
 transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, 3.78906e-16, -3.78906e-16, -1.08635)
 script = ExtResource("16_xra8r")
 weapon = ExtResource("17_h1u5w")
-battery = SubResource("Resource_p601o")
 
 [editable path="CombatObject/TargetOverlay"]

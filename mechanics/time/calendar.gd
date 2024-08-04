@@ -1,4 +1,4 @@
-extends Resource
+extends SaveableResource
 class_name Calendar
 
 ## The in-game clock and calendar for the Merc universe.
@@ -64,3 +64,12 @@ func get_gst() -> String:
     var millicycles := int((current_cycle - floorf(current_cycle)) * 1000)
 
     return "%03d.%03d.%03d GST" % [kilocycles, cycles, millicycles]
+
+func save_to_dict() -> Dictionary:
+    var result := {}
+    result["cycle"] = self.get_current_cycle()
+    return result
+
+func load_from_dict(dict: Dictionary) -> void:
+    self._calendar_start_ticks_msec = Time.get_ticks_msec()
+    self._base_cycle = dict["cycle"]

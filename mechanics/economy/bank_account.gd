@@ -1,4 +1,4 @@
-extends Resource
+extends SaveableResource
 class_name BankAccount
 
 ## Represents a bank account or digital wallet of currencies.
@@ -31,9 +31,9 @@ func withdraw_up_to(currency: Currency, amount: float) -> float:
 ## Withdraws exactly [param amount] of [param currency] from the account.
 ##
 ## If [param allow_negative] is set, the account can go into negative balance; otherwise, an attempt to draw down more than the balance will fail and return false.
-func withdraw_exactly(currency: Currency, amount: float, allow_negative: bool=false) -> bool:
+func withdraw_exactly(currency: Currency, amount: float, allow_negative: bool = false) -> bool:
     var available_amount: float = self.currencies.get(currency, 0.0)
-    if available_amount - amount <= - Currency.EPSILON and not allow_negative:
+    if available_amount - amount <= -Currency.EPSILON and not allow_negative:
         return false
     
     if is_equal_approx(available_amount, amount):
@@ -43,3 +43,23 @@ func withdraw_exactly(currency: Currency, amount: float, allow_negative: bool=fa
     
     self.emit_changed()
     return true
+
+# Overridden because dictionaries of resources do not serialize correctly.
+func save_to_dict() -> Dictionary:
+    var saved_currencies := {}
+    for currency: Currency in self.currencies:
+        saved_currencies[currency.resource_path] = self.currencies[currency]
+
+    return {
+        "currencies": saved_currencies,
+    }
+
+func load_from_dict(dict: Dictionary) -> void:
+    self.currencies.clear()
+
+    var saved_currencies: Dictionary = dict["currencies"]
+    for currency_path: String in saved_currencies:
+        var currency: Currency = ResourceUtils.safe_load_resource(currency_path, "tres")
+        self.currencies[currency] = saved_currencies[currency_path]
+    
+    self.emit_changed()

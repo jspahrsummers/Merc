@@ -6,7 +6,7 @@ class_name HyperdriveSystem
 ## [b]This script expects the parent node to be a [Ship].[/b]
 
 ## The hyperdrive to use.
-@export var hyperdrive: Hyperdrive
+var hyperdrive: Hyperdrive
 
 ## Whether a jump is currently being performed.
 ##

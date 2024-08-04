@@ -9,7 +9,7 @@ class_name WeaponMount
 @export var weapon: Weapon
 
 ## The [Battery] to power the weapon from.
-@export var battery: Battery
+var battery: Battery
 
 ## The tick (in microseconds) in which the weapon was last fired. 
 var _last_fired_usec: int = -1

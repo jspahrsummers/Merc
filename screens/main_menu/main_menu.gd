@@ -1,9 +1,11 @@
 extends Control
+class_name MainMenu
 
 enum ToggleState {
-    NONE = -1,
-    SETTINGS = 0,
-    LICENSES = 1,
+    NONE,
+    LOAD_GAME,
+    SETTINGS,
+    LICENSES,
 }
 
 # We choose to have a string reference to the game scene here because we need
@@ -13,6 +15,9 @@ enum ToggleState {
 const MAIN_GAME_SCENE = "res://screens/game/game.tscn"
 
 @export var content_container: Container
+
+@export var load_game_button: Button
+@export var load_game_scene: PackedScene
 
 @export var settings_button: Button
 @export var settings_scene: PackedScene
@@ -28,11 +33,13 @@ var _current_view: Control = null
 func _ready() -> void:
     # TODO: Use a custom Resource for this?
     self._buttons_by_state = {
+        ToggleState.LOAD_GAME: self.load_game_button,
         ToggleState.SETTINGS: self.settings_button,
         ToggleState.LICENSES: self.licenses_button,
     }
 
     self._scenes_by_state = {
+        ToggleState.LOAD_GAME: self.load_game_scene,
         ToggleState.SETTINGS: self.settings_scene,
         ToggleState.LICENSES: self.licenses_scene,
     }
@@ -54,7 +61,10 @@ func _set_currently_toggled(index: ToggleState) -> void:
         self._current_view = node
 
 func _on_new_game_button_pressed() -> void:
-    get_tree().change_scene_to_file(MAIN_GAME_SCENE)
+    self.get_tree().change_scene_to_file(MAIN_GAME_SCENE)
+
+func _on_load_game_button_pressed() -> void:
+    self._set_currently_toggled(ToggleState.LOAD_GAME)
 
 func _on_settings_button_pressed() -> void:
     self._set_currently_toggled(ToggleState.SETTINGS)
@@ -63,4 +73,4 @@ func _on_licenses_button_pressed() -> void:
     self._set_currently_toggled(ToggleState.LICENSES)
 
 func _on_exit_button_pressed() -> void:
-    get_tree().quit()
+    self.get_tree().quit()

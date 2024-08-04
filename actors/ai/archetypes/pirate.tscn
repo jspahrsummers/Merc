@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" path="res://actors/ai/archetypes/pirate.gd" id="1_ndoop"]
 
-[node name="Pirate" type="Node3D"]
+[node name="Pirate" type="Node3D" groups=["saveable"]]
 script = ExtResource("1_ndoop")
