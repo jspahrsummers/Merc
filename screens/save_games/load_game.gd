@@ -29,7 +29,4 @@ func _on_empty_click(_at_position: Vector2, mouse_button_index: int) -> void:
 func _on_load_pressed() -> void:
     var scene_tree := self.get_tree()
     scene_tree.change_scene_to_file(MainMenu.MAIN_GAME_SCENE)
-
-    var result := SaveGame.load(scene_tree, self._selected_save_game)
-    if result != Error.OK:
-        push_error("Failed to load game: %s" % result)
+    SaveGame.load_async_after_scene_change(self._selected_save_game)
