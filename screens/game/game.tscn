@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=76 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperspace_scene_switcher.gd" id="4_yyrkm"]
@@ -54,6 +54,27 @@
 [sub_resource type="Resource" id="Resource_jc1pg"]
 script = ExtResource("46_cos1s")
 
+[sub_resource type="Resource" id="Resource_p7sh0"]
+resource_local_to_scene = true
+script = ExtResource("14_bcf1o")
+max_integrity = 300.0
+integrity = 300.0
+
+[sub_resource type="Resource" id="Resource_dhynb"]
+resource_local_to_scene = true
+script = ExtResource("13_xvthq")
+max_integrity = 150.0
+integrity = 150.0
+recharge_rate = 5.0
+power_efficiency = 1.0
+only_recharge_above = 0.2
+
+[sub_resource type="Resource" id="Resource_ubt7x"]
+resource_local_to_scene = true
+script = ExtResource("15_sjw8q")
+max_power = 300.0
+power = 300.0
+
 [sub_resource type="Resource" id="Resource_rwdpp"]
 resource_local_to_scene = true
 script = ExtResource("13_xvthq")
@@ -75,10 +96,37 @@ script = ExtResource("15_sjw8q")
 max_power = 300.0
 power = 300.0
 
+[sub_resource type="Resource" id="Resource_ffax2"]
+resource_local_to_scene = true
+script = ExtResource("14_bcf1o")
+max_integrity = 40.0
+integrity = 40.0
+
+[sub_resource type="Resource" id="Resource_75c8j"]
+resource_local_to_scene = true
+script = ExtResource("13_xvthq")
+max_integrity = 80.0
+integrity = 80.0
+recharge_rate = 5.0
+power_efficiency = 1.0
+only_recharge_above = 0.2
+
+[sub_resource type="Resource" id="Resource_xpwk4"]
+resource_local_to_scene = true
+script = ExtResource("15_sjw8q")
+max_power = 100.0
+power = 100.0
+
 [sub_resource type="Resource" id="Resource_bsv1l"]
 script = ExtResource("11_ag0i7")
 max_volume = 10.0
 commodities = {}
+
+[sub_resource type="Resource" id="Resource_xnk78"]
+resource_local_to_scene = true
+script = ExtResource("13_q2g24")
+max_fuel = 6.0
+fuel = 6.0
 
 [sub_resource type="Resource" id="Resource_p0y82"]
 resource_local_to_scene = true
@@ -100,12 +148,6 @@ resource_local_to_scene = true
 script = ExtResource("15_sjw8q")
 max_power = 100.0
 power = 100.0
-
-[sub_resource type="Resource" id="Resource_xnk78"]
-resource_local_to_scene = true
-script = ExtResource("13_q2g24")
-max_fuel = 6.0
-fuel = 6.0
 
 [sub_resource type="Resource" id="Resource_j1y8s"]
 script = ExtResource("42_g774c")
@@ -167,6 +209,11 @@ calendar = SubResource("Resource_jc1pg")
 
 [node name="Sol" parent="HyperspaceSceneSwitcher" instance=ExtResource("17_wjgyf")]
 
+[node name="Freighter" parent="HyperspaceSceneSwitcher/Sol" index="5"]
+hull = SubResource("Resource_p7sh0")
+shield = SubResource("Resource_dhynb")
+battery = SubResource("Resource_ubt7x")
+
 [node name="CombatObject" parent="HyperspaceSceneSwitcher/Sol/Freighter" index="2"]
 shield = SubResource("Resource_rwdpp")
 hull = SubResource("Resource_f0l3y")
@@ -187,7 +234,11 @@ shield = SubResource("Resource_rwdpp")
 [node name="PlayerCorvette" parent="HyperspaceSceneSwitcher/Sol" node_paths=PackedStringArray("hyperdrive_system") instance=ExtResource("12_bj83b")]
 physics_material_override = null
 hyperdrive_system = NodePath("HyperdriveSystem")
+hull = SubResource("Resource_ffax2")
+shield = SubResource("Resource_75c8j")
+battery = SubResource("Resource_xpwk4")
 cargo_hold = SubResource("Resource_bsv1l")
+hyperdrive = SubResource("Resource_xnk78")
 
 [node name="CombatObject" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="3"]
 shield = SubResource("Resource_p0y82")

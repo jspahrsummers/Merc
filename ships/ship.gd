@@ -1,6 +1,8 @@
 extends RigidBody3D
 class_name Ship
 
+# NODES
+
 ## The [CombatObject] representing this ship.
 @export var combat_object: CombatObject
 
@@ -30,8 +32,24 @@ class_name Ship
 ## Any weapons mounted on this ship.
 @export var weapon_mounts: Array[WeaponMount]
 
+# SAVEABLE RESOURCES
+
+## The hull of the ship.
+##
+## Connect to [signal Hull.hull_destroyed] to be notified when the ship is destroyed.
+@export var hull: Hull
+
+## An optional shield protecting the ship.
+@export var shield: Shield
+
+## The [Battery] powering the ship.
+@export var battery: Battery
+
 ## An optional cargo hold for this ship.
 @export var cargo_hold: CargoHold
+
+## An optional hyperdrive for this ship.
+@export var hyperdrive: Hyperdrive
 
 func _to_string() -> String:
     return "Ship:%s (%s)" % [self.name, self.combat_object]
