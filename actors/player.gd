@@ -67,17 +67,17 @@ const MAX_LANDING_VELOCITY = 4.0
 func _ready() -> void:
     self._rigid_body_turner = RigidBodyTurner.new()
     self._rigid_body_turner.spin_thruster = self.ship.rigid_body_direction.spin_thruster
-    self._rigid_body_turner.battery = self.ship.rigid_body_direction.battery
+    self._rigid_body_turner.battery = self.ship.battery
     self.ship.add_child.call_deferred(self._rigid_body_turner)
     self.ship.radar_object.iff = RadarObject.IFF.SELF
     self.ship.targeting_system.is_player = true
 
-    self.ship.combat_object.hull.changed.connect(_on_hull_changed)
-    self.ship.combat_object.hull.hull_destroyed.connect(_on_hull_destroyed)
-    self.ship.combat_object.shield.changed.connect(_on_shield_changed)
-    self.ship.power_management_unit.battery.changed.connect(_on_power_changed)
+    self.ship.hull.changed.connect(_on_hull_changed)
+    self.ship.hull.hull_destroyed.connect(_on_hull_destroyed)
+    self.ship.shield.changed.connect(_on_shield_changed)
+    self.ship.battery.changed.connect(_on_power_changed)
+    self.ship.hyperdrive.changed.connect(_on_hyperdrive_changed)
     self.ship.targeting_system.target_changed.connect(_on_target_changed)
-    self.ship.hyperdrive_system.hyperdrive.changed.connect(_on_hyperdrive_changed)
 
     InputEventBroadcaster.input_event.connect(_on_broadcasted_input_event)
 
@@ -88,16 +88,16 @@ func _ready() -> void:
     self._on_hyperdrive_changed()
 
 func _on_hull_changed() -> void:
-    self.hull_changed.emit(self, self.ship.combat_object.hull)
+    self.hull_changed.emit(self, self.ship.hull)
 
 func _on_shield_changed() -> void:
-    self.shield_changed.emit(self, self.ship.combat_object.shield)
+    self.shield_changed.emit(self, self.ship.shield)
 
 func _on_power_changed() -> void:
-    self.power_changed.emit(self, self.ship.power_management_unit.battery)
+    self.power_changed.emit(self, self.ship.battery)
 
 func _on_hull_destroyed(hull: Hull) -> void:
-    assert(hull == self.ship.combat_object.hull, "Received hull_destroyed signal from incorrect hull")
+    assert(hull == self.ship.hull, "Received hull_destroyed signal from incorrect hull")
     self.ship_destroyed.emit(self)
 
 func _on_target_changed(targeting_system: TargetingSystem) -> void:
@@ -109,7 +109,7 @@ func _on_jump_destination_loaded(_new_system_instance: StarSystemInstance) -> vo
     self.ship.targeting_system.target = null
 
 func _on_hyperdrive_changed() -> void:
-    self.hyperdrive_changed.emit(self, self.ship.hyperdrive_system.hyperdrive)
+    self.hyperdrive_changed.emit(self, self.ship.hyperdrive)
 
 func _next_system_connection() -> StarSystem:
     var current_destination_name: Variant = null
