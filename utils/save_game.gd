@@ -56,6 +56,7 @@ static func save_tree_to_dict(scene_tree: SceneTree) -> Dictionary:
     var save_dict := {}
     for node in saveable_nodes:
         var node_path := node.get_path()
+        print("Saving node: ", node_path)
         var node_dict := {_SCENE_FILE_PATH_KEY: node.scene_file_path}
         node_dict.merge(node.call("save_to_dict") as Dictionary)
         save_dict[node_path] = node_dict
@@ -86,37 +87,40 @@ static func load(scene_tree: SceneTree, name: String) -> Error:
 
 ## Loads saveable nodes from a JSON dictionary into the scene tree, merging with existing nodes.
 static func load_tree_from_dict(scene_tree: SceneTree, dict: Dictionary) -> void:
-    var node_paths: Array[NodePath] = []
-    dict.keys().assign(node_paths)
+    var paths := dict.keys().duplicate()
 
     # Load nodes in order of depth, to ensure parents are loaded before children.
     # We'll use this to instantiate any missing nodes along the way.
-    node_paths.sort_custom(func(a: NodePath, b: NodePath) -> bool:
-        return a.get_name_count() < b.get_name_count())
+    paths.sort_custom(func(a: String, b: String) -> bool:
+        return NodePath(a).get_name_count() < NodePath(b).get_name_count())
 
-    for node_path in node_paths:
-        var save_dict: Dictionary = dict[node_path]
+    for path: String in paths:
+        print("Loading node: ", path)
+
+        var save_dict: Dictionary = dict[path]
         save_dict = save_dict.duplicate()
 
         var scene_path: String = save_dict.get(_SCENE_FILE_PATH_KEY, "")
         save_dict.erase(_SCENE_FILE_PATH_KEY)
         if scene_path:
             scene_path = scene_path.simplify_path()
-            if not scene_path.is_absolute_path() or not scene_path.is_valid_filename() \
-                or not scene_path.begins_with("res://") or not scene_path.ends_with(".tscn"):
-                push_warning("Invalid scene path ", scene_path, " for node ", node_path, ", ignoring")
+            if not scene_path.is_absolute_path() or not scene_path.begins_with("res://") or not scene_path.ends_with(".tscn"):
+                push_warning("Invalid scene path ", scene_path, " for node ", path, ", ignoring")
                 scene_path = ""
 
+        var node_path := NodePath(path)
         var node := scene_tree.root.get_node_or_null(node_path)
         if node == null:
+            print("Instantiating node ", path, " from scene ", scene_path)
             var parent_path := NodeUtils.get_parent_path(node_path)
             var parent_node := scene_tree.root.get_node_or_null(parent_path)
             if not parent_node:
-                push_error("Could not find parent for node ", node_path, " in order to load it")
+                push_error("Could not find parent ", parent_path, " for node ", path, " in order to load it")
+                print("Tree:\n", scene_tree.root.get_tree_string())
                 continue
             
             if not scene_path:
-                push_error("Node ", node_path, " doesn't have a scene file, so cannot be loaded by instantiation")
+                push_error("Node ", path, " doesn't have a scene file, so cannot be loaded by instantiation")
                 continue
 
             var scene: PackedScene = load(scene_path)
@@ -125,7 +129,7 @@ static func load_tree_from_dict(scene_tree: SceneTree, dict: Dictionary) -> void
             parent_node.add_child(node)
         
         if not node.is_in_group(SAVEABLE_GROUP):
-            push_warning("Loaded node ", node_path, " is not marked as saveable, refusing to load it")
+            push_warning("Loaded node ", path, " is not marked as saveable, refusing to load it")
             continue
         
         node.call("load_from_dict", save_dict)
