@@ -9,9 +9,15 @@ class_name SaveableResource
 ##
 ## The default implementation should be suitable to serialize primitives and other [SaveableResource]s, but can be overridden to serialize properties of other types. Only properties tagged as [constant PROPERTY_USAGE_STORAGE] will be saved.
 func save_to_dict() -> Dictionary:
+    var ignore_properties := ClassDB.class_get_property_list(&"Resource").map(func(property: Dictionary) -> String: return property["name"])
+    ignore_properties.push_back("script")
+
     var save_dict := {}
     for property: Dictionary in self.get_property_list():
         var property_name: String = property.name
+        if property_name in ignore_properties:
+            continue
+
         var usage_flags: PropertyUsageFlags = property.usage
         if usage_flags & PROPERTY_USAGE_STORAGE == 0:
             continue
