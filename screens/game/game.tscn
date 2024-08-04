@@ -101,7 +101,7 @@ script = ExtResource("11_ag0i7")
 max_volume = 10.0
 commodities = {}
 
-[sub_resource type="Resource" id="Resource_6ari8"]
+[sub_resource type="Resource" id="Resource_eokwm"]
 resource_local_to_scene = true
 script = ExtResource("13_q2g24")
 max_fuel = 6.0
@@ -172,14 +172,15 @@ hull = SubResource("Resource_p7sh0")
 shield = SubResource("Resource_dhynb")
 battery = SubResource("Resource_ubt7x")
 
-[node name="PlayerCorvette" parent="HyperspaceSceneSwitcher/Sol" node_paths=PackedStringArray("hyperdrive_system") instance=ExtResource("12_bj83b")]
+[node name="PlayerCorvette" parent="HyperspaceSceneSwitcher/Sol" node_paths=PackedStringArray("hyperdrive_system", "rigid_body_cargo") instance=ExtResource("12_bj83b")]
 physics_material_override = null
 hyperdrive_system = NodePath("HyperdriveSystem")
+rigid_body_cargo = NodePath("RigidBodyCargo")
 hull = SubResource("Resource_ffax2")
 shield = SubResource("Resource_75c8j")
 battery = SubResource("Resource_xpwk4")
 cargo_hold = SubResource("Resource_bsv1l")
-hyperdrive = SubResource("Resource_6ari8")
+hyperdrive = SubResource("Resource_eokwm")
 
 [node name="HyperdriveSystem" type="Node3D" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" groups=["saveable"]]
 script = ExtResource("16_6olqp")
@@ -207,7 +208,6 @@ current = false
 
 [node name="RigidBodyCargo" type="Node3D" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette"]
 script = ExtResource("10_w7kut")
-cargo_hold = SubResource("Resource_bsv1l")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("1_pqled")

@@ -32,6 +32,9 @@ class_name Ship
 ## Any weapons mounted on this ship.
 @export var weapon_mounts: Array[WeaponMount]
 
+## An optional [RigidBodyCargo] for affecting this ship's physics based on its [member cargo_hold].
+@export var rigid_body_cargo: RigidBodyCargo
+
 # SAVEABLE RESOURCES
 
 ## The hull of the ship.
@@ -67,6 +70,9 @@ func _ready() -> void:
     
     for weapon_mount in self.weapon_mounts:
         weapon_mount.battery = self.battery
+    
+    if self.rigid_body_cargo:
+        self.rigid_body_cargo.cargo_hold = self.cargo_hold
 
 func _to_string() -> String:
     return "Ship:%s (%s)" % [self.name, self.combat_object]

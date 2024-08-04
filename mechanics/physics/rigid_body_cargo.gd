@@ -4,7 +4,7 @@ class_name RigidBodyCargo
 ## Attaches to a [RigidBody3D] to adjust its mass based on a [CargoHold].
 
 ## The cargo hold.
-@export var cargo_hold: CargoHold
+var cargo_hold: CargoHold
 
 @onready var _rigid_body := get_parent() as RigidBody3D
 
