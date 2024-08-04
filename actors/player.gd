@@ -301,9 +301,11 @@ func save_to_dict() -> Dictionary:
     var result := {}
     SaveGame.save_resource_property_into_dict(self, result, "bank_account")
     SaveGame.save_resource_property_into_dict(self, result, "calendar")
+    print("Saved player to dict: ", result)
     return result
 
 ## See [SaveGame].
 func load_from_dict(dict: Dictionary) -> void:
+    print("Loading player from dict: ", dict)
     SaveGame.load_resource_property_from_dict(self, dict, "bank_account")
     SaveGame.load_resource_property_from_dict(self, dict, "calendar")

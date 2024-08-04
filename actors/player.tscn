@@ -1,19 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxlg0yj8cjbrf"]
+[gd_scene load_steps=8 format=3 uid="uid://cxlg0yj8cjbrf"]
 
 [ext_resource type="Script" path="res://actors/player.gd" id="1_qxs3b"]
 [ext_resource type="PackedScene" uid="uid://d1kbmfvjs6nrv" path="res://screens/landing/landing.tscn" id="2_2bp8c"]
 [ext_resource type="AudioStream" uid="uid://b5h867m6j0kb2" path="res://screens/landing/audio/LandingGear.ogg" id="2_lqyst"]
 [ext_resource type="Script" path="res://mechanics/economy/bank_account.gd" id="3_0316y"]
+[ext_resource type="Script" path="res://mechanics/time/calendar.gd" id="4_x2dfd"]
 
 [sub_resource type="Resource" id="Resource_bycam"]
 script = ExtResource("3_0316y")
 currencies = {}
+
+[sub_resource type="Resource" id="Resource_8aheh"]
+script = ExtResource("4_x2dfd")
 
 [node name="Player" type="Node3D" node_paths=PackedStringArray("takeoff_sound")]
 script = ExtResource("1_qxs3b")
 landing_scene = ExtResource("2_2bp8c")
 takeoff_sound = NodePath("TakeoffSound")
 bank_account = SubResource("Resource_bycam")
+calendar = SubResource("Resource_8aheh")
 
 [node name="MinimapCameraRemoteTransform" type="RemoteTransform3D" parent="."]
 update_rotation = false
