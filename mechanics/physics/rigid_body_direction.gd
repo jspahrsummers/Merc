@@ -8,9 +8,6 @@ class_name RigidBodyDirection
 ## The thruster determining the spin speed.
 @export var spin_thruster: SpinThruster
 
-## The [Battery] to power the thruster from.
-@export var battery: Battery
-
 ## A vector representing the direction to rotate toward, or zero to stop rotating.
 @export var direction: Vector3 = Vector3.ZERO:
     set(value):
@@ -18,6 +15,9 @@ class_name RigidBodyDirection
 
 ## The [RigidBody3D] to rotate.
 @onready var _rigid_body := get_parent() as RigidBody3D
+
+## The [Battery] to power the thruster from.
+var battery: Battery
 
 func _physics_process(delta: float) -> void:
     if is_zero_approx(self.battery.power) or self.direction.is_zero_approx():

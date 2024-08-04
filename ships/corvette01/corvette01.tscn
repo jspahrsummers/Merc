@@ -83,20 +83,16 @@ shape = SubResource("BoxShape3D_28kwx")
 [node name="CombatObject" parent="." index="3" node_paths=PackedStringArray("shield_mesh_instance")]
 combat_name = "Corvette"
 target_view = ExtResource("3_v410k")
-shield = SubResource("Resource_alskh")
 shield_mesh_instance = NodePath("ShieldEffect")
-hull = SubResource("Resource_5twpq")
 destruction = ExtResource("2_xcc1t")
 
 [node name="ShieldEffect" parent="CombatObject" index="1" instance=ExtResource("10_js72b")]
 
 [node name="RigidBodyDirection" parent="." index="4"]
 spin_thruster = SubResource("Resource_fijlt")
-battery = SubResource("Resource_ftwkb")
 
 [node name="RigidBodyThruster" parent="." index="5" node_paths=PackedStringArray("thruster_audio")]
 thruster = SubResource("Resource_7vep7")
-battery = SubResource("Resource_ftwkb")
 thruster_audio = NodePath("AudioStreamPlayer3D")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="RigidBodyThruster" index="0"]
@@ -115,18 +111,14 @@ cast_shadow = 0
 gi_mode = 2
 
 [node name="PowerManagementUnit" parent="." index="6"]
-battery = SubResource("Resource_ftwkb")
 power_generator = SubResource("Resource_csuav")
 
 [node name="ShieldRecharger" type="Node3D" parent="." index="8"]
 script = ExtResource("14_mp2y5")
-battery = SubResource("Resource_ftwkb")
-shield = SubResource("Resource_alskh")
 
 [node name="Blaster" type="Node3D" parent="." index="9"]
 transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, 1.62168e-16, -1.62168e-16, -0.464948)
 script = ExtResource("15_douxu")
 weapon = ExtResource("16_17v50")
-battery = SubResource("Resource_ftwkb")
 
 [editable path="CombatObject/TargetOverlay"]

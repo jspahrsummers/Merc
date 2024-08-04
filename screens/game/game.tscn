@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=70 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperspace_scene_switcher.gd" id="4_yyrkm"]
@@ -75,27 +75,6 @@ script = ExtResource("15_sjw8q")
 max_power = 300.0
 power = 300.0
 
-[sub_resource type="Resource" id="Resource_rwdpp"]
-resource_local_to_scene = true
-script = ExtResource("13_xvthq")
-max_integrity = 150.0
-integrity = 150.0
-recharge_rate = 5.0
-power_efficiency = 1.0
-only_recharge_above = 0.2
-
-[sub_resource type="Resource" id="Resource_f0l3y"]
-resource_local_to_scene = true
-script = ExtResource("14_bcf1o")
-max_integrity = 300.0
-integrity = 300.0
-
-[sub_resource type="Resource" id="Resource_pv148"]
-resource_local_to_scene = true
-script = ExtResource("15_sjw8q")
-max_power = 300.0
-power = 300.0
-
 [sub_resource type="Resource" id="Resource_ffax2"]
 resource_local_to_scene = true
 script = ExtResource("14_bcf1o")
@@ -122,32 +101,11 @@ script = ExtResource("11_ag0i7")
 max_volume = 10.0
 commodities = {}
 
-[sub_resource type="Resource" id="Resource_xnk78"]
+[sub_resource type="Resource" id="Resource_6ari8"]
 resource_local_to_scene = true
 script = ExtResource("13_q2g24")
 max_fuel = 6.0
 fuel = 6.0
-
-[sub_resource type="Resource" id="Resource_p0y82"]
-resource_local_to_scene = true
-script = ExtResource("13_xvthq")
-max_integrity = 80.0
-integrity = 80.0
-recharge_rate = 5.0
-power_efficiency = 1.0
-only_recharge_above = 0.2
-
-[sub_resource type="Resource" id="Resource_rdvmt"]
-resource_local_to_scene = true
-script = ExtResource("14_bcf1o")
-max_integrity = 40.0
-integrity = 40.0
-
-[sub_resource type="Resource" id="Resource_jcr0a"]
-resource_local_to_scene = true
-script = ExtResource("15_sjw8q")
-max_power = 100.0
-power = 100.0
 
 [sub_resource type="Resource" id="Resource_j1y8s"]
 script = ExtResource("42_g774c")
@@ -204,8 +162,8 @@ texture_margin_bottom = 10.0
 
 [node name="HyperspaceSceneSwitcher" type="Node3D" parent="." node_paths=PackedStringArray("hyperdrive_system") groups=["saveable"]]
 script = ExtResource("4_yyrkm")
-hyperdrive_system = NodePath("Sol/PlayerCorvette/HyperdriveSystem")
 calendar = SubResource("Resource_jc1pg")
+hyperdrive_system = NodePath("Sol/PlayerCorvette/HyperdriveSystem")
 
 [node name="Sol" parent="HyperspaceSceneSwitcher" instance=ExtResource("17_wjgyf")]
 
@@ -214,23 +172,6 @@ hull = SubResource("Resource_p7sh0")
 shield = SubResource("Resource_dhynb")
 battery = SubResource("Resource_ubt7x")
 
-[node name="CombatObject" parent="HyperspaceSceneSwitcher/Sol/Freighter" index="2"]
-shield = SubResource("Resource_rwdpp")
-hull = SubResource("Resource_f0l3y")
-
-[node name="RigidBodyDirection" parent="HyperspaceSceneSwitcher/Sol/Freighter" index="3"]
-battery = SubResource("Resource_pv148")
-
-[node name="RigidBodyThruster" parent="HyperspaceSceneSwitcher/Sol/Freighter" index="4"]
-battery = SubResource("Resource_pv148")
-
-[node name="PowerManagementUnit" parent="HyperspaceSceneSwitcher/Sol/Freighter" index="5"]
-battery = SubResource("Resource_pv148")
-
-[node name="ShieldRecharger" parent="HyperspaceSceneSwitcher/Sol/Freighter" index="7"]
-battery = SubResource("Resource_pv148")
-shield = SubResource("Resource_rwdpp")
-
 [node name="PlayerCorvette" parent="HyperspaceSceneSwitcher/Sol" node_paths=PackedStringArray("hyperdrive_system") instance=ExtResource("12_bj83b")]
 physics_material_override = null
 hyperdrive_system = NodePath("HyperdriveSystem")
@@ -238,31 +179,10 @@ hull = SubResource("Resource_ffax2")
 shield = SubResource("Resource_75c8j")
 battery = SubResource("Resource_xpwk4")
 cargo_hold = SubResource("Resource_bsv1l")
-hyperdrive = SubResource("Resource_xnk78")
-
-[node name="CombatObject" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="3"]
-shield = SubResource("Resource_p0y82")
-hull = SubResource("Resource_rdvmt")
-
-[node name="RigidBodyDirection" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="4"]
-battery = SubResource("Resource_jcr0a")
-
-[node name="RigidBodyThruster" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="5"]
-battery = SubResource("Resource_jcr0a")
-
-[node name="PowerManagementUnit" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="6"]
-battery = SubResource("Resource_jcr0a")
-
-[node name="ShieldRecharger" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="8"]
-battery = SubResource("Resource_jcr0a")
-shield = SubResource("Resource_p0y82")
-
-[node name="Blaster" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="9"]
-battery = SubResource("Resource_jcr0a")
+hyperdrive = SubResource("Resource_6ari8")
 
 [node name="HyperdriveSystem" type="Node3D" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" groups=["saveable"]]
 script = ExtResource("16_6olqp")
-hyperdrive = SubResource("Resource_xnk78")
 
 [node name="Player" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" node_paths=PackedStringArray("hyperspace_scene_switcher", "message_log") groups=["saveable"] instance=ExtResource("16_lqltb")]
 hyperspace_scene_switcher = NodePath("../../..")
@@ -707,8 +627,6 @@ text = "30 FPS
 horizontal_alignment = 2
 script = ExtResource("37_e11x7")
 
-[connection signal="jump_destination_loaded" from="HyperspaceSceneSwitcher" to="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" method="_on_jump_destination_loaded"]
-[connection signal="jump_destination_loaded" from="HyperspaceSceneSwitcher" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/SystemName" method="_on_jump_destination_loaded"]
 [connection signal="jump_destination_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/HyperdriveSystem" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PanelContainer/VBoxContainer/JumpDestinationName" method="_on_jump_destination_changed"]
 [connection signal="jumping_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/HyperdriveSystem" to="MainCameraTransform/MainCamera/HyperspaceEffect" method="_on_jumping_changed"]
 [connection signal="hull_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_hull_changed"]

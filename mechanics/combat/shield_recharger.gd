@@ -3,10 +3,17 @@ class_name ShieldRecharger
 
 ## Automatically charges a [Shield] from a [Battery] over time.
 
-@export var battery: Battery
-@export var shield: Shield
+var battery: Battery:
+    set(value):
+        battery = value
+        self._maybe_toggle_enabled()
 
-func _ready() -> void:
+var shield: Shield:
+    set(value):
+        shield = value
+        self._maybe_toggle_enabled()
+
+func _maybe_toggle_enabled() -> void:
     var should_enable := self.battery != null \
         and self.shield != null \
         and not is_zero_approx(self.shield.recharge_rate) \

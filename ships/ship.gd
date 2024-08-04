@@ -51,6 +51,23 @@ class_name Ship
 ## An optional hyperdrive for this ship.
 @export var hyperdrive: Hyperdrive
 
+func _ready() -> void:
+    self.combat_object.hull = self.hull
+    self.combat_object.shield = self.shield
+    self.rigid_body_thruster.battery = self.battery
+    self.rigid_body_direction.battery = self.battery
+    self.power_management_unit.battery = self.battery
+
+    if self.shield_recharger:
+        self.shield_recharger.shield = self.shield
+        self.shield_recharger.battery = self.battery
+    
+    if self.hyperdrive_system:
+        self.hyperdrive_system.hyperdrive = self.hyperdrive
+    
+    for weapon_mount in self.weapon_mounts:
+        weapon_mount.battery = self.battery
+
 func _to_string() -> String:
     return "Ship:%s (%s)" % [self.name, self.combat_object]
 
