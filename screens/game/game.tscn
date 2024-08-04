@@ -51,10 +51,13 @@
 [ext_resource type="Script" path="res://screens/game/hud/time_label.gd" id="45_4kcdo"]
 [ext_resource type="Script" path="res://mechanics/time/calendar.gd" id="46_cos1s"]
 
-[sub_resource type="Resource" id="Resource_jc1pg"]
-script = ExtResource("46_cos1s")
+[sub_resource type="Resource" id="Resource_p7sh0"]
+resource_local_to_scene = true
+script = ExtResource("14_bcf1o")
+max_integrity = 300.0
+integrity = 300.0
 
-[sub_resource type="Resource" id="Resource_rwdpp"]
+[sub_resource type="Resource" id="Resource_dhynb"]
 resource_local_to_scene = true
 script = ExtResource("13_xvthq")
 max_integrity = 150.0
@@ -63,24 +66,19 @@ recharge_rate = 5.0
 power_efficiency = 1.0
 only_recharge_above = 0.2
 
-[sub_resource type="Resource" id="Resource_f0l3y"]
-resource_local_to_scene = true
-script = ExtResource("14_bcf1o")
-max_integrity = 300.0
-integrity = 300.0
-
-[sub_resource type="Resource" id="Resource_pv148"]
+[sub_resource type="Resource" id="Resource_ubt7x"]
 resource_local_to_scene = true
 script = ExtResource("15_sjw8q")
 max_power = 300.0
 power = 300.0
 
-[sub_resource type="Resource" id="Resource_bsv1l"]
-script = ExtResource("11_ag0i7")
-max_volume = 10.0
-commodities = {}
+[sub_resource type="Resource" id="Resource_ffax2"]
+resource_local_to_scene = true
+script = ExtResource("14_bcf1o")
+max_integrity = 40.0
+integrity = 40.0
 
-[sub_resource type="Resource" id="Resource_p0y82"]
+[sub_resource type="Resource" id="Resource_75c8j"]
 resource_local_to_scene = true
 script = ExtResource("13_xvthq")
 max_integrity = 80.0
@@ -89,19 +87,18 @@ recharge_rate = 5.0
 power_efficiency = 1.0
 only_recharge_above = 0.2
 
-[sub_resource type="Resource" id="Resource_rdvmt"]
-resource_local_to_scene = true
-script = ExtResource("14_bcf1o")
-max_integrity = 40.0
-integrity = 40.0
-
-[sub_resource type="Resource" id="Resource_jcr0a"]
+[sub_resource type="Resource" id="Resource_xpwk4"]
 resource_local_to_scene = true
 script = ExtResource("15_sjw8q")
 max_power = 100.0
 power = 100.0
 
-[sub_resource type="Resource" id="Resource_xnk78"]
+[sub_resource type="Resource" id="Resource_bsv1l"]
+script = ExtResource("11_ag0i7")
+max_volume = 10.0
+commodities = {}
+
+[sub_resource type="Resource" id="Resource_80tvv"]
 resource_local_to_scene = true
 script = ExtResource("13_q2g24")
 max_fuel = 6.0
@@ -112,6 +109,9 @@ script = ExtResource("42_g774c")
 currencies = {
 ExtResource("11_cir2n"): 10000
 }
+
+[sub_resource type="Resource" id="Resource_jc1pg"]
+script = ExtResource("46_cos1s")
 
 [sub_resource type="QuadMesh" id="QuadMesh_7oe51"]
 material = ExtResource("7_gr6ce")
@@ -160,60 +160,31 @@ texture_margin_bottom = 10.0
 
 [node name="Game" type="Node3D"]
 
-[node name="HyperspaceSceneSwitcher" type="Node3D" parent="." node_paths=PackedStringArray("hyperdrive_system")]
+[node name="HyperspaceSceneSwitcher" type="Node3D" parent="." node_paths=PackedStringArray("player") groups=["saveable"]]
 script = ExtResource("4_yyrkm")
-hyperdrive_system = NodePath("Sol/PlayerCorvette/HyperdriveSystem")
-calendar = SubResource("Resource_jc1pg")
+player = NodePath("Sol/PlayerCorvette/Player")
 
 [node name="Sol" parent="HyperspaceSceneSwitcher" instance=ExtResource("17_wjgyf")]
 
-[node name="CombatObject" parent="HyperspaceSceneSwitcher/Sol/Freighter" index="2"]
-shield = SubResource("Resource_rwdpp")
-hull = SubResource("Resource_f0l3y")
+[node name="Freighter" parent="HyperspaceSceneSwitcher/Sol" index="5"]
+hull = SubResource("Resource_p7sh0")
+shield = SubResource("Resource_dhynb")
+battery = SubResource("Resource_ubt7x")
 
-[node name="RigidBodyDirection" parent="HyperspaceSceneSwitcher/Sol/Freighter" index="3"]
-battery = SubResource("Resource_pv148")
-
-[node name="RigidBodyThruster" parent="HyperspaceSceneSwitcher/Sol/Freighter" index="4"]
-battery = SubResource("Resource_pv148")
-
-[node name="PowerManagementUnit" parent="HyperspaceSceneSwitcher/Sol/Freighter" index="5"]
-battery = SubResource("Resource_pv148")
-
-[node name="ShieldRecharger" parent="HyperspaceSceneSwitcher/Sol/Freighter" index="7"]
-battery = SubResource("Resource_pv148")
-shield = SubResource("Resource_rwdpp")
-
-[node name="PlayerCorvette" parent="HyperspaceSceneSwitcher/Sol" node_paths=PackedStringArray("hyperdrive_system") instance=ExtResource("12_bj83b")]
+[node name="PlayerCorvette" parent="HyperspaceSceneSwitcher/Sol" node_paths=PackedStringArray("hyperdrive_system", "rigid_body_cargo") instance=ExtResource("12_bj83b")]
 physics_material_override = null
 hyperdrive_system = NodePath("HyperdriveSystem")
+rigid_body_cargo = NodePath("RigidBodyCargo")
+hull = SubResource("Resource_ffax2")
+shield = SubResource("Resource_75c8j")
+battery = SubResource("Resource_xpwk4")
 cargo_hold = SubResource("Resource_bsv1l")
-
-[node name="CombatObject" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="3"]
-shield = SubResource("Resource_p0y82")
-hull = SubResource("Resource_rdvmt")
-
-[node name="RigidBodyDirection" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="4"]
-battery = SubResource("Resource_jcr0a")
-
-[node name="RigidBodyThruster" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="5"]
-battery = SubResource("Resource_jcr0a")
-
-[node name="PowerManagementUnit" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="6"]
-battery = SubResource("Resource_jcr0a")
-
-[node name="ShieldRecharger" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="8"]
-battery = SubResource("Resource_jcr0a")
-shield = SubResource("Resource_p0y82")
-
-[node name="Blaster" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="9"]
-battery = SubResource("Resource_jcr0a")
+hyperdrive = SubResource("Resource_80tvv")
 
 [node name="HyperdriveSystem" type="Node3D" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette"]
 script = ExtResource("16_6olqp")
-hyperdrive = SubResource("Resource_xnk78")
 
-[node name="Player" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" node_paths=PackedStringArray("hyperspace_scene_switcher", "message_log") instance=ExtResource("16_lqltb")]
+[node name="Player" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" node_paths=PackedStringArray("hyperspace_scene_switcher", "message_log") groups=["saveable"] instance=ExtResource("16_lqltb")]
 hyperspace_scene_switcher = NodePath("../../..")
 message_log = NodePath("../../../../InGameGUI/MarginContainer/HBoxContainer/MessageLog")
 bank_account = SubResource("Resource_j1y8s")
@@ -236,7 +207,6 @@ current = false
 
 [node name="RigidBodyCargo" type="Node3D" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette"]
 script = ExtResource("10_w7kut")
-cargo_hold = SubResource("Resource_bsv1l")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("1_pqled")

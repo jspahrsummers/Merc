@@ -1,4 +1,4 @@
-extends Resource
+extends SaveableResource
 class_name Hull
 
 ## Represents a hull that can take damage.

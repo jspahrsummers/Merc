@@ -1,19 +1,18 @@
 [gd_scene load_steps=5 format=3 uid="uid://d3qpe4ne3bgww"]
 
-[ext_resource type="Script" path="res://galaxy/star_system/star_system_instance.gd" id="1_sih83"]
 [ext_resource type="Resource" uid="uid://di0bekcy5g0ya" path="res://galaxy/star_system/star_systems/wolf_359.tres" id="2_byjpf"]
 [ext_resource type="PackedScene" uid="uid://d27pdcik2lwf1" path="res://stars/main_sequence/star_class_m.tscn" id="3_wjxxu"]
 [ext_resource type="PackedScene" uid="uid://culoat6jnbwc8" path="res://actors/ai/pirate_frigate.tscn" id="4_tean3"]
+[ext_resource type="PackedScene" uid="uid://fxemun7o6rix" path="res://galaxy/star_system/star_system_instance.tscn" id="star_system_instance"]
 
-[node name="Wolf 359" type="Node3D"]
-script = ExtResource("1_sih83")
+[node name="Wolf 359" instance=ExtResource("star_system_instance")]
 star_system = ExtResource("2_byjpf")
 
-[node name="Star Class M" parent="." instance=ExtResource("3_wjxxu")]
+[node name="Star Class M" parent="." index="0" instance=ExtResource("3_wjxxu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.65186, 2.08165e-12, 2.24275)
 
-[node name="PirateFrigate" parent="." instance=ExtResource("4_tean3")]
+[node name="PirateFrigate" parent="." index="1" instance=ExtResource("4_tean3")]
 transform = Transform3D(-0.287762, -2.33666e-16, -0.957702, 3.48787e-16, 1, -3.48787e-16, 0.957702, -4.34402e-16, -0.287762, -7.88217, 0, -3.99797)
 
-[node name="PirateFrigate2" parent="." instance=ExtResource("4_tean3")]
+[node name="PirateFrigate2" parent="." index="2" instance=ExtResource("4_tean3")]
 transform = Transform3D(-0.69814, 4.9322e-16, 0.715961, 3.48787e-16, 1, -3.48787e-16, -0.715961, 6.21573e-18, -0.69814, 5.40376, 0, 0.771966)

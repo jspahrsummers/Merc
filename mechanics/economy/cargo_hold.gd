@@ -1,4 +1,4 @@
-extends Resource
+extends SaveableResource
 class_name CargoHold
 
 ## Represents a cargo hold on a ship, containing commodities for trade.
@@ -92,3 +92,26 @@ func remove_exactly(commodity: Commodity, amount: int) -> bool:
     
     self.emit_changed()
     return true
+
+# Overridden because dictionaries of resources do not serialize correctly.
+func save_to_dict() -> Dictionary:
+    var result := {}
+    result["max_volume"] = self.max_volume
+
+    var saved_commodities := {}
+    for commodity: Commodity in self.commodities:
+        saved_commodities[commodity.resource_path] = self.commodities[commodity]
+
+    result["commodities"] = saved_commodities
+    return result
+
+func load_from_dict(dict: Dictionary) -> void:
+    self.max_volume = dict["max_volume"]
+    self.commodities.clear()
+
+    var saved_commodities: Dictionary = dict["commodities"]
+    for commodity_path: String in saved_commodities:
+        var commodity: Commodity = ResourceUtils.safe_load_resource(commodity_path, "tres")
+        self.commodities[commodity] = saved_commodities[commodity_path]
+    
+    self.emit_changed()

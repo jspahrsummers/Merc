@@ -50,6 +50,9 @@ var landing_target: PlanetInstance = null:
         if landing_target:
             landing_target.targeted_by_player = true
 
+## Used to save and restore the player object correctly across launches.
+var save_node_path_override: NodePath
+
 ## Created to turn the [Ship] when using the relative control scheme.
 var _rigid_body_turner: RigidBodyTurner
 
@@ -65,51 +68,63 @@ const MAX_LANDING_DISTANCE = 2.0
 const MAX_LANDING_VELOCITY = 4.0
 
 func _ready() -> void:
+    if not self.save_node_path_override:
+        self.save_node_path_override = self.get_path()
+        self.ship.save_node_path_override = self.ship.get_path()
+
     self._rigid_body_turner = RigidBodyTurner.new()
     self._rigid_body_turner.spin_thruster = self.ship.rigid_body_direction.spin_thruster
-    self._rigid_body_turner.battery = self.ship.rigid_body_direction.battery
+    self._rigid_body_turner.battery = self.ship.battery
     self.ship.add_child.call_deferred(self._rigid_body_turner)
     self.ship.radar_object.iff = RadarObject.IFF.SELF
     self.ship.targeting_system.is_player = true
 
-    self.ship.combat_object.hull.changed.connect(_on_hull_changed)
-    self.ship.combat_object.hull.hull_destroyed.connect(_on_hull_destroyed)
-    self.ship.combat_object.shield.changed.connect(_on_shield_changed)
-    self.ship.power_management_unit.battery.changed.connect(_on_power_changed)
+    self.ship.hull.changed.connect(_on_hull_changed)
+    self.ship.hull.hull_destroyed.connect(_on_hull_destroyed)
+    self.ship.battery.changed.connect(_on_power_changed)
     self.ship.targeting_system.target_changed.connect(_on_target_changed)
-    self.ship.hyperdrive_system.hyperdrive.changed.connect(_on_hyperdrive_changed)
 
     InputEventBroadcaster.input_event.connect(_on_broadcasted_input_event)
 
     # Initial notifications so the UI can update.
     self._on_hull_changed()
-    self._on_shield_changed()
     self._on_power_changed()
-    self._on_hyperdrive_changed()
+
+    if self.ship.shield:
+        self.ship.shield.changed.connect(_on_shield_changed)
+        self._on_shield_changed()
+
+    if self.ship.hyperdrive:
+        self._on_hyperdrive_changed()
+        self.ship.hyperdrive.changed.connect(_on_hyperdrive_changed)
 
 func _on_hull_changed() -> void:
-    self.hull_changed.emit(self, self.ship.combat_object.hull)
+    self.hull_changed.emit(self, self.ship.hull)
 
 func _on_shield_changed() -> void:
-    self.shield_changed.emit(self, self.ship.combat_object.shield)
+    self.shield_changed.emit(self, self.ship.shield)
 
 func _on_power_changed() -> void:
-    self.power_changed.emit(self, self.ship.power_management_unit.battery)
+    self.power_changed.emit(self, self.ship.battery)
 
 func _on_hull_destroyed(hull: Hull) -> void:
-    assert(hull == self.ship.combat_object.hull, "Received hull_destroyed signal from incorrect hull")
+    assert(hull == self.ship.hull, "Received hull_destroyed signal from incorrect hull")
     self.ship_destroyed.emit(self)
 
 func _on_target_changed(targeting_system: TargetingSystem) -> void:
     self.target_changed.emit(self, targeting_system.target)
 
 func _on_jump_destination_loaded(_new_system_instance: StarSystemInstance) -> void:
+    if not self.ship.hyperdrive_system.jumping:
+        # A bit of a hack to ignore this notification when reloading from a saved game, while allowing it to propagate to other nodes (e.g., UI).
+        return
+
     self._reset_velocity()
     self.ship.position = MathUtils.random_unit_vector() * HYPERSPACE_ARRIVAL_RADIUS
     self.ship.targeting_system.target = null
 
 func _on_hyperdrive_changed() -> void:
-    self.hyperdrive_changed.emit(self, self.ship.hyperdrive_system.hyperdrive)
+    self.hyperdrive_changed.emit(self, self.ship.hyperdrive)
 
 func _next_system_connection() -> StarSystem:
     var current_destination_name: Variant = null
@@ -252,7 +267,7 @@ func _absolute_input_direction() -> Vector3:
     return Vector3(input_direction.x, 0, input_direction.y)
 
 func _physics_process(_delta: float) -> void:
-    if self.ship.hyperdrive_system.jumping:
+    if not self.ship.hyperdrive_system or self.ship.hyperdrive_system.jumping:
         return
 
     if Input.is_action_pressed("jump"):
@@ -286,8 +301,20 @@ func _physics_process(_delta: float) -> void:
             var desired_direction := self._absolute_input_direction()
             self.ship.rigid_body_direction.direction = desired_direction
 
-            var current_direction := - self.ship.transform.basis.z
+            var current_direction := -self.ship.transform.basis.z
             if desired_direction != Vector3.ZERO and desired_direction.angle_to(current_direction) <= ABSOLUTE_DIRECTION_TOLERANCE_RAD:
                 self.ship.rigid_body_thruster.throttle = desired_direction.length()
             else:
                 self.ship.rigid_body_thruster.throttle = 0.0
+
+## See [SaveGame].
+func save_to_dict() -> Dictionary:
+    var result := {}
+    SaveGame.save_resource_property_into_dict(self, result, "bank_account")
+    SaveGame.save_resource_property_into_dict(self, result, "calendar")
+    return result
+
+## See [SaveGame].
+func load_from_dict(dict: Dictionary) -> void:
+    SaveGame.load_resource_property_from_dict(self, dict, "bank_account")
+    SaveGame.load_resource_property_from_dict(self, dict, "calendar")

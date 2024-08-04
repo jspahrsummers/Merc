@@ -1,4 +1,4 @@
-extends Resource
+extends SaveableResource
 class_name Hyperdrive
 
 ## Represents a hyperspace drive and its fuel.
