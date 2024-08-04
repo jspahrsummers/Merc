@@ -43,4 +43,7 @@ func _on_load_pressed() -> void:
     var path := SaveGame.SAVE_GAMES_DIRECTORY.path_join(self._selected_save_game + ".json")
     var scene_tree := self.get_tree()
     scene_tree.change_scene_to_file(MainMenu.MAIN_GAME_SCENE)
-    SaveGame.load(scene_tree, path)
+
+    var result := SaveGame.load(scene_tree, path)
+    if result != Error.OK:
+        push_error("Failed to load game: %s" % result)
