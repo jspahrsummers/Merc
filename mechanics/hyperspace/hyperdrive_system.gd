@@ -50,3 +50,11 @@ func current_system() -> StarSystem:
         return null
     
     return instance.star_system
+
+## See [SaveGame].
+func save_to_dict() -> Dictionary:
+    return {}
+
+## See [SaveGame].
+func load_from_dict(dict: Dictionary) -> void:
+    pass

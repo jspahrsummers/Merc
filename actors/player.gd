@@ -286,8 +286,16 @@ func _physics_process(_delta: float) -> void:
             var desired_direction := self._absolute_input_direction()
             self.ship.rigid_body_direction.direction = desired_direction
 
-            var current_direction := - self.ship.transform.basis.z
+            var current_direction := -self.ship.transform.basis.z
             if desired_direction != Vector3.ZERO and desired_direction.angle_to(current_direction) <= ABSOLUTE_DIRECTION_TOLERANCE_RAD:
                 self.ship.rigid_body_thruster.throttle = desired_direction.length()
             else:
                 self.ship.rigid_body_thruster.throttle = 0.0
+
+## See [SaveGame].
+func save_to_dict() -> Dictionary:
+    return {}
+
+## See [SaveGame].
+func load_from_dict(dict: Dictionary) -> void:
+    pass

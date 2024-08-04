@@ -13,3 +13,11 @@ static func star_system_instance_for_node(node: Node) -> StarSystemInstance:
             return null
     
     return node
+
+## See [SaveGame].
+func save_to_dict() -> Dictionary:
+    return {}
+
+## See [SaveGame].
+func load_from_dict(dict: Dictionary) -> void:
+    pass
