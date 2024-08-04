@@ -69,3 +69,11 @@ func load_jump_destination() -> void:
 func finish_jump() -> void:
     assert(self.hyperdrive_system.jumping, "No jump in progress")
     self.hyperdrive_system.jumping = false
+
+## See [SaveGame].
+func save_to_dict() -> Dictionary:
+    return {}
+
+## See [SaveGame].
+func load_from_dict(dict: Dictionary) -> void:
+    pass

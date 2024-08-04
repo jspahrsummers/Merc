@@ -35,3 +35,11 @@ class_name Ship
 
 func _to_string() -> String:
     return "Ship:%s (%s)" % [self.name, self.combat_object]
+
+## See [SaveGame].
+func save_to_dict() -> Dictionary:
+    return {}
+
+## See [SaveGame].
+func load_from_dict(dict: Dictionary) -> void:
+    pass

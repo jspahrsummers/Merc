@@ -234,7 +234,7 @@ pitch_scale = 2.0
 [node name="AudioListener3D" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" index="4"]
 current = false
 
-[node name="RigidBodyCargo" type="Node3D" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" groups=["saveable"]]
+[node name="RigidBodyCargo" type="Node3D" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette"]
 script = ExtResource("10_w7kut")
 cargo_hold = SubResource("Resource_bsv1l")
 
