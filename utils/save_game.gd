@@ -114,11 +114,6 @@ func load_tree_from_dict(dict: Dictionary) -> void:
 
         var scene_path: String = save_dict.get(_SCENE_FILE_PATH_KEY, "")
         save_dict.erase(_SCENE_FILE_PATH_KEY)
-        if scene_path:
-            scene_path = scene_path.simplify_path()
-            if not scene_path.is_absolute_path() or not scene_path.begins_with("res://") or not scene_path.ends_with(".tscn"):
-                push_warning("Invalid scene path ", scene_path, " for node ", path, ", ignoring")
-                scene_path = ""
 
         var node_path := NodePath(path)
         var node := scene_tree.root.get_node_or_null(node_path)
@@ -135,7 +130,7 @@ func load_tree_from_dict(dict: Dictionary) -> void:
                 push_error("Node ", path, " doesn't have a scene file, so cannot be loaded by instantiation")
                 continue
 
-            var scene: PackedScene = load(scene_path)
+            var scene: PackedScene = ResourceUtils.safe_load_resource(scene_path, "tscn")
             node = scene.instantiate()
             node.add_to_group(SAVEABLE_GROUP)
             parent_node.add_child(node)
