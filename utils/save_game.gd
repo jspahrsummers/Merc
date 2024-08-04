@@ -163,8 +163,8 @@ func deserialize_vector3(value: Variant) -> Vector3:
     var array: Array = value
 
     var x: float = array[0]
-    var y: float = array[0]
-    var z: float = array[0]
+    var y: float = array[1]
+    var z: float = array[2]
     return Vector3(x, y, z)
 
 func serialize_basis(basis: Basis) -> Array[Array]:
