@@ -44,12 +44,16 @@ func save_to_dict() -> Dictionary:
 ##
 ## The default implementation should be suitable to load primitives and other [SaveableResource]s, but can be overridden to load properties of other types. Only properties tagged as [constant PROPERTY_USAGE_STORAGE] will be loaded.
 func load_from_dict(dict: Dictionary) -> void:
+    var properties_by_name := {}
     for property: Dictionary in self.get_property_list():
-        var property_name: String = property.name
-        if not dict.has(property_name):
-            push_warning("load_from_dict: Missing property ", property_name)
+        properties_by_name[property.name] = property
+
+    for property_name: String in dict:
+        if not properties_by_name.has(property_name):
+            push_error("load_from_dict: Saved property ", property_name, " not found on object")
             continue
 
+        var property: Dictionary = properties_by_name[property_name]
         var usage_flags: PropertyUsageFlags = property.usage
         if usage_flags & PROPERTY_USAGE_STORAGE == 0:
             push_warning("load_from_dict: Ignoring property ", property_name, " not marked for storage")
