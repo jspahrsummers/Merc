@@ -9,8 +9,33 @@ const SAVE_GAMES_DIRECTORY = "user://save_games/"
 ## A private key used to store a node's [member Node.scene_file_path] when saving.
 const _SCENE_FILE_PATH_KEY = "__scene_file_path"
 
-## Saves all [i]saveable[/i] nodes in the scene tree to a file at the given path.
-static func save(scene_tree: SceneTree, path: String) -> Error:
+## Returns the names of all existing save games.
+static func get_save_game_names() -> Array[String]:
+    var dir := DirAccess.open(SaveGame.SAVE_GAMES_DIRECTORY)
+    if not dir:
+        return []
+
+    var paths: Array[String] = []
+
+    dir.list_dir_begin()
+    var file_name := dir.get_next()
+    while file_name:
+        if not dir.current_is_dir() and file_name.ends_with(".json"):
+            paths.append(file_name.substr(0, file_name.length() - 5))
+
+        file_name = dir.get_next()
+    
+    return paths
+
+## Saves all [i]saveable[/i] nodes in the scene tree to a file with the given name.
+static func save(scene_tree: SceneTree, name: String) -> Error:
+    if not DirAccess.dir_exists_absolute(SAVE_GAMES_DIRECTORY):
+        var error := DirAccess.make_dir_recursive_absolute(SAVE_GAMES_DIRECTORY)
+        if error != OK:
+            return error
+
+    var path := SAVE_GAMES_DIRECTORY.path_join(name + ".json")
+
     var save_dict := save_tree_to_dict(scene_tree)
     var json := JSON.stringify(save_dict, "\t", false)
     var file := FileAccess.open(path, FileAccess.WRITE)
@@ -39,7 +64,8 @@ static func save_tree_to_dict(scene_tree: SceneTree) -> Dictionary:
     return save_dict
 
 ## Loads saveable nodes from a file into the scene tree, merging with existing nodes.
-static func load(scene_tree: SceneTree, path: String) -> Error:
+static func load(scene_tree: SceneTree, name: String) -> Error:
+    var path := SAVE_GAMES_DIRECTORY.path_join(name + ".json")
     var file := FileAccess.open(path, FileAccess.READ)
     if not file:
         return FileAccess.get_open_error()
