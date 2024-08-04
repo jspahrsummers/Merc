@@ -20,6 +20,9 @@ var _hyperdrive_system: HyperdriveSystem
 ## Used to keep systems around in memory, so their state is remembered.
 var _loaded_system_nodes: Dictionary = {}
 
+## Used only when loading the game, to remember what the current system is.
+var _current_system_after_load: String = ""
+
 func _ready() -> void:
     self._hyperdrive_system = self.player.ship.hyperdrive_system
 
@@ -85,7 +88,14 @@ func before_save() -> void:
 
 ## See [SaveGame].
 func after_save() -> void:
-    self._remove_saved_or_loaded_children()
+    var current_system_instance := self._get_current_system_instance()
+
+    var count := self.get_child_count()
+    for i in range(count - 1, 0, -1):
+        var child := self.get_child(i)
+        self.remove_child(child)
+    
+    assert(self._get_current_system_instance() == current_system_instance, "Current system unexpectedly changed after removing children")
 
 ## See [SaveGame].
 func save_to_dict() -> Dictionary:
@@ -97,14 +107,46 @@ func save_to_dict() -> Dictionary:
 
 ## See [SaveGame].
 func load_from_dict(dict: Dictionary) -> void:
-    assert(self._get_current_system_instance().star_system.name == dict["current_system"], "Current system mismatch after loading")
+    self._current_system_after_load = dict["current_system"]
 
-func _remove_saved_or_loaded_children() -> void:
-    var current_system_instance := self._get_current_system_instance()
+## See [SaveGame].
+func after_load() -> void:
+    self._fixup_player()
+    self._fixup_current_system()
 
-    var count := self.get_child_count()
-    for i in range(count - 1, 0, -1):
-        var child := self.get_child(i)
-        self.remove_child(child)
-    
-    assert(self._get_current_system_instance() == current_system_instance, "Current system unexpectedly changed after removing children")
+## Replaces any [Player] node that was instantiated during load with the one we have a direct reference to.
+##
+## This is necessary because there are many connections directly to/from the Player object, configured in the editor, and we also want to make sure it has all of its customized sub-nodes as created there too.
+func _fixup_player() -> void:
+    var player_nodes := self.find_children("*", "Player", true, false)
+    assert(player_nodes.size() <= 2, "Expected no more than two player nodes after loading")
+    player_nodes.erase(self.player)
+
+    if not player_nodes:
+        return
+
+    var player_node: Player = player_nodes[0]
+    print("Replacing loaded player ", player_node.get_path(), " with ", self.player.get_path())
+
+    var parent := player_node.ship.get_parent()
+    self.player.ship.reparent(parent)
+    parent.move_child(self.player.ship, player_node.ship.get_index())
+
+    # HACK: We have to re-update the player's properties, since the node we're removing is the one that actually loaded this data from disk.
+    self.player.load_from_dict(player_node.save_to_dict())
+    self.player.ship.load_from_dict(player_node.ship.save_to_dict())
+
+    player_node.ship.queue_free()
+
+func _fixup_current_system() -> void:
+    assert(self._current_system_after_load, "Expected current system to be set after load")
+
+    self._loaded_system_nodes.clear()
+    for star_system_instance: StarSystemInstance in self.get_children():
+        var star_system := star_system_instance.star_system
+        self._loaded_system_nodes[star_system.name] = star_system_instance
+
+        if star_system.name != self._current_system_after_load:
+            self.remove_child(star_system_instance)
+
+    assert(self._get_current_system_instance().star_system.name == self._current_system_after_load, "Current system mismatch after loading")

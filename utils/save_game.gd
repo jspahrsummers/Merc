@@ -99,6 +99,8 @@ func load(filename: String) -> Error:
 ## Loads saveable nodes from a JSON dictionary into the scene tree, merging with existing nodes.
 func load_tree_from_dict(dict: Dictionary) -> void:
     var scene_tree := self.get_tree()
+    scene_tree.call_group(SAVEABLE_GROUP, "before_load")
+
     var paths := dict.keys().duplicate()
 
     # Load nodes in order of depth, to ensure parents are loaded before children.
@@ -123,7 +125,6 @@ func load_tree_from_dict(dict: Dictionary) -> void:
             var parent_node := scene_tree.root.get_node_or_null(parent_path)
             if not parent_node:
                 push_error("Could not find parent ", parent_path, " for node ", path, " in order to load it")
-                print("Tree:\n", scene_tree.root.get_tree_string())
                 continue
             
             if not scene_path:
@@ -132,6 +133,7 @@ func load_tree_from_dict(dict: Dictionary) -> void:
 
             var scene: PackedScene = ResourceUtils.safe_load_resource(scene_path, "tscn")
             node = scene.instantiate()
+            node.name = node_path.get_name(node_path.get_name_count() - 1)
             node.add_to_group(SAVEABLE_GROUP)
             parent_node.add_child(node)
         
@@ -140,6 +142,12 @@ func load_tree_from_dict(dict: Dictionary) -> void:
             continue
         
         node.call("load_from_dict", save_dict)
+    
+    self._call_after_load.call_deferred()
+
+func _call_after_load() -> void:
+    var scene_tree := self.get_tree()
+    scene_tree.call_group_flags(SceneTree.GROUP_CALL_REVERSE, SAVEABLE_GROUP, "after_load")
 
 func load_resource_property_from_dict(object: Object, dict: Dictionary, property_name: StringName) -> void:
     var resource: SaveableResource = object.get(property_name)

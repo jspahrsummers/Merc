@@ -98,7 +98,7 @@ script = ExtResource("11_ag0i7")
 max_volume = 10.0
 commodities = {}
 
-[sub_resource type="Resource" id="Resource_f4ln0"]
+[sub_resource type="Resource" id="Resource_vastl"]
 resource_local_to_scene = true
 script = ExtResource("13_q2g24")
 max_fuel = 6.0
@@ -160,8 +160,9 @@ texture_margin_bottom = 10.0
 
 [node name="Game" type="Node3D"]
 
-[node name="HyperspaceSceneSwitcher" type="Node3D" parent="." groups=["saveable"]]
+[node name="HyperspaceSceneSwitcher" type="Node3D" parent="." node_paths=PackedStringArray("player") groups=["saveable"]]
 script = ExtResource("4_yyrkm")
+player = NodePath("Sol/PlayerCorvette/Player")
 
 [node name="Sol" parent="HyperspaceSceneSwitcher" instance=ExtResource("17_wjgyf")]
 
@@ -178,7 +179,7 @@ hull = SubResource("Resource_ffax2")
 shield = SubResource("Resource_75c8j")
 battery = SubResource("Resource_xpwk4")
 cargo_hold = SubResource("Resource_bsv1l")
-hyperdrive = SubResource("Resource_f4ln0")
+hyperdrive = SubResource("Resource_vastl")
 
 [node name="HyperdriveSystem" type="Node3D" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette"]
 script = ExtResource("16_6olqp")
