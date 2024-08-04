@@ -7,9 +7,6 @@ class_name RigidBodyThruster
 
 @export var thruster: Thruster
 
-## The [Battery] to power the thruster from.
-@export var battery: Battery
-
 ## An audio clip to play while the thruster is active.
 ##
 ## This audio stream should be a looping sound. Rather than restarting from the beginning each time the thruster is used, the audio stream is paused and resumed, and evenutally loops.
@@ -22,6 +19,9 @@ class_name RigidBodyThruster
 
 @export var animation_transition: Tween.TransitionType = Tween.TRANS_CUBIC
 @export var animation_ease: Tween.EaseType = Tween.EASE_IN_OUT
+
+## The [Battery] to power the thruster from.
+var battery: Battery
 
 ## The current level of throttle (where 1.0 is full throttle), which corresponds to the magnitude of the thrust to apply, as well as the amount of power to be consumed.
 var throttle: float:
