@@ -111,6 +111,7 @@ func load_tree_from_dict(dict: Dictionary) -> void:
     paths.sort_custom(func(a: String, b: String) -> bool:
         return NodePath(a).get_name_count() < NodePath(b).get_name_count())
 
+    var loaded_nodes: Array[Node] = []
     for path: String in paths:
         print("Loading node: ", path)
 
@@ -122,7 +123,7 @@ func load_tree_from_dict(dict: Dictionary) -> void:
 
         var node_path := NodePath(path)
         var node := scene_tree.root.get_node_or_null(node_path)
-        if node == null:
+        if not node:
             print("Instantiating node ", path, " from scene ", scene_path)
             var parent_path := NodeUtils.get_parent_path(node_path)
             var parent_node := scene_tree.root.get_node_or_null(parent_path)
@@ -145,11 +146,19 @@ func load_tree_from_dict(dict: Dictionary) -> void:
             continue
         
         node.call("load_from_dict", save_dict)
+        loaded_nodes.push_back(node)
     
-    self._call_after_load.call_deferred()
+    self._finish_load.call_deferred(loaded_nodes)
 
-func _call_after_load() -> void:
+func _finish_load(loaded_nodes: Array[Node]) -> void:
     var scene_tree := self.get_tree()
+    for node in scene_tree.get_nodes_in_group(SAVEABLE_GROUP):
+        if node in loaded_nodes:
+            continue
+
+        print("Removing node which wasn't saved: ", node.get_path())
+        node.queue_free()
+
     scene_tree.call_group_flags(SceneTree.GROUP_CALL_REVERSE, SAVEABLE_GROUP, "after_load")
 
 func load_resource_property_from_dict(object: Object, dict: Dictionary, property_name: StringName) -> void:
