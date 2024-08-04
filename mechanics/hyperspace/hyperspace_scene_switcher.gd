@@ -21,9 +21,12 @@ signal jump_destination_loaded(new_system_instance: StarSystemInstance)
 var _loaded_system_nodes: Dictionary = {}
 
 func _ready() -> void:
-    var current_system_instance: StarSystemInstance = self.get_child(0)
+    var current_system_instance := self._get_current_system_instance()
     var current_system := current_system_instance.star_system
     self._loaded_system_nodes[current_system.name] = current_system_instance
+
+func _get_current_system_instance() -> StarSystemInstance:
+    return self.get_child(0)
 
 func start_jump() -> bool:
     assert(not self.hyperdrive_system.jumping, "Jump already in progress")
@@ -71,9 +74,35 @@ func finish_jump() -> void:
     self.hyperdrive_system.jumping = false
 
 ## See [SaveGame].
+func before_save() -> void:
+    # Re-add all systems to the scene tree, so they all get saved.
+    for system_name: StringName in self._loaded_system_nodes:
+        var node: Node = self._loaded_system_nodes[system_name]
+        if not node.is_inside_tree():
+            self.add_child(node)
+
+## See [SaveGame].
+func after_save() -> void:
+    self._remove_saved_or_loaded_children()
+
+## See [SaveGame].
 func save_to_dict() -> Dictionary:
-    return {}
+    var result := {}
+    result["current_system"] = self._get_current_system_instance().star_system.name
+
+    # Do NOT save the calendar, as this node doesn't own it.
+    return result
 
 ## See [SaveGame].
 func load_from_dict(dict: Dictionary) -> void:
-    pass
+    assert(self._get_current_system_instance().star_system.name == dict["current_system"], "Current system mismatch after loading")
+
+func _remove_saved_or_loaded_children() -> void:
+    var current_system_instance := self._get_current_system_instance()
+
+    var count := self.get_child_count()
+    for i in range(count - 1, 0, -1):
+        var child := self.get_child(i)
+        self.remove_child(child)
+    
+    assert(self._get_current_system_instance() == current_system_instance, "Current system unexpectedly changed after removing children")
