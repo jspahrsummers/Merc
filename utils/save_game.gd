@@ -94,3 +94,18 @@ static func load_tree_from_dict(scene_tree: SceneTree, dict: Dictionary) -> void
             continue
         
         node.call("load_from_dict", save_dict)
+
+static func load_resource_property_from_dict(object: Object, dict: Dictionary, property_name: StringName) -> void:
+    var resource: SaveableResource = object.get(property_name)
+    if not resource:
+        return
+
+    var value: Dictionary = dict[property_name]
+    resource.load_from_dict(value)
+
+static func save_resource_property_into_dict(object: Object, dict: Dictionary, property_name: StringName) -> void:
+    var resource: SaveableResource = object.get(property_name)
+    if not resource:
+        return
+
+    dict[property_name] = resource.save_to_dict()
