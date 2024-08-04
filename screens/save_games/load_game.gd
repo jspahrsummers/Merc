@@ -11,6 +11,10 @@ var _selected_save_game: String = "":
 func _ready() -> void:
     for save_name in SaveGame.get_save_game_names():
         self.save_game_list.add_item(save_name)
+    
+    if self.save_game_list.item_count > 0:
+        self.save_game_list.select(0)
+        self._selected_save_game = self.save_game_list.get_item_text(0)
 
 func _on_item_selected(index: int) -> void:
     self._selected_save_game = self.save_game_list.get_item_text(index)
