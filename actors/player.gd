@@ -74,18 +74,22 @@ func _ready() -> void:
 
     self.ship.hull.changed.connect(_on_hull_changed)
     self.ship.hull.hull_destroyed.connect(_on_hull_destroyed)
-    self.ship.shield.changed.connect(_on_shield_changed)
     self.ship.battery.changed.connect(_on_power_changed)
-    self.ship.hyperdrive.changed.connect(_on_hyperdrive_changed)
     self.ship.targeting_system.target_changed.connect(_on_target_changed)
 
     InputEventBroadcaster.input_event.connect(_on_broadcasted_input_event)
 
     # Initial notifications so the UI can update.
     self._on_hull_changed()
-    self._on_shield_changed()
     self._on_power_changed()
-    self._on_hyperdrive_changed()
+
+    if self.ship.shield:
+        self.ship.shield.changed.connect(_on_shield_changed)
+        self._on_shield_changed()
+
+    if self.ship.hyperdrive:
+        self._on_hyperdrive_changed()
+        self.ship.hyperdrive.changed.connect(_on_hyperdrive_changed)
 
 func _on_hull_changed() -> void:
     self.hull_changed.emit(self, self.ship.hull)
@@ -252,7 +256,7 @@ func _absolute_input_direction() -> Vector3:
     return Vector3(input_direction.x, 0, input_direction.y)
 
 func _physics_process(_delta: float) -> void:
-    if self.ship.hyperdrive_system.jumping:
+    if not self.ship.hyperdrive_system or self.ship.hyperdrive_system.jumping:
         return
 
     if Input.is_action_pressed("jump"):
