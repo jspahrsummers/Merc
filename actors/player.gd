@@ -50,6 +50,9 @@ var landing_target: PlanetInstance = null:
         if landing_target:
             landing_target.targeted_by_player = true
 
+## Used to save and restore the player object correctly across launches.
+var save_node_path_override: NodePath
+
 ## Created to turn the [Ship] when using the relative control scheme.
 var _rigid_body_turner: RigidBodyTurner
 
@@ -65,6 +68,10 @@ const MAX_LANDING_DISTANCE = 2.0
 const MAX_LANDING_VELOCITY = 4.0
 
 func _ready() -> void:
+    if not self.save_node_path_override:
+        self.save_node_path_override = self.get_path()
+        self.ship.save_node_path_override = self.ship.get_path()
+
     self._rigid_body_turner = RigidBodyTurner.new()
     self._rigid_body_turner.spin_thruster = self.ship.rigid_body_direction.spin_thruster
     self._rigid_body_turner.battery = self.ship.battery
@@ -108,6 +115,10 @@ func _on_target_changed(targeting_system: TargetingSystem) -> void:
     self.target_changed.emit(self, targeting_system.target)
 
 func _on_jump_destination_loaded(_new_system_instance: StarSystemInstance) -> void:
+    if not self.ship.hyperdrive_system.jumping:
+        # A bit of a hack to ignore this notification when reloading from a saved game, while allowing it to propagate to other nodes (e.g., UI).
+        return
+
     self._reset_velocity()
     self.ship.position = MathUtils.random_unit_vector() * HYPERSPACE_ARRIVAL_RADIUS
     self.ship.targeting_system.target = null

@@ -111,33 +111,17 @@ func load_from_dict(dict: Dictionary) -> void:
 
 ## See [SaveGame].
 func after_load() -> void:
-    self._fixup_player()
     self._fixup_current_system()
+    self._fixup_player()
 
-## Replaces any [Player] node that was instantiated during load with the one we have a direct reference to.
-##
-## This is necessary because there are many connections directly to/from the Player object, configured in the editor, and we also want to make sure it has all of its customized sub-nodes as created there too.
+    # Update any dependent properties
+    self.jump_destination_loaded.emit(self._get_current_system_instance())
+
+## The [Player] node is always saved to its initial system, so we need to move it to the current system.
 func _fixup_player() -> void:
-    var player_nodes := self.find_children("*", "Player", true, false)
-    assert(player_nodes.size() <= 2, "Expected no more than two player nodes after loading")
-    player_nodes.erase(self.player)
+    self.player.ship.reparent(self._get_current_system_instance(), false)
 
-    if not player_nodes:
-        return
-
-    var player_node: Player = player_nodes[0]
-    print("Replacing loaded player ", player_node.get_path(), " with ", self.player.get_path())
-
-    var parent := player_node.ship.get_parent()
-    self.player.ship.reparent(parent)
-    parent.move_child(self.player.ship, player_node.ship.get_index())
-
-    # HACK: We have to re-update the player's properties, since the node we're removing is the one that actually loaded this data from disk.
-    self.player.load_from_dict(player_node.save_to_dict())
-    self.player.ship.load_from_dict(player_node.ship.save_to_dict())
-
-    player_node.ship.queue_free()
-
+## Remove inactive scenes to match the saved state.
 func _fixup_current_system() -> void:
     assert(self._current_system_after_load, "Expected current system to be set after load")
 
