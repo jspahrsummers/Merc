@@ -15,7 +15,13 @@
 [ext_resource type="Script" path="res://actors/ai/ai_navigation.gd" id="10_2xj23"]
 [ext_resource type="PackedScene" uid="uid://fxemun7o6rix" path="res://galaxy/star_system/star_system_instance.tscn" id="star_system_instance"]
 
-[sub_resource type="Resource" id="Resource_oen30"]
+[sub_resource type="Resource" id="Resource_ckhac"]
+resource_local_to_scene = true
+script = ExtResource("8_ibfoc")
+max_integrity = 300.0
+integrity = 300.0
+
+[sub_resource type="Resource" id="Resource_pna33"]
 resource_local_to_scene = true
 script = ExtResource("7_pkdss")
 max_integrity = 150.0
@@ -24,13 +30,7 @@ recharge_rate = 5.0
 power_efficiency = 1.0
 only_recharge_above = 0.2
 
-[sub_resource type="Resource" id="Resource_yterj"]
-resource_local_to_scene = true
-script = ExtResource("8_ibfoc")
-max_integrity = 300.0
-integrity = 300.0
-
-[sub_resource type="Resource" id="Resource_eyrkq"]
+[sub_resource type="Resource" id="Resource_qur2d"]
 resource_local_to_scene = true
 script = ExtResource("9_w4i7k")
 max_power = 300.0
@@ -69,25 +69,11 @@ texture = ExtResource("4_afp06")
 [node name="Freighter" parent="." index="5" instance=ExtResource("6_uk08c")]
 transform = Transform3D(0.759975, 0, -0.649952, 0, 1, 0, 0.649952, 0, 0.759975, -5.22228, 0, -4.59493)
 physics_material_override = null
+hull = SubResource("Resource_ckhac")
+shield = SubResource("Resource_pna33")
+battery = SubResource("Resource_qur2d")
 
-[node name="CombatObject" parent="Freighter" index="2"]
-shield = SubResource("Resource_oen30")
-hull = SubResource("Resource_yterj")
-
-[node name="RigidBodyDirection" parent="Freighter" index="3"]
-battery = SubResource("Resource_eyrkq")
-
-[node name="RigidBodyThruster" parent="Freighter" index="4"]
-battery = SubResource("Resource_eyrkq")
-
-[node name="PowerManagementUnit" parent="Freighter" index="5"]
-battery = SubResource("Resource_eyrkq")
-
-[node name="ShieldRecharger" parent="Freighter" index="7"]
-battery = SubResource("Resource_eyrkq")
-shield = SubResource("Resource_oen30")
-
-[node name="AINavigation" type="Node3D" parent="Freighter" index="8" node_paths=PackedStringArray("rigid_body_thruster", "rigid_body_direction")]
+[node name="AINavigation" type="Node3D" parent="Freighter" index="8" node_paths=PackedStringArray("rigid_body_thruster", "rigid_body_direction") groups=["saveable"]]
 script = ExtResource("10_2xj23")
 rigid_body_thruster = NodePath("../RigidBodyThruster")
 rigid_body_direction = NodePath("../RigidBodyDirection")
