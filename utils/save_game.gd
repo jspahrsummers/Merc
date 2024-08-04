@@ -3,6 +3,9 @@ class_name SaveGame
 ## The group name used for nodes that can be saved and loaded.
 const SAVEABLE_GROUP = "saveable"
 
+## The directory to save and load games to/from.
+const SAVE_GAMES_DIRECTORY = "user://save_games/"
+
 ## A private key used to store a node's [member Node.scene_file_path] when saving.
 const _SCENE_FILE_PATH_KEY = "__scene_file_path"
 
