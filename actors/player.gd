@@ -294,8 +294,12 @@ func _physics_process(_delta: float) -> void:
 
 ## See [SaveGame].
 func save_to_dict() -> Dictionary:
-    return {}
+    var result := {}
+    SaveGame.save_resource_property_into_dict(self, result, "bank_account")
+    SaveGame.save_resource_property_into_dict(self, result, "calendar")
+    return result
 
 ## See [SaveGame].
 func load_from_dict(dict: Dictionary) -> void:
-    pass
+    SaveGame.load_resource_property_from_dict(self, dict, "bank_account")
+    SaveGame.load_resource_property_from_dict(self, dict, "calendar")
