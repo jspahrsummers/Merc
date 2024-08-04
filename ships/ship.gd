@@ -89,10 +89,12 @@ func save_to_dict() -> Dictionary:
     result["transform"] = SaveGame.serialize_transform(self.transform)
     result["linear_velocity"] = SaveGame.serialize_vector3(self.linear_velocity)
     result["angular_velocity"] = SaveGame.serialize_vector3(self.angular_velocity)
+    print("Saved ship to dict: ", result)
     return result
 
 ## See [SaveGame].
 func load_from_dict(dict: Dictionary) -> void:
+    print("Loading ship from dict: ", dict)
     SaveGame.load_resource_property_from_dict(self, dict, "hull")
     SaveGame.load_resource_property_from_dict(self, dict, "battery")
     SaveGame.load_resource_property_from_dict(self, dict, "shield")
