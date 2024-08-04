@@ -57,7 +57,10 @@ func save_tree_to_dict() -> Dictionary:
     var saveable_nodes := scene_tree.get_nodes_in_group(SAVEABLE_GROUP)
     var save_dict := {}
     for node in saveable_nodes:
-        var node_path := node.get_path()
+        var node_path: Variant = node.get("save_node_path_override")
+        if not node_path:
+            node_path = node.get_path()
+
         print("Saving node: ", node_path)
         var node_dict := {_SCENE_FILE_PATH_KEY: node.scene_file_path}
         node_dict.merge(node.call("save_to_dict") as Dictionary)

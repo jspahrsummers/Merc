@@ -54,6 +54,9 @@ class_name Ship
 ## An optional hyperdrive for this ship.
 @export var hyperdrive: Hyperdrive
 
+## Used to save and restore the player's ship to the same node path across launches.
+var save_node_path_override: NodePath
+
 func _ready() -> void:
     self.combat_object.hull = self.hull
     self.combat_object.shield = self.shield
