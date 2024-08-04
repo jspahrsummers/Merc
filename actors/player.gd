@@ -65,9 +65,6 @@ const MAX_LANDING_DISTANCE = 2.0
 const MAX_LANDING_VELOCITY = 4.0
 
 func _ready() -> void:
-    self.hyperspace_scene_switcher.calendar = self.calendar
-    self.hyperspace_scene_switcher.hyperdrive_system = self.ship.hyperdrive_system
-
     self._rigid_body_turner = RigidBodyTurner.new()
     self._rigid_body_turner.spin_thruster = self.ship.rigid_body_direction.spin_thruster
     self._rigid_body_turner.battery = self.ship.battery
