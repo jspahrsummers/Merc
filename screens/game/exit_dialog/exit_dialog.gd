@@ -3,7 +3,7 @@ extends ConfirmationDialog
 @export var main_menu_scene: PackedScene
 
 func _on_confirmed() -> void:
-    var result := SaveGame.save(self.get_tree(), SaveGame.SAVE_GAMES_DIRECTORY.path_join("autosave.json"))
+    var result := SaveGame.save(self.get_tree(), "autosave")
     if result != Error.OK:
         push_error("Failed to save game: %s" % result)
 
