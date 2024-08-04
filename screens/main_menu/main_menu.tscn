@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://btc568gwt7fuc"]
+[gd_scene load_steps=11 format=3 uid="uid://btc568gwt7fuc"]
 
 [ext_resource type="Texture2D" uid="uid://b3edwsa85u8fx" path="res://screens/shared_ui/images/splash_screen.png" id="1_hdxn3"]
+[ext_resource type="PackedScene" uid="uid://cbk7pta41y2nh" path="res://screens/save_games/load_game.tscn" id="2_b02o5"]
 [ext_resource type="Script" path="res://screens/main_menu/main_menu.gd" id="2_dwbyb"]
 [ext_resource type="PackedScene" uid="uid://210831aopuew" path="res://screens/main_menu/main_menu_button.tscn" id="2_kk5nj"]
 [ext_resource type="PackedScene" uid="uid://dxfmf433s5ab3" path="res://screens/settings/settings.tscn" id="2_xomwj"]
@@ -17,7 +18,7 @@ pressed = true
 [sub_resource type="Shortcut" id="Shortcut_qfyly"]
 events = [SubResource("InputEventAction_ceokg")]
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("content_container", "settings_button", "licenses_button")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("content_container", "load_game_button", "settings_button", "licenses_button")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -26,6 +27,8 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_dwbyb")
 content_container = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HSplitContainer/ContentContainer")
+load_game_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/LoadGameButton")
+load_game_scene = ExtResource("2_b02o5")
 settings_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/SettingsButton")
 settings_scene = ExtResource("2_xomwj")
 licenses_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/LicensesButton")
@@ -80,6 +83,11 @@ theme_override_constants/separation = 36
 [node name="NewGameButton" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_kk5nj")]
 layout_mode = 2
 
+[node name="LoadGameButton" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_kk5nj")]
+layout_mode = 2
+toggle_mode = true
+text = "LOAD GAME"
+
 [node name="SettingsButton" parent="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_kk5nj")]
 layout_mode = 2
 toggle_mode = true
@@ -122,6 +130,7 @@ text = "(version number)"
 script = ExtResource("6_ucu8b")
 
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/LoadGameButton" to="." method="_on_load_game_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/LicensesButton" to="." method="_on_licenses_button_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/MarginContainer/HSplitContainer/CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_exit_button_pressed"]
