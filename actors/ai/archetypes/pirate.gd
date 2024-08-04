@@ -50,8 +50,8 @@ func _ready() -> void:
     self._connect_notifications.call_deferred()
 
 func _connect_notifications() -> void:
-    self._ship.combat_object.hull.changed.connect(_on_damage_received)
-    self._ship.combat_object.shield.changed.connect(_on_damage_received)
+    self._ship.hull.changed.connect(_on_damage_received)
+    self._ship.shield.changed.connect(_on_damage_received)
 
 func _select_new_patrol_target() -> void:
     self._patrol_target = MathUtils.random_unit_vector() * self.patrol_radius
@@ -74,12 +74,12 @@ func _desired_direction() -> Vector3:
     var target := self._ship.targeting_system.target
     if target:
         var target_direction := (target.global_transform.origin - self._ship.global_transform.origin).normalized()
-        return target_direction if self._current_state != State.RETREAT else - target_direction
+        return target_direction if self._current_state != State.RETREAT else -target_direction
     else:
         return (self._patrol_target - self._ship.global_transform.origin).normalized()
 
 func _pointing_in_direction(direction: Vector3) -> bool:
-    var current_direction := - self._ship.global_transform.basis.z
+    var current_direction := -self._ship.global_transform.basis.z
     return current_direction.angle_to(direction) <= self.direction_tolerance
 
 func _patrol_behavior(_delta: float) -> void:
