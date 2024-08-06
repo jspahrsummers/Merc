@@ -6,6 +6,12 @@ const SAVEABLE_GROUP = "saveable"
 ## The directory to save and load games to/from.
 const SAVE_GAMES_DIRECTORY = "user://save_games/"
 
+## The current save file version, for all new files.
+const _FILE_VERSION = 1
+
+## The key used to store the save file version.
+const _FILE_VERSION_KEY = "__file_version"
+
 ## A private key used to store a node's [member Node.scene_file_path] when saving.
 const _SCENE_FILE_PATH_KEY = "__scene_file_path"
 
@@ -24,7 +30,7 @@ func get_save_game_names() -> Array[String]:
             paths.append(file_name.substr(0, file_name.length() - 5))
 
         file_name = dir.get_next()
-    
+
     return paths
 
 ## Saves all [i]saveable[/i] nodes in the scene tree to a file with the given name.
@@ -37,6 +43,8 @@ func save(filename: String) -> Error:
     var path := SAVE_GAMES_DIRECTORY.path_join(filename + ".json")
 
     var save_dict := self.save_tree_to_dict()
+    save_dict[_FILE_VERSION_KEY] = _FILE_VERSION
+
     var json := JSON.stringify(save_dict, "\t", false)
     var file := FileAccess.open(path, FileAccess.WRITE)
     if not file:
@@ -83,17 +91,22 @@ func load(filename: String) -> Error:
     var file := FileAccess.open(path, FileAccess.READ)
     if not file:
         return FileAccess.get_open_error()
-    
+
     var parser := JSON.new()
     var json := file.get_as_text()
     var error := parser.parse(json)
     if error != OK:
         return error
-    
+
     var dict := parser.get_data() as Dictionary
     if not dict:
         return ERR_PARSE_ERROR
-    
+
+    var file_version: int = dict.get(_FILE_VERSION_KEY, 0)
+    if file_version != _FILE_VERSION:
+        push_warning("Unsupported save file version: ", file_version)
+        return ERR_FILE_UNRECOGNIZED
+
     print("Loading game from: ", path)
     self.load_tree_from_dict(dict)
     print("Loaded game from: ", path)
@@ -130,7 +143,7 @@ func load_tree_from_dict(dict: Dictionary) -> void:
             if not parent_node:
                 push_error("Could not find parent ", parent_path, " for node ", path, " in order to load it")
                 continue
-            
+
             if not scene_path:
                 push_error("Node ", path, " doesn't have a scene file, so cannot be loaded by instantiation")
                 continue
@@ -140,14 +153,14 @@ func load_tree_from_dict(dict: Dictionary) -> void:
             node.name = node_path.get_name(node_path.get_name_count() - 1)
             node.add_to_group(SAVEABLE_GROUP)
             parent_node.add_child(node)
-        
+
         if not node.is_in_group(SAVEABLE_GROUP):
             push_warning("Loaded node ", path, " is not marked as saveable, refusing to load it")
             continue
-        
+
         node.call("load_from_dict", save_dict)
         loaded_nodes.push_back(node)
-    
+
     self._finish_load.call_deferred(loaded_nodes)
 
 func _finish_load(loaded_nodes: Array[Node]) -> void:
