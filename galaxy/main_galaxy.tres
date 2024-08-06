@@ -9,7 +9,7 @@
 [ext_resource type="Resource" uid="uid://bowucldo27rjd" path="res://galaxy/star_system/star_systems/zephyria.tres" id="7_puhoc"]
 [ext_resource type="Resource" uid="uid://cu1wn7ldbgeej" path="res://galaxy/star_system/star_systems/thalassa.tres" id="8_4yki3"]
 [ext_resource type="Resource" uid="uid://ku5qjeo4jlkt" path="res://galaxy/star_system/star_systems/nova_lumina.tres" id="9_qqkio"]
-[ext_resource type="Resource" uid="uid://nbm8is7uln37" path="res://galaxy/star_system/star_systems/helios.tres" id="10_fsj5o"]
+[ext_resource type="Resource" path="res://galaxy/star_system/star_systems/helios.tres" id="10_fsj5o"]
 
 [resource]
 script = ExtResource("1_bckai")

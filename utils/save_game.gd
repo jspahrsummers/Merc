@@ -107,6 +107,8 @@ func load(filename: String) -> Error:
         push_warning("Unsupported save file version: ", file_version)
         return ERR_FILE_UNRECOGNIZED
 
+    dict.erase(_FILE_VERSION_KEY)
+
     print("Loading game from: ", path)
     self.load_tree_from_dict(dict)
     print("Loaded game from: ", path)
