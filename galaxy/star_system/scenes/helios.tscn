@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://nunornl3gvvo"]
+
+[ext_resource type="PackedScene" uid="uid://fxemun7o6rix" path="res://galaxy/star_system/star_system_instance.tscn" id="1_cgb7d"]
+[ext_resource type="Resource" uid="uid://nbm8is7uln37" path="res://galaxy/star_system/star_systems/helios.tres" id="2_a8qaw"]
+
+[node name="Helios" instance=ExtResource("1_cgb7d")]
+star_system = ExtResource("2_a8qaw")

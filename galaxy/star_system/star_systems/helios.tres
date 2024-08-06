@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="StarSystem" load_steps=2 format=3 uid="uid://nbm8is7uln37"]
+
+[ext_resource type="Script" path="res://galaxy/star_system/star_system.gd" id="1_rf1b6"]
+
+[resource]
+script = ExtResource("1_rf1b6")
+name = &"Helios"
+connections = Array[StringName]([&"Thalassa", &"Barnard\'s Star"])
+position = Vector3(-1.3, 2.08165e-12, 1.7)
+scene_path = "res://galaxy/star_system/scenes/helios.tscn"
+refueling_relative_price = 0.5
