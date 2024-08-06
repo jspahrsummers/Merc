@@ -30,7 +30,7 @@ If you want the player to be able to land on your new planet, create a [`Planet`
 
 Stars of all kinds can be added by instantiating any of the scenes in [stars/](stars/).
 
-To define a new type of star, create a new inherited scene from `base_star.tscn` specifically, which is the base of all the others. Note that we shouldn't need to define _that_ many unique types of stars. 
+To define a new type of star, create a new inherited scene from `base_star.tscn` specifically, which is the base of all the others. Note that we shouldn't need to define _that_ many unique types of stars.
 
 #### Non-player ships
 
@@ -56,3 +56,16 @@ All Godot scripting in this project uses [GDScript](https://docs.godotengine.org
 It's always great to have additional AI options for [non-player ships](#non-player-ships)! You can find the existing implementations in [actors/ai/](actors/ai/), to use as a jumping-off point for implementing new behaviors.
 
 _Note:_ if multiple [actor](actors/) implementations start to have a lot in common, it's a sign that we should probably factor out additional types of [mechanics](mechanics/) that can be shared between them.
+
+### Saving and Loading Games
+
+The game uses a custom saving and loading system implemented via the `SaveGame` autoload class. To add new saveable data to the game, follow these steps:
+
+1. Any node that needs to be saved should be added to the `saveable` group.
+1. Saveable nodes must implement at least two methods:
+    * `save_to_dict()`: Returns a dictionary containing the node's saveable state.
+    * `load_from_dict(dict: Dictionary)`: Loads the node's state from the given dictionary.
+    * There are also `before_save()`, `after_save()`, `before_load()`, and `after_load()` methods that can be implemented to perform additional logic.
+1. Resources with any state to be saved should extend `SaveableResource`. This is usually enough to ensure that the resource is saved and loaded correctly, but there are `save_to_dict()` and `load_from_dict()` methods that can be overridden if necessary.
+
+Remember to test saving and loading thoroughly when making changes to ensure that all game state is properly preserved.
