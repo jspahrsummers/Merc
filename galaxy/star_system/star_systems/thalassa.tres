@@ -27,7 +27,7 @@ ExtResource("9_vsdb2"): 0.58
 [resource]
 script = ExtResource("1_0hn02")
 name = &"Thalassa"
-connections = Array[StringName]([&"Sol"])
+connections = Array[StringName]([&"Sol", &"Helios"])
 position = Vector3(-0.5, -0.1, 2.7)
 scene_path = "res://galaxy/star_system/scenes/thalassa.tscn"
 market = SubResource("Resource_h1m1b")
