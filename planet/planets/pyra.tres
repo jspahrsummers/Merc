@@ -1,9 +1,17 @@
-[gd_resource type="Resource" script_class="Planet" load_steps=2 format=3 uid="uid://dd61sms23ju2r"]
+[gd_resource type="Resource" script_class="Planet" load_steps=3 format=3 uid="uid://dd61sms23ju2r"]
 
+[ext_resource type="Texture2D" uid="uid://dbsch7luqleh" path="res://screens/landing/images/59c79ae4-1b9a-403c-86ed-2bf9e6cfb389.jpg" id="1_522gb"]
 [ext_resource type="Script" path="res://planet/planet.gd" id="1_oksuf"]
 
 [resource]
 script = ExtResource("1_oksuf")
 name = "Pyra"
 facilities = 33
-description = ""
+landscape_image = ExtResource("1_522gb")
+description = "Pyra is a scorched world of fire and stone. Its surface is a vast expanse of blackened rock and flowing lava, punctuated by towering volcanoes that perpetually belch ash and sulfurous gases into the thin atmosphere.
+
+Despite its inhospitable nature, Pyra hosts a small but resilient colony of miners and researchers. They live in heavily shielded habitats, venturing out only in protective suits to harvest rare minerals formed in the planet's extreme conditions.
+
+The spaceport, a stark structure of heat-resistant alloys, clings to a rare stable plateau. Its primary feature is a bustling bar, the \"Obsidian Oasis,\" where visitors and locals alike seek respite from the oppressive heat. The bar's viewport offers a mesmerizing view of rivers of molten rock snaking across the charred landscape.
+
+Beyond the spaceport and a few scattered outposts, Pyra remains largely untamed. Its barren expanses discourage extensive facility development, making each structure a triumph of engineering against the planet's fiery will."
