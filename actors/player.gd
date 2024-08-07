@@ -11,6 +11,7 @@ class_name Player
 @export var takeoff_sound: AudioStreamPlayer
 @export var bank_account: BankAccount
 @export var calendar: Calendar
+@export var mission_controller: MissionController
 
 @onready var ship := get_parent() as Ship
 
@@ -100,6 +101,10 @@ func _ready() -> void:
     if self.ship.hyperdrive:
         self._on_hyperdrive_changed()
         self.ship.hyperdrive.changed.connect(_on_hyperdrive_changed)
+    
+    self.mission_controller.calendar = self.calendar
+    self.mission_controller.cargo_hold = self.ship.cargo_hold
+    self.mission_controller.bank_account = self.bank_account
 
 func _on_hull_changed() -> void:
     self.hull_changed.emit(self, self.ship.hull)

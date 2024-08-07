@@ -1,10 +1,21 @@
 extends Node3D
+class_name MissionController
 
 ## Manages mission status for the player.
 
-@export var calendar: Calendar
-@export var cargo_hold: CargoHold
-@export var bank_account: BankAccount
+var calendar: Calendar
+var bank_account: BankAccount
+var cargo_hold: CargoHold:
+    set(value):
+        if value == cargo_hold:
+            return
+        
+        if cargo_hold:
+            cargo_hold.changed.disconnect(_on_cargo_hold_changed)
+        cargo_hold = value
+        if cargo_hold:
+            cargo_hold.changed.connect(_on_cargo_hold_changed)
+            self._on_cargo_hold_changed()
 
 signal mission_started(mission: Mission)
 signal mission_succeeded(mission: Mission)
@@ -58,7 +69,10 @@ func _succeed_mission(mission: Mission) -> void:
 
     self.mission_succeeded.emit(mission)
 
-func _physics_process(_delta: float) -> void:
+func _on_cargo_hold_changed() -> void:
+    self._check_all_missions_failure()
+
+func _check_all_missions_failure() -> void:
     # Duplicate before enumeration, as updating a mission's status might remove it
     for mission: Mission in self._missions.duplicate():
         self._check_mission_failure(mission)
@@ -79,7 +93,7 @@ func _on_player_landed(_player: Player, planet: Planet) -> void:
         self._check_mission_failure(mission)
         if mission.status == Mission.Status.FAILED:
             continue
-        
+
         for commodity: Commodity in mission.cargo:
             var required_amount: int = mission.cargo[commodity]
             var result := self.cargo_hold.remove_exactly(commodity, required_amount)
