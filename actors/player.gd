@@ -32,6 +32,9 @@ signal target_changed(player: Player, target: CombatObject)
 ## Fires when the player changes their landing target.
 signal landing_target_changed(player: Player, target: PlanetInstance)
 
+## Fires when the player lands on a planet.
+signal landed(player: Player, planet: Planet)
+
 ## Fires when the ship's hyperdrive changes.
 signal hyperdrive_changed(player: Player, hyperdrive: Hyperdrive)
 
@@ -246,6 +249,8 @@ func _land() -> void:
         landing.add_sibling(self.ship)
         landing.queue_free()
         self._depart_from_planet())
+    
+    self.landed.emit(self, planet)
 
 func _depart_from_planet() -> void:
     self.calendar.pass_approximate_days(PLANET_LANDING_APPROXIMATE_DAYS)

@@ -50,10 +50,42 @@ enum Status {
         self.emit_changed()
 
 ## A dictionary of [Commodity] keys to [int] amounts that the player must deliver to complete the mission.
-@export var cargo: Dictionary
+@export var cargo: Dictionary:
+    set(value):
+        if is_same(value, cargo):
+            return
+        
+        cargo = value.duplicate()
+        cargo.make_read_only()
+        self.emit_changed()
 
 ## A destination to deliver cargo to.
-@export var destination_planet: Planet
+@export var destination_planet: Planet:
+    set(value):
+        if value == destination_planet:
+            return
+        
+        destination_planet = value
+        self.emit_changed()
 
 ## A dictionary of [TradeAsset] keys to [float] amounts that the player will receive upon success.
-@export var monetary_reward: Dictionary
+@export var monetary_reward: Dictionary:
+    set(value):
+        if is_same(value, monetary_reward):
+            return
+        
+        monetary_reward = value.duplicate()
+        monetary_reward.make_read_only()
+        self.emit_changed()
+
+## A dictionary of [TradeAsset] keys to [float] amounts the player must pay in order to start the mission.
+##
+## In-universe, this covers the cost of goods, should the player fail or forfeit the mission.
+@export var starting_cost: Dictionary:
+    set(value):
+        if is_same(value, starting_cost):
+            return
+        
+        starting_cost = value.duplicate()
+        starting_cost.make_read_only()
+        self.emit_changed()

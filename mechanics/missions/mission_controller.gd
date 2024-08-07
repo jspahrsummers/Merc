@@ -17,42 +17,75 @@ var _missions: Array[Mission] = []
 func get_current_missions() -> Array[Mission]:
     return self._missions.duplicate()
 
-func start_mission(mission: Mission) -> void:
+func start_mission(mission: Mission) -> bool:
+    for trade_asset: TradeAsset in mission.starting_cost:
+        var required_amount: float = mission.starting_cost[trade_asset]
+        if trade_asset.current_amount(self.cargo_hold, self.bank_account) < required_amount:
+            return false
+
+    # Only withdraw the amounts after checking
+    for trade_asset: TradeAsset in mission.starting_cost:
+        var required_amount: float = mission.starting_cost[trade_asset]
+        var result := trade_asset.take_exactly(required_amount, self.cargo_hold, self.bank_account)
+        assert(result, "Withdrawing mission starting cost should succeed after previous check")
+
     self._missions.push_back(mission)
     mission.status = Mission.Status.STARTED
     self.mission_started.emit(mission)
+    return true
 
 func forfeit_mission(mission: Mission) -> void:
-    assert(mission in self._missions, "Cannot forfeit a non-current mission")
+    self._fail_mission(mission, Mission.Status.FORFEITED)
 
-    mission.status = Mission.Status.FORFEITED
-    self._missions.erase(mission)
-    self.mission_forfeited.emit(mission)
-
-func _fail_mission(mission: Mission) -> void:
+func _fail_mission(mission: Mission, failure_status: Mission.Status = Mission.Status.FAILED) -> void:
     assert(mission in self._missions, "Cannot fail a non-current mission")
 
-    mission.status = Mission.Status.FAILED
+    mission.status = failure_status
     self._missions.erase(mission)
     self.mission_forfeited.emit(mission)
+
+func _succeed_mission(mission: Mission) -> void:
+    assert(mission in self._missions, "Cannot fail a non-current mission")
+
+    mission.status = Mission.Status.SUCCEEDED
+    self._missions.erase(mission)
+
+    for trade_asset: TradeAsset in mission.monetary_reward:
+        var amount: float = mission.monetary_reward[trade_asset]
+
+        # TODO: This can fail if the player lacks cargo space. Deposit currency in lieu of commodities?
+        trade_asset.add_up_to(amount, self.cargo_hold, self.bank_account)
+
+    self.mission_succeeded.emit(mission)
 
 func _physics_process(_delta: float) -> void:
     # Duplicate before enumeration, as updating a mission's status might remove it
     for mission: Mission in self._missions.duplicate():
-        self._evaluate_mission_status(mission)
+        self._check_mission_failure(mission)
 
-func _evaluate_mission_status(mission: Mission) -> void:
+func _check_mission_failure(mission: Mission) -> void:
     for commodity: Commodity in mission.cargo:
         var required_amount: int = mission.cargo[commodity]
         var actual_amount: int = self.cargo_hold.commodities.get(commodity, 0)
-
         if actual_amount < required_amount:
-            mission.status = Mission.Status.FAILED
-            self._missions.erase(mission)
-            self.mission_failed.emit(mission)
+            self._fail_mission(mission)
             return
-    
-    # TODO: Deliver cargo to destination planet if player has landed
+
+func _on_player_landed(_player: Player, planet: Planet) -> void:
+    for mission: Mission in self._missions.duplicate():
+        if mission.destination_planet != planet:
+            continue
+        
+        self._check_mission_failure(mission)
+        if mission.status == Mission.Status.FAILED:
+            continue
+        
+        for commodity: Commodity in mission.cargo:
+            var required_amount: int = mission.cargo[commodity]
+            var result := self.cargo_hold.remove_exactly(commodity, required_amount)
+            assert(result, "Withdrawing mission cargo should succeed after previous failure check")
+        
+        self._succeed_mission(mission)
 
 ## See [SaveGame].
 func save_to_dict() -> Dictionary:
