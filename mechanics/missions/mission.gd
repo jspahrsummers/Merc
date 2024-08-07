@@ -52,5 +52,8 @@ enum Status {
 ## A dictionary of [Commodity] keys to [int] amounts that the player must deliver to complete the mission.
 @export var cargo: Dictionary
 
+## A destination to deliver cargo to.
+@export var destination_planet: Planet
+
 ## A dictionary of [TradeAsset] keys to [float] amounts that the player will receive upon success.
 @export var monetary_reward: Dictionary
