@@ -11,6 +11,7 @@ enum Status {
     STARTED = 1,
     SUCCEEDED = 2,
     FAILED = 3,
+    FORFEITED = 4
 }
 
 ## The human-readable title of the mission.
@@ -38,6 +39,13 @@ enum Status {
         if value == status:
             return
         
+        match value:
+            Status.SUCCEEDED, Status.FAILED, Status.FORFEITED:
+                assert(status == Status.STARTED, "Illegal mission status transition from %s to %s" % [status, value])
+
+            Status.STARTED:
+                assert(status == Status.NOT_ACCEPTED, "Illegal mission status transition from %s to %s" % [status, value])
+
         status = value
         self.emit_changed()
 
