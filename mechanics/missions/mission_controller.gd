@@ -17,18 +17,29 @@ var cargo_hold: CargoHold:
             cargo_hold.changed.connect(_on_cargo_hold_changed)
             self._on_cargo_hold_changed()
 
+## Fires when the player starts a mission.
 signal mission_started(mission: Mission)
+
+## Fires when the player succeeds at a mission.
 signal mission_succeeded(mission: Mission)
+
+## Fires when the player fails a mission.
 signal mission_failed(mission: Mission)
+
+## Fires when the player forfeits a mission.
 signal mission_forfeited(mission: Mission)
 
 ## Currently accepted missions.
 var _missions: Array[Mission] = []
 
+## Returns a copy of the player's current mission list.
 func get_current_missions() -> Array[Mission]:
     return self._missions.duplicate()
 
+## Starts a mission if the player has the required resources, or returns false if they don't have enough for the starting cost.
 func start_mission(mission: Mission) -> bool:
+    assert(mission not in self._missions, "Cannot start the same mission twice")
+
     for trade_asset: TradeAsset in mission.starting_cost:
         var required_amount: float = mission.starting_cost[trade_asset]
         if trade_asset.current_amount(self.cargo_hold, self.bank_account) < required_amount:
@@ -45,9 +56,11 @@ func start_mission(mission: Mission) -> bool:
     self.mission_started.emit(mission)
     return true
 
+## Forfeit a mission that the player has started.
 func forfeit_mission(mission: Mission) -> void:
     self._fail_mission(mission, Mission.Status.FORFEITED)
 
+## Fail a mission that the player has started, with a configurable choice of status.
 func _fail_mission(mission: Mission, failure_status: Mission.Status = Mission.Status.FAILED) -> void:
     assert(mission in self._missions, "Cannot fail a non-current mission")
 
@@ -55,6 +68,7 @@ func _fail_mission(mission: Mission, failure_status: Mission.Status = Mission.St
     self._missions.erase(mission)
     self.mission_forfeited.emit(mission)
 
+## Mark a mission as succeeded, and pay out the proceeds.
 func _succeed_mission(mission: Mission) -> void:
     assert(mission in self._missions, "Cannot fail a non-current mission")
 
@@ -72,11 +86,13 @@ func _succeed_mission(mission: Mission) -> void:
 func _on_cargo_hold_changed() -> void:
     self._check_all_missions_failure()
 
+## Evaluates all missions for failure conditions.
 func _check_all_missions_failure() -> void:
     # Duplicate before enumeration, as updating a mission's status might remove it
     for mission: Mission in self._missions.duplicate():
         self._check_mission_failure(mission)
 
+## Evaluates a specific mission against its failure conditions.
 func _check_mission_failure(mission: Mission) -> void:
     for commodity: Commodity in mission.cargo:
         var required_amount: int = mission.cargo[commodity]
