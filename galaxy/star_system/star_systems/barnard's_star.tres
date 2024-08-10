@@ -8,4 +8,5 @@ name = &"Barnard\'s Star"
 connections = Array[StringName]([&"Sol", &"Helios"])
 position = Vector3(-3, 2.08165e-12, 2.08165e-12)
 scene_path = "res://galaxy/star_system/scenes/barnard's_star.tscn"
+planets = Array[Resource("res://planet/planet.gd")]([])
 refueling_relative_price = 0.5

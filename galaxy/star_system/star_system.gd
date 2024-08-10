@@ -17,6 +17,9 @@ class_name StarSystem
 ## The resource path to this star system's scene.
 @export_file("*.tscn") var scene_path: String
 
+## All landable planets in this star system.
+@export var planets: Array[Planet] = []
+
 ## The trading market in this star system, if any.
 @export var market: Market
 
