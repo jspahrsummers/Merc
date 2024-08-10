@@ -11,6 +11,7 @@ class_name Landing
 @export var description_label: RichTextLabel
 @export var bar_dialog: AcceptDialog
 @export var trading_window_scene: PackedScene
+@export var missions_window_scene: PackedScene
 
 ## Defines how the spaceport bar should behave on this landing.
 @export var spaceport_bar: SpaceportBar
@@ -26,6 +27,7 @@ var star_system: StarSystem
 
 var _hyperdrive: Hyperdrive
 var _trading_window: TradingWindow = null
+var _missions_window: Window = null
 
 func _ready() -> void:
     self._hyperdrive = self.player.ship.hyperdrive
@@ -60,7 +62,12 @@ func _on_trading_button_pressed() -> void:
     self._trading_window.grab_focus()
 
 func _on_missions_button_pressed() -> void:
-    pass # Replace with function body.
+    if not self._missions_window:
+        self._missions_window = self.missions_window_scene.instantiate()
+        self.add_child(self._missions_window)
+
+    self._missions_window.show()
+    self._missions_window.grab_focus()
 
 func _on_outfitter_button_pressed() -> void:
     pass # Replace with function body.
