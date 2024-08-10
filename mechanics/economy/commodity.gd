@@ -25,6 +25,8 @@ const MAX_PRICE_DEVIATION_EXPENSIVE = 0.2
 ## The price threshold for considering a commodity "expensive".
 const EXPENSIVE_THRESHOLD = 5000.0
 
+const _SPECIAL_COMMODITIES_DIRECTORY = "res://mechanics/economy/commodities/specials/"
+
 ## Calculates the actual price, in credits, based on a relative price between 0 and 1.
 func price_in_credits(relative_price: float) -> float:
     return MathUtils.relative_to_absolute_price(relative_price, self.base_price_in_credits, self._max_deviation())
@@ -55,3 +57,9 @@ func price_converted_from_credits(price: float) -> float:
 
 func _to_string() -> String:
     return "Commodity:" + self.name
+
+## Randomly picks one of the special commodities.
+static func pick_random_special() -> Commodity:
+    var files := DirAccess.get_files_at(_SPECIAL_COMMODITIES_DIRECTORY)
+    var random_file := files[randi_range(0, files.size())]
+    return load("%s/%s" % [_SPECIAL_COMMODITIES_DIRECTORY, random_file])

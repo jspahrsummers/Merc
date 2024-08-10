@@ -29,7 +29,7 @@ enum Status {
     set(value):
         if is_equal_approx(value, deadline_cycle):
             return
-        
+
         deadline_cycle = value
         self.emit_changed()
 
@@ -38,7 +38,7 @@ enum Status {
     set(value):
         if value == status:
             return
-        
+
         match value:
             Status.SUCCEEDED, Status.FAILED, Status.FORFEITED:
                 assert(status == Status.STARTED, "Illegal mission status transition from %s to %s" % [status, value])
@@ -54,7 +54,7 @@ enum Status {
     set(value):
         if is_same(value, cargo):
             return
-        
+
         cargo = value.duplicate()
         cargo.make_read_only()
         self.emit_changed()
@@ -64,7 +64,7 @@ enum Status {
     set(value):
         if value == destination_planet:
             return
-        
+
         destination_planet = value
         self.emit_changed()
 
@@ -73,7 +73,7 @@ enum Status {
     set(value):
         if is_same(value, monetary_reward):
             return
-        
+
         monetary_reward = value.duplicate()
         monetary_reward.make_read_only()
         self.emit_changed()
@@ -85,7 +85,54 @@ enum Status {
     set(value):
         if is_same(value, starting_cost):
             return
-        
+
         starting_cost = value.duplicate()
         starting_cost.make_read_only()
         self.emit_changed()
+
+static var _credits: Currency = preload("res://mechanics/economy/currencies/credits.tres")
+
+## The amount to charge in starting cost, relative to the reward, for a randomly generated mission.
+const _STARTING_COST_PERCENTAGE = 0.1
+
+## Creates a random delivery mission without a deadline.
+static func create_random_delivery_mission(galaxy: Galaxy, origin_planet: Planet) -> Mission:
+    var mission := Mission.new()
+
+    var origin_system: StarSystem = galaxy.planets_with_systems[origin_planet]
+    var possible_destination_systems := galaxy.systems.filter(func(system: StarSystem) -> bool:
+        return system.planets and system != origin_system)
+
+    var destination_system: StarSystem = possible_destination_systems.pick_random()
+    mission.destination_planet = destination_system.planets.pick_random()
+
+    var commodity := Commodity.pick_random_special()
+    var cargo_volume := randi_range(5, 20)
+    var units := roundi(cargo_volume / commodity.volume)
+    mission.cargo[commodity] = units
+
+    mission.title = "Delivery to %s" % mission.destination_planet.name
+    mission.description = "Transport %i %s to %s in the %s system." % [
+        units,
+        commodity.name,
+        mission.destination_planet.name,
+        destination_system.name,
+    ]
+
+    var reward_money := destination_system.preferred_money()
+    if not reward_money:
+        reward_money = _credits
+
+    mission.monetary_reward = {
+        reward_money: round(reward_money.price_converted_from_credits(commodity.base_price_in_credits) * units)
+    }
+
+    var starting_money := origin_system.preferred_money()
+    if not starting_money:
+        starting_money = _credits
+
+    mission.starting_cost = {
+        starting_money: round(starting_money.price_converted_from_credits(commodity.base_price_in_credits) * units * _STARTING_COST_PERCENTAGE)
+    }
+
+    return mission
