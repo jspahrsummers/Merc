@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=71 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperspace_scene_switcher.gd" id="4_yyrkm"]
@@ -32,6 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://b1yvdsvgyesj5" path="res://screens/game/currency_trading/currency_trading_window.tscn" id="25_57wc6"]
 [ext_resource type="Texture2D" uid="uid://bl3sv43f2a23p" path="res://screens/game/hud/images/player_vitals/node_unpowered.png" id="25_d2hsf"]
 [ext_resource type="Script" path="res://screens/game/hud/fuel_bar.gd" id="25_hno5u"]
+[ext_resource type="PackedScene" uid="uid://b0oavecy2l8p5" path="res://screens/game/mission_log/mission_log_window.tscn" id="26_fk202"]
 [ext_resource type="Texture2D" uid="uid://c2nr462gj84yf" path="res://screens/game/hud/images/player_vitals/heading_bg.png" id="26_mxja1"]
 [ext_resource type="Texture2D" uid="uid://c5758vgaejxam" path="res://screens/game/hud/images/player_vitals/node_powered.png" id="26_wxv14"]
 [ext_resource type="Script" path="res://screens/game/hud/player_vitals.gd" id="27_mar8l"]
@@ -98,7 +99,7 @@ script = ExtResource("11_ag0i7")
 max_volume = 10.0
 commodities = {}
 
-[sub_resource type="Resource" id="Resource_167bi"]
+[sub_resource type="Resource" id="Resource_cjlmo"]
 resource_local_to_scene = true
 script = ExtResource("13_q2g24")
 max_fuel = 6.0
@@ -179,7 +180,7 @@ hull = SubResource("Resource_ffax2")
 shield = SubResource("Resource_75c8j")
 battery = SubResource("Resource_xpwk4")
 cargo_hold = SubResource("Resource_bsv1l")
-hyperdrive = SubResource("Resource_167bi")
+hyperdrive = SubResource("Resource_cjlmo")
 
 [node name="HyperdriveSystem" type="Node3D" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette"]
 script = ExtResource("16_6olqp")
@@ -302,6 +303,7 @@ galaxy_map_scene = ExtResource("17_4w17v")
 game_over_scene = ExtResource("17_yidh7")
 exit_dialog_scene = ExtResource("18_hl4w3")
 currency_trading_scene = ExtResource("25_57wc6")
+mission_log_scene = ExtResource("26_fk202")
 player = NodePath("../HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player")
 
 [node name="MarginContainer" type="MarginContainer" parent="InGameGUI"]
