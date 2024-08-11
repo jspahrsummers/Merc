@@ -8,16 +8,14 @@ class_name Galaxy
 ## A list of all systems in the galaxy.
 @export var systems: Array[StarSystem]
 
-## A dictionary of [Planet] keys to their containing [StarSystem] values.
-var planets_with_systems: Dictionary = {}
+## A list of all planets in the galaxy.
+var planets: Array = []
 
 func _init() -> void:
     self._connect_backref.call_deferred()
 
-    for system in systems:
-        for planet in system.planets:
-            assert(planet not in planets_with_systems, "Planet %s should not exist in multiple systems" % planet)
-            planets_with_systems[planet] = system
+    for system in self.systems:
+        self.planets.append_array(system.planets)
 
 func _connect_backref() -> void:
     for system in self.systems:

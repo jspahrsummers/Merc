@@ -99,7 +99,7 @@ const _STARTING_COST_PERCENTAGE = 0.1
 static func create_random_delivery_mission(galaxy: Galaxy, origin_planet: Planet) -> Mission:
     var mission := Mission.new()
 
-    var origin_system: StarSystem = galaxy.planets_with_systems[origin_planet]
+    var origin_system: StarSystem = origin_planet.star_system.get_ref()
     var possible_destination_systems := galaxy.systems.filter(func(system: StarSystem) -> bool:
         return system.planets and system != origin_system)
 

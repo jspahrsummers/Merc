@@ -58,5 +58,12 @@ func refueling_price() -> float:
 func preferred_money() -> TradeAsset:
     return self.market.money if self.market else self.refueling_money
 
+func _init() -> void:
+    self._connect_backref.call_deferred()
+
+func _connect_backref() -> void:
+    for planet in self.planets:
+        planet.star_system = weakref(self)
+
 func _to_string() -> String:
     return "StarSystem:" + self.name
