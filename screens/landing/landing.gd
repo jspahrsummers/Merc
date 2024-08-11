@@ -27,7 +27,7 @@ var star_system: StarSystem
 
 var _hyperdrive: Hyperdrive
 var _trading_window: TradingWindow = null
-var _missions_window: MissionsWindow = null
+var _missions_window: MissionComputerWindow = null
 
 func _ready() -> void:
     self._hyperdrive = self.player.ship.hyperdrive

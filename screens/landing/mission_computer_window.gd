@@ -1,5 +1,5 @@
 extends Window
-class_name MissionsWindow
+class_name MissionComputerWindow
 
 @export var mission_list: ItemList
 @export var description_label: RichTextLabel
