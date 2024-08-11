@@ -54,6 +54,7 @@ func _on_item_selected(index: int) -> void:
         return
     
     self.start_button.disabled = false
+    self.start_button.tooltip_text = "Pay the deposit and start the mission."
 
 func _money_dict_to_string(dict: Dictionary) -> String:
     var keys := dict.keys()
