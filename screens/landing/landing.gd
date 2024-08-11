@@ -27,7 +27,7 @@ var star_system: StarSystem
 
 var _hyperdrive: Hyperdrive
 var _trading_window: TradingWindow = null
-var _missions_window: Window = null
+var _missions_window: MissionsWindow = null
 
 func _ready() -> void:
     self._hyperdrive = self.player.ship.hyperdrive
@@ -64,6 +64,10 @@ func _on_trading_button_pressed() -> void:
 func _on_missions_button_pressed() -> void:
     if not self._missions_window:
         self._missions_window = self.missions_window_scene.instantiate()
+        self._missions_window.planet = self.planet
+        self._missions_window.mission_controller = self.player.mission_controller
+        self._missions_window.cargo_hold = self.player.ship.cargo_hold
+        self._missions_window.bank_account = self.player.bank_account
         self.add_child(self._missions_window)
 
     self._missions_window.show()
