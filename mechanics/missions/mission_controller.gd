@@ -82,7 +82,7 @@ func _fail_mission(mission: Mission, failure_status: Mission.Status = Mission.St
 
 ## Mark a mission as succeeded, and pay out the proceeds.
 func _succeed_mission(mission: Mission) -> void:
-    assert(mission in self._missions, "Cannot fail a non-current mission")
+    assert(mission in self._missions, "Cannot succeed a non-current mission")
 
     mission.status = Mission.Status.SUCCEEDED
     self._missions.erase(mission)
