@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_c5n72")
 name = "Gaia Prime"
-facilities = 35
+facilities = 39
 landscape_image = ExtResource("1_vxq07")
 description = "As your ship descends through wisps of opalescent clouds, the true majesty of Gaia Prime unfolds before you. This super-Earth, 1.5 times the size of humanity's cradle, is a breathtaking tapestry of deep azures and rich emeralds.
 

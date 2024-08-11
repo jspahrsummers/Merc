@@ -42,9 +42,9 @@ ExtResource("1_g3m08"): 0.21
 script = ExtResource("1_ewhsc")
 name = &"Sol"
 connections = Array[StringName]([&"Alpha Centauri", &"Barnard\'s Star", &"Sirius", &"Thalassa"])
-position = Vector3(0, 0, 0)
+position = null
 scene_path = "res://galaxy/star_system/scenes/sol.tscn"
 planets = Array[Resource("res://planet/planet.gd")]([ExtResource("16_bjai2"), ExtResource("17_1phbv")])
 market = SubResource("Resource_tj2o3")
 refueling_money = ExtResource("14_yyru0")
-refueling_relative_price = 0.5
+refueling_relative_price = null
