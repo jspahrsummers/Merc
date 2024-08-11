@@ -62,7 +62,7 @@ func _money_dict_to_string(dict: Dictionary) -> String:
     var lines: Array[String] = []
     for money: TradeAsset in keys:
         var amount: float = dict[money]
-        lines.append("%s %s" % [money.amount_as_string(amount), money.name])
+        lines.append(money.amount_as_string(amount))
     
     return "\n".join(lines)
 
