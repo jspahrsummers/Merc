@@ -21,7 +21,7 @@ func _unhandled_input(event: InputEvent) -> void:
         currency_trading.bank_account = self.player.bank_account
         self.add_child(currency_trading)
         currency_trading.show()
-    elif event.is_action_pressed("toggle_mission_list") and is_instance_valid(self.player):
+    elif event.is_action_pressed("toggle_mission_log") and is_instance_valid(self.player):
         var mission_log: MissionLogWindow = self.mission_log_scene.instantiate()
         mission_log.mission_controller = self.player.mission_controller
         self.add_child(mission_log)
