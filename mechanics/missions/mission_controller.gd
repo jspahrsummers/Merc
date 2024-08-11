@@ -44,12 +44,24 @@ func start_mission(mission: Mission) -> bool:
         var required_amount: float = mission.starting_cost[trade_asset]
         if trade_asset.current_amount(self.cargo_hold, self.bank_account) < required_amount:
             return false
+    
+    var required_volume: float = 0.0
+    for commodity: Commodity in mission.cargo:
+        required_volume += mission.cargo[commodity] * commodity.volume
 
-    # Only withdraw the amounts after checking
+    if self.cargo_hold.get_occupied_volume() + required_volume > self.cargo_hold.max_volume:
+        return false
+
+    # Only update the amounts after checking
     for trade_asset: TradeAsset in mission.starting_cost:
         var required_amount: float = mission.starting_cost[trade_asset]
         var result := trade_asset.take_exactly(required_amount, self.cargo_hold, self.bank_account)
         assert(result, "Withdrawing mission starting cost should succeed after previous check")
+    
+    for commodity: Commodity in mission.cargo:
+        var amount: int = mission.cargo[commodity]
+        var result := self.cargo_hold.add_exactly(commodity, amount)
+        assert(result, "Adding mission cargo should succeed after previous check")
 
     self._missions.push_back(mission)
     mission.status = Mission.Status.STARTED
