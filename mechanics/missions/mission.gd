@@ -96,10 +96,11 @@ static var _credits: Currency = preload("res://mechanics/economy/currencies/cred
 const _STARTING_COST_PERCENTAGE = 0.1
 
 ## Creates a random delivery mission without a deadline.
-static func create_random_delivery_mission(galaxy: Galaxy, origin_planet: Planet) -> Mission:
+static func create_random_delivery_mission(origin_planet: Planet) -> Mission:
     var mission := Mission.new()
 
     var origin_system: StarSystem = origin_planet.star_system.get_ref()
+    var galaxy: Galaxy = origin_system.galaxy.get_ref()
     var possible_destination_systems := galaxy.systems.filter(func(system: StarSystem) -> bool:
         return system.planets and system != origin_system)
 
