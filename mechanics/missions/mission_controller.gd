@@ -11,11 +11,11 @@ var cargo_hold: CargoHold:
             return
         
         if cargo_hold:
-            cargo_hold.changed.disconnect(_on_cargo_hold_changed)
+            cargo_hold.changed.disconnect(_check_all_missions_failure)
         cargo_hold = value
         if cargo_hold:
-            cargo_hold.changed.connect(_on_cargo_hold_changed)
-            self._on_cargo_hold_changed()
+            cargo_hold.changed.connect(_check_all_missions_failure)
+            self._check_all_missions_failure()
 
 ## Fires when the player starts a mission.
 signal mission_started(mission: Mission)
@@ -75,22 +75,35 @@ func forfeit_mission(mission: Mission) -> void:
 ## Fail a mission that the player has started, with a configurable choice of status.
 func _fail_mission(mission: Mission, failure_status: Mission.Status = Mission.Status.FAILED) -> void:
     assert(mission in self._missions, "Cannot fail a non-current mission")
+
+    mission.status = failure_status
+
+    # Ordering is important: do this before modifying cargo, so it doesn't participate in the update notification.
+    self._missions.erase(mission)
     
     # TODO: Don't remove cargo from a forfeited mission(?), maybe the player wants to sell it on. But check this makes sense economically.
     for commodity: Commodity in mission.cargo:
         var amount: int = mission.cargo[commodity]
         self.cargo_hold.remove_up_to(commodity, amount)
 
-    mission.status = failure_status
-    self._missions.erase(mission)
-    self.mission_forfeited.emit(mission)
+    if failure_status == Mission.Status.FORFEITED:
+        self.mission_forfeited.emit(mission)
+    else:
+        self.mission_failed.emit(mission)
 
 ## Mark a mission as succeeded, and pay out the proceeds.
 func _succeed_mission(mission: Mission) -> void:
     assert(mission in self._missions, "Cannot succeed a non-current mission")
 
     mission.status = Mission.Status.SUCCEEDED
+
+    # Ordering is important: do this before modifying cargo, so it doesn't participate in the update notification.
     self._missions.erase(mission)
+
+    for commodity: Commodity in mission.cargo:
+        var amount: int = mission.cargo[commodity]
+        var result := self.cargo_hold.remove_exactly(commodity, amount)
+        assert(result, "Expected cargo withdrawal to succeed when mission is succeeded")
 
     for trade_asset: TradeAsset in mission.monetary_reward:
         var amount: float = mission.monetary_reward[trade_asset]
@@ -99,9 +112,6 @@ func _succeed_mission(mission: Mission) -> void:
         trade_asset.add_up_to(amount, self.cargo_hold, self.bank_account)
 
     self.mission_succeeded.emit(mission)
-
-func _on_cargo_hold_changed() -> void:
-    self._check_all_missions_failure()
 
 ## Evaluates all missions for failure conditions.
 func _check_all_missions_failure() -> void:
@@ -126,11 +136,6 @@ func _on_player_landed(_player: Player, planet: Planet) -> void:
         self._check_mission_failure(mission)
         if mission.status == Mission.Status.FAILED:
             continue
-
-        for commodity: Commodity in mission.cargo:
-            var required_amount: int = mission.cargo[commodity]
-            var result := self.cargo_hold.remove_exactly(commodity, required_amount)
-            assert(result, "Withdrawing mission cargo should succeed after previous failure check")
         
         self._succeed_mission(mission)
 
