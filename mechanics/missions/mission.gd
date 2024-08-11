@@ -113,7 +113,7 @@ static func create_random_delivery_mission(origin_planet: Planet) -> Mission:
     mission.cargo[commodity] = units
 
     mission.title = "Delivery to %s" % mission.destination_planet.name
-    mission.description = "Transport %i %s to %s in the %s system." % [
+    mission.description = "Transport %s %s to %s in the %s system." % [
         units,
         commodity.name,
         mission.destination_planet.name,
