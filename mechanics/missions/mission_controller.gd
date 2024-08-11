@@ -75,6 +75,11 @@ func forfeit_mission(mission: Mission) -> void:
 ## Fail a mission that the player has started, with a configurable choice of status.
 func _fail_mission(mission: Mission, failure_status: Mission.Status = Mission.Status.FAILED) -> void:
     assert(mission in self._missions, "Cannot fail a non-current mission")
+    
+    # TODO: Don't remove cargo from a forfeited mission(?), maybe the player wants to sell it on. But check this makes sense economically.
+    for commodity: Commodity in mission.cargo:
+        var amount: int = mission.cargo[commodity]
+        self.cargo_hold.remove_up_to(commodity, amount)
 
     mission.status = failure_status
     self._missions.erase(mission)
