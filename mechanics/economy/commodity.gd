@@ -42,7 +42,7 @@ func current_amount(cargo_hold: CargoHold, _bank_account: BankAccount) -> float:
 func take_up_to(amount: float, cargo_hold: CargoHold, _bank_account: BankAccount) -> float:
     return cargo_hold.remove_up_to(self, floori(amount))
 
-func take_exactly(amount: float, cargo_hold: CargoHold, _bank_account: BankAccount, _allow_negative: bool=false) -> bool:
+func take_exactly(amount: float, cargo_hold: CargoHold, _bank_account: BankAccount, _allow_negative: bool = false) -> bool:
     return cargo_hold.remove_exactly(self, floori(amount))
 
 func add_up_to(amount: float, cargo_hold: CargoHold, _bank_account: BankAccount) -> float:
@@ -61,5 +61,5 @@ func _to_string() -> String:
 ## Randomly picks one of the special commodities.
 static func pick_random_special() -> Commodity:
     var files := DirAccess.get_files_at(_SPECIAL_COMMODITIES_DIRECTORY)
-    var random_file := files[randi_range(0, files.size())]
+    var random_file := files[randi_range(0, files.size() - 1)]
     return load("%s/%s" % [_SPECIAL_COMMODITIES_DIRECTORY, random_file])
