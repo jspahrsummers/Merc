@@ -93,10 +93,10 @@ enum Status {
 static var _credits: Currency = preload("res://mechanics/economy/currencies/credits.tres")
 
 ## The amount to charge in starting cost, relative to the cost of goods, for a randomly generated mission.
-const _STARTING_COST_PERCENTAGE = 0.1
+const _STARTING_COST_PERCENTAGE = 0.15
 
-## The extra reward factor for a rush delivery mission, on top of what the goods themselves are worth.
-const _RUSH_DELIVERY_EXTRA_REWARD = 1.5
+## The extra risk and reward factor for a rush delivery mission, on top of what the goods themselves are worth.
+const _RUSH_DELIVERY_EXTRA_RISK_REWARD = 1.5
 
 ## Percentage chance of adding another hop to a rush delivery, when creating a random mission.
 const _RUSH_DELIVERY_ADD_HOP_CHANCE = 0.5
@@ -222,7 +222,7 @@ static func create_rush_delivery_mission(origin_planet: Planet, calendar: Calend
         reward_money = _credits
 
     mission.monetary_reward = {
-        reward_money: round(reward_money.price_converted_from_credits(commodity.base_price_in_credits) * _RUSH_DELIVERY_EXTRA_REWARD * units)
+        reward_money: round(reward_money.price_converted_from_credits(commodity.base_price_in_credits) * _RUSH_DELIVERY_EXTRA_RISK_REWARD * units)
     }
 
     var starting_money := origin_system.preferred_money()
@@ -230,7 +230,7 @@ static func create_rush_delivery_mission(origin_planet: Planet, calendar: Calend
         starting_money = _credits
 
     mission.starting_cost = {
-        starting_money: round(starting_money.price_converted_from_credits(commodity.base_price_in_credits) * units * _STARTING_COST_PERCENTAGE)
+        starting_money: round(starting_money.price_converted_from_credits(commodity.base_price_in_credits) * _RUSH_DELIVERY_EXTRA_RISK_REWARD * units * _STARTING_COST_PERCENTAGE)
     }
 
     return mission
