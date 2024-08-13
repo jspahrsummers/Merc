@@ -3,6 +3,8 @@ class_name MissionController
 
 ## Manages mission status for the player.
 
+@export var message_log: MessageLog
+
 var bank_account: BankAccount
 
 var calendar: Calendar:
@@ -99,8 +101,10 @@ func _fail_mission(mission: Mission, failure_status: Mission.Status = Mission.St
         self.cargo_hold.remove_up_to(commodity, amount)
 
     if failure_status == Mission.Status.FORFEITED:
+        self.message_log.add_message("Mission forfeited: %s" % mission.title)
         self.mission_forfeited.emit(mission)
     else:
+        self.message_log.add_message("Mission failed: %s" % mission.title)
         self.mission_failed.emit(mission)
 
 ## Mark a mission as succeeded, and pay out the proceeds.
@@ -123,6 +127,7 @@ func _succeed_mission(mission: Mission) -> void:
         # TODO: This can fail if the player lacks cargo space. Deposit currency in lieu of commodities?
         trade_asset.add_up_to(amount, self.cargo_hold, self.bank_account)
 
+    self.message_log.add_message("Mission succeeded: %s" % mission.title)
     self.mission_succeeded.emit(mission)
 
 ## Evaluates all missions for failure conditions.

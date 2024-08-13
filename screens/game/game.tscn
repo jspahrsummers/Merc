@@ -99,7 +99,7 @@ script = ExtResource("11_ag0i7")
 max_volume = 10.0
 commodities = {}
 
-[sub_resource type="Resource" id="Resource_mcd0q"]
+[sub_resource type="Resource" id="Resource_v8hi4"]
 resource_local_to_scene = true
 script = ExtResource("13_q2g24")
 max_fuel = 6.0
@@ -180,7 +180,7 @@ hull = SubResource("Resource_ffax2")
 shield = SubResource("Resource_75c8j")
 battery = SubResource("Resource_xpwk4")
 cargo_hold = SubResource("Resource_bsv1l")
-hyperdrive = SubResource("Resource_mcd0q")
+hyperdrive = SubResource("Resource_v8hi4")
 
 [node name="HyperdriveSystem" type="Node3D" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette"]
 script = ExtResource("16_6olqp")
@@ -205,6 +205,9 @@ pitch_scale = 2.0
 
 [node name="AudioListener3D" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" index="4"]
 current = false
+
+[node name="MissionController" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" index="5" node_paths=PackedStringArray("message_log")]
+message_log = NodePath("../../../../../InGameGUI/MarginContainer/HBoxContainer/MessageLog")
 
 [node name="RigidBodyCargo" type="Node3D" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette"]
 script = ExtResource("10_w7kut")
