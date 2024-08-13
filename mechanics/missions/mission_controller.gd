@@ -121,6 +121,10 @@ func _check_all_missions_failure() -> void:
 
 ## Evaluates a specific mission against its failure conditions.
 func _check_mission_failure(mission: Mission) -> void:
+    if self.calendar.get_current_cycle() > mission.deadline_cycle:
+        self._fail_mission(mission)
+        return
+
     for commodity: Commodity in mission.cargo:
         var required_amount: int = mission.cargo[commodity]
         var actual_amount: int = self.cargo_hold.commodities.get(commodity, 0)
