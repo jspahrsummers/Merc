@@ -40,7 +40,7 @@ stream = ExtResource("2_lqyst")
 [node name="AudioListener3D" type="AudioListener3D" parent="."]
 current = true
 
-[node name="MissionController" type="Node3D" parent="."]
+[node name="MissionController" type="Node3D" parent="." groups=["saveable"]]
 script = ExtResource("6_502td")
 
 [connection signal="landed" from="." to="MissionController" method="_on_player_landed"]
