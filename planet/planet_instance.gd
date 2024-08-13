@@ -49,9 +49,11 @@ func save_to_dict() -> Dictionary:
 
 ## See [SaveGame].
 func load_from_dict(dict: Dictionary) -> void:
-    var mission_dicts: Array[Dictionary] = dict["available_missions"]
-    self._available_missions = mission_dicts.map(func(mission_dict: Dictionary) -> Mission:
+    var mission_dicts: Array = dict["available_missions"]
+    var loaded_missions := mission_dicts.map(func(mission_dict: Dictionary) -> Mission:
         var mission: Mission = Mission.new()
         mission.load_from_dict(mission_dict)
         return mission
     )
+
+    self._available_missions.assign(loaded_missions)

@@ -137,3 +137,41 @@ static func create_random_delivery_mission(origin_planet: Planet) -> Mission:
     }
 
     return mission
+
+# Overridden because dictionaries of resources do not serialize correctly.
+func save_to_dict() -> Dictionary:
+    var result := {}
+    result["title"] = self.title
+    result["description"] = self.description
+
+    if is_finite(self.deadline_cycle):
+        result["deadline_cycle"] = self.deadline_cycle
+    
+    result["status"] = self.status
+    result["destination_planet"] = self.destination_planet.resource_path
+
+    result["cargo"] = SaveGame.serialize_dictionary_with_resource_keys(self.cargo)
+    result["monetary_reward"] = SaveGame.serialize_dictionary_with_resource_keys(self.monetary_reward)
+    result["starting_cost"] = SaveGame.serialize_dictionary_with_resource_keys(self.starting_cost)
+
+    return result
+
+func load_from_dict(dict: Dictionary) -> void:
+    self.title = dict["title"]
+    self.description = dict["description"]
+    self.deadline_cycle = dict["deadline_cycle"] if "deadline_cycle" in dict else INF
+    self.status = dict["status"]
+
+    var destination_planet_path: String = dict["destination_planet"]
+    self.destination_planet = ResourceUtils.safe_load_resource(destination_planet_path, "tres")
+
+    var saved_cargo: Dictionary = dict["cargo"]
+    self.cargo = SaveGame.deserialize_dictionary_with_resource_keys(saved_cargo)
+
+    var saved_reward: Dictionary = dict["monetary_reward"]
+    self.monetary_reward = SaveGame.deserialize_dictionary_with_resource_keys(saved_reward)
+
+    var saved_cost: Dictionary = dict["starting_cost"]
+    self.starting_cost = SaveGame.deserialize_dictionary_with_resource_keys(saved_cost)
+    
+    self.emit_changed()
