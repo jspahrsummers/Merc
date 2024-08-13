@@ -7,20 +7,17 @@ class_name MissionComputerWindow
 @export var reward_label: Label
 @export var start_button: Button
 
-var planet: Planet
+var available_missions: Array[Mission]
 var mission_controller: MissionController
 var cargo_hold: CargoHold
 var bank_account: BankAccount
 
-var _available_missions: Array[Mission] = []
 var _selected_mission: Mission
 
 func _ready() -> void:
     self._clear()
 
-    for i in randi_range(3, 5):
-        var mission := Mission.create_random_delivery_mission(self.planet)
-        self._available_missions.push_back(mission)
+    for mission in self.available_missions:
         self.mission_list.add_item(mission.title)
 
 func _on_close_requested() -> void:
@@ -38,7 +35,7 @@ func _clear() -> void:
     self._selected_mission = null
 
 func _on_item_selected(index: int) -> void:
-    self._selected_mission = self._available_missions[index]
+    self._selected_mission = self.available_missions[index]
     self.description_label.text = self._selected_mission.description
     self.cost_label.text = self._money_dict_to_string(self._selected_mission.starting_cost)
     self.reward_label.text = self._money_dict_to_string(self._selected_mission.monetary_reward)
@@ -87,10 +84,10 @@ func _on_start_pressed() -> void:
         push_error("Failed to start mission")
         return
     
-    var index := self._available_missions.find(self._selected_mission)
+    var index := self.available_missions.find(self._selected_mission)
     assert(index != -1, "Cannot find selected mission in available missions")
 
-    self._available_missions.remove_at(index)
+    self.available_missions.remove_at(index)
     self.mission_list.deselect_all()
     self.mission_list.remove_item(index)
     self._clear()

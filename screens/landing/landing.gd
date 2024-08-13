@@ -20,27 +20,29 @@ class_name Landing
 var player: Player
 
 ## The planet to land on. Must be set before displaying.
-var planet: Planet
+var planet_instance: PlanetInstance
 
 ## The star system the planet is in. Must be set before displaying.
 var star_system: StarSystem
 
+var _planet: Planet
 var _hyperdrive: Hyperdrive
 var _trading_window: TradingWindow = null
 var _missions_window: MissionComputerWindow = null
 
 func _ready() -> void:
     self._hyperdrive = self.player.ship.hyperdrive
+    self._planet = self.planet_instance.planet
 
-    self.title = self.planet.name
-    self.bar_button.visible = (self.planet.facilities & Planet.BAR)
-    self.trading_button.visible = (self.planet.facilities & Planet.TRADING)
-    self.missions_button.visible = (self.planet.facilities & Planet.MISSIONS)
-    self.outfitter_button.visible = (self.planet.facilities & Planet.OUTFITTER)
-    self.shipyard_button.visible = (self.planet.facilities & Planet.SHIPYARD)
-    self.refuel_button.visible = (self.planet.facilities & Planet.REFUEL)
-    self.landscape_image.texture = self.planet.landscape_image
-    self.description_label.text = self.planet.description
+    self.title = self._planet.name
+    self.bar_button.visible = (self._planet.facilities & Planet.BAR)
+    self.trading_button.visible = (self._planet.facilities & Planet.TRADING)
+    self.missions_button.visible = (self._planet.facilities & Planet.MISSIONS)
+    self.outfitter_button.visible = (self._planet.facilities & Planet.OUTFITTER)
+    self.shipyard_button.visible = (self._planet.facilities & Planet.SHIPYARD)
+    self.refuel_button.visible = (self._planet.facilities & Planet.REFUEL)
+    self.landscape_image.texture = self._planet.landscape_image
+    self.description_label.text = self._planet.description
 
     self._update_refuel_button()
 
@@ -64,7 +66,7 @@ func _on_trading_button_pressed() -> void:
 func _on_missions_button_pressed() -> void:
     if not self._missions_window:
         self._missions_window = self.missions_window_scene.instantiate()
-        self._missions_window.planet = self.planet
+        self._missions_window.available_missions = self.planet_instance.get_available_missions()
         self._missions_window.mission_controller = self.player.mission_controller
         self._missions_window.cargo_hold = self.player.ship.cargo_hold
         self._missions_window.bank_account = self.player.bank_account

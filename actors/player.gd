@@ -244,7 +244,7 @@ func _land() -> void:
 
     var landing: Landing = self.landing_scene.instantiate()
     landing.player = self
-    landing.planet = planet
+    landing.planet_instance = self.landing_target
     landing.star_system = self.ship.hyperdrive_system.current_system()
     self.ship.add_sibling(landing)
     self.ship.get_parent().remove_child(self.ship)
