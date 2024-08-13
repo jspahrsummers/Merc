@@ -92,11 +92,23 @@ enum Status {
 
 static var _credits: Currency = preload("res://mechanics/economy/currencies/credits.tres")
 
-## The amount to charge in starting cost, relative to the reward, for a randomly generated mission.
+## The amount to charge in starting cost, relative to the cost of goods, for a randomly generated mission.
 const _STARTING_COST_PERCENTAGE = 0.1
 
+## The extra reward factor for a rush delivery mission, on top of what the goods themselves are worth.
+const _RUSH_DELIVERY_EXTRA_REWARD = 1.5
+
+## Percentage chance of adding another hop to a rush delivery, when creating a random mission.
+const _RUSH_DELIVERY_ADD_HOP_CHANCE = 0.5
+
+## Minimum multiplier for a rush delivery's deadline, as computed by the number of hyperspace jumps required.
+const _RUSH_DELIVERY_MIN_DEADLINE_BUFFER = 1.1
+
+## Maximum multiplier for a rush delivery's deadline, as computed by the number of hyperspace jumps required.
+const _RUSH_DELIVERY_MAX_DEADLINE_BUFFER = 1.5
+
 ## Creates a random delivery mission without a deadline.
-static func create_random_delivery_mission(origin_planet: Planet) -> Mission:
+static func create_delivery_mission(origin_planet: Planet) -> Mission:
     var mission := Mission.new()
 
     var origin_system: StarSystem = origin_planet.star_system.get_ref()
@@ -137,6 +149,102 @@ static func create_random_delivery_mission(origin_planet: Planet) -> Mission:
     }
 
     return mission
+
+static func _randomly_walk_systems(galaxy: Galaxy, path_so_far: Array[StarSystem]) -> Array[StarSystem]:
+    var last_system := path_so_far[-1]
+    var allowed_connections := last_system.connections.filter(func(connection: StringName) -> bool:
+        return not path_so_far.any(func(system: StarSystem) -> bool:
+            return system.name == connection
+        ))
+    
+    if allowed_connections.is_empty():
+        return []
+
+    var next_name: StringName = allowed_connections.pick_random()
+    var next_system := galaxy.get_system(next_name)
+    var new_path := path_so_far.duplicate()
+    new_path.push_back(next_system)
+
+    if randf() >= _RUSH_DELIVERY_ADD_HOP_CHANCE:
+        # Add more hops to the path.
+        var possible_path := Mission._randomly_walk_systems(galaxy, new_path)
+        if possible_path:
+            new_path = possible_path
+
+    # Return the longest path that ends in a planetary system.
+    while not new_path[-1].planets:
+        new_path.pop_back()
+
+        if new_path.size() <= 1:
+            # Back to the starting point, so give up.
+            return []
+    
+    return new_path
+
+## Creates a random rush delivery mission.
+##
+## Note: this may not succeed every time, so ensure that the return value is checked.
+static func create_rush_delivery_mission(origin_planet: Planet, calendar: Calendar) -> Mission:
+    var origin_system: StarSystem = origin_planet.star_system.get_ref()
+    var galaxy: Galaxy = origin_system.galaxy.get_ref()
+
+    var path := Mission._randomly_walk_systems(galaxy, [origin_system])
+    if not path:
+        return null
+
+    var mission := Mission.new()
+    mission.deadline_cycle = calendar.get_current_cycle()
+    for i in path.size() - 1:
+        mission.deadline_cycle += HyperspaceSceneSwitcher.HYPERSPACE_APPROXIMATE_TRAVEL_DAYS * 24 * randf_range(_RUSH_DELIVERY_MIN_DEADLINE_BUFFER, _RUSH_DELIVERY_MAX_DEADLINE_BUFFER)
+    
+    var destination_system: StarSystem = path[-1]
+    assert(destination_system != origin_system, "Cannot create rush delivery to the system we started in")
+
+    mission.destination_planet = destination_system.planets.pick_random()
+
+    var commodity := Commodity.pick_random_special()
+    var cargo_volume := randi_range(5, 20)
+    var units := roundi(cargo_volume / commodity.volume)
+    mission.cargo[commodity] = units
+
+    mission.title = "Rush delivery to %s" % mission.destination_planet.name
+    mission.description = "Transport %s %s to %s in the %s system before %s." % [
+        units,
+        commodity.name,
+        mission.destination_planet.name,
+        destination_system.name,
+        Calendar.format_gst(mission.deadline_cycle),
+    ]
+
+    var reward_money := destination_system.preferred_money()
+    if not reward_money:
+        reward_money = _credits
+
+    mission.monetary_reward = {
+        reward_money: round(reward_money.price_converted_from_credits(commodity.base_price_in_credits) * _RUSH_DELIVERY_EXTRA_REWARD * units)
+    }
+
+    var starting_money := origin_system.preferred_money()
+    if not starting_money:
+        starting_money = _credits
+
+    mission.starting_cost = {
+        starting_money: round(starting_money.price_converted_from_credits(commodity.base_price_in_credits) * units * _STARTING_COST_PERCENTAGE)
+    }
+
+    return mission
+
+## Creates a random mission of any type.
+##
+## Note: this may not succeed every time, so ensure that the return value is checked.
+static func create_random_mission(origin_planet: Planet, calendar: Calendar) -> Mission:
+    var generators := [
+        func() -> Mission: return Mission.create_delivery_mission(origin_planet),
+        func() -> Mission: return Mission.create_rush_delivery_mission(origin_planet, calendar),
+    ]
+
+    var generator: Callable = generators.pick_random()
+    return generator.call()
 
 # Overridden because dictionaries of resources do not serialize correctly.
 func save_to_dict() -> Dictionary:

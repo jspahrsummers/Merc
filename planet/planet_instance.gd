@@ -21,11 +21,12 @@ var targeted_by_player: bool:
 var _available_missions: Array[Mission] = []
 
 ## Creates or returns the missions currently available to pick up from this planet.
-func get_available_missions() -> Array[Mission]:
+func get_available_missions(calendar: Calendar) -> Array[Mission]:
     if not self._available_missions:
         for i in randi_range(3, 5):
-            var mission := Mission.create_random_delivery_mission(self.planet)
-            self._available_missions.push_back(mission)
+            var mission := Mission.create_random_mission(self.planet, calendar)
+            if mission:
+                self._available_missions.push_back(mission)
 
     return self._available_missions
 

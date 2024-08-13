@@ -66,7 +66,7 @@ func _on_trading_button_pressed() -> void:
 func _on_missions_button_pressed() -> void:
     if not self._missions_window:
         self._missions_window = self.missions_window_scene.instantiate()
-        self._missions_window.available_missions = self.planet_instance.get_available_missions()
+        self._missions_window.available_missions = self.planet_instance.get_available_missions(self.player.calendar)
         self._missions_window.mission_controller = self.player.mission_controller
         self._missions_window.cargo_hold = self.player.ship.cargo_hold
         self._missions_window.bank_account = self.player.bank_account
