@@ -11,6 +11,7 @@ class_name Player
 @export var takeoff_sound: AudioStreamPlayer
 @export var bank_account: BankAccount
 @export var calendar: Calendar
+@export var mission_controller: MissionController
 
 @onready var ship := get_parent() as Ship
 
@@ -31,6 +32,9 @@ signal target_changed(player: Player, target: CombatObject)
 
 ## Fires when the player changes their landing target.
 signal landing_target_changed(player: Player, target: PlanetInstance)
+
+## Fires when the player lands on a planet.
+signal landed(player: Player, planet: Planet)
 
 ## Fires when the ship's hyperdrive changes.
 signal hyperdrive_changed(player: Player, hyperdrive: Hyperdrive)
@@ -97,6 +101,10 @@ func _ready() -> void:
     if self.ship.hyperdrive:
         self._on_hyperdrive_changed()
         self.ship.hyperdrive.changed.connect(_on_hyperdrive_changed)
+    
+    self.mission_controller.calendar = self.calendar
+    self.mission_controller.cargo_hold = self.ship.cargo_hold
+    self.mission_controller.bank_account = self.bank_account
 
 func _on_hull_changed() -> void:
     self.hull_changed.emit(self, self.ship.hull)
@@ -236,7 +244,7 @@ func _land() -> void:
 
     var landing: Landing = self.landing_scene.instantiate()
     landing.player = self
-    landing.planet = planet
+    landing.planet_instance = self.landing_target
     landing.star_system = self.ship.hyperdrive_system.current_system()
     self.ship.add_sibling(landing)
     self.ship.get_parent().remove_child(self.ship)
@@ -246,6 +254,8 @@ func _land() -> void:
         landing.add_sibling(self.ship)
         landing.queue_free()
         self._depart_from_planet())
+    
+    self.landed.emit(self, planet)
 
 func _depart_from_planet() -> void:
     self.calendar.pass_approximate_days(PLANET_LANDING_APPROXIMATE_DAYS)

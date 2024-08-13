@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Commodity" load_steps=2 format=3 uid="uid://belatvs1ea3lm"]
+
+[ext_resource type="Script" path="res://mechanics/economy/commodity.gd" id="1_krgm1"]
+
+[resource]
+script = ExtResource("1_krgm1")
+mass = 0.1
+volume = 1.5
+base_price_in_credits = 2000.0
+name = "Technology Prototypes"

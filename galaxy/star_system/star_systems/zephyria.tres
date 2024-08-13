@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="StarSystem" load_steps=8 format=3 uid="uid://bowucldo27rjd"]
+[gd_resource type="Resource" script_class="StarSystem" load_steps=9 format=3 uid="uid://bowucldo27rjd"]
 
 [ext_resource type="Resource" uid="uid://dnutrj5jdgiaj" path="res://mechanics/economy/commodities/food.tres" id="1_dbjat"]
 [ext_resource type="Resource" uid="uid://b764gd8q3il6s" path="res://mechanics/economy/currencies/credits.tres" id="1_gu0r8"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://mechanics/economy/market.gd" id="2_nldec"]
 [ext_resource type="Resource" uid="uid://bnw61s2hj8a0m" path="res://mechanics/economy/commodities/water.tres" id="2_tsdy1"]
 [ext_resource type="Resource" uid="uid://dl132ceubbcos" path="res://mechanics/economy/commodities/rare_earth_elements.tres" id="3_8a2sl"]
+[ext_resource type="Resource" uid="uid://crj6o7sd5pos2" path="res://planet/planets/aethoria.tres" id="6_jhedg"]
 
 [sub_resource type="Resource" id="Resource_6lhwe"]
 script = ExtResource("2_nldec")
@@ -22,6 +23,7 @@ name = &"Zephyria"
 connections = Array[StringName]([&"Alpha Centauri", &"Nova Lumina"])
 position = Vector3(-2.7, 0.5, -3)
 scene_path = "res://galaxy/star_system/scenes/zephyria.tscn"
+planets = Array[Resource("res://planet/planet.gd")]([ExtResource("6_jhedg")])
 market = SubResource("Resource_6lhwe")
 refueling_money = ExtResource("1_gu0r8")
 refueling_relative_price = 0.347

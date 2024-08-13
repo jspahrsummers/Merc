@@ -58,10 +58,13 @@ func get_current_cycle() -> float:
 ## Formats the current GST timestamp as a string, suitable for presentation.
 func get_gst() -> String:
     var current_cycle := self.get_current_cycle()
+    return Calendar.format_gst(current_cycle)
 
-    var kilocycles := int(current_cycle / 1000)
-    var cycles := int(current_cycle) % 1000
-    var millicycles := int((current_cycle - floorf(current_cycle)) * 1000)
+## Formats the given GST timestamp as a string.
+static func format_gst(cycle_timestamp: float) -> String:
+    var kilocycles := int(cycle_timestamp / 1000)
+    var cycles := int(cycle_timestamp) % 1000
+    var millicycles := int((cycle_timestamp - floorf(cycle_timestamp)) * 1000)
 
     return "%03d.%03d.%03d GST" % [kilocycles, cycles, millicycles]
 

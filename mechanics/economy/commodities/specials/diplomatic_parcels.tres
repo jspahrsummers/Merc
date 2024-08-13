@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Commodity" load_steps=2 format=3 uid="uid://cqhr7ier7ncx7"]
+
+[ext_resource type="Script" path="res://mechanics/economy/commodity.gd" id="1_fk470"]
+
+[resource]
+script = ExtResource("1_fk470")
+mass = 1.0
+volume = 1.0
+base_price_in_credits = 1000.0
+name = "Diplomatic Parcels"
