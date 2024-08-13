@@ -97,21 +97,13 @@ func remove_exactly(commodity: Commodity, amount: int) -> bool:
 func save_to_dict() -> Dictionary:
     var result := {}
     result["max_volume"] = self.max_volume
-
-    var saved_commodities := {}
-    for commodity: Commodity in self.commodities:
-        saved_commodities[commodity.resource_path] = self.commodities[commodity]
-
-    result["commodities"] = saved_commodities
+    result["commodities"] = SaveGame.serialize_dictionary_with_resource_keys(self.commodities)
     return result
 
 func load_from_dict(dict: Dictionary) -> void:
     self.max_volume = dict["max_volume"]
-    self.commodities.clear()
 
     var saved_commodities: Dictionary = dict["commodities"]
-    for commodity_path: String in saved_commodities:
-        var commodity: Commodity = ResourceUtils.safe_load_resource(commodity_path, "tres")
-        self.commodities[commodity] = saved_commodities[commodity_path]
+    self.commodities = SaveGame.deserialize_dictionary_with_resource_keys(saved_commodities)
     
     self.emit_changed()

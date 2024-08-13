@@ -232,3 +232,18 @@ func deserialize_transform(value: Variant) -> Transform3D:
         deserialize_basis(basis),
         deserialize_vector3(origin),
    )
+
+func serialize_dictionary_with_resource_keys(dict: Dictionary) -> Dictionary:
+    var result := {}
+    for resource: Resource in dict:
+        result[resource.resource_path] = dict[resource]
+    
+    return result
+
+func deserialize_dictionary_with_resource_keys(dict: Dictionary) -> Dictionary:
+    var result := {}
+    for resource_path: String in dict:
+        var resource := ResourceUtils.safe_load_resource(resource_path, "tres")
+        result[resource] = dict[resource_path]
+    
+    return result
