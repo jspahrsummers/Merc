@@ -46,20 +46,12 @@ func withdraw_exactly(currency: Currency, amount: float, allow_negative: bool = 
 
 # Overridden because dictionaries of resources do not serialize correctly.
 func save_to_dict() -> Dictionary:
-    var saved_currencies := {}
-    for currency: Currency in self.currencies:
-        saved_currencies[currency.resource_path] = self.currencies[currency]
-
-    return {
-        "currencies": saved_currencies,
-    }
+    var result := {}
+    result["currencies"] = SaveGame.serialize_dictionary_with_resource_keys(self.currencies)
+    return result
 
 func load_from_dict(dict: Dictionary) -> void:
-    self.currencies.clear()
-
     var saved_currencies: Dictionary = dict["currencies"]
-    for currency_path: String in saved_currencies:
-        var currency: Currency = ResourceUtils.safe_load_resource(currency_path, "tres")
-        self.currencies[currency] = saved_currencies[currency_path]
+    self.currencies = SaveGame.deserialize_dictionary_with_resource_keys(saved_currencies)
     
     self.emit_changed()

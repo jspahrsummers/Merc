@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_m5fwf")
 name = "Auroris"
-facilities = 63
+facilities = 59
 landscape_image = ExtResource("1_j5cvo")
 description = "As your ship descends through the thick, swirling atmosphere of Auroris, the true nature of this giant planet comes into stark relief. The planet's immense gravity tugs at your vessel, the inertial dampeners straining to compensate. Through the viewscreen, the landscape unfolds - a world of extremes bathed in the intense blue-white light of Nova Lumina's young star.
 

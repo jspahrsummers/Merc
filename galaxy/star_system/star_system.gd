@@ -17,6 +17,9 @@ class_name StarSystem
 ## The resource path to this star system's scene.
 @export_file("*.tscn") var scene_path: String
 
+## All landable planets in this star system.
+@export var planets: Array[Planet] = []
+
 ## The trading market in this star system, if any.
 @export var market: Market
 
@@ -48,6 +51,19 @@ func refueling_price() -> float:
 
     var price_in_credits := MathUtils.relative_to_absolute_price(self.refueling_relative_price, self.REFUELING_BASE_PRICE_IN_CREDITS, self.REFUELING_PRICE_MAX_DEVIATION)
     return self.refueling_money.price_converted_from_credits(price_in_credits)
+
+## Infers the preferred money in this star system, based either on its trading market or how refueling is paid.
+##
+## Returns null if it cannot be determined.
+func preferred_money() -> TradeAsset:
+    return self.market.money if self.market else self.refueling_money
+
+func _init() -> void:
+    self._connect_backref.call_deferred()
+
+func _connect_backref() -> void:
+    for planet in self.planets:
+        planet.star_system = weakref(self)
 
 func _to_string() -> String:
     return "StarSystem:" + self.name

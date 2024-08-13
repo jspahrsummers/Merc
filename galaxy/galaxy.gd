@@ -8,8 +8,14 @@ class_name Galaxy
 ## A list of all systems in the galaxy.
 @export var systems: Array[StarSystem]
 
+## A list of all planets in the galaxy.
+var planets: Array = []
+
 func _init() -> void:
     self._connect_backref.call_deferred()
+
+    for system in self.systems:
+        self.planets.append_array(system.planets)
 
 func _connect_backref() -> void:
     for system in self.systems:
@@ -20,5 +26,5 @@ func get_system(name: StringName) -> StarSystem:
     for system in systems:
         if system.name == name:
             return system
-    
+
     return null

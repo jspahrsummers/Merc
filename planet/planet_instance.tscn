@@ -19,7 +19,7 @@ cap_bottom = false
 [sub_resource type="BoxShape3D" id="BoxShape3D_rec32"]
 size = Vector3(2.2, 1, 2.2)
 
-[node name="PlanetInstance" type="Node3D" node_paths=PackedStringArray("target_overlay") groups=["planets"]]
+[node name="PlanetInstance" type="Node3D" node_paths=PackedStringArray("target_overlay") groups=["planets", "saveable"]]
 script = ExtResource("1_f2834")
 target_overlay = NodePath("TargetOverlay")
 

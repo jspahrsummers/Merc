@@ -21,7 +21,7 @@ func take_up_to(_amount: float, _cargo_hold: CargoHold, _bank_account: BankAccou
 ## Takes exactly the specified amount of this asset from a [CargoHold] or [BankAccount], whichever is appropriate.
 ##
 ## If [param allow_negative] is set [b]and[/b] this [TradeAsset] is a [Currency], the account can go into negative balance; otherwise, an attempt to take more than what's available will fail and return false.
-func take_exactly(_amount: float, _cargo_hold: CargoHold, _bank_account: BankAccount, _allow_negative: bool=false) -> bool:
+func take_exactly(_amount: float, _cargo_hold: CargoHold, _bank_account: BankAccount, _allow_negative: bool = false) -> bool:
     assert(false, "Meant to be implemented by subclasses")
     return false
 
@@ -47,6 +47,10 @@ func price_converted_from_credits(_price_in_credits: float) -> float:
 ## Displays an amount of this asset in human-readable format.
 func amount_as_string(amount: float) -> String:
     return "%s %s" % [amount, self.name.to_lower()]
+
+## Rounds an amount of this asset to its innate precision.
+func round(amount: float) -> float:
+    return roundf(amount)
 
 func _to_string() -> String:
     return "TradeAsset:" + self.name
