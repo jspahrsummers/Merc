@@ -3,8 +3,20 @@ class_name MissionController
 
 ## Manages mission status for the player.
 
-var calendar: Calendar
 var bank_account: BankAccount
+
+var calendar: Calendar:
+    set(value):
+        if value == calendar:
+            return
+        
+        if calendar:
+            calendar.changed.disconnect(_check_all_missions_failure)
+        calendar = value
+        if calendar:
+            calendar.changed.connect(_check_all_missions_failure)
+            self._check_all_missions_failure()
+
 var cargo_hold: CargoHold:
     set(value):
         if value == cargo_hold:
