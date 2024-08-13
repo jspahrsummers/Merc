@@ -150,6 +150,7 @@ static func create_delivery_mission(origin_planet: Planet) -> Mission:
 
     return mission
 
+## Traveling-salesperson-suboptimal algorithm…
 static func _randomly_walk_systems(galaxy: Galaxy, path_so_far: Array[StarSystem]) -> Array[StarSystem]:
     var last_system := path_so_far[-1]
     var allowed_connections := last_system.connections.filter(func(connection: StringName) -> bool:
