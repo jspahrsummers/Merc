@@ -13,6 +13,7 @@ Instructions:
 * ` (backtick) or § to select a planet to land on
 * L to land
 * C to open the currency trading window
+* I to view your active missions
 * Scroll wheel to zoom in and out
 
 ## Development
