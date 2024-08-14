@@ -6,6 +6,7 @@ class_name MissionComputerWindow
 @export var cost_label: Label
 @export var reward_label: Label
 @export var start_button: Button
+@export var premultiplied_canvas_material: CanvasItemMaterial
 
 var available_missions: Array[Mission]
 var mission_controller: MissionController

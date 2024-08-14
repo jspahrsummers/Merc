@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0oavecy2l8p5"]
+[gd_scene load_steps=3 format=3 uid="uid://b0oavecy2l8p5"]
 
 [ext_resource type="Script" path="res://screens/game/mission_log/mission_log_window.gd" id="1_5is5j"]
+[ext_resource type="Material" uid="uid://cs5s3tb7vagsi" path="res://screens/shared_ui/premultiplied_canvas_material.tres" id="2_8vnsw"]
 
 [node name="MissionLogWindow" type="Window" node_paths=PackedStringArray("mission_list", "description_label", "cost_label", "reward_label", "forfeit_button")]
 transparent_bg = true
@@ -14,6 +15,7 @@ description_label = NodePath("PanelContainer/VSplitContainer/MarginContainer/HBo
 cost_label = NodePath("PanelContainer/VSplitContainer/MarginContainer/HBoxContainer/VBoxContainer/CostLabel")
 reward_label = NodePath("PanelContainer/VSplitContainer/MarginContainer/HBoxContainer/VBoxContainer/RewardLabel")
 forfeit_button = NodePath("PanelContainer/VSplitContainer/MarginContainer/HBoxContainer/VBoxContainer/ForfeitButton")
+premultiplied_canvas_material = ExtResource("2_8vnsw")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -51,6 +53,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="DescriptionLabel" type="RichTextLabel" parent="PanelContainer/VSplitContainer/MarginContainer/HBoxContainer"]
+material = ExtResource("2_8vnsw")
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
@@ -61,11 +64,13 @@ layout_mode = 2
 size_flags_horizontal = 8
 
 [node name="CostHeading" type="Label" parent="PanelContainer/VSplitContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+material = ExtResource("2_8vnsw")
 layout_mode = 2
 text = "Deposit"
 uppercase = true
 
 [node name="CostLabel" type="Label" parent="PanelContainer/VSplitContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+material = ExtResource("2_8vnsw")
 layout_mode = 2
 text = "1235 "
 
@@ -74,11 +79,13 @@ custom_minimum_size = Vector2(2.08165e-12, 8)
 layout_mode = 2
 
 [node name="RewardHeading" type="Label" parent="PanelContainer/VSplitContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+material = ExtResource("2_8vnsw")
 layout_mode = 2
 text = "Reward"
 uppercase = true
 
 [node name="RewardLabel" type="Label" parent="PanelContainer/VSplitContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+material = ExtResource("2_8vnsw")
 layout_mode = 2
 text = "123 credits
 1234 lumins"
