@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=39 format=3 uid="uid://r4w2xa3q1twa"]
+[gd_resource type="Theme" load_steps=40 format=3 uid="uid://r4w2xa3q1twa"]
 
 [ext_resource type="FontFile" uid="uid://csj4t4r3hegan" path="res://screens/shared_ui/fonts/TitilliumWeb-Regular.ttf" id="1_7lr26"]
 [ext_resource type="Texture2D" uid="uid://rwqxyhvnkuqr" path="res://screens/shared_ui/images/button/blue_button_h.png" id="1_gtllp"]
@@ -114,6 +114,13 @@ texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6a5s3"]
+texture = ExtResource("4_vhwfr")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l8a8m"]
 texture = ExtResource("7_oby4s")
 texture_margin_left = 3.0
@@ -196,6 +203,7 @@ OptionButton/styles/hover = SubResource("StyleBoxTexture_hxa28")
 OptionButton/styles/normal = SubResource("StyleBoxTexture_iow7i")
 OptionButton/styles/pressed = SubResource("StyleBoxTexture_cs36e")
 Panel/styles/panel = SubResource("StyleBoxTexture_7ajhm")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_6a5s3")
 PopupMenu/colors/font_color = Color(0.698039, 0.905882, 1, 1)
 PopupMenu/colors/font_hover_color = Color(0.698039, 0.905882, 1, 1)
 PopupMenu/colors/font_separator_color = Color(0.698039, 0.905882, 1, 1)
