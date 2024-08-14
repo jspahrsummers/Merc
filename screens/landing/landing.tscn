@@ -14,9 +14,11 @@ script = ExtResource("2_k5nxq")
 size = Vector2(1024, 1024)
 
 [node name="Landing" type="Window" node_paths=PackedStringArray("bar_button", "trading_button", "missions_button", "outfitter_button", "shipyard_button", "refuel_button", "landscape_image", "description_label", "bar_dialog")]
+transparent_bg = true
 title = "Mars"
 initial_position = 2
 size = Vector2i(900, 600)
+transparent = true
 content_scale_mode = 1
 script = ExtResource("1_h6plc")
 bar_button = NodePath("PanelContainer/VBoxContainer/HFlowContainer/BarButton")

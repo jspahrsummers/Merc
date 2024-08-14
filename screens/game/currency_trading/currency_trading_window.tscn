@@ -3,9 +3,11 @@
 [ext_resource type="Script" path="res://screens/game/currency_trading/currency_trading_window.gd" id="1_a2pkb"]
 
 [node name="CurrencyTradingWindow" type="Window" node_paths=PackedStringArray("buy_spin_box", "buy_option_button", "buy_balance_label", "trade_button", "sell_spin_box", "sell_option_button", "sell_balance_label")]
+transparent_bg = true
 title = "Currency Exchange"
 initial_position = 2
 size = Vector2i(600, 200)
+transparent = true
 script = ExtResource("1_a2pkb")
 buy_spin_box = NodePath("PanelContainer/GridContainer/BuyContainer/BuySpinBox")
 buy_option_button = NodePath("PanelContainer/GridContainer/BuyContainer/BuyOptionButton")

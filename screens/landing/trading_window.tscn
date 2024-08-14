@@ -4,10 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://b04gt254vhyra" path="res://screens/landing/trade_buttons.tscn" id="17_j3rf1"]
 
 [node name="TradingWindow" type="Window" node_paths=PackedStringArray("commodities_container")]
+transparent_bg = true
 title = "Trade Computer"
 initial_position = 1
 size = Vector2i(600, 300)
 transient = true
+transparent = true
 script = ExtResource("1_b1kwq")
 commodities_container = NodePath("PanelContainer/Commodities/MarginContainer/ScrollContainer/GridContainer")
 trade_buttons_scene = ExtResource("17_j3rf1")

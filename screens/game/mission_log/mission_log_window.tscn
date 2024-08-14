@@ -3,9 +3,11 @@
 [ext_resource type="Script" path="res://screens/game/mission_log/mission_log_window.gd" id="1_5is5j"]
 
 [node name="MissionLogWindow" type="Window" node_paths=PackedStringArray("mission_list", "description_label", "cost_label", "reward_label", "forfeit_button")]
+transparent_bg = true
 title = "Mission Log"
 initial_position = 2
 size = Vector2i(700, 400)
+transparent = true
 script = ExtResource("1_5is5j")
 mission_list = NodePath("PanelContainer/VSplitContainer/Missions/ItemList")
 description_label = NodePath("PanelContainer/VSplitContainer/MarginContainer/HBoxContainer/DescriptionLabel")
