@@ -114,12 +114,7 @@ texture_margin_top = 5.0
 texture_margin_right = 5.0
 texture_margin_bottom = 5.0
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6a5s3"]
-texture = ExtResource("4_vhwfr")
-texture_margin_left = 5.0
-texture_margin_top = 5.0
-texture_margin_right = 5.0
-texture_margin_bottom = 5.0
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wpsc8"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l8a8m"]
 texture = ExtResource("7_oby4s")
@@ -147,18 +142,20 @@ bg_color = Color(1, 1, 1, 1)
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1dvk3"]
 texture = ExtResource("4_vhwfr")
 texture_margin_left = 5.0
-texture_margin_top = 45.0
+texture_margin_top = 5.0
 texture_margin_right = 5.0
+texture_margin_bottom = 5.0
 expand_margin_top = 48.0
-region_rect = Rect2(0, 0, 50, 45)
+region_rect = Rect2(0, 0, 50, 50)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_c1qqb"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xi7se"]
 texture = ExtResource("4_vhwfr")
 texture_margin_left = 5.0
-texture_margin_top = 45.0
+texture_margin_top = 5.0
 texture_margin_right = 5.0
+texture_margin_bottom = 5.0
 expand_margin_top = 48.0
-region_rect = Rect2(0, 0, 50, 45)
+region_rect = Rect2(0, 0, 50, 50)
 
 [resource]
 default_font = ExtResource("1_7lr26")
@@ -203,7 +200,7 @@ OptionButton/styles/hover = SubResource("StyleBoxTexture_hxa28")
 OptionButton/styles/normal = SubResource("StyleBoxTexture_iow7i")
 OptionButton/styles/pressed = SubResource("StyleBoxTexture_cs36e")
 Panel/styles/panel = SubResource("StyleBoxTexture_7ajhm")
-PanelContainer/styles/panel = SubResource("StyleBoxTexture_6a5s3")
+PanelContainer/styles/panel = SubResource("StyleBoxEmpty_wpsc8")
 PopupMenu/colors/font_color = Color(0.698039, 0.905882, 1, 1)
 PopupMenu/colors/font_hover_color = Color(0.698039, 0.905882, 1, 1)
 PopupMenu/colors/font_separator_color = Color(0.698039, 0.905882, 1, 1)
@@ -227,4 +224,4 @@ Window/font_sizes/title_font_size = 25
 Window/icons/close = ExtResource("10_v1lek")
 Window/icons/close_pressed = ExtResource("11_jyyrk")
 Window/styles/embedded_border = SubResource("StyleBoxTexture_1dvk3")
-Window/styles/embedded_unfocused_border = SubResource("StyleBoxTexture_c1qqb")
+Window/styles/embedded_unfocused_border = SubResource("StyleBoxTexture_xi7se")
