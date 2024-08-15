@@ -4,11 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://btc568gwt7fuc" path="res://screens/main_menu/main_menu.tscn" id="2_pxfub"]
 
 [node name="GameOverDialog" type="AcceptDialog"]
+transparent_bg = true
 scaling_3d_scale = 2.0
 title = "GAME OVER"
 initial_position = 2
 size = Vector2i(400, 150)
 visible = true
+transparent = true
 ok_button_text = "EXIT TO MAIN MENU"
 dialog_text = "Your ship has been destroyed, and you along with it."
 dialog_hide_on_ok = false

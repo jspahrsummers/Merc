@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://d1kbmfvjs6nrv"]
+[gd_scene load_steps=9 format=3 uid="uid://d1kbmfvjs6nrv"]
 
 [ext_resource type="Script" path="res://screens/landing/landing.gd" id="1_h6plc"]
 [ext_resource type="AudioStream" uid="uid://bbxl7rk2jq5qi" path="res://screens/landing/audio/HangarDoors.ogg" id="2_g2uae"]
 [ext_resource type="Script" path="res://screens/landing/spaceport_bar.gd" id="2_k5nxq"]
 [ext_resource type="PackedScene" uid="uid://hos1wawl1u68" path="res://screens/landing/mission_computer_window.tscn" id="3_3kp6r"]
 [ext_resource type="PackedScene" uid="uid://dpihtkm0u6kmb" path="res://screens/landing/trading_window.tscn" id="4_ci831"]
+[ext_resource type="Material" uid="uid://cs5s3tb7vagsi" path="res://screens/shared_ui/premultiplied_canvas_material.tres" id="5_3nwnl"]
 
 [sub_resource type="Resource" id="Resource_4dtn6"]
 resource_local_to_scene = true
@@ -14,9 +15,11 @@ script = ExtResource("2_k5nxq")
 size = Vector2(1024, 1024)
 
 [node name="Landing" type="Window" node_paths=PackedStringArray("bar_button", "trading_button", "missions_button", "outfitter_button", "shipyard_button", "refuel_button", "landscape_image", "description_label", "bar_dialog")]
+transparent_bg = true
 title = "Mars"
 initial_position = 2
 size = Vector2i(900, 600)
+transparent = true
 content_scale_mode = 1
 script = ExtResource("1_h6plc")
 bar_button = NodePath("PanelContainer/VBoxContainer/HFlowContainer/BarButton")
@@ -64,6 +67,7 @@ theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
 [node name="DescriptionLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer/MarginContainer"]
+material = ExtResource("5_3nwnl")
 layout_mode = 2
 bbcode_enabled = true
 text = "As your ship descends through the atmosphere, a vast desert terrain unfolds before you. Towering red cliffs rise sharply from the barren plains, their jagged peaks reaching toward the sky. The ground is a mix of rusty red sand and scattered boulders, suggesting a harsh and unforgiving environment.
