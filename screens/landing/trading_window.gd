@@ -1,11 +1,11 @@
 extends Window
 class_name TradingWindow
 
-@export var market: Market
-
 @export var commodities_container: GridContainer
 @export var trade_buttons_scene: PackedScene
+@export var premultiplied_canvas_material: CanvasItemMaterial
 
+var market: Market
 var cargo_hold: CargoHold
 var bank_account: BankAccount
 
@@ -20,21 +20,25 @@ func _ready() -> void:
         var price := self.market.price(commodity)
 
         var name_label := Label.new()
+        name_label.material = self.premultiplied_canvas_material
         name_label.text = commodity.name
         name_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
         self.commodities_container.add_child(name_label)
 
         var price_label := Label.new()
+        price_label.material = self.premultiplied_canvas_material
         price_label.text = market.money.amount_as_string(price)
         price_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
         self.commodities_container.add_child(price_label)
 
         var volume_label := Label.new()
+        volume_label.material = self.premultiplied_canvas_material
         volume_label.text = "%s m³" % commodity.volume
         volume_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
         self.commodities_container.add_child(volume_label)
 
         var quantity_label := Label.new()
+        quantity_label.material = self.premultiplied_canvas_material
         self._quantity_labels[commodity] = quantity_label
         self.commodities_container.add_child(quantity_label)
 

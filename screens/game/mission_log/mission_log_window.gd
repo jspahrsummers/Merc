@@ -6,6 +6,7 @@ class_name MissionLogWindow
 @export var cost_label: Label
 @export var reward_label: Label
 @export var forfeit_button: Button
+@export var premultiplied_canvas_material: CanvasItemMaterial
 
 var mission_controller: MissionController
 

@@ -8,9 +8,11 @@
 
 [node name="GalaxyMapWindow" type="Window" node_paths=PackedStringArray("galaxy_map_3d", "camera")]
 own_world_3d = true
+transparent_bg = true
 title = "Galaxy Map"
 initial_position = 2
 size = Vector2i(800, 800)
+transparent = true
 script = ExtResource("1_ksqdq")
 galaxy_map_3d = NodePath("PanelContainer/MarginContainer/SubViewportContainer/SubViewport/GalaxyMap3D")
 galaxy = ExtResource("2_okeml")

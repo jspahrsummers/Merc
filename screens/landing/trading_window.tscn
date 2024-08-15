@@ -1,16 +1,20 @@
-[gd_scene load_steps=3 format=3 uid="uid://dpihtkm0u6kmb"]
+[gd_scene load_steps=4 format=3 uid="uid://dpihtkm0u6kmb"]
 
 [ext_resource type="Script" path="res://screens/landing/trading_window.gd" id="1_b1kwq"]
+[ext_resource type="Material" uid="uid://cs5s3tb7vagsi" path="res://screens/shared_ui/premultiplied_canvas_material.tres" id="3_13cst"]
 [ext_resource type="PackedScene" uid="uid://b04gt254vhyra" path="res://screens/landing/trade_buttons.tscn" id="17_j3rf1"]
 
 [node name="TradingWindow" type="Window" node_paths=PackedStringArray("commodities_container")]
+transparent_bg = true
 title = "Trade Computer"
 initial_position = 1
 size = Vector2i(600, 300)
 transient = true
+transparent = true
 script = ExtResource("1_b1kwq")
 commodities_container = NodePath("PanelContainer/Commodities/MarginContainer/ScrollContainer/GridContainer")
 trade_buttons_scene = ExtResource("17_j3rf1")
+premultiplied_canvas_material = ExtResource("3_13cst")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -42,20 +46,24 @@ theme_override_constants/v_separation = 0
 columns = 5
 
 [node name="CommodityHeader" type="Label" parent="PanelContainer/Commodities/MarginContainer/ScrollContainer/GridContainer"]
+material = ExtResource("3_13cst")
 layout_mode = 2
 text = "Commodity"
 uppercase = true
 
 [node name="PriceHeader" type="Label" parent="PanelContainer/Commodities/MarginContainer/ScrollContainer/GridContainer"]
+material = ExtResource("3_13cst")
 layout_mode = 2
 text = "Price"
 uppercase = true
 
 [node name="VolumeHeader" type="Label" parent="PanelContainer/Commodities/MarginContainer/ScrollContainer/GridContainer"]
+material = ExtResource("3_13cst")
 layout_mode = 2
 text = "VOL"
 
 [node name="CargoHoldHeader" type="Label" parent="PanelContainer/Commodities/MarginContainer/ScrollContainer/GridContainer"]
+material = ExtResource("3_13cst")
 layout_mode = 2
 text = "Cargo"
 uppercase = true

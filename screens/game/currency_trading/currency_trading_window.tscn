@@ -1,11 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://b1yvdsvgyesj5"]
+[gd_scene load_steps=3 format=3 uid="uid://b1yvdsvgyesj5"]
 
 [ext_resource type="Script" path="res://screens/game/currency_trading/currency_trading_window.gd" id="1_a2pkb"]
+[ext_resource type="Material" uid="uid://cs5s3tb7vagsi" path="res://screens/shared_ui/premultiplied_canvas_material.tres" id="2_27a6a"]
 
 [node name="CurrencyTradingWindow" type="Window" node_paths=PackedStringArray("buy_spin_box", "buy_option_button", "buy_balance_label", "trade_button", "sell_spin_box", "sell_option_button", "sell_balance_label")]
+transparent_bg = true
 title = "Currency Exchange"
 initial_position = 2
 size = Vector2i(600, 200)
+transparent = true
 script = ExtResource("1_a2pkb")
 buy_spin_box = NodePath("PanelContainer/GridContainer/BuyContainer/BuySpinBox")
 buy_option_button = NodePath("PanelContainer/GridContainer/BuyContainer/BuyOptionButton")
@@ -31,6 +34,7 @@ size_flags_vertical = 4
 columns = 4
 
 [node name="BuyLabel" type="Label" parent="PanelContainer/GridContainer"]
+material = ExtResource("2_27a6a")
 layout_mode = 2
 text = "BUY "
 
@@ -45,6 +49,7 @@ custom_arrow_step = 1.0
 layout_mode = 2
 
 [node name="SellLabel" type="Label" parent="PanelContainer/GridContainer"]
+material = ExtResource("2_27a6a")
 layout_mode = 2
 text = " FOR "
 
@@ -66,6 +71,7 @@ text = "TRADE"
 layout_mode = 2
 
 [node name="BuyBalanceLabel" type="Label" parent="PanelContainer/GridContainer"]
+material = ExtResource("2_27a6a")
 layout_mode = 2
 text = "Balance: 123 credits"
 
@@ -73,6 +79,7 @@ text = "Balance: 123 credits"
 layout_mode = 2
 
 [node name="SellBalanceLabel" type="Label" parent="PanelContainer/GridContainer"]
+material = ExtResource("2_27a6a")
 layout_mode = 2
 text = "Balance: 123 lumins"
 

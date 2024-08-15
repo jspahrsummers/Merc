@@ -4,10 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://btc568gwt7fuc" path="res://screens/main_menu/main_menu.tscn" id="2_dfrt5"]
 
 [node name="ExitDialog" type="ConfirmationDialog"]
+transparent_bg = true
 scaling_3d_scale = 2.0
 title = "EXIT GAME?"
 initial_position = 2
 size = Vector2i(400, 150)
+transparent = true
 ok_button_text = "EXIT TO MAIN MENU"
 dialog_text = "Do you wish to end the game in progress?"
 dialog_hide_on_ok = false
