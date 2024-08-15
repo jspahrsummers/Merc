@@ -117,6 +117,7 @@ As mentioned before, the one stipulation is that these images aren’t to be use
 - menu_button
 - target_overlay
 - selected_galaxy_node
+- item_list
 
 [Asteroids](https://gargore.itch.io/asteroids) created by [Gargore](https://www.gargore.com/), purchased for use in this project:
 - asteroids
