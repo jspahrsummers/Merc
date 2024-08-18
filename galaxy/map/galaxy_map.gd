@@ -23,6 +23,8 @@ class_name GalaxyMap
 @export var ports_label: Label
 @export var facilities_heading: Label
 @export var facilities_label: Label
+@export var commodities_heading: Label
+@export var commodities_label: Label
 
 ## The player's [HyperdriveSystem]. Must be set before displaying.
 var hyperdrive_system: HyperdriveSystem
@@ -82,10 +84,10 @@ func _update_selection_state() -> void:
     var presented_system: StarSystem
     if self.hyperdrive_system.jump_destination:
         presented_system = self.hyperdrive_system.jump_destination
-        self.current_or_destination_heading.text = "DESTINATION SYSTEM"
+        self.current_or_destination_heading.text = "Destination system"
     else:
         presented_system = self.hyperdrive_system.current_system()
-        self.current_or_destination_heading.text = "CURRENT SYSTEM"
+        self.current_or_destination_heading.text = "Current system"
 
     self.system_name_label.text = presented_system.name
 
@@ -93,10 +95,14 @@ func _update_selection_state() -> void:
         self.ports_label.text = "(none)"
         self.facilities_label.visible = false
         self.facilities_heading.visible = false
+        self.commodities_label.visible = false
+        self.commodities_heading.visible = false
         return
 
     self.facilities_heading.visible = true
     self.facilities_label.visible = true
+    self.commodities_heading.visible = true
+    self.commodities_label.visible = true
 
     var facilities_flags: int = 0
     var ports := PackedStringArray()
@@ -116,6 +122,15 @@ func _update_selection_state() -> void:
 
     self.ports_label.text = "\n".join(ports)
     self.facilities_label.text = "\n".join(facilities) if facilities else "(none)"
+    
+    var commodities := PackedStringArray()
+    if presented_system.market:
+        for commodity: Commodity in presented_system.market.commodities:
+            commodities.append(commodity.name)
+        
+        self.commodities_label.text = "\n".join(commodities)
+    else:
+        self.commodities_label.text = "(none)"
 
 func _input(event: InputEvent) -> void:
     if event.is_action_pressed("toggle_galaxy_map"):
