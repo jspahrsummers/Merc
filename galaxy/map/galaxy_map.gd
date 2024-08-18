@@ -23,6 +23,8 @@ class_name GalaxyMap
 @export var ports_label: Label
 @export var facilities_heading: Label
 @export var facilities_label: Label
+@export var currency_heading: Label
+@export var currency_label: Label
 @export var commodities_heading: Label
 @export var commodities_label: Label
 
@@ -93,10 +95,12 @@ func _update_selection_state() -> void:
 
     if not presented_system.planets:
         self.ports_label.text = "(none)"
-        self.facilities_label.visible = false
         self.facilities_heading.visible = false
-        self.commodities_label.visible = false
+        self.facilities_label.visible = false
+        self.currency_heading.visible = false
+        self.currency_label.visible = false
         self.commodities_heading.visible = false
+        self.commodities_label.visible = false
         return
 
     self.facilities_heading.visible = true
@@ -131,6 +135,15 @@ func _update_selection_state() -> void:
         self.commodities_label.text = "\n".join(commodities)
     else:
         self.commodities_label.text = "(none)"
+    
+    var money := presented_system.preferred_money()
+    if money:
+        self.currency_heading.visible = true
+        self.currency_label.visible = true
+        self.currency_label.text = money.name
+    else:
+        self.currency_heading.visible = false
+        self.currency_label.visible = false
 
 func _input(event: InputEvent) -> void:
     if event.is_action_pressed("toggle_galaxy_map"):
