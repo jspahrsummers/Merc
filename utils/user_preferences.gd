@@ -80,11 +80,31 @@ func set_custom_value(section: String, key: String, value: Variant) -> void:
     # saving or reverting.
     self.save.call_deferred()
 
+## Replaces the current bindings used to trigger [param action].
+func set_action_bindings(action: String, events: Array[InputEvent]) -> void:
+    self._config.set_value("bindings", action, events)
+    self._updated()
+
+## Resets the current bindings used to trigger [param action].
+func reset_action_bindings(action: String) -> void:
+    self._config.erase_section_key("bindings", action)
+    self._updated()
+
 ## Call this whenever user preferences change, so the UI can be updated.
 func _updated() -> void:
     var window := self.get_window()
     window.content_scale_factor = self.ui_scale
     window.mode = Window.MODE_WINDOWED if self.windowed else Window.MODE_FULLSCREEN
+
+    InputMap.load_from_project_settings()
+    for action in InputMap.get_actions():
+        var events: Array[InputEvent] = self._config.get_value("bindings", action, [])
+        if not events:
+            continue
+
+        InputMap.action_erase_events(action)
+        for event in events:
+            InputMap.action_add_event(action, event)
 
     self.emit_signal("preferences_updated")
 
