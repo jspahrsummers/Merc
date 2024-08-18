@@ -1,16 +1,6 @@
-[gd_resource type="Resource" script_class="Galaxy" load_steps=11 format=3 uid="uid://bcva4l4cpt70c"]
+[gd_resource type="Resource" script_class="Galaxy" load_steps=2 format=3 uid="uid://bcva4l4cpt70c"]
 
 [ext_resource type="Script" path="res://galaxy/galaxy.gd" id="1_bckai"]
-[ext_resource type="Resource" uid="uid://cew4x137v08q" path="res://galaxy/star_system/star_systems/sol.tres" id="2_va8e4"]
-[ext_resource type="Resource" uid="uid://cs1x8gyt6a7kw" path="res://galaxy/star_system/star_systems/alpha_centauri.tres" id="3_ulruw"]
-[ext_resource type="Resource" uid="uid://shiglva7yxl0" path="res://galaxy/star_system/star_systems/barnard's_star.tres" id="4_jkjw5"]
-[ext_resource type="Resource" uid="uid://di0bekcy5g0ya" path="res://galaxy/star_system/star_systems/wolf_359.tres" id="5_8a1bp"]
-[ext_resource type="Resource" uid="uid://clcig3aieyop5" path="res://galaxy/star_system/star_systems/sirius.tres" id="6_jci7t"]
-[ext_resource type="Resource" uid="uid://bowucldo27rjd" path="res://galaxy/star_system/star_systems/zephyria.tres" id="7_puhoc"]
-[ext_resource type="Resource" uid="uid://cu1wn7ldbgeej" path="res://galaxy/star_system/star_systems/thalassa.tres" id="8_4yki3"]
-[ext_resource type="Resource" uid="uid://ku5qjeo4jlkt" path="res://galaxy/star_system/star_systems/nova_lumina.tres" id="9_qqkio"]
-[ext_resource type="Resource" uid="uid://nbm8is7uln37" path="res://galaxy/star_system/star_systems/helios.tres" id="10_fsj5o"]
 
 [resource]
 script = ExtResource("1_bckai")
-systems = Array[Resource("res://galaxy/star_system/star_system.gd")]([ExtResource("2_va8e4"), ExtResource("3_ulruw"), ExtResource("4_jkjw5"), ExtResource("5_8a1bp"), ExtResource("6_jci7t"), ExtResource("7_puhoc"), ExtResource("8_4yki3"), ExtResource("9_qqkio"), ExtResource("10_fsj5o")])

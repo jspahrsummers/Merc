@@ -37,9 +37,7 @@ MODEL = "claude-3-5-sonnet-20240620"
 CONTEXT_PATHS = [
     "actors/**/*.gd",
     "addons/market_editor/**/*.gd",
-    "galaxy/*.gd",
-    "galaxy/main_galaxy.tres",
-    "galaxy/star_system/**/*.gd",
+    "galaxy/**/*.gd",
     "galaxy/star_system/star_systems/*.tres",
     "mechanics/**/*.gd",
     "mechanics/**/*.tres",
