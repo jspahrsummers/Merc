@@ -12,12 +12,12 @@ from anthropic.types.beta.prompt_caching import (
 )
 from anthropic.types.beta.prompt_caching import PromptCachingBetaTextBlockParam
 from dotenv import load_dotenv
+from prompt_toolkit import PromptSession
+from prompt_toolkit.history import FileHistory
 from rich.console import Console
 from rich.prompt import Confirm
 from rich.syntax import Syntax
 from rich.theme import Theme
-from prompt_toolkit import PromptSession
-from prompt_toolkit.history import FileHistory
 
 load_dotenv()
 
@@ -49,6 +49,7 @@ CONTEXT_PATHS = [
     "screens/**/*.gd",
     "ships/**/*.gd",
     "utils/**/*.gd",
+    "*.md",
 ]
 
 SYSTEM_PROMPT = """\

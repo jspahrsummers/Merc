@@ -71,13 +71,7 @@ texture_margin_right = 12.0
 texture_margin_bottom = 8.0
 region_rect = Rect2(0, 0, 196, 48)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y2mdj"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.188235, 0.6, 0.858824, 0.239216)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4e3jd"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mv33p"]
 texture = ExtResource("6_jlvuu")
@@ -231,7 +225,7 @@ ItemList/colors/font_hovered_color = Color(0.886275, 0.956863, 0.988235, 1)
 ItemList/colors/font_outline_color = Color(0.886275, 0.956863, 0.988235, 1)
 ItemList/colors/font_selected_color = Color(0.886275, 0.956863, 0.988235, 1)
 ItemList/constants/outline_size = 1
-ItemList/styles/focus = SubResource("StyleBoxFlat_y2mdj")
+ItemList/styles/focus = SubResource("StyleBoxEmpty_4e3jd")
 ItemList/styles/hovered = SubResource("StyleBoxTexture_mv33p")
 ItemList/styles/panel = SubResource("StyleBoxTexture_yq1aq")
 ItemList/styles/selected = SubResource("StyleBoxTexture_g07t7")
