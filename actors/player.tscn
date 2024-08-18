@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cxlg0yj8cjbrf"]
+[gd_scene load_steps=10 format=3 uid="uid://cxlg0yj8cjbrf"]
 
 [ext_resource type="Script" path="res://actors/player.gd" id="1_qxs3b"]
 [ext_resource type="PackedScene" uid="uid://d1kbmfvjs6nrv" path="res://screens/landing/landing.tscn" id="2_2bp8c"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://mechanics/economy/bank_account.gd" id="3_0316y"]
 [ext_resource type="Script" path="res://mechanics/time/calendar.gd" id="4_x2dfd"]
 [ext_resource type="Script" path="res://mechanics/missions/mission_controller.gd" id="6_502td"]
+[ext_resource type="AudioStream" uid="uid://dxusa0iwscvln" path="res://fx/jsyd_klaxon2_trimmed.mp3" id="7_16rdj"]
 
 [sub_resource type="Resource" id="Resource_bycam"]
 script = ExtResource("3_0316y")
@@ -42,5 +43,9 @@ current = true
 
 [node name="MissionController" type="Node3D" parent="." groups=["saveable"]]
 script = ExtResource("6_502td")
+
+[node name="TargetedSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_16rdj")
+volume_db = -10.0
 
 [connection signal="landed" from="." to="MissionController" method="_on_player_landed"]
