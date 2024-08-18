@@ -225,6 +225,8 @@ def main() -> None:
                     paths.append(new_path)
                     console.print(f"Added: {new_path}", style="info")
 
+                context = load_context_from_paths(paths)
+
             case "/remove":
                 path_glob = parts[1]
                 for remove_path in Path(".").glob(path_glob):
@@ -233,6 +235,8 @@ def main() -> None:
 
                     paths.remove(remove_path)
                     console.print(f"Removed: {remove_path}", style="info")
+
+                context = load_context_from_paths(paths)
 
             case "/clear":
                 paths = []
