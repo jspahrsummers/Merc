@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://screens/settings/settings.gd" id="1_cg0bx"]
 
-[node name="Settings" type="Control" node_paths=PackedStringArray("control_scheme_button", "ui_scale_range", "display_mode_button")]
+[node name="Settings" type="Control" node_paths=PackedStringArray("control_scheme_button", "ui_scale_range", "display_mode_button", "bindings_list")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +13,7 @@ script = ExtResource("1_cg0bx")
 control_scheme_button = NodePath("PanelContainer/CenterContainer/VBoxContainer/GridContainer/ControlSchemeButton")
 ui_scale_range = NodePath("PanelContainer/CenterContainer/VBoxContainer/GridContainer/UIScaleSpinBox")
 display_mode_button = NodePath("PanelContainer/CenterContainer/VBoxContainer/GridContainer/DisplayModeButton")
+bindings_list = NodePath("PanelContainer/CenterContainer/VBoxContainer/ScrollContainer/BindingsList")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -31,6 +32,7 @@ alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 columns = 2
 
 [node name="ControlSchemeLabel" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer/GridContainer"]
@@ -79,6 +81,24 @@ popup/item_0/id = 0
 popup/item_1/text = "FULLSCREEN"
 popup/item_1/id = 1
 
+[node name="Label" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Key bindings:"
+uppercase = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(500, 300)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="BindingsList" type="ItemList" parent="PanelContainer/CenterContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+auto_height = true
+max_columns = 2
+same_column_width = true
+
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 1
@@ -94,5 +114,6 @@ text = "Save"
 [connection signal="item_selected" from="PanelContainer/CenterContainer/VBoxContainer/GridContainer/ControlSchemeButton" to="." method="_on_control_scheme_item_selected"]
 [connection signal="value_changed" from="PanelContainer/CenterContainer/VBoxContainer/GridContainer/UIScaleSpinBox" to="." method="_on_ui_scale_changed"]
 [connection signal="item_selected" from="PanelContainer/CenterContainer/VBoxContainer/GridContainer/DisplayModeButton" to="." method="_on_display_mode_button_item_selected"]
+[connection signal="item_clicked" from="PanelContainer/CenterContainer/VBoxContainer/ScrollContainer/BindingsList" to="." method="_on_bindings_list_item_clicked"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/RevertButton" to="." method="_on_revert_button_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]
