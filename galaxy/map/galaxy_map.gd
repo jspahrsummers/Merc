@@ -104,6 +104,10 @@ func _on_system_clicked(star_system: StarSystem, _system_node: GalaxyMapSystem) 
     if not is_instance_valid(self.hyperdrive_system) or self.hyperdrive_system.jumping:
         return
 
+    if star_system == self.hyperdrive_system.current_system():
+        self.hyperdrive_system.jump_destination = null
+        return
+
     if star_system.name not in self.hyperdrive_system.current_system().connections:
         return
 
