@@ -1,3 +1,4 @@
+
 [gd_resource type="Resource" script_class="Planet" load_steps=3 format=3 uid="uid://bcxt6a254xlc6"]
 
 [ext_resource type="Script" path="res://planet/planet.gd" id="1_c5n72"]
@@ -8,7 +9,7 @@ script = ExtResource("1_c5n72")
 name = "Gaia Prime"
 facilities = 39
 landscape_image = ExtResource("1_vxq07")
-description = "As your ship descends through wisps of opalescent clouds, the true majesty of Gaia Prime unfolds before you. This super-Earth, 1.5 times the size of humanity's cradle, is a breathtaking tapestry of deep azures and rich emeralds.
+description = "From orbit, Gaia Prime presents a breathtaking tapestry of deep azures and rich emeralds. This super-Earth, 1.5 times the size of humanity's cradle, is a world of stunning beauty and untamed wilderness.
 
 Vast oceans dominate the landscape, their surfaces occasionally broken by archipelagos of lush, tropical islands and sprawling continents with terrain ranging from verdant rainforests to towering mountain ranges. The air is thick but breathable, carrying the scent of alien flora and the promise of undiscovered life.
 
@@ -17,3 +18,4 @@ Despite its beauty, Gaia Prime is not without its dangers. Frequent electrical s
 Scattered across the habitable zones are the fledgling colonies of various factions – research outposts, mining operations, and budding settlements. Their diversity speaks to the planet's potential, but also to the brewing conflicts as different groups vie for control of this promising world.
 
 As a newcomer, you'll find no shortage of opportunities here, whether you seek to trade, explore, or carve out your own piece of this new frontier. But tread carefully – Gaia Prime's riches and secrets are coveted by many, and not all are willing to share."
+

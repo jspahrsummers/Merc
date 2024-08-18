@@ -1,3 +1,4 @@
+
 [gd_resource type="Resource" script_class="Planet" load_steps=3 format=3 uid="uid://ooe0w4eaywk3"]
 
 [ext_resource type="Texture2D" uid="uid://dykye1817bbtj" path="res://screens/landing/images/1e0eb449-d57b-44cd-a3e9-33be96f079e1.jpg" id="1_5xi60"]
@@ -8,16 +9,17 @@ script = ExtResource("1_8vuol")
 name = "Lumina Prime"
 facilities = 39
 landscape_image = ExtResource("1_5xi60")
-description = "As your ship breaks through the cloud layer of Lumina Prime, you're greeted by a world that seems to pulse with life and energy. The intense blue-white light of Nova Lumina's young star bathes the landscape in an almost ethereal glow, filtered through a shimmering, opalescent sky - a testament to the planet's advanced atmospheric engineering.
+description = "Lumina Prime greets visitors with a world that seems to pulse with life and energy. The intense blue-white light of Nova Lumina's young star bathes the landscape in an almost ethereal glow, filtered through a shimmering, opalescent sky - a testament to the planet's advanced atmospheric engineering.
 
-Stretching out below you is a tapestry of vibrant colors. Vast oceans of deep azure are dotted with archipelagos of emerald islands. Continents boast a mix of lush, violet-tinged forests and golden grasslands, their unusual hues a result of native flora adapted to the intense stellar radiation. Winding rivers sparkle like silver threads, connecting a network of gleaming cities that seem to grow organically from the landscape.
+Stretching out below is a tapestry of vibrant colors. Vast oceans of deep azure are dotted with archipelagos of emerald islands. Continents boast a mix of lush, violet-tinged forests and golden grasslands, their unusual hues a result of native flora adapted to the intense stellar radiation. Winding rivers sparkle like silver threads, connecting a network of gleaming cities that seem to grow organically from the landscape.
 
-As you approach the capital, Nova Lumina City, you're struck by its grandeur. Towering spires of crystal and metal reach towards the sky, their surfaces refracting the starlight into dazzling displays. Magnetic levitation trains weave between the buildings like luminous serpents, while personal aircars flit about in orderly streams. The city is a perfect blend of technology and nature, with abundant parks and green spaces nestled between the futuristic structures.
+The capital, Nova Lumina City, is a testament to the planet's grandeur. Towering spires of crystal and metal reach towards the sky, their surfaces refracting the starlight into dazzling displays. Magnetic levitation trains weave between the buildings like luminous serpents, while personal aircars flit about in orderly streams. The city is a perfect blend of technology and nature, with abundant parks and green spaces nestled between the futuristic structures.
 
-The spaceport is a marvel in itself - a sprawling complex of landing pads, hangars, and terminals that seems to float above the city's outskirts. As your ship touches down, you notice the subtle shimmer of the atmospheric shields that protect the port from the planet's slightly higher-than-standard radiation levels.
+The spaceport is a marvel in itself - a sprawling complex of landing pads, hangars, and terminals that seems to float above the city's outskirts. As ships touch down, they pass through the subtle shimmer of atmospheric shields that protect the port from the planet's slightly higher-than-standard radiation levels.
 
-Disembarking, you're immediately enveloped by the vibrant energy of Lumina Prime. The air is crisp and clean, with a subtle floral scent that seems to invigorate your senses. Around you, a diverse mix of humans and aliens from across the galaxy bustle about their business. Traders haggle over exotic goods, scientists discuss their latest discoveries, and tourists gawk at the magnificent views of the city and beyond.
+Visitors are immediately enveloped by the vibrant energy of Lumina Prime. The air is crisp and clean, with a subtle floral scent that seems to invigorate the senses. A diverse mix of humans and aliens from across the galaxy bustle about their business. Traders haggle over exotic goods, scientists discuss their latest discoveries, and tourists gawk at the magnificent views of the city and beyond.
 
-In the distance, you can see the imposing edifice of the Lumina Exchange, where the system's unique currency - Lumins - are managed and traded. The building's facade is a constantly shifting display of real-time economic data, a visual representation of the system's financial heartbeat.
+In the distance, the imposing edifice of the Lumina Exchange dominates the skyline, where the system's unique currency - Lumins - are managed and traded. The building's facade is a constantly shifting display of real-time economic data, a visual representation of the system's financial heartbeat.
 
-The sound of a dozen different languages fills your ears, a cacophony of commerce, adventure, and opportunity. Lumina Prime is more than just a habitable world - it's the beating heart of a star system poised on the cutting edge of human expansion. For those with the skills and the daring, this shining jewel of Nova Lumina offers a chance to be part of something truly extraordinary."
+The sound of a dozen different languages fills the air, a cacophony of commerce, adventure, and opportunity. Lumina Prime is more than just a habitable world - it's the beating heart of a star system poised on the cutting edge of human expansion. For those with the skills and the daring, this shining jewel of Nova Lumina offers a chance to be part of something truly extraordinary."
+
