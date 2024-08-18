@@ -1,6 +1,5 @@
 #!.venv/bin/python
 
-import atexit
 import itertools
 import sys
 from pathlib import Path
@@ -65,7 +64,7 @@ You have the ability to create new files or update existing files in-place. To w
 ... file contents omitted for brevity ...
 </file>
 
-Be concise in your answers and explanations."""
+Be concise in your answers and explanations. Wait to write code until specifically asked to do so. However, when writing files, ALWAYS include the full rewritten content (including unchanged lines) or else the code will not work."""
 
 
 def load_context_from_file(path: Path) -> str:
