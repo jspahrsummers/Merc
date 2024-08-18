@@ -31,7 +31,7 @@ func _on_preferences_updated() -> void:
             continue
 
         self._input_actions.append(action)
-        self.bindings_list.add_item(action)
+        self.bindings_list.add_item(action.capitalize())
 
         var event := InputMap.action_get_events(action)[0]
         self.bindings_list.add_item(event.as_text())
