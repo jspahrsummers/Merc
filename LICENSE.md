@@ -140,6 +140,9 @@ As mentioned before, the one stipulation is that these images aren’t to be use
 - Asteroid6_d
 - Asteroid6_n
 
+[jsyd_klaxon2](https://pixabay.com/sound-effects/jsyd-klaxon2-108145/) created by jbum, licensed under the [Pixabay Content License](https://pixabay.com/service/license-summary/):
+- jsyd_klaxon2_trimmed
+
 Graphics created by [Justin Spahr-Summers](https://github.com/jspahrsummers) for this project, using [Midjourney](https://www.midjourney.com/):
 - icon
 - planet landing images

@@ -29,6 +29,9 @@ class_name CombatObject
 ## The root must be a [Node3D].
 @export var destruction: PackedScene
 
+## An optional sound to play when this object is targeted by another.
+@export var targeted_sound: AudioStreamPlayer
+
 ## The hull of the object.
 ##
 ## Connect to [signal Hull.hull_destroyed] to be notified when the CombatObject is destroyed.
@@ -73,6 +76,9 @@ func add_targeted_by(targeting_system: TargetingSystem) -> void:
     assert(self._targeted_by.find(targeting_system) == -1, "Duplicate add_targeted_by with the same targeting system")
     self._targeted_by.push_back(targeting_system)
     self.targeted_by_changed.emit(self)
+
+    if self.targeted_sound:
+        self.targeted_sound.play()
 
 ## Removes from the list of [TArgetingSystem]s targeting this object.
 ##
