@@ -12,7 +12,7 @@ source .venv/bin/activate
 Then, from the repository root, install dependencies:
 
 ```sh
-pip install -r script/requirements.txt
+pip install -r ./requirements.txt
 ```
 
 Afterward, invoke scripts directly:
