@@ -2,7 +2,6 @@
 
 import atexit
 import itertools
-import readline
 import sys
 from pathlib import Path
 from typing import Iterable
@@ -17,6 +16,8 @@ from rich.console import Console
 from rich.prompt import Confirm
 from rich.syntax import Syntax
 from rich.theme import Theme
+from prompt_toolkit import PromptSession
+from prompt_toolkit.history import FileHistory
 
 load_dotenv()
 
@@ -184,14 +185,7 @@ def sample(
 
 def main() -> None:
     histfile = Path(__file__).with_name(".claude_history")
-    try:
-        readline.read_history_file(histfile)
-        # default history len is -1 (infinite), which may grow unruly
-        readline.set_history_length(1000)
-    except FileNotFoundError:
-        pass
-
-    atexit.register(readline.write_history_file, histfile)
+    session = PromptSession(history=FileHistory(str(histfile)))
 
     paths = list(
         itertools.chain.from_iterable(
@@ -255,7 +249,7 @@ def main() -> None:
 
     while True:
         try:
-            prompt = console.input("\n> ")
+            prompt = session.prompt("\n> ")
         except KeyboardInterrupt:
             return
         except EOFError:
