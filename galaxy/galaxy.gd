@@ -5,25 +5,29 @@ class_name Galaxy
 ##
 ## Only one galaxy is playable at any given time, but testing or add-on content may want to swap out the default galaxy.
 
-## A list of all systems in the galaxy.
-@export var systems: Array[StarSystem]
+## Dynamically loaded systems in the galaxy.
+var systems: Array[StarSystem] = []
 
 ## A list of all planets in the galaxy.
 var planets: Array = []
 
+## The directory where all star system resources are stored.
+const _STAR_SYSTEMS_DIRECTORY = "res://galaxy/star_system/star_systems"
+
 func _init() -> void:
-    self._connect_backref.call_deferred()
+    var files := DirAccess.get_files_at(_STAR_SYSTEMS_DIRECTORY)
+    for file in files:
+        if not file.ends_with(".tres"):
+            continue
 
-    for system in self.systems:
-        self.planets.append_array(system.planets)
-
-func _connect_backref() -> void:
-    for system in self.systems:
+        var system: StarSystem = load("%s/%s" % [_STAR_SYSTEMS_DIRECTORY, file])
         system.galaxy = weakref(self)
+        self.systems.append(system)
+        self.planets.append_array(system.planets)
 
 ## Looks up a system by name.
 func get_system(name: StringName) -> StarSystem:
-    for system in systems:
+    for system in self.systems:
         if system.name == name:
             return system
 

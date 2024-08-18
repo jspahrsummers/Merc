@@ -14,9 +14,8 @@ To introduce a new star system:
 
 1. Create a [`StarSystem`](galaxy/star_system/star_system.gd) resource in [galaxy/star_system/star_systems/](galaxy/star_system/star_systems/), and fill in its properties, using the documentation shown in the editor as a guide.
 2. For any star system you have listed as a `connection` of your _new_ system, you must also open up _their_ `StarSystem` resources, and add your new system as a `connection` of them, so they are connected bidirectionally.
-3. Add your system to `main_galaxy.tres`, the main [`Galaxy`](galaxy/galaxy.gd) resource. This ensures that your new system will properly show up in the galaxy map.
-4. Create a new scene in [galaxy/star_system/scenes/](galaxy/star_system/scenes/) with a root type of [`StarSystemInstance`](galaxy/star_system/star_system_instance.gd), and connect its `star_system` property back to the `StarSystem` resource you created in step 1.
-5. Set the `scene_path` property of your `StarSystem` resource to the file path of the new scene.
+3. Create a new scene in [galaxy/star_system/scenes/](galaxy/star_system/scenes/) with a root type of [`StarSystemInstance`](galaxy/star_system/star_system_instance.gd), and connect its `star_system` property back to the `StarSystem` resource you created in step 1.
+4. Set the `scene_path` property of your `StarSystem` resource to the file path of the new scene.
 
 Your new scene file is now the canvas upon which to create your star system! You can add the following types of entities into your scene to populate the system. All of them can be moved around and rotated as you see fit.
 
