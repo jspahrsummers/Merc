@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d3lphosly5y8b" path="res://galaxy/map/galaxy_map_hyperlane.tscn" id="4_1iwcw"]
 [ext_resource type="Material" uid="uid://cs5s3tb7vagsi" path="res://screens/shared_ui/premultiplied_canvas_material.tres" id="6_00km2"]
 
-[node name="GalaxyMapWindow" type="Window" node_paths=PackedStringArray("galaxy_map_3d", "camera", "current_or_destination_heading", "system_name_label", "ports_label")]
+[node name="GalaxyMapWindow" type="Window" node_paths=PackedStringArray("galaxy_map_3d", "camera", "current_or_destination_heading", "system_name_label", "ports_label", "facilities_heading", "facilities_label")]
 own_world_3d = true
 transparent_bg = true
 title = "Galaxy Map"
@@ -23,6 +23,8 @@ camera = NodePath("PanelContainer/HSplitContainer/LeftContainer/SubViewportConta
 current_or_destination_heading = NodePath("PanelContainer/HSplitContainer/RightContainer/VBoxContainer/CurrentOrDestinationHeading")
 system_name_label = NodePath("PanelContainer/HSplitContainer/RightContainer/VBoxContainer/SystemNameLabel")
 ports_label = NodePath("PanelContainer/HSplitContainer/RightContainer/VBoxContainer/PortsLabel")
+facilities_heading = NodePath("PanelContainer/HSplitContainer/RightContainer/VBoxContainer/FacilitiesHeading")
+facilities_label = NodePath("PanelContainer/HSplitContainer/RightContainer/VBoxContainer/FacilitiesLabel")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -90,6 +92,20 @@ text = "PORTS"
 use_parent_material = true
 layout_mode = 2
 text = "Earth"
+
+[node name="Padding2" type="Control" parent="PanelContainer/HSplitContainer/RightContainer/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 16)
+layout_mode = 2
+
+[node name="FacilitiesHeading" type="Label" parent="PanelContainer/HSplitContainer/RightContainer/VBoxContainer"]
+use_parent_material = true
+layout_mode = 2
+text = "FACILITIES"
+
+[node name="FacilitiesLabel" type="Label" parent="PanelContainer/HSplitContainer/RightContainer/VBoxContainer"]
+material = ExtResource("6_00km2")
+layout_mode = 2
+text = "Bar"
 
 [connection signal="close_requested" from="." to="." method="_on_window_close_requested"]
 

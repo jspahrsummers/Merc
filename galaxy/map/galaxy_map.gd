@@ -21,6 +21,8 @@ class_name GalaxyMap
 @export var current_or_destination_heading: Label
 @export var system_name_label: Label
 @export var ports_label: Label
+@export var facilities_heading: Label
+@export var facilities_label: Label
 
 ## The player's [HyperdriveSystem]. Must be set before displaying.
 var hyperdrive_system: HyperdriveSystem
@@ -86,11 +88,34 @@ func _update_selection_state() -> void:
         self.current_or_destination_heading.text = "CURRENT SYSTEM"
 
     self.system_name_label.text = presented_system.name
-    if presented_system.planets:
-        self.ports_label.text = "\n".join(PackedStringArray(presented_system.planets.map(func(planet: Planet) -> String:
-            return planet.name)))
-    else:
+
+    if not presented_system.planets:
         self.ports_label.text = "(none)"
+        self.facilities_label.visible = false
+        self.facilities_heading.visible = false
+        return
+
+    self.facilities_heading.visible = true
+    self.facilities_label.visible = true
+
+    var facilities_flags: int = 0
+    var ports := PackedStringArray()
+    for planet in presented_system.planets:
+        ports.append(planet.name)
+        facilities_flags |= planet.facilities
+    
+    var facilities := PackedStringArray()
+    if facilities_flags & Planet.REFUEL:
+        facilities.append("Fuel")
+    if facilities_flags & Planet.MISSIONS:
+        facilities.append("Missions")
+    if facilities_flags & Planet.OUTFITTER:
+        facilities.append("Outfitter")
+    if facilities_flags & Planet.SHIPYARD:
+        facilities.append("Shipyard")
+
+    self.ports_label.text = "\n".join(ports)
+    self.facilities_label.text = "\n".join(facilities) if facilities else "(none)"
 
 func _input(event: InputEvent) -> void:
     if event.is_action_pressed("toggle_galaxy_map"):
