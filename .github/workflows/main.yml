@@ -3,6 +3,13 @@ on:
     branches:
       - main
 
+    paths-ignore:
+      - ".git**"
+      - "*.md"
+      - "pyproject.toml"
+      - "requirements.txt"
+      - "script/**"
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
