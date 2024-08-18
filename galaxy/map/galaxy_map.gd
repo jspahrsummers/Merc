@@ -18,6 +18,10 @@ class_name GalaxyMap
 ## The camera observing the 3D galaxy.
 @export var camera: GalaxyMapCamera
 
+@export var current_or_destination_heading: Label
+@export var system_name_label: Label
+@export var ports_label: Label
+
 ## The player's [HyperdriveSystem]. Must be set before displaying.
 var hyperdrive_system: HyperdriveSystem
 
@@ -72,6 +76,21 @@ func _update_selection_state() -> void:
     for system_name: String in self._system_nodes:
         var node: GalaxyMapSystem = self._system_nodes[system_name]
         node.selected = self.hyperdrive_system.jump_destination and self.hyperdrive_system.jump_destination.name == system_name
+    
+    var presented_system: StarSystem
+    if self.hyperdrive_system.jump_destination:
+        presented_system = self.hyperdrive_system.jump_destination
+        self.current_or_destination_heading.text = "DESTINATION SYSTEM"
+    else:
+        presented_system = self.hyperdrive_system.current_system()
+        self.current_or_destination_heading.text = "CURRENT SYSTEM"
+
+    self.system_name_label.text = presented_system.name
+    if presented_system.planets:
+        self.ports_label.text = "\n".join(PackedStringArray(presented_system.planets.map(func(planet: Planet) -> String:
+            return planet.name)))
+    else:
+        self.ports_label.text = "(none)"
 
 func _input(event: InputEvent) -> void:
     if event.is_action_pressed("toggle_galaxy_map"):

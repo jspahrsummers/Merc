@@ -1,24 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://bksd1ida60ymi"]
+[gd_scene load_steps=7 format=3 uid="uid://bksd1ida60ymi"]
 
 [ext_resource type="Script" path="res://galaxy/map/galaxy_map.gd" id="1_ksqdq"]
 [ext_resource type="PackedScene" uid="uid://kqong7nrl4p2" path="res://galaxy/map/galaxy_map_3d.tscn" id="1_rlhp4"]
 [ext_resource type="Resource" uid="uid://bcva4l4cpt70c" path="res://galaxy/main_galaxy.tres" id="2_okeml"]
 [ext_resource type="PackedScene" uid="uid://ckdnlnrybk4mh" path="res://galaxy/map/galaxy_map_system.tscn" id="3_do8cs"]
 [ext_resource type="PackedScene" uid="uid://d3lphosly5y8b" path="res://galaxy/map/galaxy_map_hyperlane.tscn" id="4_1iwcw"]
+[ext_resource type="Material" uid="uid://cs5s3tb7vagsi" path="res://screens/shared_ui/premultiplied_canvas_material.tres" id="6_00km2"]
 
-[node name="GalaxyMapWindow" type="Window" node_paths=PackedStringArray("galaxy_map_3d", "camera")]
+[node name="GalaxyMapWindow" type="Window" node_paths=PackedStringArray("galaxy_map_3d", "camera", "current_or_destination_heading", "system_name_label", "ports_label")]
 own_world_3d = true
 transparent_bg = true
 title = "Galaxy Map"
 initial_position = 2
-size = Vector2i(800, 800)
+size = Vector2i(1000, 800)
 transparent = true
 script = ExtResource("1_ksqdq")
-galaxy_map_3d = NodePath("PanelContainer/MarginContainer/SubViewportContainer/SubViewport/GalaxyMap3D")
+galaxy_map_3d = NodePath("PanelContainer/HSplitContainer/LeftContainer/SubViewportContainer/SubViewport/GalaxyMap3D")
 galaxy = ExtResource("2_okeml")
 galaxy_map_system = ExtResource("3_do8cs")
 galaxy_map_hyperlane = ExtResource("4_1iwcw")
-camera = NodePath("PanelContainer/MarginContainer/SubViewportContainer/SubViewport/GalaxyMap3D/Camera3D")
+camera = NodePath("PanelContainer/HSplitContainer/LeftContainer/SubViewportContainer/SubViewport/GalaxyMap3D/Camera3D")
+current_or_destination_heading = NodePath("PanelContainer/HSplitContainer/RightContainer/VBoxContainer/CurrentOrDestinationHeading")
+system_name_label = NodePath("PanelContainer/HSplitContainer/RightContainer/VBoxContainer/SystemNameLabel")
+ports_label = NodePath("PanelContainer/HSplitContainer/RightContainer/VBoxContainer/PortsLabel")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -27,23 +31,66 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer"]
 layout_mode = 2
+split_offset = 300
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="PanelContainer/MarginContainer"]
+[node name="LeftContainer" type="MarginContainer" parent="PanelContainer/HSplitContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 1
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 1
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="PanelContainer/HSplitContainer/LeftContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="PanelContainer/MarginContainer/SubViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="PanelContainer/HSplitContainer/LeftContainer/SubViewportContainer"]
 own_world_3d = true
 handle_input_locally = false
 scaling_3d_scale = 2.0
 physics_object_picking = true
-size = Vector2i(784, 784)
+size = Vector2i(793, 799)
 render_target_update_mode = 4
 
-[node name="GalaxyMap3D" parent="PanelContainer/MarginContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_rlhp4")]
+[node name="GalaxyMap3D" parent="PanelContainer/HSplitContainer/LeftContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_rlhp4")]
+
+[node name="RightContainer" type="MarginContainer" parent="PanelContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HSplitContainer/RightContainer"]
+material = ExtResource("6_00km2")
+layout_mode = 2
+
+[node name="CurrentOrDestinationHeading" type="Label" parent="PanelContainer/HSplitContainer/RightContainer/VBoxContainer"]
+use_parent_material = true
+layout_mode = 2
+text = "CURRENT SYSTEM"
+
+[node name="SystemNameLabel" type="Label" parent="PanelContainer/HSplitContainer/RightContainer/VBoxContainer"]
+use_parent_material = true
+layout_mode = 2
+text = "Sol"
+
+[node name="Padding" type="Control" parent="PanelContainer/HSplitContainer/RightContainer/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 16)
+layout_mode = 2
+
+[node name="PortsHeading" type="Label" parent="PanelContainer/HSplitContainer/RightContainer/VBoxContainer"]
+use_parent_material = true
+layout_mode = 2
+text = "PORTS"
+
+[node name="PortsLabel" type="Label" parent="PanelContainer/HSplitContainer/RightContainer/VBoxContainer"]
+use_parent_material = true
+layout_mode = 2
+text = "Earth"
 
 [connection signal="close_requested" from="." to="." method="_on_window_close_requested"]
 
-[editable path="PanelContainer/MarginContainer/SubViewportContainer/SubViewport/GalaxyMap3D"]
+[editable path="PanelContainer/HSplitContainer/LeftContainer/SubViewportContainer/SubViewport/GalaxyMap3D"]
