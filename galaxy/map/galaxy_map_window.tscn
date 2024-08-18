@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bksd1ida60ymi"]
+[gd_scene load_steps=8 format=3 uid="uid://bksd1ida60ymi"]
 
 [ext_resource type="Script" path="res://galaxy/map/galaxy_map.gd" id="1_ksqdq"]
 [ext_resource type="PackedScene" uid="uid://kqong7nrl4p2" path="res://galaxy/map/galaxy_map_3d.tscn" id="1_rlhp4"]
@@ -6,8 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://ckdnlnrybk4mh" path="res://galaxy/map/galaxy_map_system.tscn" id="3_do8cs"]
 [ext_resource type="PackedScene" uid="uid://d3lphosly5y8b" path="res://galaxy/map/galaxy_map_hyperlane.tscn" id="4_1iwcw"]
 [ext_resource type="Material" uid="uid://cs5s3tb7vagsi" path="res://screens/shared_ui/premultiplied_canvas_material.tres" id="6_00km2"]
+[ext_resource type="LabelSettings" uid="uid://dcpdwtq5b48gc" path="res://galaxy/map/multiline_label_settings.tres" id="7_073cv"]
 
-[node name="GalaxyMapWindow" type="Window" node_paths=PackedStringArray("galaxy_map_3d", "camera", "current_or_destination_heading", "system_name_label", "ports_label", "facilities_heading", "facilities_label")]
+[node name="GalaxyMapWindow" type="Window" node_paths=PackedStringArray("galaxy_map_3d", "camera", "current_or_destination_heading", "system_name_label", "ports_label", "facilities_heading", "facilities_label", "commodities_heading", "commodities_label")]
 own_world_3d = true
 transparent_bg = true
 title = "Galaxy Map"
@@ -25,6 +26,8 @@ system_name_label = NodePath("PanelContainer/HSplitContainer/RightContainer/VBox
 ports_label = NodePath("PanelContainer/HSplitContainer/RightContainer/VBoxContainer/PortsLabel")
 facilities_heading = NodePath("PanelContainer/HSplitContainer/RightContainer/VBoxContainer/FacilitiesHeading")
 facilities_label = NodePath("PanelContainer/HSplitContainer/RightContainer/VBoxContainer/FacilitiesLabel")
+commodities_heading = NodePath("PanelContainer/HSplitContainer/RightContainer/VBoxContainer/CommoditiesHeading")
+commodities_label = NodePath("PanelContainer/HSplitContainer/RightContainer/VBoxContainer/CommoditiesLabel")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -68,11 +71,13 @@ theme_override_constants/margin_left = 0
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HSplitContainer/RightContainer"]
 material = ExtResource("6_00km2")
 layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="CurrentOrDestinationHeading" type="Label" parent="PanelContainer/HSplitContainer/RightContainer/VBoxContainer"]
 use_parent_material = true
 layout_mode = 2
 text = "CURRENT SYSTEM"
+uppercase = true
 
 [node name="SystemNameLabel" type="Label" parent="PanelContainer/HSplitContainer/RightContainer/VBoxContainer"]
 use_parent_material = true
@@ -80,32 +85,54 @@ layout_mode = 2
 text = "Sol"
 
 [node name="Padding" type="Control" parent="PanelContainer/HSplitContainer/RightContainer/VBoxContainer"]
-custom_minimum_size = Vector2(2.08165e-12, 16)
+custom_minimum_size = Vector2(2.08165e-12, 14)
 layout_mode = 2
 
 [node name="PortsHeading" type="Label" parent="PanelContainer/HSplitContainer/RightContainer/VBoxContainer"]
 use_parent_material = true
 layout_mode = 2
 text = "PORTS"
+uppercase = true
 
 [node name="PortsLabel" type="Label" parent="PanelContainer/HSplitContainer/RightContainer/VBoxContainer"]
 use_parent_material = true
 layout_mode = 2
 text = "Earth"
+label_settings = ExtResource("7_073cv")
 
 [node name="Padding2" type="Control" parent="PanelContainer/HSplitContainer/RightContainer/VBoxContainer"]
-custom_minimum_size = Vector2(2.08165e-12, 16)
+custom_minimum_size = Vector2(2.08165e-12, 14)
 layout_mode = 2
 
 [node name="FacilitiesHeading" type="Label" parent="PanelContainer/HSplitContainer/RightContainer/VBoxContainer"]
 use_parent_material = true
 layout_mode = 2
 text = "FACILITIES"
+uppercase = true
 
 [node name="FacilitiesLabel" type="Label" parent="PanelContainer/HSplitContainer/RightContainer/VBoxContainer"]
 material = ExtResource("6_00km2")
 layout_mode = 2
 text = "Bar"
+label_settings = ExtResource("7_073cv")
+
+[node name="Padding3" type="Control" parent="PanelContainer/HSplitContainer/RightContainer/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 14)
+layout_mode = 2
+
+[node name="CommoditiesHeading" type="Label" parent="PanelContainer/HSplitContainer/RightContainer/VBoxContainer"]
+use_parent_material = true
+layout_mode = 2
+text = "TRADING"
+uppercase = true
+
+[node name="CommoditiesLabel" type="Label" parent="PanelContainer/HSplitContainer/RightContainer/VBoxContainer"]
+use_parent_material = true
+layout_mode = 2
+text = "Food
+Industrial Equipment
+Semiconductors"
+label_settings = ExtResource("7_073cv")
 
 [connection signal="close_requested" from="." to="." method="_on_window_close_requested"]
 
