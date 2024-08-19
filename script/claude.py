@@ -309,6 +309,8 @@ def main() -> None:
             console.print()
         except KeyboardInterrupt:
             console.print("\n\nDiscarding last turn.\n", style="info")
+        except Exception:
+            console.print_exception()
 
 
 if __name__ == "__main__":
