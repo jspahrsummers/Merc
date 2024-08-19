@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Hero" load_steps=2 format=3 uid="uid://qlbnowlag2dr"]
+
+[ext_resource type="Script" path="res://actors/hero.gd" id="1_cejn1"]
+
+[resource]
+script = ExtResource("1_cejn1")
+name = "Zora 'Starshiv' Blackburn"

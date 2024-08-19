@@ -3,6 +3,9 @@ class_name Ship
 
 # NODES
 
+## The NPC hero piloting the ship, if any.
+@export var hero: Hero
+
 ## The [CombatObject] representing this ship.
 @export var combat_object: CombatObject
 

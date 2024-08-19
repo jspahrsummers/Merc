@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="Hero" load_steps=2 format=3 uid="uid://dehs0xqbalevx"]
+
+[ext_resource type="Script" path="res://actors/hero.gd" id="1_acxsq"]
+
+[resource]
+script = ExtResource("1_acxsq")
+name = "Vex 'Quantum' Cygnus"
