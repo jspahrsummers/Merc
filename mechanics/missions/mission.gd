@@ -252,10 +252,15 @@ const _BOUNTY_MIN_CREDITS_REWARD = 15000
 const _BOUNTY_MAX_CREDITS_REWARD = 40000
 
 ## Creates a random bounty mission.
-static func create_bounty_mission() -> Mission:
+##
+## Note: this may not succeed every time, so ensure that the return value is checked.
+static func create_bounty_mission(hero_roster: HeroRoster) -> Mission:
     var mission := Mission.new()
 
-    mission.assassination_target = Hero.pick_random_bounty()
+    mission.assassination_target = hero_roster.pick_random_bounty()
+    if not mission.assassination_target:
+        return null
+
     mission.title = "Bounty on %s" % mission.assassination_target.name
     mission.description = "%s has been raiding trading vessels in the area. A local trade union has scraped together a reward for whoever can put an end to their piracy." % mission.assassination_target.name
 
@@ -270,9 +275,9 @@ static func create_bounty_mission() -> Mission:
 ## Creates a random mission of any type.
 ##
 ## Note: this may not succeed every time, so ensure that the return value is checked.
-static func create_random_mission(origin_planet: Planet, calendar: Calendar) -> Mission:
+static func create_random_mission(origin_planet: Planet, calendar: Calendar, hero_roster: HeroRoster) -> Mission:
     var generators := [
-        func() -> Mission: return Mission.create_bounty_mission(),
+        func() -> Mission: return Mission.create_bounty_mission(hero_roster),
         func() -> Mission: return Mission.create_rush_delivery_mission(origin_planet, calendar),
     ]
 
