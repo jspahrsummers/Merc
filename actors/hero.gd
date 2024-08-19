@@ -8,6 +8,9 @@ class_name Hero
 ## The name of the hero.
 @export var name: String
 
+## Fires when this hero is killed in combat.
+signal killed(hero: Hero)
+
 const _BOUNTIES_DIRECTORY = "res://actors/heroes/bounties/"
 
 ## Randomly picks a hero that is eligible to have a bounty.
