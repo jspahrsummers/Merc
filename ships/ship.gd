@@ -63,6 +63,9 @@ var save_node_path_override: NodePath
 func _ready() -> void:
     self.combat_object.hull = self.hull
     self.combat_object.shield = self.shield
+    if self.hero:
+        self.combat_object.combat_name = self.hero.name
+
     self.rigid_body_thruster.battery = self.battery
     self.rigid_body_direction.battery = self.battery
     self.power_management_unit.battery = self.battery
