@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="Hero" load_steps=2 format=3 uid="uid://qlbnowlag2dr"]
 
-[ext_resource type="Script" path="res://actors/hero.gd" id="1_cejn1"]
+[ext_resource type="Script" path="res://actors/heroes/hero.gd" id="1_5sbmg"]
 
 [resource]
-script = ExtResource("1_cejn1")
+script = ExtResource("1_5sbmg")
 name = "Zora 'Starshiv' Blackburn"
 bounty_target = true

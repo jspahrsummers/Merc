@@ -237,7 +237,7 @@ func serialize_dictionary_with_resource_keys(dict: Dictionary) -> Dictionary:
     var result := {}
     for resource: Resource in dict:
         result[resource.resource_path] = dict[resource]
-    
+
     return result
 
 func deserialize_dictionary_with_resource_keys(dict: Dictionary) -> Dictionary:
@@ -245,5 +245,13 @@ func deserialize_dictionary_with_resource_keys(dict: Dictionary) -> Dictionary:
     for resource_path: String in dict:
         var resource := ResourceUtils.safe_load_resource(resource_path, "tres")
         result[resource] = dict[resource_path]
-    
+
     return result
+
+func serialize_array_of_resources(array: Array) -> Array:
+    return array.map(func(resource: Resource) -> String:
+        return resource.resource_path)
+
+func deserialize_array_of_resources(array: Array) -> Array:
+    return array.map(func(resource_path: String) -> Resource:
+        return ResourceUtils.safe_load_resource(resource_path, "tres"))
