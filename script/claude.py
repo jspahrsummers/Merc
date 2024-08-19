@@ -118,7 +118,6 @@ def sample(
             "anthropic-beta": "prompt-caching-2024-07-31,max-tokens-3-5-sonnet-2024-07-15"
         },
     ) as stream:
-        assistant_turn = ""
         current_tool: str | None = None
         status: Status | None = None
 
@@ -127,7 +126,6 @@ def sample(
                 match event.type:
                     case "text":
                         console.out(event.text, end="", style="assistant")
-                        assistant_turn += event.text
 
                     case "content_block_start":
                         if event.content_block.type == "tool_use":
