@@ -1,9 +1,55 @@
-[gd_scene load_steps=5 format=3 uid="uid://d3qpe4ne3bgww"]
+[gd_scene load_steps=15 format=3 uid="uid://d3qpe4ne3bgww"]
 
 [ext_resource type="Resource" uid="uid://di0bekcy5g0ya" path="res://galaxy/star_system/star_systems/wolf_359.tres" id="2_byjpf"]
 [ext_resource type="PackedScene" uid="uid://d27pdcik2lwf1" path="res://stars/main_sequence/star_class_m.tscn" id="3_wjxxu"]
 [ext_resource type="PackedScene" uid="uid://culoat6jnbwc8" path="res://actors/ai/pirate_frigate.tscn" id="4_tean3"]
+[ext_resource type="Script" path="res://mechanics/combat/hull.gd" id="5_1fi2w"]
+[ext_resource type="Script" path="res://mechanics/combat/shield.gd" id="6_fwcxa"]
+[ext_resource type="Script" path="res://mechanics/power/battery.gd" id="7_el5w1"]
+[ext_resource type="Resource" uid="uid://dehs0xqbalevx" path="res://actors/heroes/Vex 'Quantum' Cygnus.tres" id="8_25dnf"]
 [ext_resource type="PackedScene" uid="uid://fxemun7o6rix" path="res://galaxy/star_system/star_system_instance.tscn" id="star_system_instance"]
+
+[sub_resource type="Resource" id="Resource_p4pv3"]
+resource_local_to_scene = true
+script = ExtResource("5_1fi2w")
+max_integrity = 100.0
+integrity = 100.0
+
+[sub_resource type="Resource" id="Resource_yxo7w"]
+resource_local_to_scene = true
+script = ExtResource("6_fwcxa")
+max_integrity = 100.0
+integrity = 100.0
+recharge_rate = 10.0
+power_efficiency = 1.0
+only_recharge_above = 0.2
+
+[sub_resource type="Resource" id="Resource_0pc4o"]
+resource_local_to_scene = true
+script = ExtResource("7_el5w1")
+max_power = 300.0
+power = 300.0
+
+[sub_resource type="Resource" id="Resource_sq0sg"]
+resource_local_to_scene = true
+script = ExtResource("5_1fi2w")
+max_integrity = 100.0
+integrity = 100.0
+
+[sub_resource type="Resource" id="Resource_accbt"]
+resource_local_to_scene = true
+script = ExtResource("6_fwcxa")
+max_integrity = 100.0
+integrity = 100.0
+recharge_rate = 10.0
+power_efficiency = 1.0
+only_recharge_above = 0.2
+
+[sub_resource type="Resource" id="Resource_cq7l1"]
+resource_local_to_scene = true
+script = ExtResource("7_el5w1")
+max_power = 300.0
+power = 300.0
 
 [node name="Wolf 359" instance=ExtResource("star_system_instance")]
 star_system = ExtResource("2_byjpf")
@@ -13,6 +59,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.65186, 2.08165e-12, 2.2427
 
 [node name="PirateFrigate" parent="." index="1" instance=ExtResource("4_tean3")]
 transform = Transform3D(-0.287762, -2.33666e-16, -0.957702, 3.48787e-16, 1, -3.48787e-16, 0.957702, -4.34402e-16, -0.287762, -7.88217, 0, -3.99797)
+hull = SubResource("Resource_p4pv3")
+shield = SubResource("Resource_yxo7w")
+battery = SubResource("Resource_0pc4o")
 
-[node name="PirateFrigate2" parent="." index="2" instance=ExtResource("4_tean3")]
+[node name="Vex" parent="." index="2" instance=ExtResource("4_tean3")]
 transform = Transform3D(-0.69814, 4.9322e-16, 0.715961, 3.48787e-16, 1, -3.48787e-16, -0.715961, 6.21573e-18, -0.69814, 5.40376, 0, 0.771966)
+hero = ExtResource("8_25dnf")
+hull = SubResource("Resource_sq0sg")
+shield = SubResource("Resource_accbt")
+battery = SubResource("Resource_cq7l1")
