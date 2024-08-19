@@ -94,10 +94,13 @@ def sample(
 
     with client.beta.prompt_caching.messages.stream(
         model=MODEL,
-        max_tokens=4096,
+        max_tokens=8192,
         system=[system_block],
         messages=messages,
         stop_sequences=['<file path="'],
+        extra_headers={
+            "anthropic-beta": "prompt-caching-2024-07-31,max-tokens-3-5-sonnet-2024-07-15"
+        },
     ) as stream:
         for text in stream.text_stream:
             console.out(text, end="", style="assistant")
