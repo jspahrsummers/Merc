@@ -49,7 +49,9 @@ enum Status {
         status = value
         self.emit_changed()
 
-## A dictionary of [Commodity] keys to [int] amounts that the player must deliver to complete the mission.
+## A dictionary of [Commodity] keys to [int] amounts that the player can deliver to complete the mission.
+##
+## If both this and [member assassination_target] are set, the player can choose which to complete the mission with.
 @export var cargo: Dictionary:
     set(value):
         if is_same(value, cargo):
@@ -88,6 +90,17 @@ enum Status {
 
         starting_cost = value.duplicate()
         starting_cost.make_read_only()
+        self.emit_changed()
+
+## A hero that the player can kill in combat in order to complete the mission.
+##
+## If both this and [member cargo] are set, the player can choose which to complete the mission with.
+@export var assassination_target: Hero:
+    set(value):
+        if value == assassination_target:
+            return
+        
+        assassination_target = value
         self.emit_changed()
 
 static var _credits: Currency = preload("res://mechanics/economy/currencies/credits.tres")
@@ -257,7 +270,11 @@ func save_to_dict() -> Dictionary:
         result["deadline_cycle"] = self.deadline_cycle
     
     result["status"] = self.status
-    result["destination_planet"] = self.destination_planet.resource_path
+
+    if self.destination_planet:
+        result["destination_planet"] = self.destination_planet.resource_path
+    if self.assassination_target:
+        result["assassination_target"] = self.assassination_target.resource_path
 
     result["cargo"] = SaveGame.serialize_dictionary_with_resource_keys(self.cargo)
     result["monetary_reward"] = SaveGame.serialize_dictionary_with_resource_keys(self.monetary_reward)
@@ -271,8 +288,13 @@ func load_from_dict(dict: Dictionary) -> void:
     self.deadline_cycle = dict["deadline_cycle"] if "deadline_cycle" in dict else INF
     self.status = dict["status"]
 
-    var destination_planet_path: String = dict["destination_planet"]
-    self.destination_planet = ResourceUtils.safe_load_resource(destination_planet_path, "tres")
+    if "destination_planet" in dict:
+        var path: String = dict["destination_planet"]
+        self.destination_planet = ResourceUtils.safe_load_resource(path, "tres")
+    
+    if "assassination_target" in dict:
+        var path: String = dict["assassination_target"]
+        self.assassination_target = ResourceUtils.safe_load_resource(path, "tres")
 
     var saved_cargo: Dictionary = dict["cargo"]
     self.cargo = SaveGame.deserialize_dictionary_with_resource_keys(saved_cargo)
