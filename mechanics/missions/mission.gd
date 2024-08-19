@@ -290,6 +290,22 @@ static func create_random_mission(origin_planet: Planet, calendar: Calendar, her
     var generator: Callable = generators.pick_random()
     return generator.call()
 
+## Filters out any missions from [param proposed_missions] that are incompatible with [param current_missions] or one of the other proposed missions.
+static func filter_incompatible_missions(current_missions: Array[Mission], proposed_missions: Array[Mission]) -> Array[Mission]:
+    var bounties: Array[Hero] = []
+    for mission in current_missions:
+        if mission.assassination_target:
+            bounties.append(mission.assassination_target)
+
+    var filtered_missions: Array[Mission] = []
+    for mission in proposed_missions:
+        if mission.assassination_target and bounties.has(mission.assassination_target):
+            continue
+
+        filtered_missions.append(mission)
+
+    return filtered_missions
+
 # Overridden because dictionaries of resources do not serialize correctly.
 func save_to_dict() -> Dictionary:
     var result := {}
