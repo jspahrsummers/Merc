@@ -49,7 +49,9 @@ enum Status {
         status = value
         self.emit_changed()
 
-## A dictionary of [Commodity] keys to [int] amounts that the player must deliver to complete the mission.
+## A dictionary of [Commodity] keys to [int] amounts that the player can deliver to complete the mission.
+##
+## If both this and [member assassination_target] are set, the player can choose which to complete the mission with.
 @export var cargo: Dictionary:
     set(value):
         if is_same(value, cargo):
@@ -88,6 +90,17 @@ enum Status {
 
         starting_cost = value.duplicate()
         starting_cost.make_read_only()
+        self.emit_changed()
+
+## A hero that the player can kill in combat in order to complete the mission.
+##
+## If both this and [member cargo] are set, the player can choose which to complete the mission with.
+@export var assassination_target: Hero:
+    set(value):
+        if value == assassination_target:
+            return
+
+        assassination_target = value
         self.emit_changed()
 
 static var _credits: Currency = preload("res://mechanics/economy/currencies/credits.tres")
@@ -157,7 +170,7 @@ static func _randomly_walk_systems(galaxy: Galaxy, path_so_far: Array[StarSystem
         return not path_so_far.any(func(system: StarSystem) -> bool:
             return system.name == connection
         ))
-    
+
     if allowed_connections.is_empty():
         return []
 
@@ -179,7 +192,7 @@ static func _randomly_walk_systems(galaxy: Galaxy, path_so_far: Array[StarSystem
         if new_path.size() <= 1:
             # Back to the starting point, so give up.
             return []
-    
+
     return new_path
 
 ## Creates a random rush delivery mission.
@@ -197,7 +210,7 @@ static func create_rush_delivery_mission(origin_planet: Planet, calendar: Calend
     mission.deadline_cycle = calendar.get_current_cycle()
     for i in path.size() - 1:
         mission.deadline_cycle += HyperspaceSceneSwitcher.HYPERSPACE_APPROXIMATE_TRAVEL_DAYS * 24 * randf_range(_RUSH_DELIVERY_MIN_DEADLINE_BUFFER, _RUSH_DELIVERY_MAX_DEADLINE_BUFFER)
-    
+
     var destination_system: StarSystem = path[-1]
     assert(destination_system != origin_system, "Cannot create rush delivery to the system we started in")
 
@@ -235,17 +248,63 @@ static func create_rush_delivery_mission(origin_planet: Planet, calendar: Calend
 
     return mission
 
+const _BOUNTY_MIN_CREDITS_REWARD = 15000
+const _BOUNTY_MAX_CREDITS_REWARD = 40000
+
+## Creates a random bounty mission.
+##
+## Note: this may not succeed every time, so ensure that the return value is checked.
+static func create_bounty_mission(hero_roster: HeroRoster) -> Mission:
+    var mission := Mission.new()
+
+    mission.assassination_target = hero_roster.pick_random_bounty()
+    if not mission.assassination_target:
+        return null
+
+    mission.title = "Bounty on %s" % mission.assassination_target.name
+    mission.description = "%s has been raiding trading vessels in the area. A local trade union has scraped together a reward for whoever can put an end to their piracy." % mission.assassination_target.name
+
+    var reward_credits := randi_range(_BOUNTY_MIN_CREDITS_REWARD, _BOUNTY_MAX_CREDITS_REWARD)
+
+    mission.monetary_reward = {
+        _credits: reward_credits
+    }
+
+    return mission
+
 ## Creates a random mission of any type.
 ##
 ## Note: this may not succeed every time, so ensure that the return value is checked.
-static func create_random_mission(origin_planet: Planet, calendar: Calendar) -> Mission:
+static func create_random_mission(origin_planet: Planet, calendar: Calendar, hero_roster: HeroRoster) -> Mission:
     var generators := [
-        func() -> Mission: return Mission.create_delivery_mission(origin_planet),
+        func() -> Mission: return Mission.create_bounty_mission(hero_roster),
         func() -> Mission: return Mission.create_rush_delivery_mission(origin_planet, calendar),
     ]
 
+    # Lazy way of weighting the random generation
+    for i in range(2):
+        generators.append(
+            func() -> Mission: return Mission.create_delivery_mission(origin_planet),
+        )
+
     var generator: Callable = generators.pick_random()
     return generator.call()
+
+## Filters out any missions from [param proposed_missions] that are incompatible with [param current_missions] or one of the other proposed missions.
+static func filter_incompatible_missions(current_missions: Array[Mission], proposed_missions: Array[Mission]) -> Array[Mission]:
+    var bounties: Array[Hero] = []
+    for mission in current_missions:
+        if mission.assassination_target:
+            bounties.append(mission.assassination_target)
+
+    var filtered_missions: Array[Mission] = []
+    for mission in proposed_missions:
+        if mission.assassination_target and bounties.has(mission.assassination_target):
+            continue
+
+        filtered_missions.append(mission)
+
+    return filtered_missions
 
 # Overridden because dictionaries of resources do not serialize correctly.
 func save_to_dict() -> Dictionary:
@@ -255,9 +314,13 @@ func save_to_dict() -> Dictionary:
 
     if is_finite(self.deadline_cycle):
         result["deadline_cycle"] = self.deadline_cycle
-    
+
     result["status"] = self.status
-    result["destination_planet"] = self.destination_planet.resource_path
+
+    if self.destination_planet:
+        result["destination_planet"] = self.destination_planet.resource_path
+    if self.assassination_target:
+        result["assassination_target"] = self.assassination_target.resource_path
 
     result["cargo"] = SaveGame.serialize_dictionary_with_resource_keys(self.cargo)
     result["monetary_reward"] = SaveGame.serialize_dictionary_with_resource_keys(self.monetary_reward)
@@ -271,8 +334,13 @@ func load_from_dict(dict: Dictionary) -> void:
     self.deadline_cycle = dict["deadline_cycle"] if "deadline_cycle" in dict else INF
     self.status = dict["status"]
 
-    var destination_planet_path: String = dict["destination_planet"]
-    self.destination_planet = ResourceUtils.safe_load_resource(destination_planet_path, "tres")
+    if "destination_planet" in dict:
+        var path: String = dict["destination_planet"]
+        self.destination_planet = ResourceUtils.safe_load_resource(path, "tres")
+
+    if "assassination_target" in dict:
+        var path: String = dict["assassination_target"]
+        self.assassination_target = ResourceUtils.safe_load_resource(path, "tres")
 
     var saved_cargo: Dictionary = dict["cargo"]
     self.cargo = SaveGame.deserialize_dictionary_with_resource_keys(saved_cargo)
@@ -282,5 +350,5 @@ func load_from_dict(dict: Dictionary) -> void:
 
     var saved_cost: Dictionary = dict["starting_cost"]
     self.starting_cost = SaveGame.deserialize_dictionary_with_resource_keys(saved_cost)
-    
+
     self.emit_changed()

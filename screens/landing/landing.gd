@@ -66,7 +66,9 @@ func _on_trading_button_pressed() -> void:
 func _on_missions_button_pressed() -> void:
     if not self._missions_window:
         self._missions_window = self.missions_window_scene.instantiate()
-        self._missions_window.available_missions = self.planet_instance.get_available_missions(self.player.calendar)
+        self._missions_window.available_missions = Mission.filter_incompatible_missions(
+            self.player.mission_controller.get_current_missions(),
+            self.planet_instance.get_available_missions(self.player.calendar, self.player.hero_roster))
         self._missions_window.mission_controller = self.player.mission_controller
         self._missions_window.cargo_hold = self.player.ship.cargo_hold
         self._missions_window.bank_account = self.player.bank_account
@@ -108,7 +110,7 @@ func _on_refuel_button_pressed() -> void:
         var paid := self.star_system.refueling_money.take_up_to(full_refuel_cost, self.player.ship.cargo_hold, self.player.bank_account)
         var fuel_paid_for := paid / refueling_price
         self._hyperdrive.refuel(fuel_paid_for)
-    
+
     self._update_refuel_button()
 
 func _on_depart() -> void:

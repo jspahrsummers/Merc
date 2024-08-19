@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=74 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperspace_scene_switcher.gd" id="4_yyrkm"]
@@ -16,11 +16,14 @@
 [ext_resource type="Script" path="res://mechanics/combat/hull.gd" id="14_bcf1o"]
 [ext_resource type="Script" path="res://mechanics/power/battery.gd" id="15_sjw8q"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperdrive_system.gd" id="16_6olqp"]
+[ext_resource type="Script" path="res://actors/heroes/hero_roster.gd" id="16_j7kx1"]
 [ext_resource type="PackedScene" uid="uid://cxlg0yj8cjbrf" path="res://actors/player.tscn" id="16_lqltb"]
 [ext_resource type="PackedScene" uid="uid://bksd1ida60ymi" path="res://galaxy/map/galaxy_map_window.tscn" id="17_4w17v"]
 [ext_resource type="PackedScene" uid="uid://2mdsbbko7baw" path="res://galaxy/star_system/scenes/sol.tscn" id="17_wjgyf"]
 [ext_resource type="PackedScene" uid="uid://b6tdj2tjqldnt" path="res://screens/game/game_over/game_over.tscn" id="17_yidh7"]
+[ext_resource type="Resource" uid="uid://dehs0xqbalevx" path="res://actors/heroes/bounties/Vex 'Quantum' Cygnus.tres" id="17_yop8u"]
 [ext_resource type="PackedScene" uid="uid://ca3awvk1a7xyi" path="res://screens/game/exit_dialog/exit_dialog.tscn" id="18_hl4w3"]
+[ext_resource type="Resource" uid="uid://qlbnowlag2dr" path="res://actors/heroes/bounties/Zora 'Starshiv' Blackburn.tres" id="18_wo2tf"]
 [ext_resource type="Script" path="res://screens/game/in_game_gui.gd" id="18_y74ml"]
 [ext_resource type="Texture2D" uid="uid://bphfuhdpceacb" path="res://mechanics/radar/images/radar_bg.png" id="19_vr47x"]
 [ext_resource type="Shader" path="res://screens/shared_ui/shaders/circular_mask.gdshader" id="20_wa4c1"]
@@ -99,7 +102,7 @@ script = ExtResource("11_ag0i7")
 max_volume = 10.0
 commodities = {}
 
-[sub_resource type="Resource" id="Resource_82t4m"]
+[sub_resource type="Resource" id="Resource_0rcb3"]
 resource_local_to_scene = true
 script = ExtResource("13_q2g24")
 max_fuel = 6.0
@@ -180,7 +183,7 @@ hull = SubResource("Resource_ffax2")
 shield = SubResource("Resource_75c8j")
 battery = SubResource("Resource_xpwk4")
 cargo_hold = SubResource("Resource_bsv1l")
-hyperdrive = SubResource("Resource_82t4m")
+hyperdrive = SubResource("Resource_0rcb3")
 
 [node name="CombatObject" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="3" node_paths=PackedStringArray("targeted_sound")]
 targeted_sound = NodePath("../Player/TargetedSound")
@@ -188,11 +191,12 @@ targeted_sound = NodePath("../Player/TargetedSound")
 [node name="HyperdriveSystem" type="Node3D" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette"]
 script = ExtResource("16_6olqp")
 
-[node name="Player" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" node_paths=PackedStringArray("hyperspace_scene_switcher", "message_log") groups=["saveable"] instance=ExtResource("16_lqltb")]
+[node name="Player" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" node_paths=PackedStringArray("hyperspace_scene_switcher", "message_log", "hero_roster") groups=["saveable"] instance=ExtResource("16_lqltb")]
 hyperspace_scene_switcher = NodePath("../../..")
 message_log = NodePath("../../../../InGameGUI/MarginContainer/HBoxContainer/MessageLog")
 bank_account = SubResource("Resource_j1y8s")
 calendar = SubResource("Resource_jc1pg")
+hero_roster = NodePath("../../../../HeroRoster")
 
 [node name="MinimapCameraRemoteTransform" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" index="0"]
 remote_path = NodePath("../../../../../MinimapViewport/MinimapCameraTransform")
@@ -217,6 +221,10 @@ script = ExtResource("10_w7kut")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("1_pqled")
+
+[node name="HeroRoster" type="Node3D" parent="." groups=["saveable"]]
+script = ExtResource("16_j7kx1")
+heroes = Array[Resource("res://actors/heroes/hero.gd")]([ExtResource("17_yop8u"), ExtResource("18_wo2tf")])
 
 [node name="StarfieldTransform" type="Node3D" parent="."]
 
