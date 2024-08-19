@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://mechanics/combat/hull.gd" id="5_1fi2w"]
 [ext_resource type="Script" path="res://mechanics/combat/shield.gd" id="6_fwcxa"]
 [ext_resource type="Script" path="res://mechanics/power/battery.gd" id="7_el5w1"]
-[ext_resource type="Resource" uid="uid://dehs0xqbalevx" path="res://actors/heroes/Vex 'Quantum' Cygnus.tres" id="8_25dnf"]
+[ext_resource type="Resource" uid="uid://dehs0xqbalevx" path="res://actors/heroes/bounties/Vex 'Quantum' Cygnus.tres" id="8_25dnf"]
 [ext_resource type="PackedScene" uid="uid://fxemun7o6rix" path="res://galaxy/star_system/star_system_instance.tscn" id="star_system_instance"]
 
 [sub_resource type="Resource" id="Resource_p4pv3"]

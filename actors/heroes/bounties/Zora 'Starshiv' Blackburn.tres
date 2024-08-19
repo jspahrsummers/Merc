@@ -5,3 +5,4 @@
 [resource]
 script = ExtResource("1_cejn1")
 name = "Zora 'Starshiv' Blackburn"
+bounty_target = true
