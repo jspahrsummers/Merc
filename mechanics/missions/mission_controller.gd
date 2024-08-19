@@ -11,7 +11,7 @@ var calendar: Calendar:
     set(value):
         if value == calendar:
             return
-        
+
         if calendar:
             calendar.changed.disconnect(_check_all_missions_failure)
         calendar = value
@@ -23,7 +23,7 @@ var cargo_hold: CargoHold:
     set(value):
         if value == cargo_hold:
             return
-        
+
         if cargo_hold:
             cargo_hold.changed.disconnect(_check_all_missions_failure)
         cargo_hold = value
@@ -58,7 +58,7 @@ func start_mission(mission: Mission) -> bool:
         var required_amount: float = mission.starting_cost[trade_asset]
         if trade_asset.current_amount(self.cargo_hold, self.bank_account) < required_amount:
             return false
-    
+
     var required_volume: float = 0.0
     for commodity: Commodity in mission.cargo:
         required_volume += mission.cargo[commodity] * commodity.volume
@@ -71,7 +71,7 @@ func start_mission(mission: Mission) -> bool:
         var required_amount: float = mission.starting_cost[trade_asset]
         var result := trade_asset.take_exactly(required_amount, self.cargo_hold, self.bank_account)
         assert(result, "Withdrawing mission starting cost should succeed after previous check")
-    
+
     for commodity: Commodity in mission.cargo:
         var amount: int = mission.cargo[commodity]
         var result := self.cargo_hold.add_exactly(commodity, amount)
@@ -79,6 +79,9 @@ func start_mission(mission: Mission) -> bool:
 
     self._missions.push_back(mission)
     mission.status = Mission.Status.STARTED
+    if mission.assassination_target:
+        mission.assassination_target.killed.connect(_on_assassination_target_killed)
+
     self.mission_started.emit(mission)
     return true
 
@@ -91,10 +94,12 @@ func _fail_mission(mission: Mission, failure_status: Mission.Status = Mission.St
     assert(mission in self._missions, "Cannot fail a non-current mission")
 
     mission.status = failure_status
+    if mission.assassination_target:
+        mission.assassination_target.killed.disconnect(_on_assassination_target_killed)
 
     # Ordering is important: do this before modifying cargo, so it doesn't participate in the update notification.
     self._missions.erase(mission)
-    
+
     # TODO: Don't remove cargo from a forfeited mission(?), maybe the player wants to sell it on. But check this makes sense economically.
     for commodity: Commodity in mission.cargo:
         var amount: int = mission.cargo[commodity]
@@ -112,6 +117,8 @@ func _succeed_mission(mission: Mission) -> void:
     assert(mission in self._missions, "Cannot succeed a non-current mission")
 
     mission.status = Mission.Status.SUCCEEDED
+    if mission.assassination_target:
+        mission.assassination_target.killed.disconnect(_on_assassination_target_killed)
 
     # Ordering is important: do this before modifying cargo, so it doesn't participate in the update notification.
     self._missions.erase(mission)
@@ -153,12 +160,17 @@ func _on_player_landed(_player: Player, planet: Planet) -> void:
     for mission: Mission in self._missions.duplicate():
         if mission.destination_planet != planet:
             continue
-        
+
         self._check_mission_failure(mission)
         if mission.status == Mission.Status.FAILED:
             continue
-        
+
         self._succeed_mission(mission)
+
+func _on_assassination_target_killed(hero: Hero) -> void:
+    for mission: Mission in self._missions.duplicate():
+        if mission.assassination_target == hero:
+            self._succeed_mission(mission)
 
 ## See [SaveGame].
 func save_to_dict() -> Dictionary:
@@ -178,3 +190,6 @@ func load_from_dict(dict: Dictionary) -> void:
     )
 
     self._missions.assign(loaded_missions)
+    for mission: Mission in loaded_missions:
+        if mission.assassination_target:
+            mission.assassination_target.killed.connect(_on_assassination_target_killed)
