@@ -99,7 +99,7 @@ enum Status {
     set(value):
         if value == assassination_target:
             return
-        
+
         assassination_target = value
         self.emit_changed()
 
@@ -170,7 +170,7 @@ static func _randomly_walk_systems(galaxy: Galaxy, path_so_far: Array[StarSystem
         return not path_so_far.any(func(system: StarSystem) -> bool:
             return system.name == connection
         ))
-    
+
     if allowed_connections.is_empty():
         return []
 
@@ -192,7 +192,7 @@ static func _randomly_walk_systems(galaxy: Galaxy, path_so_far: Array[StarSystem
         if new_path.size() <= 1:
             # Back to the starting point, so give up.
             return []
-    
+
     return new_path
 
 ## Creates a random rush delivery mission.
@@ -210,7 +210,7 @@ static func create_rush_delivery_mission(origin_planet: Planet, calendar: Calend
     mission.deadline_cycle = calendar.get_current_cycle()
     for i in path.size() - 1:
         mission.deadline_cycle += HyperspaceSceneSwitcher.HYPERSPACE_APPROXIMATE_TRAVEL_DAYS * 24 * randf_range(_RUSH_DELIVERY_MIN_DEADLINE_BUFFER, _RUSH_DELIVERY_MAX_DEADLINE_BUFFER)
-    
+
     var destination_system: StarSystem = path[-1]
     assert(destination_system != origin_system, "Cannot create rush delivery to the system we started in")
 
@@ -248,14 +248,39 @@ static func create_rush_delivery_mission(origin_planet: Planet, calendar: Calend
 
     return mission
 
+const _BOUNTY_MIN_CREDITS_REWARD = 15000
+const _BOUNTY_MAX_CREDITS_REWARD = 40000
+
+## Creates a random bounty mission.
+static func create_bounty_mission() -> Mission:
+    var mission := Mission.new()
+
+    mission.assassination_target = Hero.pick_random_bounty()
+    mission.title = "Bounty on %s" % mission.assassination_target.name
+    mission.description = "%s has been raiding trading vessels in the area. A local trade union has scraped together a reward for whoever can put an end to their piracy." % mission.assassination_target.name
+
+    var reward_credits := randi_range(_BOUNTY_MIN_CREDITS_REWARD, _BOUNTY_MAX_CREDITS_REWARD)
+
+    mission.monetary_reward = {
+        _credits: reward_credits
+    }
+
+    return mission
+
 ## Creates a random mission of any type.
 ##
 ## Note: this may not succeed every time, so ensure that the return value is checked.
 static func create_random_mission(origin_planet: Planet, calendar: Calendar) -> Mission:
     var generators := [
-        func() -> Mission: return Mission.create_delivery_mission(origin_planet),
+        func() -> Mission: return Mission.create_bounty_mission(),
         func() -> Mission: return Mission.create_rush_delivery_mission(origin_planet, calendar),
     ]
+
+    # Lazy way of weighting the random generation
+    for i in range(2):
+        generators.append(
+            func() -> Mission: return Mission.create_delivery_mission(origin_planet),
+        )
 
     var generator: Callable = generators.pick_random()
     return generator.call()
@@ -268,7 +293,7 @@ func save_to_dict() -> Dictionary:
 
     if is_finite(self.deadline_cycle):
         result["deadline_cycle"] = self.deadline_cycle
-    
+
     result["status"] = self.status
 
     if self.destination_planet:
@@ -291,7 +316,7 @@ func load_from_dict(dict: Dictionary) -> void:
     if "destination_planet" in dict:
         var path: String = dict["destination_planet"]
         self.destination_planet = ResourceUtils.safe_load_resource(path, "tres")
-    
+
     if "assassination_target" in dict:
         var path: String = dict["assassination_target"]
         self.assassination_target = ResourceUtils.safe_load_resource(path, "tres")
@@ -304,5 +329,5 @@ func load_from_dict(dict: Dictionary) -> void:
 
     var saved_cost: Dictionary = dict["starting_cost"]
     self.starting_cost = SaveGame.deserialize_dictionary_with_resource_keys(saved_cost)
-    
+
     self.emit_changed()
