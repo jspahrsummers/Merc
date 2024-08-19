@@ -60,7 +60,7 @@ own_world_3d = true
 handle_input_locally = false
 scaling_3d_scale = 2.0
 physics_object_picking = true
-size = Vector2i(793, 799)
+size = Vector2i(2, 2)
 render_target_update_mode = 4
 
 [node name="GalaxyMap3D" parent="PanelContainer/HSplitContainer/LeftContainer/SubViewportContainer/SubViewport" instance=ExtResource("1_rlhp4")]

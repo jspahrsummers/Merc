@@ -121,7 +121,7 @@ def sample(
             "input_schema": {
                 "type": "object",
                 "properties": {
-                    "path": {"type": "string", "description": "File path to write to"},
+                    "path": {"type": "string", "description": "The relative filesystem path to write to"},
                     "content": {
                         "type": "string",
                         "description": "The full, new content for the file.",

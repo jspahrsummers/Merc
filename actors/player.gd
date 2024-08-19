@@ -12,6 +12,7 @@ class_name Player
 @export var bank_account: BankAccount
 @export var calendar: Calendar
 @export var mission_controller: MissionController
+@export var hero_roster: HeroRoster
 
 @onready var ship := get_parent() as Ship
 
@@ -44,10 +45,10 @@ var landing_target: PlanetInstance = null:
     set(value):
         if landing_target == value:
             return
-        
+
         if landing_target:
             landing_target.targeted_by_player = false
-        
+
         landing_target = value
         self.landing_target_changed.emit(self, landing_target)
 
@@ -101,7 +102,7 @@ func _ready() -> void:
     if self.ship.hyperdrive:
         self._on_hyperdrive_changed()
         self.ship.hyperdrive.changed.connect(_on_hyperdrive_changed)
-    
+
     self.mission_controller.calendar = self.calendar
     self.mission_controller.cargo_hold = self.ship.cargo_hold
     self.mission_controller.bank_account = self.bank_account
@@ -166,7 +167,7 @@ func _closest_landing_target() -> PlanetInstance:
         if distance <= nearest_distance:
             nearest_planet_instance = planet_instance
             nearest_distance = distance
-    
+
     return nearest_planet_instance
 
 func _unhandled_key_input(event: InputEvent) -> void:
@@ -196,15 +197,15 @@ func _on_broadcasted_input_event(receiver: Node, event: InputEvent) -> void:
     var mouse_button_event := event as InputEventMouseButton
     if not mouse_button_event:
         return
-    
+
     if mouse_button_event.button_index != MOUSE_BUTTON_LEFT or not mouse_button_event.pressed:
         return
-    
+
     var combat_object := receiver as CombatObject
     if combat_object:
         self.ship.targeting_system.target = combat_object
         return
-    
+
     var planet_instance := receiver as PlanetInstance
     if planet_instance:
         self.landing_target = planet_instance
@@ -213,7 +214,7 @@ func _on_broadcasted_input_event(receiver: Node, event: InputEvent) -> void:
 func _jump_to_hyperspace() -> void:
     if not self.ship.hyperdrive_system.jump_destination:
         return
-    
+
     if not self.hyperspace_scene_switcher.start_jump():
         return
 
@@ -227,7 +228,7 @@ func _land() -> void:
         self.landing_target = self._closest_landing_target()
         if not self.landing_target:
             return
-    
+
     # Run the following checks only after a target is selected, to avoid spamming the message log.
     if self.landing_target.global_transform.origin.distance_to(self.ship.global_transform.origin) > MAX_LANDING_DISTANCE:
         self.message_log.add_message("Too far away to land.")
@@ -254,7 +255,7 @@ func _land() -> void:
         landing.add_sibling(self.ship)
         landing.queue_free()
         self._depart_from_planet())
-    
+
     self.landed.emit(self, planet)
 
 func _depart_from_planet() -> void:
