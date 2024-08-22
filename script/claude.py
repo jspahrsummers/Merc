@@ -303,26 +303,41 @@ def main() -> None:
             case _:
                 console.print("Unrecognized command.", style="error")
 
+    assistant_message: PromptCachingBetaMessage | None = None
+    user_message: MessageParam
+
     while True:
-        try:
-            prompt = session.prompt("\n> ")
-        except KeyboardInterrupt:
-            return
-        except EOFError:
-            return
-
-        if not prompt.strip():
-            continue
-
-        if prompt.startswith("/"):
+        if assistant_message and assistant_message.content[-1].type == "tool_use":
+            # Fill in tool use result and keep sampling
+            user_message = {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "tool_result",
+                        "tool_use_id": assistant_message.content[-1].id,
+                    }
+                ],
+            }
+        else:
             try:
-                handle_command(prompt)
-            except Exception as err:
-                console.print(f"Exception handling command: {err}", style="error")
+                prompt = session.prompt("\n> ")
+            except KeyboardInterrupt:
+                return
+            except EOFError:
+                return
 
-            continue
+            if not prompt.strip():
+                continue
 
-        user_message: MessageParam = {"role": "user", "content": prompt}
+            if prompt.startswith("/"):
+                try:
+                    handle_command(prompt)
+                except Exception as err:
+                    console.print(f"Exception handling command: {err}", style="error")
+
+                continue
+
+            user_message = {"role": "user", "content": prompt}
 
         try:
             assistant_message = sample(
