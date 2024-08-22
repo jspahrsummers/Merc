@@ -188,6 +188,7 @@ def sample(
 
                     case "content_block_start":
                         if event.content_block.type == "tool_use":
+                            console.print("\n")
                             current_tool = event.content_block.name
                             status = Status(f"{current_tool}…")
                             status.start()
