@@ -4,15 +4,14 @@ import itertools
 import sys
 from collections.abc import Callable, Iterator
 from contextlib import contextmanager
+from copy import deepcopy
 from pathlib import Path
 from signal import SIGINT, signal
 from typing import Iterable, cast
 
 from anthropic import Anthropic
 from anthropic.types.beta.prompt_caching import (
-    PromptCachingBetaMessageParam as MessageParam,
-)
-from anthropic.types.beta.prompt_caching import (
+    PromptCachingBetaMessageParam,
     PromptCachingBetaTextBlockParam,
     PromptCachingBetaToolParam,
 )
@@ -123,7 +122,8 @@ def catch_interrupts(should_continue_fn: Callable[[], bool]):
 
 
 def sample(
-    messages: list[MessageParam], append_to_system_prompt: str | None = None
+    messages: list[PromptCachingBetaMessageParam],
+    append_to_system_prompt: str | None = None,
 ) -> PromptCachingBetaMessage:
     system_prompt = SYSTEM_PROMPT
     if append_to_system_prompt is not None:
@@ -153,6 +153,7 @@ def sample(
                 },
                 "required": ["path", "content"],
             },
+            "cache_control": {"type": "ephemeral"},
         }
     ]
 
@@ -247,7 +248,7 @@ def main() -> None:
     awareness_paths_list = "\n".join(str(path) for path in glob_paths(AWARENESS_PATHS))
 
     context = load_context_from_paths(context_paths)
-    messages: list[MessageParam] = []
+    messages: list[PromptCachingBetaMessageParam] = []
 
     def handle_command(command: str) -> None:
         nonlocal context_paths
@@ -304,7 +305,7 @@ def main() -> None:
                 console.print("Unrecognized command.", style="error")
 
     assistant_message: PromptCachingBetaMessage | None = None
-    user_message: MessageParam
+    user_message: PromptCachingBetaMessageParam
 
     while True:
         if assistant_message and assistant_message.content[-1].type == "tool_use":
@@ -315,6 +316,7 @@ def main() -> None:
                     {
                         "type": "tool_result",
                         "tool_use_id": assistant_message.content[-1].id,
+                        "cache_control": {"type": "ephemeral"},
                     }
                 ],
             }
@@ -337,7 +339,16 @@ def main() -> None:
 
                 continue
 
-            user_message = {"role": "user", "content": prompt}
+            user_message = {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": prompt,
+                        "cache_control": {"type": "ephemeral"},
+                    }
+                ],
+            }
 
         try:
             assistant_message = sample(
@@ -350,6 +361,9 @@ Use these files from the project to help with your response:
 And here are some files whose existence you should be aware of, though you do not have access to their contents:
 {awareness_paths_list}""",
             )
+
+            # Only 4 cache breakpoints are allowed, so don't persist them in the message history
+            del user_message["content"][-1]["cache_control"]  # type: ignore
 
             messages.append(user_message)
             messages.append(
