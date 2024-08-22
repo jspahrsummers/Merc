@@ -186,9 +186,32 @@ func _on_system_clicked(star_system: StarSystem, _system_node: GalaxyMapSystem) 
         return
 
     if Input.is_key_pressed(KEY_SHIFT):
-        self.hyperdrive_system.add_to_jump_path(star_system)
+        self._update_multi_path(star_system)
     else:
-        self.hyperdrive_system.set_jump_path([star_system])
+        self._replace_single_path(star_system)
+
+func _update_multi_path(star_system: StarSystem) -> void:
+    var current_path := self.hyperdrive_system.get_jump_path()
+    if not current_path:
+        return self._replace_single_path(star_system)
+
+    var current_path_names := self.hyperdrive_system.get_jump_path().map(func(system: StarSystem) -> StringName: return system.name)
+    var index := current_path_names.find(star_system.name)
+    if index != -1:
+        # Reset path back to the clicked node
+        self.hyperdrive_system.set_jump_path(current_path.slice(0, index + 1))
+        return
+    
+    # Add to end of path
+    var last_system := current_path[-1]
+    if star_system.name in last_system.connections:
+        self.hyperdrive_system.add_to_jump_path(star_system)
+
+func _replace_single_path(star_system: StarSystem) -> void:
+    if star_system.name not in self.hyperdrive_system.current_system().connections:
+        return
+
+    self.hyperdrive_system.set_jump_path([star_system])
 
 func _on_hyperlane_clicked(from_system: StarSystem, to_system: StarSystem, _hyperlane_node: GalaxyMapHyperlane) -> void:
     if not is_instance_valid(self.hyperdrive_system) or self.hyperdrive_system.jumping:
