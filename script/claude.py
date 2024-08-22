@@ -1,12 +1,12 @@
 #!.venv/bin/python
 
-from collections.abc import Callable
 import itertools
 import sys
-from signal import signal, SIGINT
+from collections.abc import Callable, Iterator
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Iterable
+from signal import SIGINT, signal
+from typing import Iterable, cast
 
 from anthropic import Anthropic
 from anthropic.types.beta.prompt_caching import (
@@ -16,17 +16,17 @@ from anthropic.types.beta.prompt_caching import (
     PromptCachingBetaTextBlockParam,
     PromptCachingBetaToolParam,
 )
-from anthropic.types.beta.prompt_caching.prompt_caching_beta_message import PromptCachingBetaMessage
-from anthropic.types.beta.prompt_caching.prompt_caching_beta_message_param import PromptCachingBetaMessageParam
+from anthropic.types.beta.prompt_caching.prompt_caching_beta_message import (
+    PromptCachingBetaMessage,
+)
 from dotenv import load_dotenv
 from prompt_toolkit import PromptSession
 from prompt_toolkit.history import FileHistory
 from rich.console import Console
 from rich.prompt import Confirm
-from rich.syntax import Syntax
 from rich.status import Status
+from rich.syntax import Syntax
 from rich.theme import Theme
-from typing import cast
 
 load_dotenv()
 
@@ -45,18 +45,28 @@ client = Anthropic()
 MODEL = "claude-3-5-sonnet-20240620"
 
 CONTEXT_PATHS = [
-    "actors/**/*.gd",
-    "addons/market_editor/**/*.gd",
+    "actors/**/*",
+    "addons/market_editor/**/*",
+    "fx/**/*.gd",
     "galaxy/**/*.gd",
+    "galaxy/map/galaxy_map_window.tscn",
+    "galaxy/star_system/scenes/*.tscn",
     "galaxy/star_system/star_systems/*.tres",
     "mechanics/**/*.gd",
     "mechanics/**/*.tres",
     "planet/**/*.gd",
     "planet/**/*.tres",
     "screens/**/*.gd",
+    "screens/**/*.tscn",
     "ships/**/*.gd",
     "utils/**/*.gd",
     "*.md",
+    "project.godot",
+]
+
+AWARENESS_PATHS = [
+    "ships/**/*.tscn",
+    "stars/**/*.tscn",
 ]
 
 SYSTEM_PROMPT = """\
@@ -70,19 +80,29 @@ You have a tool to replace the contents of a file, but wait to write code until 
 
 WRITE_FILE_TOOL = "write_file"
 
+
 def load_context_from_file(path: Path) -> str:
-    contents = path.read_text()
+    try:
+        contents = path.read_text()
+    except Exception:
+        console.print(f"Error reading file: {path}", style="error")
+        console.print_exception()
+        return ""
+
     return f"""\
 <file path="{path}">
 {contents}
 </file>"""
 
+
 def load_context_from_paths(paths: Iterable[Path]) -> str:
     return "\n".join(load_context_from_file(path) for path in paths)
+
 
 @contextmanager
 def catch_interrupts(should_continue_fn: Callable[[], bool]):
     in_handler = False
+
     def handler(signum, frame):
         nonlocal in_handler
         if in_handler:
@@ -101,12 +121,13 @@ def catch_interrupts(should_continue_fn: Callable[[], bool]):
     finally:
         signal(SIGINT, prev)
 
+
 def sample(
     messages: list[MessageParam], append_to_system_prompt: str | None = None
 ) -> PromptCachingBetaMessage:
     system_prompt = SYSTEM_PROMPT
     if append_to_system_prompt is not None:
-        system_prompt += f"\n\n{append_to_system_prompt}"
+        system_prompt += append_to_system_prompt
 
     system_block: PromptCachingBetaTextBlockParam = {
         "type": "text",
@@ -121,7 +142,10 @@ def sample(
             "input_schema": {
                 "type": "object",
                 "properties": {
-                    "path": {"type": "string", "description": "The relative filesystem path to write to"},
+                    "path": {
+                        "type": "string",
+                        "description": "The relative filesystem path to write to",
+                    },
                     "content": {
                         "type": "string",
                         "description": "The full, new content for the file.",
@@ -184,9 +208,7 @@ def sample(
 
                             syntax = Syntax(
                                 code=code,
-                                lexer=Syntax.guess_lexer(
-                                    path=path, code=code
-                                ),
+                                lexer=Syntax.guess_lexer(path=path, code=code),
                                 theme="ansi_light",
                             )
                             console.print(syntax)
@@ -209,29 +231,35 @@ def sample(
         return message
 
 
+def glob_paths(globs: Iterable[str]) -> Iterator[Path]:
+    paths = itertools.chain.from_iterable(
+        Path(".").glob(path_glob) for path_glob in globs
+    )
+
+    return (path for path in paths if path.is_file() and not path.name.startswith("."))
+
+
 def main() -> None:
     histfile = Path(__file__).with_name(".claude_history")
     session = PromptSession(history=FileHistory(str(histfile)))
 
-    paths = list(
-        itertools.chain.from_iterable(
-            Path(".").glob(path_glob) for path_glob in CONTEXT_PATHS
-        )
-    )
-    context = load_context_from_paths(paths)
+    context_paths = set(glob_paths(CONTEXT_PATHS))
+    awareness_paths_list = "\n".join(str(path) for path in glob_paths(AWARENESS_PATHS))
+
+    context = load_context_from_paths(context_paths)
     messages: list[MessageParam] = []
 
     def handle_command(command: str) -> None:
-        nonlocal paths
+        nonlocal context_paths
         nonlocal context
 
         parts = command.split()
         match parts[0]:
             case "/paths":
-                console.print(*paths, sep="\n", style="info")
+                console.print(*context_paths, sep="\n", style="info")
 
             case "/bytes":
-                sizes = {path: path.stat().st_size for path in paths}
+                sizes = {path: path.stat().st_size for path in context_paths}
                 sorted_sizes = sorted(
                     sizes.items(), key=lambda item: item[1], reverse=True
                 )
@@ -242,29 +270,27 @@ def main() -> None:
                 console.print(context, style="info")
 
             case "/add":
-                path_glob = parts[1]
-                for new_path in Path(".").glob(path_glob):
-                    if new_path in paths:
+                for new_path in glob_paths(parts[1:]):
+                    if new_path in context_paths:
                         continue
 
-                    paths.append(new_path)
+                    context_paths.add(new_path)
                     console.print(f"Added: {new_path}", style="info")
 
-                context = load_context_from_paths(paths)
+                context = load_context_from_paths(context_paths)
 
             case "/remove":
-                path_glob = parts[1]
-                for remove_path in Path(".").glob(path_glob):
-                    if remove_path not in paths:
+                for remove_path in glob_paths(parts[1:]):
+                    if remove_path not in context_paths:
                         continue
 
-                    paths.remove(remove_path)
+                    context_paths.remove(remove_path)
                     console.print(f"Removed: {remove_path}", style="info")
 
-                context = load_context_from_paths(paths)
+                context = load_context_from_paths(context_paths)
 
             case "/clear":
-                paths = []
+                context_paths = []
                 context = ""
                 console.print("Context cleared.", style="info")
 
@@ -301,11 +327,19 @@ def main() -> None:
         try:
             assistant_message = sample(
                 messages + [user_message],
-                append_to_system_prompt=f"Use these files from the project to help with your response:\n{context}",
+                append_to_system_prompt=f"""
+
+Use these files from the project to help with your response:
+{context}
+
+And here are some files whose existence you should be aware of, though you do not have access to their contents:
+{awareness_paths_list}""",
             )
 
             messages.append(user_message)
-            messages.append({"role": assistant_message.role, "content": assistant_message.content})
+            messages.append(
+                {"role": assistant_message.role, "content": assistant_message.content}
+            )
             console.print()
         except KeyboardInterrupt:
             console.print("\n\nDiscarding last turn.\n", style="info")
