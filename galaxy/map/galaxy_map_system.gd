@@ -12,7 +12,7 @@ class_name GalaxyMapSystem
 ## When [member current] is true, this material overrides the [member mesh]'s material.
 @export var current_node_material: Material
 
-## Whether the system represented by this node is the player's current system.
+## Whether the system represented by this node is the player's current system or part of the current hyperspace path.
 @export var current: bool:
     set(value):
         current = value
@@ -21,7 +21,7 @@ class_name GalaxyMapSystem
 ## When [member selected] is true, this sprite is shown.
 @export var selected_sprite: Sprite3D
 
-## Whether this system has been selected by the player in the galaxy map.
+## Whether this system is currently selected by the player in the galaxy map.
 @export var selected: bool:
     set(value):
         selected = value

@@ -83,11 +83,14 @@ func _on_jump_path_changed(_hyperdrive_system: HyperdriveSystem) -> void:
     self._update_selection_state()
 
 func _update_selection_state() -> void:
+    var current_system := self.hyperdrive_system.current_system()
+
     var jump_path := self.hyperdrive_system.get_jump_path()
     var jump_names := jump_path.map(func(system: StarSystem) -> StringName: return system.name)
     for system_name: String in self._system_nodes:
         var node: GalaxyMapSystem = self._system_nodes[system_name]
-        node.selected = system_name in jump_names
+        node.current = system_name in jump_names or system_name == current_system.name
+        node.selected = system_name == jump_names[-1] if jump_path else false
     
     for hyperlane_name: String in self._hyperlane_nodes:
         var node: GalaxyMapHyperlane = self._hyperlane_nodes[hyperlane_name]
@@ -103,7 +106,7 @@ func _update_selection_state() -> void:
         presented_system = jump_path[-1]
         self.current_or_destination_heading.text = "Destination system"
     else:
-        presented_system = self.hyperdrive_system.current_system()
+        presented_system = current_system
         self.current_or_destination_heading.text = "Current system"
 
     self.system_name_label.text = presented_system.name
