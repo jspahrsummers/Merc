@@ -47,7 +47,7 @@ func _ready() -> void:
 
     for system in galaxy.systems:
         var system_node: GalaxyMapSystem = self.galaxy_map_system.instantiate()
-        system_node.clicked.connect(func(node: GalaxyMapSystem) -> void: self._on_system_clicked(system))
+        system_node.clicked.connect(func(_node: GalaxyMapSystem) -> void: self._on_system_clicked(system))
         system_node.name = system.name
         system_node.current = (system == current_system)
         self._system_nodes[system.name] = system_node
