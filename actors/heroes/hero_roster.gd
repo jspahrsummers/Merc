@@ -43,4 +43,4 @@ func save_to_dict() -> Dictionary:
 ## See [SaveGame].
 func load_from_dict(dict: Dictionary) -> void:
     var heroes_array: Array = dict["heroes"]
-    self.heroes = SaveGame.deserialize_array_of_resources(heroes_array)
+    self.heroes.assign(SaveGame.deserialize_array_of_resources(heroes_array))
