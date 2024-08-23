@@ -47,7 +47,7 @@ func _ready() -> void:
 
     for system in galaxy.systems:
         var system_node: GalaxyMapSystem = self.galaxy_map_system.instantiate()
-        system_node.clicked.connect(func(node: GalaxyMapSystem) -> void: self._on_system_clicked(system, node))
+        system_node.clicked.connect(func(node: GalaxyMapSystem) -> void: self._on_system_clicked(system))
         system_node.name = system.name
         system_node.current = (system == current_system)
         self._system_nodes[system.name] = system_node
@@ -63,7 +63,7 @@ func _ready() -> void:
 
             var connected_system := self.galaxy.get_system(connection)
             var hyperlane: GalaxyMapHyperlane = self.galaxy_map_hyperlane.instantiate()
-            # hyperlane.clicked.connect(func(node: GalaxyMapHyperlane) -> void: self._on_hyperlane_clicked(system, connected_system, node))
+            hyperlane.clicked.connect(func(_node: GalaxyMapHyperlane) -> void: self._on_hyperlane_clicked(system, connected_system))
             hyperlane.name = "%s > %s" % [system.name, connection]
             hyperlane.starting_position = system.position
             hyperlane.ending_position = connected_system.position
@@ -182,7 +182,7 @@ func _input(event: InputEvent) -> void:
 func _on_window_close_requested() -> void:
     self.queue_free()
 
-func _on_system_clicked(star_system: StarSystem, _system_node: GalaxyMapSystem) -> void:
+func _on_system_clicked(star_system: StarSystem) -> void:
     if not is_instance_valid(self.hyperdrive_system) or self.hyperdrive_system.jumping:
         return
 
@@ -194,6 +194,17 @@ func _on_system_clicked(star_system: StarSystem, _system_node: GalaxyMapSystem) 
         self._update_multi_path(star_system)
     else:
         self._replace_single_path(star_system)
+
+func _on_hyperlane_clicked(from_system: StarSystem, to_system: StarSystem) -> void:
+    if not is_instance_valid(self.hyperdrive_system) or self.hyperdrive_system.jumping:
+        return
+    
+    var current_system := self.hyperdrive_system.current_system()
+    var jump_path := self.hyperdrive_system.get_jump_path()
+    if from_system == current_system or from_system in jump_path:
+        self._on_system_clicked(to_system)
+    elif to_system == current_system or to_system in jump_path:
+        self._on_system_clicked(from_system)
 
 func _update_multi_path(star_system: StarSystem) -> void:
     var current_path := self.hyperdrive_system.get_jump_path()
@@ -217,21 +228,3 @@ func _replace_single_path(star_system: StarSystem) -> void:
         return
 
     self.hyperdrive_system.set_jump_path([star_system])
-
-# func _on_hyperlane_clicked(from_system: StarSystem, to_system: StarSystem, _hyperlane_node: GalaxyMapHyperlane) -> void:
-#     if not is_instance_valid(self.hyperdrive_system) or self.hyperdrive_system.jumping:
-#         return
-
-#     var current_system := self.hyperdrive_system.current_system()
-#     var connection: StarSystem
-#     if from_system == current_system:
-#         connection = to_system
-#     elif to_system == current_system:
-#         connection = from_system
-#     else:
-#         return
-
-#     if Input.is_key_pressed(KEY_SHIFT):
-#         self.hyperdrive_system.add_to_jump_path(connection)
-#     else:
-#         self.hyperdrive_system.set_jump_path([connection])
