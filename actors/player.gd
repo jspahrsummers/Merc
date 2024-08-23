@@ -137,8 +137,8 @@ func _on_hyperdrive_changed() -> void:
 
 func _next_system_connection() -> StarSystem:
     var current_destination_name: Variant = null
-    if self.ship.hyperdrive_system.jump_destination:
-        current_destination_name = self.ship.hyperdrive_system.jump_destination.name
+    if self.ship.hyperdrive_system.get_jump_destination():
+        current_destination_name = self.ship.hyperdrive_system.get_jump_destination().name
 
     var current_system := self.ship.hyperdrive_system.current_system()
     var galaxy: Galaxy = current_system.galaxy.get_ref()
@@ -175,7 +175,12 @@ func _unhandled_key_input(event: InputEvent) -> void:
         return
 
     if event.is_action_pressed("cycle_jump_destination", true):
-        self.ship.hyperdrive_system.jump_destination = self._next_system_connection()
+        var next_system := self._next_system_connection()
+        if next_system:
+            self.ship.hyperdrive_system.set_jump_path([next_system])
+        else:
+            self.ship.hyperdrive_system.clear_jump_path()
+
         self.get_viewport().set_input_as_handled()
 
     if event.is_action_pressed("cycle_target", true):
@@ -212,7 +217,7 @@ func _on_broadcasted_input_event(receiver: Node, event: InputEvent) -> void:
         return
 
 func _jump_to_hyperspace() -> void:
-    if not self.ship.hyperdrive_system.jump_destination:
+    if not self.ship.hyperdrive_system.get_jump_destination():
         return
 
     if not self.hyperspace_scene_switcher.start_jump():

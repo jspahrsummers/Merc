@@ -39,8 +39,8 @@ func start_jump() -> bool:
     if not self._hyperdrive_system.hyperdrive.consume_for_jump():
         return false
 
-    if not self._loaded_system_nodes.has(self._hyperdrive_system.jump_destination.name):
-        ResourceLoader.load_threaded_request(self._hyperdrive_system.jump_destination.scene_path)
+    if not self._loaded_system_nodes.has(self._hyperdrive_system.get_jump_destination().name):
+        ResourceLoader.load_threaded_request(self._hyperdrive_system.get_jump_destination().scene_path)
 
     self._hyperdrive_system.jumping = true
     return true
@@ -48,7 +48,7 @@ func start_jump() -> bool:
 func load_jump_destination() -> void:
     assert(self._hyperdrive_system.jumping, "Expected a jump to be in progress")
 
-    var destination := self._hyperdrive_system.jump_destination
+    var destination := self._hyperdrive_system.get_jump_destination()
     assert(destination, "Expected to have a jump destination")
 
     var player_ship := self._hyperdrive_system.ship
@@ -71,7 +71,7 @@ func load_jump_destination() -> void:
 
     self.player.calendar.pass_approximate_days(HYPERSPACE_APPROXIMATE_TRAVEL_DAYS)
 
-    self._hyperdrive_system.jump_destination = null
+    self._hyperdrive_system.shift_jump_path()
     self.jump_destination_loaded.emit(star_system_instance)
 
 func finish_jump() -> void:

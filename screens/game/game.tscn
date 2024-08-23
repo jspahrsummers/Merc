@@ -102,7 +102,7 @@ script = ExtResource("11_ag0i7")
 max_volume = 10.0
 commodities = {}
 
-[sub_resource type="Resource" id="Resource_0rcb3"]
+[sub_resource type="Resource" id="Resource_0g6jc"]
 resource_local_to_scene = true
 script = ExtResource("13_q2g24")
 max_fuel = 6.0
@@ -183,7 +183,7 @@ hull = SubResource("Resource_ffax2")
 shield = SubResource("Resource_75c8j")
 battery = SubResource("Resource_xpwk4")
 cargo_hold = SubResource("Resource_bsv1l")
-hyperdrive = SubResource("Resource_0rcb3")
+hyperdrive = SubResource("Resource_0g6jc")
 
 [node name="CombatObject" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="3" node_paths=PackedStringArray("targeted_sound")]
 targeted_sound = NodePath("../Player/TargetedSound")
@@ -644,7 +644,7 @@ script = ExtResource("37_e11x7")
 
 [connection signal="jump_destination_loaded" from="HyperspaceSceneSwitcher" to="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" method="_on_jump_destination_loaded"]
 [connection signal="jump_destination_loaded" from="HyperspaceSceneSwitcher" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/SystemName" method="_on_jump_destination_loaded"]
-[connection signal="jump_destination_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/HyperdriveSystem" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PanelContainer/VBoxContainer/JumpDestinationName" method="_on_jump_destination_changed"]
+[connection signal="jump_path_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/HyperdriveSystem" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PanelContainer/VBoxContainer/JumpDestinationName" method="_on_jump_path_changed"]
 [connection signal="jumping_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/HyperdriveSystem" to="MainCameraTransform/MainCamera/HyperspaceEffect" method="_on_jumping_changed"]
 [connection signal="hull_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_hull_changed"]
 [connection signal="hyperdrive_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PanelContainer/VBoxContainer/FuelBar" method="_on_player_hyperdrive_changed"]
