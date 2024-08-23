@@ -56,6 +56,11 @@ func _ready() -> void:
         system_node.transform.origin = system.position
 
         for connection in system.connections:
+            var reverse_name := "%s > %s" % [connection, system.name]
+            if reverse_name in self._hyperlane_nodes:
+                # Only create one lane even if it's bidirectional
+                continue
+
             var connected_system := self.galaxy.get_system(connection)
             var hyperlane: GalaxyMapHyperlane = self.galaxy_map_hyperlane.instantiate()
             # hyperlane.clicked.connect(func(node: GalaxyMapHyperlane) -> void: self._on_hyperlane_clicked(system, connected_system, node))
@@ -100,8 +105,14 @@ func _update_selection_state() -> void:
     if jump_path:
         for i in range(0, jump_path.size()):
             var last_name := jump_path[i - 1].name if i > 0 else self.hyperdrive_system.current_system().name
-            var hyperlane_name := "%s > %s" % [last_name, jump_path[i].name]
-            self._hyperlane_nodes[hyperlane_name].selected = true
+
+            var forward_name := "%s > %s" % [last_name, jump_path[i].name]
+            if forward_name in self._hyperlane_nodes:
+                self._hyperlane_nodes[forward_name].selected = true
+
+            var backward_name := "%s > %s" % [jump_path[i].name, last_name]
+            if backward_name in self._hyperlane_nodes:
+                self._hyperlane_nodes[backward_name].selected = true
 
         presented_system = jump_path[-1]
         self.current_or_destination_heading.text = "Destination system"
