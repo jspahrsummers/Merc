@@ -16,6 +16,15 @@ class_name GalaxyMapHyperlane
 ## This is expected to have a [CylinderMesh] attached.
 @export var mesh: MeshInstance3D
 
+## When [member selected] is true, this material overrides the [member mesh]'s material.
+@export var selected_material: Material
+
+## Whether this hyperlane is selected.
+@export var selected: bool:
+    set(value):
+        selected = value
+        self.mesh.material_override = self.selected_material if value else null
+
 ## The shape defining the clickable region of this hyperlane.
 ##
 ## This is expected to have a [CylinderShape3D] attached.

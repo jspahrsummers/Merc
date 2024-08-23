@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://d3lphosly5y8b"]
+[gd_scene load_steps=6 format=3 uid="uid://d3lphosly5y8b"]
 
 [ext_resource type="Script" path="res://galaxy/map/galaxy_map_hyperlane.gd" id="1_qtr5l"]
+[ext_resource type="Material" uid="uid://wjykkjty1dt5" path="res://galaxy/map/galaxy_map_current_mat.tres" id="2_xrjew"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_futeo"]
 emission = Color(1, 1, 1, 1)
@@ -20,6 +21,7 @@ radius = 0.1
 [node name="Hyperlane" type="StaticBody3D" node_paths=PackedStringArray("mesh", "collision_shape", "debugging_label")]
 script = ExtResource("1_qtr5l")
 mesh = NodePath("MeshInstance3D")
+selected_material = ExtResource("2_xrjew")
 collision_shape = NodePath("CollisionShape3D")
 debugging_label = NodePath("DebuggingLabel")
 node_radius = 0.1
