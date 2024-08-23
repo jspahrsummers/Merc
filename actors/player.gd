@@ -76,6 +76,7 @@ func _ready() -> void:
     if not self.save_node_path_override:
         self.save_node_path_override = self.get_path()
         self.ship.save_node_path_override = self.ship.get_path()
+        self.mission_controller.save_node_path_override = self.mission_controller.get_path()
 
     self._rigid_body_turner = RigidBodyTurner.new()
     self._rigid_body_turner.spin_thruster = self.ship.rigid_body_direction.spin_thruster

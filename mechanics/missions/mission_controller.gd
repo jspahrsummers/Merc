@@ -43,6 +43,9 @@ signal mission_failed(mission: Mission)
 ## Fires when the player forfeits a mission.
 signal mission_forfeited(mission: Mission)
 
+## Used to save and restore the mission controller correctly across launches.
+var save_node_path_override: NodePath
+
 ## Currently accepted missions.
 var _missions: Array[Mission] = []
 
