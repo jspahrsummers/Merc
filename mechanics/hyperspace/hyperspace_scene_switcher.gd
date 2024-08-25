@@ -8,6 +8,8 @@ class_name HyperspaceSceneSwitcher
 ## The player.
 @export var player: Player
 
+@export var message_log: MessageLog
+
 ## The approximate number of days that should pass with each hyperspace jump.
 const HYPERSPACE_APPROXIMATE_TRAVEL_DAYS = 3
 
@@ -73,6 +75,7 @@ func load_jump_destination() -> void:
 
     self._hyperdrive_system.shift_jump_path()
     self.jump_destination_loaded.emit(star_system_instance)
+    self.message_log.add_message("Arriving in the %s system at %s." % [destination.name, self.player.calendar.get_gst()])
 
 func finish_jump() -> void:
     assert(self._hyperdrive_system.jumping, "No jump in progress")

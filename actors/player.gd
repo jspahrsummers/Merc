@@ -260,15 +260,16 @@ func _land() -> void:
     landing.visibility_changed.connect(func() -> void:
         landing.add_sibling(self.ship)
         landing.queue_free()
-        self._depart_from_port())
+        self._depart_from_port(port))
 
     self.landed.emit(self, port)
 
-func _depart_from_port() -> void:
+func _depart_from_port(port: Port) -> void:
     self.calendar.pass_approximate_days(PORT_LANDING_APPROXIMATE_DAYS)
     self._reset_controls()
     self._reset_velocity()
     self.takeoff_sound.play()
+    self.message_log.add_message("Departing from %s at %s." % [port.name, self.calendar.get_gst()])
 
 func _reset_controls() -> void:
     self.ship.rigid_body_thruster.throttle = 0.0
