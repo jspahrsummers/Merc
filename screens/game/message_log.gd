@@ -1,48 +1,38 @@
 extends Label
 class_name MessageLog
 
-## How long each message should be displayed, before it disappears.
-@export_range(1.0, 10.0, 0.5, "suffix:s") var message_lifetime: float = 5.0
+## Default lifetime (in seconds) for a short-lived message.
+const SHORT_MESSAGE_LIFETIME = 5.0
+
+## Default lifetime (in seconds) for a long-lived message.
+const LONG_MESSAGE_LIFETIME = 30.0
 
 ## Audio to play when a new message is added.
 @export var new_message_audio: AudioStreamPlayer
 
 ## Messages currently being displayed in the log.
-##
-## Each entry is a dictionary with the following keys:
-##      - "text": The message text.
-##      - "created_at": The msec ticks at which the message was created, used to automatically expire it.
-var _messages: Array[Dictionary] = []
+var _messages := PackedStringArray()
 
-## Push the given message text onto the log.
-func add_message(message_text: String) -> void:
-    self._messages.push_back({
-        "text": message_text,
-        "created_at": Time.get_ticks_msec()
-    })
+## Push the given message text onto the log, with the given lifetime in seconds.
+func add_message(message_text: String, lifetime: float = SHORT_MESSAGE_LIFETIME) -> void:
+    assert(lifetime > 0, "Message should have a positive lifetime")
+
+    self._messages.append(message_text)
     self._update_text()
     self.new_message_audio.play()
+    
+    await self.get_tree().create_timer(lifetime).timeout
+
+    var index := self._messages.rfind(message_text)
+    if index == -1:
+        return
+
+    self._messages.remove_at(index)
+    self._update_text()
+
+func clear() -> void:
+    self._messages.clear()
+    self._update_text()
 
 func _update_text() -> void:
-    var new_text := ""
-    for message in self._messages:
-        new_text += message["text"] + "\n"
-    
-    self.text = new_text
-
-func _process(_delta: float) -> void:
-    var now := Time.get_ticks_msec()
-    var messages_to_remove := 0
-    for i in range(self._messages.size()):
-        var message := self._messages[i]
-        var created_at: int = message["created_at"]
-        if now - created_at < int(self.message_lifetime * 1000):
-            break
-        
-        messages_to_remove += 1
-    
-    if messages_to_remove == 0:
-        return
-    
-    self._messages = self._messages.slice(messages_to_remove)
-    self._update_text()
+    self.text = "\n".join(self._messages)

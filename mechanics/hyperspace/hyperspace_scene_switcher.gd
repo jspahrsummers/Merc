@@ -57,6 +57,7 @@ func load_jump_destination() -> void:
     var previous_system_instance := StarSystemInstance.star_system_instance_for_node(player_ship)
     previous_system_instance.remove_child(player_ship)
     self.remove_child(previous_system_instance)
+    self.message_log.clear()
 
     var star_system_instance: StarSystemInstance = self._loaded_system_nodes.get(destination.name)
     if star_system_instance == null:
@@ -75,7 +76,7 @@ func load_jump_destination() -> void:
 
     self._hyperdrive_system.shift_jump_path()
     self.jump_destination_loaded.emit(star_system_instance)
-    self.message_log.add_message("Arriving in the %s system at %s." % [destination.name, self.player.calendar.get_gst()])
+    self.message_log.add_message("Arriving in the %s system at %s." % [destination.name, self.player.calendar.get_gst()], MessageLog.LONG_MESSAGE_LIFETIME)
 
 func finish_jump() -> void:
     assert(self._hyperdrive_system.jumping, "No jump in progress")

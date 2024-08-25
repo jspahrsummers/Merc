@@ -265,11 +265,13 @@ func _land() -> void:
     self.landed.emit(self, port)
 
 func _depart_from_port(port: Port) -> void:
+    self.message_log.clear()
+
     self.calendar.pass_approximate_days(PORT_LANDING_APPROXIMATE_DAYS)
     self._reset_controls()
     self._reset_velocity()
     self.takeoff_sound.play()
-    self.message_log.add_message("Departing from %s at %s." % [port.name, self.calendar.get_gst()])
+    self.message_log.add_message("Departing from %s at %s." % [port.name, self.calendar.get_gst()], MessageLog.LONG_MESSAGE_LIFETIME)
 
 func _reset_controls() -> void:
     self.ship.rigid_body_thruster.throttle = 0.0
