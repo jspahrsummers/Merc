@@ -37,19 +37,21 @@ columns = 2
 
 [node name="ControlSchemeLabel" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
-text = "Control scheme"
+text = "Maneuvering"
 horizontal_alignment = 2
 uppercase = true
 
 [node name="ControlSchemeButton" type="OptionButton" parent="PanelContainer/CenterContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-tooltip_text = "Control scheme"
+tooltip_text = "Choose how your ship maneuvers:
+- Ship-oriented: Thrust applies in the direction your ship is facing, and left/right rotate the ship.
+- Screen-oriented: Controls are based on screen direction. Your ship will turn to face the direction you indicate before applying thrust."
 item_count = 2
 selected = 0
-popup/item_0/text = "RELATIVE"
+popup/item_0/text = "SHIP-ORIENTED"
 popup/item_0/id = 0
-popup/item_1/text = "ABSOLUTE"
+popup/item_1/text = "SCREEN-ORIENTED"
 popup/item_1/id = 1
 
 [node name="UIScaleLabel" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer/GridContainer"]
