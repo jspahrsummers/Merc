@@ -3,9 +3,9 @@
 [ext_resource type="Resource" uid="uid://ku5qjeo4jlkt" path="res://galaxy/star_system/star_systems/nova_lumina.tres" id="2_etutf"]
 [ext_resource type="PackedScene" uid="uid://d1sevq56wdchx" path="res://galaxy/stars/main_sequence/star_class_b.tscn" id="3_kweak"]
 [ext_resource type="PackedScene" uid="uid://b04hfgkcuq7k6" path="res://galaxy/planet/planet_instance.tscn" id="3_qge20"]
-[ext_resource type="Resource" uid="uid://ooe0w4eaywk3" path="res://galaxy/planet/planets/lumina_prime.tres" id="4_mwi45"]
-[ext_resource type="Resource" uid="uid://duf1gpmd1ydk7" path="res://galaxy/planet/planets/auroris.tres" id="5_kad6o"]
-[ext_resource type="Resource" uid="uid://cq4qs7xackj8j" path="res://galaxy/planet/planets/novus.tres" id="6_anm5q"]
+[ext_resource type="Resource" uid="uid://ooe0w4eaywk3" path="res://galaxy/port/ports/lumina_prime.tres" id="4_mwi45"]
+[ext_resource type="Resource" uid="uid://duf1gpmd1ydk7" path="res://galaxy/port/ports/auroris.tres" id="5_kad6o"]
+[ext_resource type="Resource" uid="uid://cq4qs7xackj8j" path="res://galaxy/port/ports/novus.tres" id="6_anm5q"]
 [ext_resource type="Texture2D" uid="uid://ckj40oewie2rj" path="res://galaxy/planet/sprites/planet_16.png" id="6_cyr6t"]
 [ext_resource type="Texture2D" uid="uid://ceccjdfupojph" path="res://galaxy/planet/sprites/planet_30.png" id="8_7sr4w"]
 [ext_resource type="Texture2D" uid="uid://evirpay5c0bq" path="res://galaxy/planet/sprites/planet_48.png" id="9_w331x"]
@@ -19,14 +19,14 @@ star_system = ExtResource("2_etutf")
 
 [node name="Auroris" parent="." index="1" instance=ExtResource("3_qge20")]
 transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 2, -1.1093, 0, -11.1902)
-planet = ExtResource("5_kad6o")
+port = ExtResource("5_kad6o")
 
 [node name="Sprite3D" parent="Auroris" index="1"]
 texture = ExtResource("8_7sr4w")
 
 [node name="Lumina Prime" parent="." index="2" instance=ExtResource("3_qge20")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.7791, 0, -2.37476)
-planet = ExtResource("4_mwi45")
+port = ExtResource("4_mwi45")
 
 [node name="Sprite3D" parent="Lumina Prime" index="1"]
 texture = ExtResource("6_cyr6t")
@@ -39,7 +39,7 @@ texture = ExtResource("9_w331x")
 
 [node name="Novus" parent="." index="4" instance=ExtResource("3_qge20")]
 transform = Transform3D(0.75, 0, 0, 0, 1, 0, 0, 0, 0.75, 13.69, 0, 19.5674)
-planet = ExtResource("6_anm5q")
+port = ExtResource("6_anm5q")
 
 [node name="Sprite3D" parent="Novus" index="1"]
 texture = ExtResource("11_o76pq")

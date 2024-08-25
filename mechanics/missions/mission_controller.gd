@@ -159,9 +159,9 @@ func _check_mission_failure(mission: Mission) -> void:
             self._fail_mission(mission)
             return
 
-func _on_player_landed(_player: Player, planet: Planet) -> void:
+func _on_player_landed(_player: Player, port: Port) -> void:
     for mission: Mission in self._missions.duplicate():
-        if mission.destination_planet != planet:
+        if mission.destination_port != port:
             continue
 
         self._check_mission_failure(mission)

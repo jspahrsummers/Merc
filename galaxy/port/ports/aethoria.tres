@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Port" load_steps=3 format=3 uid="uid://crj6o7sd5pos2"]
+
+[ext_resource type="Script" path="res://galaxy/port/port.gd" id="1_f4tmt"]
+[ext_resource type="Texture2D" uid="uid://bdkc8perpkh7v" path="res://screens/landing/images/54db2464-304b-42f9-9309-c77fa8420cbd.jpg" id="1_j0eqh"]
+
+[resource]
+script = ExtResource("1_f4tmt")
+name = "Aethoria"
+facilities = 35
+landscape_image = ExtResource("1_j0eqh")
+description = "Aethoria looms before you, a world scarred by centuries of intense mining operations. The planet's surface is a vast expanse of jagged, rust-colored rock formations and deep, shadowy canyons. Massive excavation sites and abandoned equipment dot the horizon, testament to the planet's harsh industrial history.
+
+Impossibly large in the sky hangs Zephyria, the system's aging red giant star. Its baleful red light bathes the planet in an otherworldly glow, casting long, ominous shadows across the barren terrain. The star's proximity has stripped away much of Aethoria's atmosphere, leaving the surface exposed to cosmic radiation and extreme temperature fluctuations.
+
+Despite the inhospitable conditions, Aethoria remains a hub of mining activity. Scattered across the rocky plains are clusters of pressurized habitation domes and automated mining facilities, their metallic surfaces glinting under the red star's gaze. Hover-transports can be seen ferrying raw materials between the mines and the spaceport, kicking up plumes of ruddy dust in their wake.
+
+The spaceport itself is a testament to function over form - a sprawling complex of landing pads, warehouses, and trader outposts, all built to withstand the planet's harsh environment. As you touch down, you notice the bustle of activity around you: rugged miners in environment suits, shrewd traders haggling over mineral prices, and the occasional group of off-worlders, their eyes wide as they take in the alien landscape.
+
+Aethoria may not be a paradise, but for those seeking fortune in its rich mineral deposits or a haven far from the prying eyes of central authority, it offers opportunity - for those tough enough to seize it."

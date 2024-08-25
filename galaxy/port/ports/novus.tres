@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Port" load_steps=3 format=3 uid="uid://cq4qs7xackj8j"]
+
+[ext_resource type="Script" path="res://galaxy/port/port.gd" id="1_gsf4u"]
+[ext_resource type="Texture2D" uid="uid://dxiyqpd0fq46b" path="res://screens/landing/images/dadf749a-a886-4a5b-ae6f-5182b3753a5c.jpg" id="1_mfwts"]
+
+[resource]
+script = ExtResource("1_gsf4u")
+name = "Novus"
+facilities = 39
+landscape_image = ExtResource("1_mfwts")
+description = "As your ship pierces through Novus's thin atmosphere, a world of stark beauty unfolds beneath you. Vast plains of ice stretch to the horizon, their surfaces reflecting the distant blue-white glare of Nova Lumina's star in a dazzling display. The sky above is a deep, almost black purple, with wispy clouds of nitrogen and methane drifting lazily across its expanse.
+
+The main settlement, Frosthold, appears as a cluster of sleek, dome-like structures nestled in a valley between towering ice cliffs. As you approach the landing pad, you notice the occasional burst of steam and gas from nearby geysers, evidence of the planet's hidden geothermal activity.
+
+Disembarking, the biting cold immediately seeps through your thermal suit. The air is thin and crisp, with a faint methane odor. Around you, hardy colonists go about their business, their sturdy exo-suits a testament to Novus's unforgiving environment.
+
+The small spaceport bustles with activity. Traders load crates of rare ice-bound minerals and exotic frozen gases, while scientists huddle over readouts from deep-core drills. In the distance, through reinforced viewports, you can see teams of explorers setting out across the icy wastes, searching for new resources or traces of ancient, frozen life."

@@ -2,7 +2,7 @@
 
 [ext_resource type="Resource" uid="uid://b764gd8q3il6s" path="res://mechanics/economy/currencies/credits.tres" id="1_axqux"]
 [ext_resource type="Script" path="res://galaxy/star_system/star_system.gd" id="1_rf1b6"]
-[ext_resource type="Resource" uid="uid://dd61sms23ju2r" path="res://galaxy/planet/planets/pyra.tres" id="1_uqygg"]
+[ext_resource type="Resource" uid="uid://dd61sms23ju2r" path="res://galaxy/port/ports/pyra.tres" id="1_uqygg"]
 
 [resource]
 script = ExtResource("1_rf1b6")
@@ -10,6 +10,6 @@ name = &"Helios"
 connections = Array[StringName]([&"Thalassa", &"Barnard\'s Star"])
 position = Vector3(-1.3, 2.08165e-12, 1.7)
 scene_path = "res://galaxy/star_system/scenes/helios.tscn"
-planets = Array[Resource("res://galaxy/planet/planet.gd")]([ExtResource("1_uqygg")])
+ports = Array[Resource("res://galaxy/port/port.gd")]([ExtResource("1_uqygg")])
 refueling_money = ExtResource("1_axqux")
 refueling_relative_price = 0.734

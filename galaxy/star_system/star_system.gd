@@ -17,13 +17,13 @@ class_name StarSystem
 ## The resource path to this star system's scene.
 @export_file("*.tscn") var scene_path: String
 
-## All landable planets in this star system.
-@export var planets: Array[Planet] = []
+## All landable ports in this star system.
+@export var ports: Array[Port] = []
 
 ## The trading market in this star system, if any.
 @export var market: Market
 
-## The [TradeAsset] used to pay for refueling, on planets where refueling is available.
+## The [TradeAsset] used to pay for refueling, on ports where refueling is available.
 ##
 ## If this property is [code]null[/code], refueling is free and this property is ignored.
 @export var refueling_money: TradeAsset
@@ -62,8 +62,8 @@ func _init() -> void:
     self._connect_backref.call_deferred()
 
 func _connect_backref() -> void:
-    for planet in self.planets:
-        planet.star_system = weakref(self)
+    for port in self.ports:
+        port.star_system = weakref(self)
 
 func _to_string() -> String:
     return "StarSystem:" + self.name

@@ -10,7 +10,7 @@ Instructions:
 * M to view the galaxy map
 * H to select a hyperspace jump destination
 * J to jump to hyperspace
-* ` (backtick) or § to select a planet to land on
+* ` (backtick) or § to select a port to land at
 * L to land
 * C to open the currency trading window
 * I to view your active missions

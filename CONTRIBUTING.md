@@ -23,9 +23,9 @@ Your new scene file is now the canvas upon which to create your star system! You
 
 Add planets to your system by instantiating the `planet_instance.tscn` scene. To customize the planet's appearance (sprite) or other properties, right-click the planet instance in the scene tree and enable "Editable Children."
 
-If you want the player to be able to land on your new planet, create a [`Planet`](galaxy/planet/planet.gd) resource in [galaxy/planet/planets/](galaxy/planet/planets/), and set the `planet` property of the `PlanetInstance` to the new resource. Add the `Planet` resource to the `planets` array of the `StarSystem` as well.
+If you want the player to be able to land on your new planet, create a [`Port`](galaxy/port/port.gd) resource in [galaxy/port/ports/](galaxy/port/ports/), and set the `port` property of the `PlanetInstance` to the new resource. Add the `Port` resource to the `ports` array of the `StarSystem` as well.
 
-Then, fill in the `Planet` properties, especially the landscape image and the description that the player will see when they land. (You can also [use AI to help here](./README.md#use-of-ai)!)
+Then, fill in the `Port` properties, especially the landscape image and the description that the player will see when they land. (You can also [use AI to help here](./README.md#use-of-ai)!)
 
 #### Stars
 

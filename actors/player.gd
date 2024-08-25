@@ -34,8 +34,8 @@ signal target_changed(player: Player, target: CombatObject)
 ## Fires when the player changes their landing target.
 signal landing_target_changed(player: Player, target: PlanetInstance)
 
-## Fires when the player lands on a planet.
-signal landed(player: Player, planet: Planet)
+## Fires when the player lands on a port.
+signal landed(player: Player, port: Port)
 
 ## Fires when the ship's hyperdrive changes.
 signal hyperdrive_changed(player: Player, hyperdrive: Hyperdrive)
@@ -64,8 +64,8 @@ var _rigid_body_turner: RigidBodyTurner
 ## When using the "absolute" control scheme, this is the tolerance (in radians) for being slightly off-rotated while enabling thrusters.
 const ABSOLUTE_DIRECTION_TOLERANCE_RAD = 0.1745
 
-## The approximate number of days that should pass with each planetary landing.
-const PLANET_LANDING_APPROXIMATE_DAYS = 1
+## The approximate number of days that should pass with each landing at a port.
+const PORT_LANDING_APPROXIMATE_DAYS = 1
 
 # TODO: Put this somewhere better (per ship?)
 const HYPERSPACE_ARRIVAL_RADIUS = 8.0
@@ -244,9 +244,9 @@ func _land() -> void:
         self.message_log.add_message("Moving too fast to land.")
         return
 
-    var planet := self.landing_target.planet
-    if not planet:
-        self.message_log.add_message("Cannot land on this planet.")
+    var port := self.landing_target.port
+    if not port:
+        self.message_log.add_message("Cannot land here.")
         return
 
     var landing: Landing = self.landing_scene.instantiate()
@@ -260,12 +260,12 @@ func _land() -> void:
     landing.visibility_changed.connect(func() -> void:
         landing.add_sibling(self.ship)
         landing.queue_free()
-        self._depart_from_planet())
+        self._depart_from_port())
 
-    self.landed.emit(self, planet)
+    self.landed.emit(self, port)
 
-func _depart_from_planet() -> void:
-    self.calendar.pass_approximate_days(PLANET_LANDING_APPROXIMATE_DAYS)
+func _depart_from_port() -> void:
+    self.calendar.pass_approximate_days(PORT_LANDING_APPROXIMATE_DAYS)
     self._reset_controls()
     self._reset_velocity()
     self.takeoff_sound.play()

@@ -10,8 +10,8 @@
 [ext_resource type="Resource" uid="uid://dhxbtnaoc1nuo" path="res://mechanics/economy/commodities/medical_supplies.tres" id="7_s2brr"]
 [ext_resource type="Resource" uid="uid://ccvds2nloqvwn" path="res://mechanics/economy/commodities/industrial_equipment.tres" id="8_ei3p8"]
 [ext_resource type="Resource" uid="uid://dl132ceubbcos" path="res://mechanics/economy/commodities/rare_earth_elements.tres" id="9_vsdb2"]
-[ext_resource type="Resource" uid="uid://bcxt6a254xlc6" path="res://galaxy/planet/planets/gaia_prime.tres" id="10_v1q0h"]
-[ext_resource type="Resource" uid="uid://dlabxdxx15pp7" path="res://galaxy/planet/planets/aeolus.tres" id="11_kq5o6"]
+[ext_resource type="Resource" uid="uid://bcxt6a254xlc6" path="res://galaxy/port/ports/gaia_prime.tres" id="10_v1q0h"]
+[ext_resource type="Resource" uid="uid://dlabxdxx15pp7" path="res://galaxy/port/ports/aeolus.tres" id="11_kq5o6"]
 
 [sub_resource type="Resource" id="Resource_h1m1b"]
 script = ExtResource("2_xwx77")
@@ -32,7 +32,7 @@ name = &"Thalassa"
 connections = Array[StringName]([&"Sol", &"Helios"])
 position = Vector3(-0.5, -0.1, 2.7)
 scene_path = "res://galaxy/star_system/scenes/thalassa.tscn"
-planets = Array[Resource("res://galaxy/planet/planet.gd")]([ExtResource("10_v1q0h"), ExtResource("11_kq5o6")])
+ports = Array[Resource("res://galaxy/port/port.gd")]([ExtResource("10_v1q0h"), ExtResource("11_kq5o6")])
 market = SubResource("Resource_h1m1b")
 refueling_money = ExtResource("1_add1a")
 refueling_relative_price = 0.63

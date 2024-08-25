@@ -3,9 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://galaxy/stars/base_star.tscn" id="1_j8iws"]
 [ext_resource type="Resource" uid="uid://cew4x137v08q" path="res://galaxy/star_system/star_systems/sol.tres" id="2_gs8wx"]
 [ext_resource type="PackedScene" uid="uid://b04hfgkcuq7k6" path="res://galaxy/planet/planet_instance.tscn" id="3_7gpxn"]
-[ext_resource type="Resource" uid="uid://cmm0akidhocmo" path="res://galaxy/planet/planets/earth.tres" id="3_qvwl4"]
+[ext_resource type="Resource" uid="uid://cmm0akidhocmo" path="res://galaxy/port/ports/earth.tres" id="3_qvwl4"]
 [ext_resource type="Texture2D" uid="uid://bqxxjmbapro8l" path="res://galaxy/planet/sprites/planet_02.png" id="4_afp06"]
-[ext_resource type="Resource" uid="uid://c0oe5ys0462x0" path="res://galaxy/planet/planets/mars.tres" id="4_b0o1w"]
+[ext_resource type="Resource" uid="uid://c0oe5ys0462x0" path="res://galaxy/port/ports/mars.tres" id="4_b0o1w"]
 [ext_resource type="Texture2D" uid="uid://bege8n4jjcej5" path="res://galaxy/planet/sprites/planet_37.png" id="5_hnp7v"]
 [ext_resource type="Texture2D" uid="uid://dkelmabwfrb5x" path="res://galaxy/planet/sprites/planet_23.png" id="5_k6fyb"]
 [ext_resource type="PackedScene" uid="uid://dqrul5pyjbxjc" path="res://ships/freighter/freighter.tscn" id="6_uk08c"]
@@ -57,11 +57,11 @@ texture = ExtResource("5_k6fyb")
 
 [node name="Earth" parent="." index="3" instance=ExtResource("3_7gpxn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.38638, 0, 6.14048)
-planet = ExtResource("3_qvwl4")
+port = ExtResource("3_qvwl4")
 
 [node name="Mars" parent="." index="4" instance=ExtResource("3_7gpxn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0726, 0, 12.0475)
-planet = ExtResource("4_b0o1w")
+port = ExtResource("4_b0o1w")
 
 [node name="Sprite3D" parent="Mars" index="1"]
 texture = ExtResource("4_afp06")
