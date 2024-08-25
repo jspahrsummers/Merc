@@ -257,7 +257,7 @@ def main() -> None:
         parts = command.split()
         match parts[0]:
             case "/paths":
-                console.print(*context_paths, sep="\n", style="info")
+                console.print(*sorted(context_paths), sep="\n", style="info")
 
             case "/bytes":
                 sizes = {path: path.stat().st_size for path in context_paths}
