@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://d3qpe4ne3bgww"]
 
 [ext_resource type="Resource" uid="uid://di0bekcy5g0ya" path="res://galaxy/star_system/star_systems/wolf_359.tres" id="2_byjpf"]
-[ext_resource type="PackedScene" uid="uid://d27pdcik2lwf1" path="res://stars/main_sequence/star_class_m.tscn" id="3_wjxxu"]
+[ext_resource type="PackedScene" uid="uid://d27pdcik2lwf1" path="res://galaxy/stars/main_sequence/star_class_m.tscn" id="3_wjxxu"]
 [ext_resource type="PackedScene" uid="uid://culoat6jnbwc8" path="res://actors/ai/pirate_frigate.tscn" id="4_tean3"]
 [ext_resource type="Script" path="res://mechanics/combat/hull.gd" id="5_1fi2w"]
 [ext_resource type="Script" path="res://mechanics/combat/shield.gd" id="6_fwcxa"]

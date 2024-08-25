@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://b7ego5luosh2x"]
 
 [ext_resource type="Resource" uid="uid://cu1wn7ldbgeej" path="res://galaxy/star_system/star_systems/thalassa.tres" id="2_5t60p"]
-[ext_resource type="PackedScene" uid="uid://bqhgqgsbi7ofa" path="res://stars/main_sequence/star_class_k.tscn" id="3_i27l2"]
-[ext_resource type="PackedScene" uid="uid://d27pdcik2lwf1" path="res://stars/main_sequence/star_class_m.tscn" id="4_flex8"]
+[ext_resource type="PackedScene" uid="uid://bqhgqgsbi7ofa" path="res://galaxy/stars/main_sequence/star_class_k.tscn" id="3_i27l2"]
+[ext_resource type="PackedScene" uid="uid://d27pdcik2lwf1" path="res://galaxy/stars/main_sequence/star_class_m.tscn" id="4_flex8"]
 [ext_resource type="PackedScene" uid="uid://b04hfgkcuq7k6" path="res://galaxy/planet/planet_instance.tscn" id="5_p806y"]
 [ext_resource type="Resource" uid="uid://bcxt6a254xlc6" path="res://galaxy/planet/planets/gaia_prime.tres" id="6_a1qqt"]
 [ext_resource type="Resource" uid="uid://dlabxdxx15pp7" path="res://galaxy/planet/planets/aeolus.tres" id="7_ffl6i"]

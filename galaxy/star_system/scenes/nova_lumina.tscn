@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://di4weo7brixhh"]
 
 [ext_resource type="Resource" uid="uid://ku5qjeo4jlkt" path="res://galaxy/star_system/star_systems/nova_lumina.tres" id="2_etutf"]
-[ext_resource type="PackedScene" uid="uid://d1sevq56wdchx" path="res://stars/main_sequence/star_class_b.tscn" id="3_kweak"]
+[ext_resource type="PackedScene" uid="uid://d1sevq56wdchx" path="res://galaxy/stars/main_sequence/star_class_b.tscn" id="3_kweak"]
 [ext_resource type="PackedScene" uid="uid://b04hfgkcuq7k6" path="res://galaxy/planet/planet_instance.tscn" id="3_qge20"]
 [ext_resource type="Resource" uid="uid://ooe0w4eaywk3" path="res://galaxy/planet/planets/lumina_prime.tres" id="4_mwi45"]
 [ext_resource type="Resource" uid="uid://duf1gpmd1ydk7" path="res://galaxy/planet/planets/auroris.tres" id="5_kad6o"]

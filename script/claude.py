@@ -63,8 +63,8 @@ CONTEXT_PATHS = [
 ]
 
 AWARENESS_PATHS = [
+    "galaxy/stars/**/*.tscn",
     "ships/**/*.tscn",
-    "stars/**/*.tscn",
 ]
 
 SYSTEM_PROMPT = """\

@@ -29,7 +29,7 @@ Then, fill in the `Planet` properties, especially the landscape image and the de
 
 #### Stars
 
-Stars of all kinds can be added by instantiating any of the scenes in [stars/](stars/).
+Stars of all kinds can be added by instantiating any of the scenes in [galaxy/stars/](galaxy/stars/).
 
 To define a new type of star, create a new inherited scene from `base_star.tscn` specifically, which is the base of all the others. Note that we shouldn't need to define _that_ many unique types of stars.
 

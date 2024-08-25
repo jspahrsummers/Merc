@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cy4rio5cdb5xy"]
 
 [ext_resource type="Resource" uid="uid://bowucldo27rjd" path="res://galaxy/star_system/star_systems/zephyria.tres" id="2_q8gm3"]
-[ext_resource type="PackedScene" uid="uid://cfvdpnqnalspg" path="res://stars/giants/star_red_giant.tscn" id="3_7is3b"]
+[ext_resource type="PackedScene" uid="uid://cfvdpnqnalspg" path="res://galaxy/stars/giants/star_red_giant.tscn" id="3_7is3b"]
 [ext_resource type="PackedScene" uid="uid://b04hfgkcuq7k6" path="res://galaxy/planet/planet_instance.tscn" id="4_qafen"]
 [ext_resource type="Resource" uid="uid://crj6o7sd5pos2" path="res://galaxy/planet/planets/aethoria.tres" id="5_ls4hq"]
 [ext_resource type="Texture2D" uid="uid://cf0g36mpu7enh" path="res://galaxy/planet/sprites/planet_03.png" id="6_lxy5c"]
