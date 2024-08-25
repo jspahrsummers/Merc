@@ -62,12 +62,12 @@ enum Status {
         self.emit_changed()
 
 ## A destination to deliver cargo to.
-@export var destination_planet: Planet:
+@export var destination_port: Port:
     set(value):
-        if value == destination_planet:
+        if value == destination_port:
             return
 
-        destination_planet = value
+        destination_port = value
         self.emit_changed()
 
 ## A dictionary of [TradeAsset] keys to [float] amounts that the player will receive upon success.
@@ -121,27 +121,27 @@ const _RUSH_DELIVERY_MIN_DEADLINE_BUFFER = 1.1
 const _RUSH_DELIVERY_MAX_DEADLINE_BUFFER = 1.5
 
 ## Creates a random delivery mission without a deadline.
-static func create_delivery_mission(origin_planet: Planet) -> Mission:
+static func create_delivery_mission(origin_port: Port) -> Mission:
     var mission := Mission.new()
 
-    var origin_system: StarSystem = origin_planet.star_system.get_ref()
+    var origin_system: StarSystem = origin_port.star_system.get_ref()
     var galaxy: Galaxy = origin_system.galaxy.get_ref()
     var possible_destination_systems := galaxy.systems.filter(func(system: StarSystem) -> bool:
-        return system.planets and system != origin_system)
+        return system.ports and system != origin_system)
 
     var destination_system: StarSystem = possible_destination_systems.pick_random()
-    mission.destination_planet = destination_system.planets.pick_random()
+    mission.destination_port = destination_system.ports.pick_random()
 
     var commodity := Commodity.pick_random_special()
     var cargo_volume := randi_range(5, 20)
     var units := roundi(cargo_volume / commodity.volume)
     mission.cargo[commodity] = units
 
-    mission.title = "Delivery to %s" % mission.destination_planet.name
+    mission.title = "Delivery to %s" % mission.destination_port.name
     mission.description = "Transport %s %s to %s in the %s system." % [
         units,
         commodity.name,
-        mission.destination_planet.name,
+        mission.destination_port.name,
         destination_system.name,
     ]
 
@@ -185,8 +185,8 @@ static func _randomly_walk_systems(galaxy: Galaxy, path_so_far: Array[StarSystem
         if possible_path:
             new_path = possible_path
 
-    # Return the longest path that ends in a planetary system.
-    while not new_path[-1].planets:
+    # Return the longest path that ends in a system with a port.
+    while not new_path[-1].ports:
         new_path.pop_back()
 
         if new_path.size() <= 1:
@@ -198,8 +198,8 @@ static func _randomly_walk_systems(galaxy: Galaxy, path_so_far: Array[StarSystem
 ## Creates a random rush delivery mission.
 ##
 ## Note: this may not succeed every time, so ensure that the return value is checked.
-static func create_rush_delivery_mission(origin_planet: Planet, calendar: Calendar) -> Mission:
-    var origin_system: StarSystem = origin_planet.star_system.get_ref()
+static func create_rush_delivery_mission(origin_port: Port, calendar: Calendar) -> Mission:
+    var origin_system: StarSystem = origin_port.star_system.get_ref()
     var galaxy: Galaxy = origin_system.galaxy.get_ref()
 
     var path := Mission._randomly_walk_systems(galaxy, [origin_system])
@@ -214,18 +214,18 @@ static func create_rush_delivery_mission(origin_planet: Planet, calendar: Calend
     var destination_system: StarSystem = path[-1]
     assert(destination_system != origin_system, "Cannot create rush delivery to the system we started in")
 
-    mission.destination_planet = destination_system.planets.pick_random()
+    mission.destination_port = destination_system.ports.pick_random()
 
     var commodity := Commodity.pick_random_special()
     var cargo_volume := randi_range(5, 20)
     var units := roundi(cargo_volume / commodity.volume)
     mission.cargo[commodity] = units
 
-    mission.title = "Rush delivery to %s" % mission.destination_planet.name
+    mission.title = "Rush delivery to %s" % mission.destination_port.name
     mission.description = "Transport %s %s to %s in the %s system before %s." % [
         units,
         commodity.name,
-        mission.destination_planet.name,
+        mission.destination_port.name,
         destination_system.name,
         Calendar.format_gst(mission.deadline_cycle),
     ]
@@ -275,16 +275,16 @@ static func create_bounty_mission(hero_roster: HeroRoster) -> Mission:
 ## Creates a random mission of any type.
 ##
 ## Note: this may not succeed every time, so ensure that the return value is checked.
-static func create_random_mission(origin_planet: Planet, calendar: Calendar, hero_roster: HeroRoster) -> Mission:
+static func create_random_mission(origin_port: Port, calendar: Calendar, hero_roster: HeroRoster) -> Mission:
     var generators := [
         func() -> Mission: return Mission.create_bounty_mission(hero_roster),
-        func() -> Mission: return Mission.create_rush_delivery_mission(origin_planet, calendar),
+        func() -> Mission: return Mission.create_rush_delivery_mission(origin_port, calendar),
     ]
 
     # Lazy way of weighting the random generation
     for i in range(2):
         generators.append(
-            func() -> Mission: return Mission.create_delivery_mission(origin_planet),
+            func() -> Mission: return Mission.create_delivery_mission(origin_port),
         )
 
     var generator: Callable = generators.pick_random()
@@ -317,8 +317,8 @@ func save_to_dict() -> Dictionary:
 
     result["status"] = self.status
 
-    if self.destination_planet:
-        result["destination_planet"] = self.destination_planet.resource_path
+    if self.destination_port:
+        result["destination_port"] = self.destination_port.resource_path
     if self.assassination_target:
         result["assassination_target"] = self.assassination_target.resource_path
 
@@ -334,9 +334,9 @@ func load_from_dict(dict: Dictionary) -> void:
     self.deadline_cycle = dict["deadline_cycle"] if "deadline_cycle" in dict else INF
     self.status = dict["status"]
 
-    if "destination_planet" in dict:
-        var path: String = dict["destination_planet"]
-        self.destination_planet = ResourceUtils.safe_load_resource(path, "tres")
+    if "destination_port" in dict:
+        var path: String = dict["destination_port"]
+        self.destination_port = ResourceUtils.safe_load_resource(path, "tres")
 
     if "assassination_target" in dict:
         var path: String = dict["assassination_target"]

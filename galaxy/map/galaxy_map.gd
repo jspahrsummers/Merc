@@ -122,7 +122,7 @@ func _update_selection_state() -> void:
 
     self.system_name_label.text = presented_system.name
 
-    if not presented_system.planets:
+    if not presented_system.ports:
         self.ports_label.text = "(none)"
         self.facilities_heading.visible = false
         self.facilities_label.visible = false
@@ -139,18 +139,18 @@ func _update_selection_state() -> void:
 
     var facilities_flags: int = 0
     var ports := PackedStringArray()
-    for planet in presented_system.planets:
-        ports.append(planet.name)
-        facilities_flags |= planet.facilities
+    for port in presented_system.ports:
+        ports.append(port.name)
+        facilities_flags |= port.facilities
     
     var facilities := PackedStringArray()
-    if facilities_flags & Planet.REFUEL:
+    if facilities_flags & Port.REFUEL:
         facilities.append("Fuel")
-    if facilities_flags & Planet.MISSIONS:
+    if facilities_flags & Port.MISSIONS:
         facilities.append("Missions")
-    if facilities_flags & Planet.OUTFITTER:
+    if facilities_flags & Port.OUTFITTER:
         facilities.append("Outfitter")
-    if facilities_flags & Planet.SHIPYARD:
+    if facilities_flags & Port.SHIPYARD:
         facilities.append("Shipyard")
 
     self.ports_label.text = "\n".join(ports)

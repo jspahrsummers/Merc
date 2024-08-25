@@ -19,17 +19,17 @@ To introduce a new star system:
 
 Your new scene file is now the canvas upon which to create your star system! You can add the following types of entities into your scene to populate the system. All of them can be moved around and rotated as you see fit.
 
-#### Planets
+#### Celestial objects
 
-Add planets to your system by instantiating the `planet_instance.tscn` scene. To customize the planet's appearance (sprite) or other properties, right-click the planet instance in the scene tree and enable "Editable Children."
+Add celestial objects (planets, moons, space stations, etc.) to your system by instantiating the `celestial.tscn` scene. To customize its appearance (sprite) or other properties, right-click the celestial in the scene tree and enable "Editable Children."
 
-If you want the player to be able to land on your new planet, create a [`Planet`](planet/planet.gd) resource in [planet/planets/](planet/planets/), and set the `planet` property of the `PlanetInstance` to the new resource. Add the `Planet` resource to the `planets` array of the `StarSystem` as well.
+If you want the player to be able to land on your new celestial, create a [`Port`](galaxy/port/port.gd) resource in [galaxy/port/ports/](galaxy/port/ports/), and set the `port` property of the `Celestial` to the new resource. Add the `Port` resource to the `ports` array of the `StarSystem` as well.
 
-Then, fill in the `Planet` properties, especially the landscape image and the description that the player will see when they land. (You can also [use AI to help here](./README.md#use-of-ai)!)
+Then, fill in the `Port` properties, especially the landscape image and the description that the player will see when they land. (You can also [use AI to help here](./README.md#use-of-ai)!)
 
 #### Stars
 
-Stars of all kinds can be added by instantiating any of the scenes in [stars/](stars/).
+Stars of all kinds can be added by instantiating any of the scenes in [galaxy/stars/](galaxy/stars/).
 
 To define a new type of star, create a new inherited scene from `base_star.tscn` specifically, which is the base of all the others. Note that we shouldn't need to define _that_ many unique types of stars.
 

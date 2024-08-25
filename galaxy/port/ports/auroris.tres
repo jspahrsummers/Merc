@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Port" load_steps=3 format=3 uid="uid://duf1gpmd1ydk7"]
+
+[ext_resource type="Texture2D" uid="uid://ck5gmxfhw6i7" path="res://screens/landing/images/75c7ed5b-f828-48af-aad8-e77735774a4d.jpg" id="1_j5cvo"]
+[ext_resource type="Script" path="res://galaxy/port/port.gd" id="1_m5fwf"]
+
+[resource]
+script = ExtResource("1_m5fwf")
+name = "Auroris"
+facilities = 59
+landscape_image = ExtResource("1_j5cvo")
+description = "As your ship descends through the thick, swirling atmosphere of Auroris, the true nature of this giant planet comes into stark relief. The planet's immense gravity tugs at your vessel, the inertial dampeners straining to compensate. Through the viewscreen, the landscape unfolds - a world of extremes bathed in the intense blue-white light of Nova Lumina's young star.
+
+Vast, ruby-red deserts stretch as far as the eye can see, their surfaces glittering with metal-rich sands. In the distance, you spot the shimmering mirages of shallow, acidic seas, their surfaces roiling with turbulent winds. The sky above is a thick blanket of rusty orange, occasionally split by arcs of lightning that dance between the heavy, roiling clouds.
+
+As you approach the main settlement, you're struck by the ingenuity of its design. Massive, dome-like structures rise from the harsh landscape, their reinforced walls protecting the inhabitants from the crushing atmospheric pressure and corrosive environment. Connecting these domes is a network of elevated tubes and platforms, allowing for travel between different sectors of the colony.
+
+The spaceport itself is a marvel of engineering - a massive, partially submerged structure with thick, pressure-resistant walls and airlocks large enough to accommodate capital ships. As your vessel touches down, you feel the subtle shift as the landing pad compensates for the planet's higher gravity.
+
+Disembarking, you're immediately struck by the weight of your own body. Despite the controlled atmosphere within the spaceport, the gravity here is noticeably stronger than standard. Around you, both humans and aliens move with practiced ease, their bodies adapted to the increased pull.
+
+In the distance, through reinforced plasteel windows, you can see the silhouettes of massive mining operations - enormous machines designed to extract the planet's abundant resources. Cargo shuttles constantly flit between these operations and the orbiting stations, ferrying valuable materials off-world.
+
+As you step further into the spaceport, the weight of opportunity - and gravity - settles upon you. Auroris may be unforgiving, but for those willing to endure its hardships, the rewards can be immeasurable."

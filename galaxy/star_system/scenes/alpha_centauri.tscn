@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://cyoasaafloxke"]
 
-[ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://stars/base_star.tscn" id="1_hyeo5"]
+[ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://galaxy/stars/base_star.tscn" id="1_hyeo5"]
 [ext_resource type="Resource" uid="uid://cs1x8gyt6a7kw" path="res://galaxy/star_system/star_systems/alpha_centauri.tres" id="2_ex383"]
-[ext_resource type="PackedScene" uid="uid://bqhgqgsbi7ofa" path="res://stars/main_sequence/star_class_k.tscn" id="4_daplr"]
-[ext_resource type="PackedScene" uid="uid://d27pdcik2lwf1" path="res://stars/main_sequence/star_class_m.tscn" id="5_gjyye"]
+[ext_resource type="PackedScene" uid="uid://bqhgqgsbi7ofa" path="res://galaxy/stars/main_sequence/star_class_k.tscn" id="4_daplr"]
+[ext_resource type="PackedScene" uid="uid://d27pdcik2lwf1" path="res://galaxy/stars/main_sequence/star_class_m.tscn" id="5_gjyye"]
 [ext_resource type="PackedScene" uid="uid://fxemun7o6rix" path="res://galaxy/star_system/star_system_instance.tscn" id="star_system_instance"]
 
 [node name="Alpha Centauri" instance=ExtResource("star_system_instance")]

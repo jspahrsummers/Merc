@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://cghdtnx2qen2u"]
 
 [ext_resource type="Resource" uid="uid://shiglva7yxl0" path="res://galaxy/star_system/star_systems/barnard's_star.tres" id="2_y4tl8"]
-[ext_resource type="PackedScene" uid="uid://d27pdcik2lwf1" path="res://stars/main_sequence/star_class_m.tscn" id="3_cqasn"]
+[ext_resource type="PackedScene" uid="uid://d27pdcik2lwf1" path="res://galaxy/stars/main_sequence/star_class_m.tscn" id="3_cqasn"]
 [ext_resource type="Resource" uid="uid://qlbnowlag2dr" path="res://actors/heroes/bounties/Zora 'Starshiv' Blackburn.tres" id="5_lj2ck"]
 [ext_resource type="PackedScene" uid="uid://ccdkamqw03rk7" path="res://fx/asteroids/multi_asteroid_field.tscn" id="5_x1i1i"]
 [ext_resource type="Script" path="res://mechanics/combat/hull.gd" id="6_084xj"]

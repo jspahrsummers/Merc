@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfvdpnqnalspg"]
+
+[ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://galaxy/stars/base_star.tscn" id="1_8tdkj"]
+[ext_resource type="Texture2D" uid="uid://hvnco6sogllx" path="res://galaxy/stars/sprites/star_red_giant04.png" id="2_ift00"]
+
+[node name="Red Giant" instance=ExtResource("1_8tdkj")]
+
+[node name="OmniLight3D" parent="." index="0"]
+light_color = Color(1, 0.505882, 0.439216, 1)
+light_energy = 20.0
+light_indirect_energy = 10.0
+omni_range = 60.0
+
+[node name="Sprite3D" parent="." index="1"]
+texture = ExtResource("2_ift00")

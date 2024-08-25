@@ -1,14 +1,14 @@
 [gd_scene load_steps=11 format=3 uid="uid://b7ego5luosh2x"]
 
 [ext_resource type="Resource" uid="uid://cu1wn7ldbgeej" path="res://galaxy/star_system/star_systems/thalassa.tres" id="2_5t60p"]
-[ext_resource type="PackedScene" uid="uid://bqhgqgsbi7ofa" path="res://stars/main_sequence/star_class_k.tscn" id="3_i27l2"]
-[ext_resource type="PackedScene" uid="uid://d27pdcik2lwf1" path="res://stars/main_sequence/star_class_m.tscn" id="4_flex8"]
-[ext_resource type="PackedScene" uid="uid://b04hfgkcuq7k6" path="res://planet/planet_instance.tscn" id="5_p806y"]
-[ext_resource type="Resource" uid="uid://bcxt6a254xlc6" path="res://planet/planets/gaia_prime.tres" id="6_a1qqt"]
-[ext_resource type="Resource" uid="uid://dlabxdxx15pp7" path="res://planet/planets/aeolus.tres" id="7_ffl6i"]
-[ext_resource type="Texture2D" uid="uid://03ncc8x5o5p" path="res://planet/sprites/planet_06.png" id="7_ih7yq"]
-[ext_resource type="Texture2D" uid="uid://c0155fkdfnehk" path="res://planet/sprites/planet_47.png" id="8_o1nyb"]
-[ext_resource type="Texture2D" uid="uid://7ou2232hojfu" path="res://planet/sprites/planet_08.png" id="10_7gbi5"]
+[ext_resource type="PackedScene" uid="uid://bqhgqgsbi7ofa" path="res://galaxy/stars/main_sequence/star_class_k.tscn" id="3_i27l2"]
+[ext_resource type="PackedScene" uid="uid://d27pdcik2lwf1" path="res://galaxy/stars/main_sequence/star_class_m.tscn" id="4_flex8"]
+[ext_resource type="PackedScene" uid="uid://b04hfgkcuq7k6" path="res://galaxy/celestials/celestial.tscn" id="5_p806y"]
+[ext_resource type="Resource" uid="uid://bcxt6a254xlc6" path="res://galaxy/port/ports/gaia_prime.tres" id="6_a1qqt"]
+[ext_resource type="Resource" uid="uid://dlabxdxx15pp7" path="res://galaxy/port/ports/aeolus.tres" id="7_ffl6i"]
+[ext_resource type="Texture2D" uid="uid://03ncc8x5o5p" path="res://galaxy/celestials/sprites/planet_06.png" id="7_ih7yq"]
+[ext_resource type="Texture2D" uid="uid://c0155fkdfnehk" path="res://galaxy/celestials/sprites/planet_47.png" id="8_o1nyb"]
+[ext_resource type="Texture2D" uid="uid://7ou2232hojfu" path="res://galaxy/celestials/sprites/planet_08.png" id="10_7gbi5"]
 [ext_resource type="PackedScene" uid="uid://fxemun7o6rix" path="res://galaxy/star_system/star_system_instance.tscn" id="star_system_instance"]
 
 [node name="Thalassa" instance=ExtResource("star_system_instance")]
@@ -22,7 +22,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4962, 2.08165e-12, 3.09616)
 
 [node name="Gaia Prime" parent="." index="2" instance=ExtResource("5_p806y")]
 transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 1.5, -2.33977, 0, -9.75337)
-planet = ExtResource("6_a1qqt")
+port = ExtResource("6_a1qqt")
 
 [node name="Sprite3D" parent="Gaia Prime" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
@@ -38,7 +38,7 @@ texture = ExtResource("8_o1nyb")
 
 [node name="Aeolus" parent="." index="4" instance=ExtResource("5_p806y")]
 transform = Transform3D(1.2, 0, 0, 0, 1, 0, 0, 0, 1.2, -15.733, 3.8147e-06, -15.8206)
-planet = ExtResource("7_ffl6i")
+port = ExtResource("7_ffl6i")
 
 [node name="Sprite3D" parent="Aeolus" index="1"]
 transform = Transform3D(-0.439641, 0, 0.898174, 0, 1, 0, -0.898173, 0, -0.439641, 0, -1, 0)

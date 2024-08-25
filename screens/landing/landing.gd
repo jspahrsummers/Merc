@@ -19,30 +19,30 @@ class_name Landing
 ## The player. Must be set before displaying.
 var player: Player
 
-## The planet to land on. Must be set before displaying.
-var planet_instance: PlanetInstance
+## The port to land on. Must be set before displaying.
+var celestial: Celestial
 
-## The star system the planet is in. Must be set before displaying.
+## The star system the port is in. Must be set before displaying.
 var star_system: StarSystem
 
-var _planet: Planet
+var _port: Port
 var _hyperdrive: Hyperdrive
 var _trading_window: TradingWindow = null
 var _missions_window: MissionComputerWindow = null
 
 func _ready() -> void:
     self._hyperdrive = self.player.ship.hyperdrive
-    self._planet = self.planet_instance.planet
+    self._port = self.celestial.port
 
-    self.title = self._planet.name
-    self.bar_button.visible = (self._planet.facilities & Planet.BAR)
-    self.trading_button.visible = (self._planet.facilities & Planet.TRADING)
-    self.missions_button.visible = (self._planet.facilities & Planet.MISSIONS)
-    self.outfitter_button.visible = (self._planet.facilities & Planet.OUTFITTER)
-    self.shipyard_button.visible = (self._planet.facilities & Planet.SHIPYARD)
-    self.refuel_button.visible = (self._planet.facilities & Planet.REFUEL)
-    self.landscape_image.texture = self._planet.landscape_image
-    self.description_label.text = self._planet.description
+    self.title = self._port.name
+    self.bar_button.visible = (self._port.facilities & Port.BAR)
+    self.trading_button.visible = (self._port.facilities & Port.TRADING)
+    self.missions_button.visible = (self._port.facilities & Port.MISSIONS)
+    self.outfitter_button.visible = (self._port.facilities & Port.OUTFITTER)
+    self.shipyard_button.visible = (self._port.facilities & Port.SHIPYARD)
+    self.refuel_button.visible = (self._port.facilities & Port.REFUEL)
+    self.landscape_image.texture = self._port.landscape_image
+    self.description_label.text = self._port.description
 
     self._update_refuel_button()
 
@@ -51,7 +51,7 @@ func _on_bar_button_pressed() -> void:
     self.bar_dialog.show()
 
 func _on_trading_button_pressed() -> void:
-    assert(self.star_system.market, "Star system must have a market for the planet to have trading")
+    assert(self.star_system.market, "Star system must have a market for the port to have trading")
 
     if not self._trading_window:
         self._trading_window = self.trading_window_scene.instantiate()
@@ -68,7 +68,7 @@ func _on_missions_button_pressed() -> void:
         self._missions_window = self.missions_window_scene.instantiate()
         self._missions_window.available_missions = Mission.filter_incompatible_missions(
             self.player.mission_controller.get_current_missions(),
-            self.planet_instance.get_available_missions(self.player.calendar, self.player.hero_roster))
+            self.celestial.get_available_missions(self.player.calendar, self.player.hero_roster))
         self._missions_window.mission_controller = self.player.mission_controller
         self._missions_window.cargo_hold = self.player.ship.cargo_hold
         self._missions_window.bank_account = self.player.bank_account

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://clmjmlce3ufwg"]
+
+[ext_resource type="PackedScene" uid="uid://cji43wyk7116p" path="res://galaxy/stars/base_star.tscn" id="1_ixvug"]
+[ext_resource type="Texture2D" uid="uid://c8pk2eg557fsk" path="res://galaxy/stars/sprites/star_white02.png" id="2_s1gx4"]
+
+[node name="White Dwarf" instance=ExtResource("1_ixvug")]
+
+[node name="OmniLight3D" parent="." index="0"]
+light_energy = 5.0
+omni_range = 5.0
+
+[node name="Sprite3D" parent="." index="1"]
+transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 2.08165e-12, -1, 2.08165e-12)
+texture = ExtResource("2_s1gx4")

@@ -145,7 +145,7 @@ As mentioned before, the one stipulation is that these images aren’t to be use
 
 Graphics created by [Justin Spahr-Summers](https://github.com/jspahrsummers) for this project, using [Midjourney](https://www.midjourney.com/):
 - icon
-- planet landing images
+- port landing images
 
 # Addon licenses
 

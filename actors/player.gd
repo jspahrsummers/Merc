@@ -32,16 +32,16 @@ signal ship_destroyed(player: Player)
 signal target_changed(player: Player, target: CombatObject)
 
 ## Fires when the player changes their landing target.
-signal landing_target_changed(player: Player, target: PlanetInstance)
+signal landing_target_changed(player: Player, target: Celestial)
 
-## Fires when the player lands on a planet.
-signal landed(player: Player, planet: Planet)
+## Fires when the player lands on a port.
+signal landed(player: Player, port: Port)
 
 ## Fires when the ship's hyperdrive changes.
 signal hyperdrive_changed(player: Player, hyperdrive: Hyperdrive)
 
 ## The current target for landing, if any.
-var landing_target: PlanetInstance = null:
+var landing_target: Celestial = null:
     set(value):
         if landing_target == value:
             return
@@ -64,8 +64,8 @@ var _rigid_body_turner: RigidBodyTurner
 ## When using the "absolute" control scheme, this is the tolerance (in radians) for being slightly off-rotated while enabling thrusters.
 const ABSOLUTE_DIRECTION_TOLERANCE_RAD = 0.1745
 
-## The approximate number of days that should pass with each planetary landing.
-const PLANET_LANDING_APPROXIMATE_DAYS = 1
+## The approximate number of days that should pass with each landing at a port.
+const PORT_LANDING_APPROXIMATE_DAYS = 1
 
 # TODO: Put this somewhere better (per ship?)
 const HYPERSPACE_ARRIVAL_RADIUS = 8.0
@@ -151,25 +151,25 @@ func _next_target() -> CombatObject:
     available_targets.erase(self.ship.combat_object)
     return ArrayUtils.cycle_through(available_targets, self.ship.targeting_system.target)
 
-func _available_landing_targets() -> Array[PlanetInstance]:
-    var targets: Array[PlanetInstance] = []
-    for node in self.get_tree().get_nodes_in_group("planets"):
-        var planet_instance := node as PlanetInstance
-        if planet_instance:
-            targets.append(planet_instance)
+func _available_landing_targets() -> Array[Celestial]:
+    var targets: Array[Celestial] = []
+    for node in self.get_tree().get_nodes_in_group("celestials"):
+        var celestial := node as Celestial
+        if celestial:
+            targets.append(celestial)
 
     return targets
 
-func _closest_landing_target() -> PlanetInstance:
-    var nearest_planet_instance: PlanetInstance = null
+func _closest_landing_target() -> Celestial:
+    var nearest_celestial: Celestial = null
     var nearest_distance := INF
-    for planet_instance in self._available_landing_targets():
-        var distance := planet_instance.global_transform.origin.distance_to(self.ship.global_transform.origin)
+    for celestial in self._available_landing_targets():
+        var distance := celestial.global_transform.origin.distance_to(self.ship.global_transform.origin)
         if distance <= nearest_distance:
-            nearest_planet_instance = planet_instance
+            nearest_celestial = celestial
             nearest_distance = distance
 
-    return nearest_planet_instance
+    return nearest_celestial
 
 func _unhandled_key_input(event: InputEvent) -> void:
     if self.ship.hyperdrive_system.jumping:
@@ -195,7 +195,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
         self._land()
 
     if event.is_action_pressed("cycle_landing_target", true):
-        var next_target: PlanetInstance = ArrayUtils.cycle_through(self._available_landing_targets(), self.landing_target)
+        var next_target: Celestial = ArrayUtils.cycle_through(self._available_landing_targets(), self.landing_target)
         self.landing_target = next_target
         self.get_viewport().set_input_as_handled()
 
@@ -212,9 +212,9 @@ func _on_broadcasted_input_event(receiver: Node, event: InputEvent) -> void:
         self.ship.targeting_system.target = combat_object
         return
 
-    var planet_instance := receiver as PlanetInstance
-    if planet_instance:
-        self.landing_target = planet_instance
+    var celestial := receiver as Celestial
+    if celestial:
+        self.landing_target = celestial
         return
 
 func _jump_to_hyperspace() -> void:
@@ -244,14 +244,14 @@ func _land() -> void:
         self.message_log.add_message("Moving too fast to land.")
         return
 
-    var planet := self.landing_target.planet
-    if not planet:
-        self.message_log.add_message("Cannot land on this planet.")
+    var port := self.landing_target.port
+    if not port:
+        self.message_log.add_message("Cannot land here.")
         return
 
     var landing: Landing = self.landing_scene.instantiate()
     landing.player = self
-    landing.planet_instance = self.landing_target
+    landing.celestial = self.landing_target
     landing.star_system = self.ship.hyperdrive_system.current_system()
     self.ship.add_sibling(landing)
     self.ship.get_parent().remove_child(self.ship)
@@ -260,12 +260,12 @@ func _land() -> void:
     landing.visibility_changed.connect(func() -> void:
         landing.add_sibling(self.ship)
         landing.queue_free()
-        self._depart_from_planet())
+        self._depart_from_port())
 
-    self.landed.emit(self, planet)
+    self.landed.emit(self, port)
 
-func _depart_from_planet() -> void:
-    self.calendar.pass_approximate_days(PLANET_LANDING_APPROXIMATE_DAYS)
+func _depart_from_port() -> void:
+    self.calendar.pass_approximate_days(PORT_LANDING_APPROXIMATE_DAYS)
     self._reset_controls()
     self._reset_velocity()
     self.takeoff_sound.play()

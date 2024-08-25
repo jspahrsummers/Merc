@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://cji43wyk7116p"]
+
+[ext_resource type="Texture2D" uid="uid://6ijlgdb1n5rc" path="res://galaxy/stars/sprites/star_orange02.png" id="1_o8f7r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6m41v"]
+shading_mode = 0
+
+[sub_resource type="QuadMesh" id="QuadMesh_0xyx2"]
+material = SubResource("StandardMaterial3D_6m41v")
+size = Vector2(2, 2)
+orientation = 1
+
+[node name="Star" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, 2.08165e-12)
+light_energy = 10.0
+light_indirect_energy = 5.0
+light_specular = 1.0
+light_bake_mode = 1
+shadow_enabled = true
+omni_range = 20.0
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, -1, 2.08165e-12)
+cast_shadow = 0
+gi_mode = 0
+axis = 1
+double_sided = false
+texture = ExtResource("1_o8f7r")
+
+[node name="MinimapIcon" type="MeshInstance3D" parent="Sprite3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.08165e-12, 1, -2.08165e-12)
+layers = 2
+cast_shadow = 0
+gi_mode = 0
+mesh = SubResource("QuadMesh_0xyx2")
+skeleton = NodePath("../..")

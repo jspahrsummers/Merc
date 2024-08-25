@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://mechanics/economy/market.gd" id="2_nldec"]
 [ext_resource type="Resource" uid="uid://bnw61s2hj8a0m" path="res://mechanics/economy/commodities/water.tres" id="2_tsdy1"]
 [ext_resource type="Resource" uid="uid://dl132ceubbcos" path="res://mechanics/economy/commodities/rare_earth_elements.tres" id="3_8a2sl"]
-[ext_resource type="Resource" uid="uid://crj6o7sd5pos2" path="res://planet/planets/aethoria.tres" id="6_jhedg"]
+[ext_resource type="Resource" uid="uid://crj6o7sd5pos2" path="res://galaxy/port/ports/aethoria.tres" id="6_jhedg"]
 
 [sub_resource type="Resource" id="Resource_6lhwe"]
 script = ExtResource("2_nldec")
@@ -23,7 +23,7 @@ name = &"Zephyria"
 connections = Array[StringName]([&"Alpha Centauri", &"Nova Lumina"])
 position = Vector3(-2.7, 0.5, -3)
 scene_path = "res://galaxy/star_system/scenes/zephyria.tscn"
-planets = Array[Resource("res://planet/planet.gd")]([ExtResource("6_jhedg")])
+ports = Array[Resource("res://galaxy/port/port.gd")]([ExtResource("6_jhedg")])
 market = SubResource("Resource_6lhwe")
 refueling_money = ExtResource("1_gu0r8")
 refueling_relative_price = 0.347

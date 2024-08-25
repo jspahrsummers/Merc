@@ -49,12 +49,11 @@ CONTEXT_PATHS = [
     "fx/**/*.gd",
     "galaxy/**/*.gd",
     "galaxy/map/galaxy_map_window.tscn",
+    "galaxy/port/**/*.tres",
     "galaxy/star_system/scenes/*.tscn",
     "galaxy/star_system/star_systems/*.tres",
     "mechanics/**/*.gd",
     "mechanics/**/*.tres",
-    "planet/**/*.gd",
-    "planet/**/*.tres",
     "screens/**/*.gd",
     "screens/**/*.tscn",
     "ships/**/*.gd",
@@ -64,15 +63,15 @@ CONTEXT_PATHS = [
 ]
 
 AWARENESS_PATHS = [
+    "galaxy/stars/**/*.tscn",
     "ships/**/*.tscn",
-    "stars/**/*.tscn",
 ]
 
 SYSTEM_PROMPT = """\
 Aid with designing the game Merc, an Escape Velocity-like game created with Godot 4. You should help with designing the game's mechanics, crafting story and game content, as well as programming behaviors into the game itself.
 
-When designing new star systems and planets, keep the following in mind:
-- There can only be one trading market for a whole star system. All planets within the system share the same trading market (meaning the same list of commodities and prices).
+When designing new star systems and ports, keep the following in mind:
+- There can only be one trading market for a whole star system. All ports within the system share the same trading market (meaning the same list of commodities and prices).
 - Planetary descriptions should be interesting and captivating, but limit them to approximately five or so paragraphs.
 
 You have a tool to replace the contents of a file, but wait to write code until specifically asked to do so."""
