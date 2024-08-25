@@ -14,12 +14,14 @@ const LONG_MESSAGE_LIFETIME = 30.0
 var _messages := PackedStringArray()
 
 ## Push the given message text onto the log, with the given lifetime in seconds.
-func add_message(message_text: String, lifetime: float = SHORT_MESSAGE_LIFETIME) -> void:
+func add_message(message_text: String, lifetime: float = SHORT_MESSAGE_LIFETIME, play_sound: bool = true) -> void:
     assert(lifetime > 0, "Message should have a positive lifetime")
 
     self._messages.append(message_text)
     self._update_text()
-    self.new_message_audio.play()
+
+    if play_sound:
+        self.new_message_audio.play()
     
     await self.get_tree().create_timer(lifetime).timeout
 
