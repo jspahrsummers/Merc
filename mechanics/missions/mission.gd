@@ -185,7 +185,7 @@ static func _randomly_walk_systems(galaxy: Galaxy, path_so_far: Array[StarSystem
         if possible_path:
             new_path = possible_path
 
-    # Return the longest path that ends in a planetary system.
+    # Return the longest path that ends in a system with a port.
     while not new_path[-1].ports:
         new_path.pop_back()
 

@@ -20,7 +20,7 @@ class_name Landing
 var player: Player
 
 ## The port to land on. Must be set before displaying.
-var planet_instance: PlanetInstance
+var celestial: Celestial
 
 ## The star system the port is in. Must be set before displaying.
 var star_system: StarSystem
@@ -32,7 +32,7 @@ var _missions_window: MissionComputerWindow = null
 
 func _ready() -> void:
     self._hyperdrive = self.player.ship.hyperdrive
-    self._port = self.planet_instance.port
+    self._port = self.celestial.port
 
     self.title = self._port.name
     self.bar_button.visible = (self._port.facilities & Port.BAR)
@@ -68,7 +68,7 @@ func _on_missions_button_pressed() -> void:
         self._missions_window = self.missions_window_scene.instantiate()
         self._missions_window.available_missions = Mission.filter_incompatible_missions(
             self.player.mission_controller.get_current_missions(),
-            self.planet_instance.get_available_missions(self.player.calendar, self.player.hero_roster))
+            self.celestial.get_available_missions(self.player.calendar, self.player.hero_roster))
         self._missions_window.mission_controller = self.player.mission_controller
         self._missions_window.cargo_hold = self.player.ship.cargo_hold
         self._missions_window.bank_account = self.player.bank_account
