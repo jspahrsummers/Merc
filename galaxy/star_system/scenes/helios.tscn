@@ -3,9 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://fxemun7o6rix" path="res://galaxy/star_system/star_system_instance.tscn" id="1_cgb7d"]
 [ext_resource type="Resource" uid="uid://nbm8is7uln37" path="res://galaxy/star_system/star_systems/helios.tres" id="2_a8qaw"]
 [ext_resource type="PackedScene" uid="uid://ct6hx24xakxq3" path="res://stars/main_sequence/star_class_g.tscn" id="3_en328"]
-[ext_resource type="PackedScene" uid="uid://b04hfgkcuq7k6" path="res://planet/planet_instance.tscn" id="4_wx4b8"]
-[ext_resource type="Texture2D" uid="uid://bcrjjyfvc8eli" path="res://planet/sprites/planet_28.png" id="5_pkasu"]
-[ext_resource type="Resource" uid="uid://dd61sms23ju2r" path="res://planet/planets/pyra.tres" id="5_u2wh5"]
+[ext_resource type="PackedScene" uid="uid://b04hfgkcuq7k6" path="res://galaxy/planet/planet_instance.tscn" id="4_wx4b8"]
+[ext_resource type="Texture2D" uid="uid://bcrjjyfvc8eli" path="res://galaxy/planet/sprites/planet_28.png" id="5_pkasu"]
+[ext_resource type="Resource" uid="uid://dd61sms23ju2r" path="res://galaxy/planet/planets/pyra.tres" id="5_u2wh5"]
 [ext_resource type="PackedScene" uid="uid://ccdkamqw03rk7" path="res://fx/asteroids/multi_asteroid_field.tscn" id="7_7sqja"]
 
 [node name="Helios" instance=ExtResource("1_cgb7d")]

@@ -16,8 +16,8 @@
 [ext_resource type="Resource" uid="uid://bj7201uluhfpk" path="res://mechanics/economy/commodities/semiconductors.tres" id="13_qtdhe"]
 [ext_resource type="Resource" uid="uid://b764gd8q3il6s" path="res://mechanics/economy/currencies/credits.tres" id="14_yyru0"]
 [ext_resource type="Script" path="res://mechanics/economy/market.gd" id="15_v0bfu"]
-[ext_resource type="Resource" uid="uid://cmm0akidhocmo" path="res://planet/planets/earth.tres" id="16_bjai2"]
-[ext_resource type="Resource" uid="uid://c0oe5ys0462x0" path="res://planet/planets/mars.tres" id="17_1phbv"]
+[ext_resource type="Resource" uid="uid://cmm0akidhocmo" path="res://galaxy/planet/planets/earth.tres" id="16_bjai2"]
+[ext_resource type="Resource" uid="uid://c0oe5ys0462x0" path="res://galaxy/planet/planets/mars.tres" id="17_1phbv"]
 
 [sub_resource type="Resource" id="Resource_tj2o3"]
 script = ExtResource("15_v0bfu")
@@ -44,7 +44,7 @@ name = &"Sol"
 connections = Array[StringName]([&"Alpha Centauri", &"Barnard\'s Star", &"Sirius", &"Thalassa"])
 position = null
 scene_path = "res://galaxy/star_system/scenes/sol.tscn"
-planets = Array[Resource("res://planet/planet.gd")]([ExtResource("16_bjai2"), ExtResource("17_1phbv")])
+planets = [ExtResource("16_bjai2"), ExtResource("17_1phbv")]
 market = SubResource("Resource_tj2o3")
 refueling_money = ExtResource("14_yyru0")
 refueling_relative_price = null
