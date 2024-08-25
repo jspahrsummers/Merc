@@ -1,5 +1,7 @@
 extends Window
 
+@export var label: RichTextLabel
+
 ## The current stage of the tutorial.
 ##
 ## Note that these values are saved via [SaveGame], so be careful not to break backwards compatibility!
@@ -20,13 +22,16 @@ var _stage: Stage = Stage.INITIAL:
             self._start_stage()
 
 func _enter_tree() -> void:
-    if self._stage == Stage.DONE:
-        self.queue_free()
-    
     self._start_stage()
 
 func _start_stage() -> void:
-    pass
+    match self._stage:
+        Stage.INITIAL:
+            self.label.text = """\
+Welcome to your new ship! Let's get you acquainted with the basic controls."""
+        
+        Stage.DONE:
+            self.queue_free()
 
 func _on_close_requested() -> void:
     self.hide()
