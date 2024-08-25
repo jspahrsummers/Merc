@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=75 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperspace_scene_switcher.gd" id="4_yyrkm"]
@@ -54,6 +54,7 @@
 [ext_resource type="Script" path="res://screens/game/hud/cargo_container.gd" id="44_e80r5"]
 [ext_resource type="Script" path="res://screens/game/hud/time_label.gd" id="45_4kcdo"]
 [ext_resource type="Script" path="res://mechanics/time/calendar.gd" id="46_cos1s"]
+[ext_resource type="Script" path="res://mechanics/tutorial/tutorial_window.gd" id="55_ewdgp"]
 
 [sub_resource type="Resource" id="Resource_p7sh0"]
 resource_local_to_scene = true
@@ -102,7 +103,7 @@ script = ExtResource("11_ag0i7")
 max_volume = 10.0
 commodities = {}
 
-[sub_resource type="Resource" id="Resource_7ym61"]
+[sub_resource type="Resource" id="Resource_6ib67"]
 resource_local_to_scene = true
 script = ExtResource("13_q2g24")
 max_fuel = 6.0
@@ -184,7 +185,7 @@ hull = SubResource("Resource_ffax2")
 shield = SubResource("Resource_75c8j")
 battery = SubResource("Resource_xpwk4")
 cargo_hold = SubResource("Resource_bsv1l")
-hyperdrive = SubResource("Resource_7ym61")
+hyperdrive = SubResource("Resource_6ib67")
 
 [node name="CombatObject" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="3" node_paths=PackedStringArray("targeted_sound")]
 targeted_sound = NodePath("../Player/TargetedSound")
@@ -312,13 +313,14 @@ gi_mode = 0
 mesh = SubResource("QuadMesh_7oe51")
 skeleton = NodePath("../..")
 
-[node name="InGameGUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player")]
+[node name="InGameGUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("tutorial_window", "player")]
 script = ExtResource("18_y74ml")
 galaxy_map_scene = ExtResource("17_4w17v")
 game_over_scene = ExtResource("17_yidh7")
 exit_dialog_scene = ExtResource("18_hl4w3")
 currency_trading_scene = ExtResource("25_57wc6")
 mission_log_scene = ExtResource("26_fk202")
+tutorial_window = NodePath("../TutorialWindow")
 player = NodePath("../HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player")
 
 [node name="MarginContainer" type="MarginContainer" parent="InGameGUI"]
@@ -643,6 +645,14 @@ text = "30 FPS
 horizontal_alignment = 2
 script = ExtResource("37_e11x7")
 
+[node name="TutorialWindow" type="Window" parent="." groups=["saveable"]]
+transparent_bg = true
+title = "Tutorial"
+position = Vector2i(250, 100)
+size = Vector2i(350, 200)
+transparent = true
+script = ExtResource("55_ewdgp")
+
 [connection signal="jump_destination_loaded" from="HyperspaceSceneSwitcher" to="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" method="_on_jump_destination_loaded"]
 [connection signal="jump_destination_loaded" from="HyperspaceSceneSwitcher" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/SystemName" method="_on_jump_destination_loaded"]
 [connection signal="jump_path_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/HyperdriveSystem" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PanelContainer/VBoxContainer/JumpDestinationName" method="_on_jump_path_changed"]
@@ -654,6 +664,7 @@ script = ExtResource("37_e11x7")
 [connection signal="shield_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_shield_changed"]
 [connection signal="ship_destroyed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI" method="_on_player_ship_destroyed"]
 [connection signal="target_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TargetInfoContainer" method="_on_player_target_changed"]
+[connection signal="close_requested" from="TutorialWindow" to="TutorialWindow" method="_on_close_requested"]
 
 [editable path="HyperspaceSceneSwitcher/Sol"]
 [editable path="HyperspaceSceneSwitcher/Sol/Mercury"]
