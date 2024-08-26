@@ -34,27 +34,90 @@ func _update() -> void:
     match self._stage:
         Stage.INITIAL:
             self.label.text = """\
-Welcome to your new ship! TODO: Some patter about starting the tutorial."""
+Welcome to Merc! This tutorial will guide you through the basics of ship control, navigation, and interstellar travel. Let's begin!"""
 
         Stage.SHIP_CONTROLS:
-            # TODO: Explain how to move the ship, using the control scheme and bindings from the user's preferences.
-            pass
+            var control_scheme := UserPreferences.control_scheme
+            var thrust_key := self._get_action_binding("thrust")
+            var turn_left_key := self._get_action_binding("turn_left")
+            var turn_right_key := self._get_action_binding("turn_right")
+            var fire_key := self._get_action_binding("fire")
+            
+            var movement_text: String
+            match UserPreferences.control_scheme:
+                UserPreferences.ControlScheme.RELATIVE:
+                    movement_text = """\
+    - [color=yellow]{thrust_key}[/color]: Thrust forward
+    - [color=yellow]{turn_left_key}[/color]/[color=yellow]{turn_right_key}[/color]: Turn left/right""".format({
+                        "thrust_key": thrust_key,
+                        "turn_left_key": turn_left_key,
+                        "turn_right_key": turn_right_key
+                    })
+
+                UserPreferences.ControlScheme.ABSOLUTE:
+                    movement_text = """\
+    - [color=yellow]Arrow keys[/color]: Move in any direction"""
+
+            self.label.text = """\
+Ship controls:
+{movement_text}
+- [color=yellow]{fire_key}[/color]: Fire weapons
+
+Try moving and firing to get familiar with the controls.""".format({
+                "movement_text": movement_text,
+                "fire_key": fire_key
+            })
 
         Stage.LAND_ON_PLANET:
-            # TODO: Explain how to target and land on Earth.
-            pass
+            var cycle_landing_target_key := self._get_action_binding("cycle_landing_target")
+            var land_key := self._get_action_binding("land")
+            
+            self.label.text = """\
+Landing on planets:
+1. Approach a planet
+2. Press [color=yellow]{cycle_key}[/color] to select target
+3. Press [color=yellow]{land_key}[/color] to land
+
+Try landing on Earth.""".format({
+                "cycle_key": cycle_landing_target_key,
+                "land_key": land_key
+            })
 
         Stage.OPEN_GALAXY_MAP:
-            # TODO: Explain how to open the galaxy map and select Thalassa.
-            pass
+            var toggle_galaxy_map_key := self._get_action_binding("toggle_galaxy_map")
+            
+            self.label.text = """\
+Using the Galaxy Map:
+1. Press [color=yellow]{map_key}[/color] to open
+2. Click a system to set as destination
+3. Close the map
+
+Open the map and select Thalassa.""".format({
+                "map_key": toggle_galaxy_map_key
+            })
 
         Stage.HYPERJUMP:
-            # TODO: Ask the player to hyperjump.
-            pass
+            var jump_key := self._get_action_binding("jump")
+            
+            self.label.text = """\
+Hyperspace jump:
+1. Ensure destination is set
+2. Check hyperdrive fuel
+3. Hold [color=yellow]{jump_key}[/color] to jump
+
+Make the jump to Thalassa now.""".format({
+                "jump_key": jump_key
+            })
         
         Stage.FINAL:
             self.label.text = """\
-TODO some patter about finishing the tutorial."""
+Congratulations! You've learned the basics of Merc.
+
+Explore, trade, and complete missions as you travel the galaxy. Don't forget to refuel your hyperdrive!
+
+Good luck, pilot!
+
+(Access this tutorial anytime with [color=yellow]Shift+?[/color])"""
 
 func _on_close_requested() -> void:
     self.hide()
@@ -63,6 +126,9 @@ func _input(event: InputEvent) -> void:
     if event.is_action_pressed("toggle_tutorial"):
         self.get_viewport().set_input_as_handled()
         self.hide()
+
+func _get_action_binding(action: StringName) -> String:
+    return InputMap.action_get_events(action)[0].as_text()
 
 ## See [SaveGame].
 func save_to_dict() -> Dictionary:
