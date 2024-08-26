@@ -27,7 +27,7 @@ func _unhandled_input(event: InputEvent) -> void:
         mission_log.mission_controller = self.player.mission_controller
         self.add_child(mission_log)
         mission_log.show()
-    elif event.is_action_pressed("toggle_tutorial") and is_instance_valid(self.tutorial_window):
+    elif event.is_action_pressed("toggle_tutorial"):
         self.tutorial_window.visible = not self.tutorial_window.visible
     elif event.is_action_pressed("exit"):
         self._instantiate_and_show_window(self.exit_dialog_scene)

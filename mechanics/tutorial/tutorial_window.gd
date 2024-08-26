@@ -1,14 +1,16 @@
 extends Window
 
 @export var label: RichTextLabel
+@export var previous_button: Button
+@export var next_button: Button
 
 ## The current stage of the tutorial.
 ##
-## Note that these values are saved via [SaveGame], so be careful not to break backwards compatibility!
+## Note that these values are saved via [SaveGame], so be careful about backwards compatibility!
 enum Stage {
     INITIAL = 0,
 
-    DONE = 1000,
+    FINAL = 1000,
 }
 
 var _stage: Stage = Stage.INITIAL:
@@ -16,22 +18,24 @@ var _stage: Stage = Stage.INITIAL:
         if _stage == value:
             return
         
-        assert(value > _stage, "Tutorial stage should not move backwards")
         _stage = value
-        if self.is_inside_tree():
-            self._start_stage()
+        self._update()
 
-func _enter_tree() -> void:
-    self._start_stage()
+func _ready() -> void:
+    self._update()
 
-func _start_stage() -> void:
+func _update() -> void:
+    self.previous_button.visible = self._stage != Stage.INITIAL
+    self.next_button.text = "DONE" if self._stage == Stage.FINAL else "NEXT"
+
     match self._stage:
         Stage.INITIAL:
             self.label.text = """\
 Welcome to your new ship! Let's get you acquainted with the basic controls."""
         
-        Stage.DONE:
-            self.queue_free()
+        Stage.FINAL:
+            self.label.text = """\
+TODO some patter about finishing the tutorial."""
 
 func _on_close_requested() -> void:
     self.hide()
@@ -52,3 +56,23 @@ func save_to_dict() -> Dictionary:
 func load_from_dict(dict: Dictionary) -> void:
     self._stage = dict["stage"]
     self.visible = dict["visible"]
+
+func _on_previous_button_pressed() -> void:
+    assert(self._stage != Stage.INITIAL, "Previous button should not be clickable when on initial tutorial stage")
+
+    var stages := Stage.values()
+    var index := stages.find(self._stage)
+
+    assert(index != -1, "Could not find current tutorial stage")
+    self._stage = stages[index - 1]
+
+func _on_next_button_pressed() -> void:
+    if self._stage == Stage.FINAL:
+        self.hide()
+        return
+
+    var stages := Stage.values()
+    var index := stages.find(self._stage)
+
+    assert(index != -1, "Could not find current tutorial stage")
+    self._stage = stages[index + 1]

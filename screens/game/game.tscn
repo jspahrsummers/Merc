@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=75 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperspace_scene_switcher.gd" id="4_yyrkm"]
@@ -54,8 +54,7 @@
 [ext_resource type="Script" path="res://screens/game/hud/cargo_container.gd" id="44_e80r5"]
 [ext_resource type="Script" path="res://screens/game/hud/time_label.gd" id="45_4kcdo"]
 [ext_resource type="Script" path="res://mechanics/time/calendar.gd" id="46_cos1s"]
-[ext_resource type="Script" path="res://mechanics/tutorial/tutorial_window.gd" id="55_ewdgp"]
-[ext_resource type="Material" uid="uid://cs5s3tb7vagsi" path="res://screens/shared_ui/premultiplied_canvas_material.tres" id="56_gui3j"]
+[ext_resource type="PackedScene" uid="uid://dasi6qq5tfc10" path="res://mechanics/tutorial/tutorial_window.tscn" id="55_0jyo3"]
 
 [sub_resource type="Resource" id="Resource_p7sh0"]
 resource_local_to_scene = true
@@ -104,7 +103,7 @@ script = ExtResource("11_ag0i7")
 max_volume = 10.0
 commodities = {}
 
-[sub_resource type="Resource" id="Resource_hohao"]
+[sub_resource type="Resource" id="Resource_8c6ai"]
 resource_local_to_scene = true
 script = ExtResource("13_q2g24")
 max_fuel = 6.0
@@ -186,7 +185,7 @@ hull = SubResource("Resource_ffax2")
 shield = SubResource("Resource_75c8j")
 battery = SubResource("Resource_xpwk4")
 cargo_hold = SubResource("Resource_bsv1l")
-hyperdrive = SubResource("Resource_hohao")
+hyperdrive = SubResource("Resource_8c6ai")
 
 [node name="CombatObject" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="3" node_paths=PackedStringArray("targeted_sound")]
 targeted_sound = NodePath("../Player/TargetedSound")
@@ -646,27 +645,7 @@ text = "30 FPS
 horizontal_alignment = 2
 script = ExtResource("37_e11x7")
 
-[node name="TutorialWindow" type="Window" parent="." node_paths=PackedStringArray("label") groups=["saveable"]]
-transparent_bg = true
-title = "Tutorial"
-position = Vector2i(250, 100)
-size = Vector2i(350, 100)
-transparent = true
-script = ExtResource("55_ewdgp")
-label = NodePath("MarginContainer/RichTextLabel")
-
-[node name="MarginContainer" type="MarginContainer" parent="TutorialWindow"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="TutorialWindow/MarginContainer"]
-material = ExtResource("56_gui3j")
-layout_mode = 2
-bbcode_enabled = true
-text = "Welcome to the game!"
+[node name="TutorialWindow" parent="." instance=ExtResource("55_0jyo3")]
 
 [connection signal="jump_destination_loaded" from="HyperspaceSceneSwitcher" to="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" method="_on_jump_destination_loaded"]
 [connection signal="jump_destination_loaded" from="HyperspaceSceneSwitcher" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/SystemName" method="_on_jump_destination_loaded"]
@@ -679,7 +658,6 @@ text = "Welcome to the game!"
 [connection signal="shield_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_shield_changed"]
 [connection signal="ship_destroyed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI" method="_on_player_ship_destroyed"]
 [connection signal="target_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/TargetInfoContainer" method="_on_player_target_changed"]
-[connection signal="close_requested" from="TutorialWindow" to="TutorialWindow" method="_on_close_requested"]
 
 [editable path="HyperspaceSceneSwitcher/Sol"]
 [editable path="HyperspaceSceneSwitcher/Sol/Mercury"]
