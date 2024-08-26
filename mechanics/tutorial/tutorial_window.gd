@@ -34,7 +34,7 @@ func _update() -> void:
     match self._stage:
         Stage.INITIAL:
             self.label.text = """\
-Welcome to Merc! This tutorial will guide you through the basics of ship control, navigation, and interstellar travel. Let's begin!"""
+Welcome to your new ship! This tutorial will guide you through the basics of ship control, navigation, and interstellar travel. Let's begin!"""
 
         Stage.SHIP_CONTROLS:
             var control_scheme := UserPreferences.control_scheme
@@ -59,10 +59,9 @@ Welcome to Merc! This tutorial will guide you through the basics of ship control
     - [color=yellow]Arrow keys[/color]: Move in any direction"""
 
             self.label.text = """\
-Ship controls:
+To maneuver your ship:
 {movement_text}
-- [color=yellow]{fire_key}[/color]: Fire weapons
-
+    - [color=yellow]{fire_key}[/color]: Fire weapons
 Try moving and firing to get familiar with the controls.""".format({
                 "movement_text": movement_text,
                 "fire_key": fire_key
@@ -73,12 +72,11 @@ Try moving and firing to get familiar with the controls.""".format({
             var land_key := self._get_action_binding("land")
             
             self.label.text = """\
-Landing on planets:
+You will frequently want to stop on planets to refuel, trade, and obtain missions. To land on a planet:
 1. Approach a planet
-2. Press [color=yellow]{cycle_key}[/color] to select target
-3. Press [color=yellow]{land_key}[/color] to land
-
-Try landing on Earth.""".format({
+2. Press [color=yellow]{land_key}[/color] to land
+You can also click on planets or press [color=yellow]{cycle_key}[/color] to target a different one.
+Try landing on Earth now.""".format({
                 "cycle_key": cycle_landing_target_key,
                 "land_key": land_key
             })
@@ -87,12 +85,11 @@ Try landing on Earth.""".format({
             var toggle_galaxy_map_key := self._get_action_binding("toggle_galaxy_map")
             
             self.label.text = """\
-Using the Galaxy Map:
+The galaxy is a big place, and stretches far beyond Sol! To navigate the galaxy, you can use the galaxy map:
 1. Press [color=yellow]{map_key}[/color] to open
 2. Click a system to set as destination
 3. Close the map
-
-Open the map and select Thalassa.""".format({
+Open the map and select Thalassa now.""".format({
                 "map_key": toggle_galaxy_map_key
             })
 
@@ -100,24 +97,21 @@ Open the map and select Thalassa.""".format({
             var jump_key := self._get_action_binding("jump")
             
             self.label.text = """\
-Hyperspace jump:
-1. Ensure destination is set
-2. Check hyperdrive fuel
-3. Hold [color=yellow]{jump_key}[/color] to jump
-
-Make the jump to Thalassa now.""".format({
+Now that you have selected Thalassa, you can initiate a hyperspace jump.
+Press [color=yellow]{jump_key}[/color] to make the jump to Thalassa now.""".format({
                 "jump_key": jump_key
             })
         
         Stage.FINAL:
+            var toggle_tutorial_key := self._get_action_binding("toggle_tutorial")
+
             self.label.text = """\
-Congratulations! You've learned the basics of Merc.
-
-Explore, trade, and complete missions as you travel the galaxy. Don't forget to refuel your hyperdrive!
-
+Congratulations! You're ready to head out on your own.
+Explore, trade, and complete missions as you travel the galaxy—and don't forget to refuel your hyperdrive!
 Good luck, pilot!
-
-(Access this tutorial anytime with [color=yellow]Shift+?[/color])"""
+[i](Access this tutorial anytime with [color=yellow]{toggle_tutorial_key}[/color])[/i]""".format({
+                "toggle_tutorial_key": toggle_tutorial_key
+            })
 
 func _on_close_requested() -> void:
     self.hide()

@@ -7,7 +7,7 @@
 transparent_bg = true
 title = "Tutorial"
 position = Vector2i(250, 100)
-size = Vector2i(380, 130)
+size = Vector2i(400, 200)
 transparent = true
 script = ExtResource("1_v4ja5")
 label = NodePath("MarginContainer/VBoxContainer/RichTextLabel")
