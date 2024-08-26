@@ -72,10 +72,10 @@ Try moving and firing to get familiar with the controls.""".format({
             var land_key := self._get_action_binding("land")
             
             self.label.text = """\
-You will frequently want to stop on planets to refuel, trade, and obtain missions. To land on a planet:
-1. Approach a planet
-2. Press [color=yellow]{land_key}[/color] to land
-You can also click on planets or press [color=yellow]{cycle_key}[/color] to target a different one.
+Stop at ports to refuel, trade, and obtain missions:
+    1. Click or press [color=yellow]{cycle_key}[/color] to target a planet, moon, or space station.
+    2. Approach your selected port and slow down.
+    3. Press [color=yellow]{land_key}[/color] to land.
 Try landing on Earth now.""".format({
                 "cycle_key": cycle_landing_target_key,
                 "land_key": land_key
@@ -85,11 +85,11 @@ Try landing on Earth now.""".format({
             var toggle_galaxy_map_key := self._get_action_binding("toggle_galaxy_map")
             
             self.label.text = """\
-The galaxy is a big place, and stretches far beyond Sol! To navigate the galaxy, you can use the galaxy map:
-1. Press [color=yellow]{map_key}[/color] to open
-2. Click a system to set as destination
-3. Close the map
-Open the map and select Thalassa now.""".format({
+The galaxy awaits you beyond Sol! You can use the galaxy map to navigate:
+    1. Press [color=yellow]{map_key}[/color] to open the map.
+    2. Click a system to set as destination.
+    3. Click the X or press [color=yellow]{map_key}[/color] to close the map.
+Select the neighboring system Thalassa from the galaxy map.""".format({
                 "map_key": toggle_galaxy_map_key
             })
 
@@ -98,6 +98,7 @@ Open the map and select Thalassa now.""".format({
             
             self.label.text = """\
 Now that you have selected Thalassa, you can initiate a hyperspace jump.
+
 Press [color=yellow]{jump_key}[/color] to make the jump to Thalassa now.""".format({
                 "jump_key": jump_key
             })
@@ -106,10 +107,9 @@ Press [color=yellow]{jump_key}[/color] to make the jump to Thalassa now.""".form
             var toggle_tutorial_key := self._get_action_binding("toggle_tutorial")
 
             self.label.text = """\
-Congratulations! You're ready to head out on your own.
-Explore, trade, and complete missions as you travel the galaxy—and don't forget to refuel your hyperdrive!
-Good luck, pilot!
-[i](Access this tutorial anytime with [color=yellow]{toggle_tutorial_key}[/color])[/i]""".format({
+Congratulations, you're ready to head out on your own! Explore, trade, and complete missions as you travel the galaxy—and don't forget to refuel your hyperdrive!
+
+Good luck, pilot.""".format({
                 "toggle_tutorial_key": toggle_tutorial_key
             })
 
