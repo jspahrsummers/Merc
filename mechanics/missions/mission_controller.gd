@@ -109,10 +109,11 @@ func _fail_mission(mission: Mission, failure_status: Mission.Status = Mission.St
         self.cargo_hold.remove_up_to(commodity, amount)
 
     if failure_status == Mission.Status.FORFEITED:
-        self.message_log.add_message("Mission forfeited: %s" % mission.title)
+        self.message_log.add_message("Mission forfeited: %s" % mission.title, MessageLog.LONG_MESSAGE_LIFETIME)
         self.mission_forfeited.emit(mission)
     else:
-        self.message_log.add_message("Mission failed: %s" % mission.title)
+        # Hack: call deferred to ensure these notices appear after hyperjump/departure calendar messages.
+        self.message_log.add_message.call_deferred("Mission failed: %s" % mission.title, MessageLog.LONG_MESSAGE_LIFETIME)
         self.mission_failed.emit(mission)
 
 ## Mark a mission as succeeded, and pay out the proceeds.
@@ -137,7 +138,7 @@ func _succeed_mission(mission: Mission) -> void:
         # TODO: This can fail if the player lacks cargo space. Deposit currency in lieu of commodities?
         trade_asset.add_up_to(amount, self.cargo_hold, self.bank_account)
 
-    self.message_log.add_message("Mission succeeded: %s" % mission.title)
+    self.message_log.add_message("Mission succeeded: %s" % mission.title, MessageLog.LONG_MESSAGE_LIFETIME)
     self.mission_succeeded.emit(mission)
 
 ## Evaluates all missions for failure conditions.
