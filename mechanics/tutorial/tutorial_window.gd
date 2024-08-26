@@ -9,7 +9,10 @@ extends Window
 ## Note that these values are saved via [SaveGame], so be careful about backwards compatibility!
 enum Stage {
     INITIAL = 0,
-
+    SHIP_CONTROLS = 1,
+    LAND_ON_PLANET = 2,
+    OPEN_GALAXY_MAP = 3,
+    HYPERJUMP = 4,
     FINAL = 1000,
 }
 
@@ -31,7 +34,23 @@ func _update() -> void:
     match self._stage:
         Stage.INITIAL:
             self.label.text = """\
-Welcome to your new ship! Let's get you acquainted with the basic controls."""
+Welcome to your new ship! TODO: Some patter about starting the tutorial."""
+
+        Stage.SHIP_CONTROLS:
+            # TODO: Explain how to move the ship, using the control scheme and bindings from the user's preferences.
+            pass
+
+        Stage.LAND_ON_PLANET:
+            # TODO: Explain how to target and land on Earth.
+            pass
+
+        Stage.OPEN_GALAXY_MAP:
+            # TODO: Explain how to open the galaxy map and select Thalassa.
+            pass
+
+        Stage.HYPERJUMP:
+            # TODO: Ask the player to hyperjump.
+            pass
         
         Stage.FINAL:
             self.label.text = """\
