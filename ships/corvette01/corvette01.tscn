@@ -49,6 +49,7 @@ max_volume = 10.0
 commodities = {}
 
 [sub_resource type="Resource" id="Resource_7u7qk"]
+resource_local_to_scene = true
 script = ExtResource("6_a0tra")
 total_spaces = 6
 occupied_spaces = 0
