@@ -6,7 +6,10 @@ enum ControlScheme {
     RELATIVE = 0,
 
     ## Directional keys apply an absolute change, ignoring the player ship's orientation.
-    ABSOLUTE = 1
+    ABSOLUTE = 1,
+
+    ## Mouse or touchpad input is used like a joystick to control the ship.
+    MOUSE_JOYSTICK = 2
 }
 
 ## Fires whenever a user preference changes.

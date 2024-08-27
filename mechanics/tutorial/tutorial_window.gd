@@ -58,6 +58,10 @@ Welcome to your new ship! This tutorial will guide you through the basics of shi
                     movement_text = """\
     - [color=yellow]Arrow keys[/color]: Move in any direction"""
 
+                UserPreferences.ControlScheme.MOUSE_JOYSTICK:
+                    movement_text = """\
+    - [color=yellow]Mouse[/color] or [color=yellow]touchpad[/color]: Move in any direction"""
+
             self.label.text = """\
 To maneuver your ship:
 {movement_text}

@@ -72,6 +72,15 @@ const HYPERSPACE_ARRIVAL_RADIUS = 8.0
 const MAX_LANDING_DISTANCE = 2.0
 const MAX_LANDING_VELOCITY = 4.0
 
+## The deadzone radius for the mouse joystick control scheme
+const MOUSE_JOYSTICK_DEADZONE = 100.0
+
+## The maximum radius for the mouse joystick control scheme
+const MOUSE_JOYSTICK_MAX_RADIUS = 400.0
+
+var _mouse_position: Vector2 = Vector2.INF
+var _mouse_joystick_center: Vector2 = Vector2.INF
+
 func _ready() -> void:
     if not self.save_node_path_override:
         self.save_node_path_override = self.get_path()
@@ -172,9 +181,16 @@ func _closest_landing_target() -> Celestial:
 
     return nearest_celestial
 
-func _unhandled_key_input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
     if self.ship.hyperdrive_system.jumping:
         return
+    
+    var motion_event := event as InputEventMouseMotion
+    if motion_event:
+        self._mouse_joystick_center = self.get_viewport().get_visible_rect().size / 2
+        self._mouse_position = motion_event.global_position
+
+        self.get_viewport().set_input_as_handled()
 
     if event.is_action_pressed("cycle_jump_destination", true):
         var next_system := self._next_system_connection()
@@ -287,6 +303,21 @@ func _absolute_input_direction() -> Vector3:
     var input_direction := Input.get_vector("move_left", "move_right", "move_up", "move_down")
     return Vector3(input_direction.x, 0, input_direction.y)
 
+func _mouse_joystick_input() -> Vector2:
+    if not self._mouse_joystick_center.is_finite() or not self._mouse_position.is_finite():
+        return Vector2.INF
+
+    var offset := self._mouse_position - self._mouse_joystick_center
+    var distance := offset.length()
+    
+    if distance < MOUSE_JOYSTICK_DEADZONE:
+        return Vector2.ZERO
+    
+    var normalized_distance := (distance - MOUSE_JOYSTICK_DEADZONE) / (MOUSE_JOYSTICK_MAX_RADIUS - MOUSE_JOYSTICK_DEADZONE)
+    normalized_distance = clampf(normalized_distance, 0, 1)
+    
+    return offset.normalized() * normalized_distance
+
 func _physics_process(_delta: float) -> void:
     if not self.ship.hyperdrive_system or self.ship.hyperdrive_system.jumping:
         return
@@ -327,6 +358,14 @@ func _physics_process(_delta: float) -> void:
                 self.ship.rigid_body_thruster.throttle = desired_direction.length()
             else:
                 self.ship.rigid_body_thruster.throttle = 0.0
+
+        UserPreferences.ControlScheme.MOUSE_JOYSTICK:
+            var input := self._mouse_joystick_input()
+            if input.is_finite():
+                var desired_direction := Vector3(input.x, 0, input.y)
+                
+                self.ship.rigid_body_direction.direction = desired_direction
+                self.ship.rigid_body_thruster.throttle = desired_direction.length()
 
 ## See [SaveGame].
 func save_to_dict() -> Dictionary:
