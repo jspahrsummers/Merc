@@ -208,52 +208,58 @@ static func create_ferry_mission(origin_port: Port) -> Mission:
 
     return mission
 
-## Traveling-salesperson-suboptimal algorithm…
-static func _randomly_walk_systems(galaxy: Galaxy, path_so_far: Array[StarSystem]) -> Array[StarSystem]:
-    var last_system := path_so_far[-1]
-    var allowed_connections := last_system.connections.filter(func(connection: StringName) -> bool:
-        return not path_so_far.any(func(system: StarSystem) -> bool:
-            return system.name == connection
-        ))
-
-    if allowed_connections.is_empty():
+## Generates a random path through the galaxy, starting from the origin system.
+## Returns an array of StarSystems representing the path.
+static func _generate_random_path(origin_system: StarSystem, min_jumps: int, max_jumps: int) -> Array[StarSystem]:
+    var galaxy: Galaxy = origin_system.galaxy.get_ref()
+    var queue: Array[Array] = [[origin_system]] # Queue of paths
+    var visited: Dictionary = {origin_system.name: true}
+    var valid_paths: Array[Array] = []
+    
+    while not queue.is_empty():
+        var current_path: Array = queue.pop_front()
+        var current_system: StarSystem = current_path[-1]
+        
+        if current_path.size() > 1: # Don't count the origin system
+            if current_system.ports and current_path.size() >= min_jumps:
+                valid_paths.append(current_path)
+            
+            if current_path.size() == max_jumps:
+                continue # Don't explore further if we've reached the maximum path length
+        
+        # Explore neighbors
+        var neighbors := current_system.connections.duplicate()
+        neighbors.shuffle() # Randomize the order of exploration
+        
+        for neighbor_name: StringName in neighbors:
+            if neighbor_name in visited:
+                continue
+            
+            var neighbor_system := galaxy.get_system(neighbor_name)
+            var new_path := current_path.duplicate()
+            new_path.append(neighbor_system)
+            queue.append(new_path)
+            visited[neighbor_name] = true
+    
+    if valid_paths.is_empty():
         return []
+    
 
-    var next_name: StringName = allowed_connections.pick_random()
-    var next_system := galaxy.get_system(next_name)
-    var new_path := path_so_far.duplicate()
-    new_path.push_back(next_system)
-
-    if randf() >= _RUSH_DELIVERY_ADD_HOP_CHANCE:
-        # Add more hops to the path.
-        var possible_path := Mission._randomly_walk_systems(galaxy, new_path)
-        if possible_path:
-            new_path = possible_path
-
-    # Return the longest path that ends in a system with a port.
-    while not new_path[-1].ports:
-        new_path.pop_back()
-
-        if new_path.size() <= 1:
-            # Back to the starting point, so give up.
-            return []
-
-    return new_path
+    return valid_paths.pick_random()
 
 ## Creates a random rush delivery mission.
 ##
 ## Note: this may not succeed every time, so ensure that the return value is checked.
 static func create_rush_delivery_mission(origin_port: Port, calendar: Calendar) -> Mission:
     var origin_system: StarSystem = origin_port.star_system.get_ref()
-    var galaxy: Galaxy = origin_system.galaxy.get_ref()
-
-    var path := Mission._randomly_walk_systems(galaxy, [origin_system])
-    if not path:
+    var path := _generate_random_path(origin_system, 2, 5) # Min 2 jumps, max 5 jumps
+    
+    if path.is_empty():
         return null
 
     var mission := Mission.new()
     mission.deadline_cycle = calendar.get_current_cycle()
-    for i in path.size() - 1:
+    for i in range(path.size()):
         mission.deadline_cycle += HyperspaceSceneSwitcher.HYPERSPACE_APPROXIMATE_TRAVEL_DAYS * 24 * randf_range(_RUSH_DELIVERY_MIN_DEADLINE_BUFFER, _RUSH_DELIVERY_MAX_DEADLINE_BUFFER)
 
     var destination_system: StarSystem = path[-1]
