@@ -12,6 +12,7 @@ var available_missions: Array[Mission]
 var mission_controller: MissionController
 var cargo_hold: CargoHold
 var bank_account: BankAccount
+var passenger_quarters: PassengerQuarters
 
 var _selected_mission: Mission
 
@@ -50,9 +51,14 @@ func _on_item_selected(index: int) -> void:
         self.start_button.disabled = true
         self.start_button.tooltip_text = "Not enough room for this cargo."
         return
+
+    if not self._can_hold_passengers():
+        self.start_button.disabled = true
+        self.start_button.tooltip_text = "Not enough space for these passengers."
+        return
     
     self.start_button.disabled = false
-    self.start_button.tooltip_text = "Pay the deposit and start the mission."
+    self.start_button.tooltip_text = "Pay the deposit and start the mission." if self._selected_mission.starting_cost else "Start the mission."
 
 func _money_dict_to_string(dict: Dictionary) -> String:
     var keys := dict.keys()
@@ -79,6 +85,9 @@ func _can_fit_cargo() -> bool:
         required_volume += self._selected_mission.cargo[commodity] * commodity.volume
 
     return self.cargo_hold.get_occupied_volume() + required_volume <= self.cargo_hold.max_volume
+
+func _can_hold_passengers() -> bool:
+    return self.passenger_quarters.occupied_spaces + self._selected_mission.passengers <= self.passenger_quarters.total_spaces
 
 func _on_start_pressed() -> void:
     if not self.mission_controller.start_mission(self._selected_mission):
