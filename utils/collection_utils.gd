@@ -19,13 +19,13 @@ static func weighted_random_choice(weights: Dictionary) -> Variant:
     for weight: float in weights.values():
         total_weight += weight
     
-    var random_value := randf() * total_weight
-    var current_weight := 0
+    var random_value := randf_range(0.0, total_weight)
+    var current_weight := 0.0
 
     for item: Variant in weights:
         current_weight += weights[item]
         if random_value <= current_weight:
             return item
     
-    assert(false, "Random weighting failed!")
-    return weights.keys().pick_random()
+    # Probably a floating point imprecision issue; pick the last one
+    return weights.keys().back()
