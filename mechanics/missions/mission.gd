@@ -239,7 +239,7 @@ static func create_ferry_mission(origin_port: Port) -> Mission:
 
 ## Generates a random path through the galaxy, starting from the origin system.
 ## Returns an array of StarSystems representing the path.
-static func _generate_random_path(origin_system: StarSystem, min_jumps: int, max_jumps: int) -> Array[StarSystem]:
+static func _generate_random_path(origin_system: StarSystem, min_jumps: int, max_jumps: int) -> Array:
     var galaxy: Galaxy = origin_system.galaxy.get_ref()
     var queue: Array[Array] = [[origin_system]] # Queue of paths
     var visited: Dictionary = {origin_system.name: true}
@@ -273,7 +273,6 @@ static func _generate_random_path(origin_system: StarSystem, min_jumps: int, max
     if valid_paths.is_empty():
         return []
     
-
     return valid_paths.pick_random()
 
 ## Creates a random rush delivery mission.
