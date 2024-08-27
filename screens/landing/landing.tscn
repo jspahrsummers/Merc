@@ -131,9 +131,12 @@ stream = ExtResource("2_g2uae")
 autoplay = true
 
 [node name="BarDialog" type="AcceptDialog" parent="."]
+transparent_bg = true
 title = "Spaceport Bar"
 initial_position = 1
 size = Vector2i(400, 150)
+exclusive = false
+transparent = true
 ok_button_text = "Leave"
 dialog_autowrap = true
 
