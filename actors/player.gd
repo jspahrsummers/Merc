@@ -13,6 +13,7 @@ class_name Player
 @export var calendar: Calendar
 @export var mission_controller: MissionController
 @export var hero_roster: HeroRoster
+@export var main_camera: MainCamera
 
 @onready var ship := get_parent() as Ship
 
@@ -196,18 +197,10 @@ func _unhandled_input(event: InputEvent) -> void:
         self.get_viewport().set_input_as_handled()
 
     var mouse_button_event := event as InputEventMouseButton
-    if mouse_button_event and mouse_button_event.pressed and mouse_button_event.button_index == MOUSE_BUTTON_LEFT:
-        if UserPreferences.control_scheme == UserPreferences.ControlScheme.CLICK_TO_MOVE:
-            var camera := get_viewport().get_camera_3d()
-            var from := camera.project_ray_origin(mouse_button_event.position)
-            var to := from + camera.project_ray_normal(mouse_button_event.position) * 1000
-            var space_state := get_world_3d().direct_space_state
-            var query := PhysicsRayQueryParameters3D.create(from, to)
-            var result := space_state.intersect_ray(query)
-            if result:
-                self.ai_navigation.navigating = true
-                self.ai_navigation.set_destination(Vector3(mouse_button_event.position.x, 0, mouse_button_event.position.y))
-            self.get_viewport().set_input_as_handled()
+    if mouse_button_event and mouse_button_event.pressed and mouse_button_event.button_index == MOUSE_BUTTON_LEFT and UserPreferences.control_scheme == UserPreferences.ControlScheme.CLICK_TO_MOVE:
+        var destination := self.main_camera.project_position_with_zoom(mouse_button_event.position)
+        self.ai_navigation.set_destination(destination)
+        self.ai_navigation.navigating = true
 
     if event.is_action_pressed("cycle_jump_destination", true):
         var next_system := self._next_system_connection()

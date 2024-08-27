@@ -212,12 +212,13 @@ targeted_sound = NodePath("../Player/TargetedSound")
 [node name="HyperdriveSystem" type="Node3D" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette"]
 script = ExtResource("16_6olqp")
 
-[node name="Player" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" node_paths=PackedStringArray("hyperspace_scene_switcher", "message_log", "hero_roster", "ai_navigation") groups=["saveable"] instance=ExtResource("16_lqltb")]
+[node name="Player" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" node_paths=PackedStringArray("hyperspace_scene_switcher", "message_log", "hero_roster", "main_camera", "ai_navigation") groups=["saveable"] instance=ExtResource("16_lqltb")]
 hyperspace_scene_switcher = NodePath("../../..")
 message_log = NodePath("../../../../InGameGUI/MarginContainer/HBoxContainer/MessageLog")
 bank_account = SubResource("Resource_j1y8s")
 calendar = SubResource("Resource_jc1pg")
 hero_roster = NodePath("../../../../HeroRoster")
+main_camera = NodePath("../../../../MainCameraTransform/MainCamera")
 ai_navigation = NodePath("../AINavigation")
 
 [node name="MinimapCameraRemoteTransform" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" index="0"]
@@ -242,6 +243,7 @@ message_log = NodePath("../../../../../InGameGUI/MarginContainer/HBoxContainer/M
 script = ExtResource("15_cfr6f")
 rigid_body_thruster = NodePath("../RigidBodyThruster")
 rigid_body_direction = NodePath("../RigidBodyDirection")
+stopping_velocity_tolerance = 0.5
 auto_start = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
