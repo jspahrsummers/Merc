@@ -335,8 +335,11 @@ game_over_scene = ExtResource("17_yidh7")
 exit_dialog_scene = ExtResource("18_hl4w3")
 currency_trading_scene = ExtResource("25_57wc6")
 mission_log_scene = ExtResource("26_fk202")
-tutorial_window = NodePath("../TutorialWindow")
+tutorial_window = NodePath("TutorialWindow")
 player = NodePath("../HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player")
+
+[node name="TutorialWindow" parent="InGameGUI" instance=ExtResource("55_0jyo3")]
+visible = false
 
 [node name="MarginContainer" type="MarginContainer" parent="InGameGUI"]
 anchors_preset = 15
@@ -666,8 +669,6 @@ text = "30 FPS
 "
 horizontal_alignment = 2
 script = ExtResource("37_e11x7")
-
-[node name="TutorialWindow" parent="." instance=ExtResource("55_0jyo3")]
 
 [connection signal="jump_destination_loaded" from="HyperspaceSceneSwitcher" to="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" method="_on_jump_destination_loaded"]
 [connection signal="jump_destination_loaded" from="HyperspaceSceneSwitcher" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/SystemName" method="_on_jump_destination_loaded"]

@@ -3,6 +3,7 @@ extends Control
 @export var control_scheme_button: OptionButton
 @export var ui_scale_range: Range
 @export var display_mode_button: OptionButton
+@export var tutorial_enabled_button: OptionButton
 @export var bindings_list: ItemList
 
 enum DisplayMode {
@@ -21,6 +22,7 @@ func _on_preferences_updated() -> void:
     self.control_scheme_button.selected = UserPreferences.control_scheme
     self.ui_scale_range.set_value_no_signal(UserPreferences.ui_scale * 100)
     self.display_mode_button.selected = DisplayMode.WINDOWED if UserPreferences.windowed else DisplayMode.FULLSCREEN
+    self.tutorial_enabled_button.selected = 0 if UserPreferences.tutorial_enabled else 1
 
     self._input_actions.clear()
     self.bindings_list.clear()
@@ -50,6 +52,9 @@ func _on_ui_scale_changed(value: float) -> void:
 
 func _on_display_mode_button_item_selected(index: int) -> void:
     UserPreferences.windowed = index == DisplayMode.WINDOWED
+
+func _on_tutorial_enabled_item_selected(index: int) -> void:
+    UserPreferences.tutorial_enabled = index == 0
 
 func _input(event: InputEvent) -> void:
     if self._current_action_being_rebound == "":

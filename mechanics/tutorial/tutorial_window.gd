@@ -134,7 +134,7 @@ func save_to_dict() -> Dictionary:
 ## See [SaveGame].
 func load_from_dict(dict: Dictionary) -> void:
     self._stage = dict["stage"]
-    self.visible = dict["visible"]
+    self.visible = dict["visible"] and UserPreferences.tutorial_enabled
 
 func _on_previous_button_pressed() -> void:
     assert(self._stage != Stage.INITIAL, "Previous button should not be clickable when on initial tutorial stage")
