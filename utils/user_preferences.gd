@@ -9,7 +9,10 @@ enum ControlScheme {
     ABSOLUTE = 1,
 
     ## Mouse or touchpad input is used like a joystick to control the ship.
-    MOUSE_JOYSTICK = 2
+    MOUSE_JOYSTICK = 2,
+
+    ## Click to move to a given location using AI navigation.
+    CLICK_TO_MOVE = 3
 }
 
 ## Fires whenever a user preference changes.

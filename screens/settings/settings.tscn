@@ -48,8 +48,9 @@ size_flags_horizontal = 3
 tooltip_text = "Choose how your ship maneuvers:
 - Ship-oriented: Thrust applies in the direction your ship is facing, and left/right rotate the ship.
 - Screen-oriented: Controls are based on screen direction. Your ship will turn to face the direction you indicate before applying thrust.
-- Mouse joystick: Use your mouse or touchpad like a joystick to control the ship's direction and thrust."
-item_count = 3
+- Mouse joystick: Use your mouse or touchpad like a joystick to control the ship's direction and thrust.
+- Click to move: Click on a destination to automatically navigate there."
+item_count = 4
 selected = 0
 popup/item_0/text = "SHIP-ORIENTED"
 popup/item_0/id = 0
@@ -57,6 +58,8 @@ popup/item_1/text = "SCREEN-ORIENTED"
 popup/item_1/id = 1
 popup/item_2/text = "MOUSE JOYSTICK"
 popup/item_2/id = 2
+popup/item_3/text = "CLICK TO MOVE"
+popup/item_3/id = 3
 
 [node name="UIScaleLabel" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer/GridContainer"]
 layout_mode = 2

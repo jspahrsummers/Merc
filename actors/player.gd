@@ -61,6 +61,9 @@ var save_node_path_override: NodePath
 ## Created to turn the [Ship] when using the relative control scheme.
 var _rigid_body_turner: RigidBodyTurner
 
+## The AINavigation object for the CLICK_TO_MOVE control scheme.
+@export var ai_navigation: AINavigation
+
 ## When using the "absolute" control scheme, this is the tolerance (in radians) for being slightly off-rotated while enabling thrusters.
 const ABSOLUTE_DIRECTION_TOLERANCE_RAD = 0.1745
 
@@ -192,6 +195,20 @@ func _unhandled_input(event: InputEvent) -> void:
 
         self.get_viewport().set_input_as_handled()
 
+    var mouse_button_event := event as InputEventMouseButton
+    if mouse_button_event and mouse_button_event.pressed and mouse_button_event.button_index == MOUSE_BUTTON_LEFT:
+        if UserPreferences.control_scheme == UserPreferences.ControlScheme.CLICK_TO_MOVE:
+            var camera := get_viewport().get_camera_3d()
+            var from := camera.project_ray_origin(mouse_button_event.position)
+            var to := from + camera.project_ray_normal(mouse_button_event.position) * 1000
+            var space_state := get_world_3d().direct_space_state
+            var query := PhysicsRayQueryParameters3D.create(from, to)
+            var result := space_state.intersect_ray(query)
+            if result:
+                self.ai_navigation.navigating = true
+                self.ai_navigation.set_destination(Vector3(mouse_button_event.position.x, 0, mouse_button_event.position.y))
+            self.get_viewport().set_input_as_handled()
+
     if event.is_action_pressed("cycle_jump_destination", true):
         var next_system := self._next_system_connection()
         if next_system:
@@ -294,6 +311,8 @@ func _reset_controls() -> void:
     self.ship.rigid_body_thruster.throttle = 0.0
     self.ship.rigid_body_direction.direction = Vector3.ZERO
     self._rigid_body_turner.turning = 0.0
+    if self.ai_navigation:
+        self.ai_navigation.navigating = false
 
 func _reset_velocity() -> void:
     self.ship.linear_velocity = Vector3.ZERO
@@ -366,6 +385,10 @@ func _physics_process(_delta: float) -> void:
                 
                 self.ship.rigid_body_direction.direction = desired_direction
                 self.ship.rigid_body_thruster.throttle = desired_direction.length()
+
+        UserPreferences.ControlScheme.CLICK_TO_MOVE:
+            # The AINavigation component handles the movement in this mode
+            pass
 
 ## See [SaveGame].
 func save_to_dict() -> Dictionary:
