@@ -193,14 +193,14 @@ func _unhandled_input(event: InputEvent) -> void:
     if motion_event:
         self._mouse_joystick_center = self.get_viewport().get_visible_rect().size / 2
         self._mouse_position = motion_event.global_position
-
         self.get_viewport().set_input_as_handled()
 
-    var mouse_button_event := event as InputEventMouseButton
-    if mouse_button_event and mouse_button_event.pressed and mouse_button_event.button_index == MOUSE_BUTTON_LEFT and UserPreferences.control_scheme == UserPreferences.ControlScheme.CLICK_TO_MOVE:
-        var destination := self.main_camera.project_position_with_zoom(mouse_button_event.position)
-        self.ai_navigation.set_destination(destination)
-        self.ai_navigation.navigating = true
+    if UserPreferences.control_scheme == UserPreferences.ControlScheme.CLICK_TO_MOVE:
+        var mouse_button_event := event as InputEventMouseButton
+        if mouse_button_event and mouse_button_event.pressed and mouse_button_event.button_index == MOUSE_BUTTON_LEFT and not self.ai_navigation.navigating:
+            var destination := self.main_camera.project_position_with_zoom(mouse_button_event.position)
+            self.ai_navigation.set_destination(destination)
+            self.ai_navigation.navigating = true
 
     if event.is_action_pressed("cycle_jump_destination", true):
         var next_system := self._next_system_connection()
