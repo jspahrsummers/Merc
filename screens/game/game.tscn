@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://fx/starfield/starfield_parallax.gd" id="8_ueist"]
 [ext_resource type="Script" path="res://fx/main_camera.gd" id="9_v2hcn"]
 [ext_resource type="Script" path="res://fx/hyperspace/hyperspace_effect.gd" id="10_23l1d"]
-[ext_resource type="Script" path="res://mechanics/physics/rigid_body_cargo.gd" id="10_w7kut"]
 [ext_resource type="Script" path="res://mechanics/economy/cargo_hold.gd" id="11_ag0i7"]
 [ext_resource type="Resource" uid="uid://b764gd8q3il6s" path="res://mechanics/economy/currencies/credits.tres" id="11_cir2n"]
 [ext_resource type="AudioStream" uid="uid://cmjfgigj57eie" path="res://fx/hyperspace/teleport_02_slowed.ogg" id="11_tu1c7"]
@@ -77,13 +76,13 @@ script = ExtResource("15_sjw8q")
 max_power = 300.0
 power = 300.0
 
-[sub_resource type="Resource" id="Resource_ffax2"]
+[sub_resource type="Resource" id="Resource_rcbfw"]
 resource_local_to_scene = true
 script = ExtResource("14_bcf1o")
 max_integrity = 40.0
 integrity = 40.0
 
-[sub_resource type="Resource" id="Resource_75c8j"]
+[sub_resource type="Resource" id="Resource_7husa"]
 resource_local_to_scene = true
 script = ExtResource("13_xvthq")
 max_integrity = 80.0
@@ -92,18 +91,19 @@ recharge_rate = 5.0
 power_efficiency = 1.0
 only_recharge_above = 0.2
 
-[sub_resource type="Resource" id="Resource_xpwk4"]
+[sub_resource type="Resource" id="Resource_i5r8g"]
 resource_local_to_scene = true
 script = ExtResource("15_sjw8q")
 max_power = 100.0
 power = 100.0
 
-[sub_resource type="Resource" id="Resource_bsv1l"]
+[sub_resource type="Resource" id="Resource_on6n3"]
+resource_local_to_scene = true
 script = ExtResource("11_ag0i7")
 max_volume = 10.0
 commodities = {}
 
-[sub_resource type="Resource" id="Resource_he1l8"]
+[sub_resource type="Resource" id="Resource_un4md"]
 resource_local_to_scene = true
 script = ExtResource("13_q2g24")
 max_fuel = 6.0
@@ -163,6 +163,11 @@ texture_margin_top = 10.0
 texture_margin_right = 15.0
 texture_margin_bottom = 10.0
 
+[sub_resource type="Resource" id="Resource_bsv1l"]
+script = ExtResource("11_ag0i7")
+max_volume = 10.0
+commodities = {}
+
 [node name="Game" type="Node3D"]
 
 [node name="HyperspaceSceneSwitcher" type="Node3D" parent="." node_paths=PackedStringArray("player", "message_log") groups=["saveable"]]
@@ -177,15 +182,14 @@ hull = SubResource("Resource_p7sh0")
 shield = SubResource("Resource_dhynb")
 battery = SubResource("Resource_ubt7x")
 
-[node name="PlayerCorvette" parent="HyperspaceSceneSwitcher/Sol" node_paths=PackedStringArray("hyperdrive_system", "rigid_body_cargo") instance=ExtResource("12_bj83b")]
+[node name="PlayerCorvette" parent="HyperspaceSceneSwitcher/Sol" node_paths=PackedStringArray("hyperdrive_system") instance=ExtResource("12_bj83b")]
 physics_material_override = null
 hyperdrive_system = NodePath("HyperdriveSystem")
-rigid_body_cargo = NodePath("RigidBodyCargo")
-hull = SubResource("Resource_ffax2")
-shield = SubResource("Resource_75c8j")
-battery = SubResource("Resource_xpwk4")
-cargo_hold = SubResource("Resource_bsv1l")
-hyperdrive = SubResource("Resource_he1l8")
+hull = SubResource("Resource_rcbfw")
+shield = SubResource("Resource_7husa")
+battery = SubResource("Resource_i5r8g")
+cargo_hold = SubResource("Resource_on6n3")
+hyperdrive = SubResource("Resource_un4md")
 
 [node name="CombatObject" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="3" node_paths=PackedStringArray("targeted_sound")]
 targeted_sound = NodePath("../Player/TargetedSound")
@@ -217,9 +221,6 @@ current = false
 
 [node name="MissionController" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" index="5" node_paths=PackedStringArray("message_log")]
 message_log = NodePath("../../../../../InGameGUI/MarginContainer/HBoxContainer/MessageLog")
-
-[node name="RigidBodyCargo" type="Node3D" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette"]
-script = ExtResource("10_w7kut")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("1_pqled")
