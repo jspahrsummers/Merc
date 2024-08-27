@@ -61,7 +61,16 @@ enum Status {
         cargo.make_read_only()
         self.emit_changed()
 
-## A destination to deliver cargo to.
+## The number of passengers to transport for this mission.
+@export var passengers: int = 0:
+    set(value):
+        if passengers == value:
+            return
+
+        passengers = value
+        self.emit_changed()
+
+## A destination to deliver cargo or passengers to.
 @export var destination_port: Port:
     set(value):
         if value == destination_port:
@@ -120,6 +129,9 @@ const _RUSH_DELIVERY_MIN_DEADLINE_BUFFER = 1.1
 ## Maximum multiplier for a rush delivery's deadline, as computed by the number of hyperspace jumps required.
 const _RUSH_DELIVERY_MAX_DEADLINE_BUFFER = 1.5
 
+## Base price per passenger for ferry missions.
+const _FERRY_BASE_PRICE_PER_PASSENGER = 1000
+
 ## Creates a random delivery mission without a deadline.
 static func create_delivery_mission(origin_port: Port) -> Mission:
     var mission := Mission.new()
@@ -159,6 +171,39 @@ static func create_delivery_mission(origin_port: Port) -> Mission:
 
     mission.starting_cost = {
         starting_money: round(starting_money.price_converted_from_credits(commodity.base_price_in_credits) * units * _STARTING_COST_PERCENTAGE)
+    }
+
+    return mission
+
+## Creates a random ferry passengers mission.
+static func create_ferry_mission(origin_port: Port) -> Mission:
+    var mission := Mission.new()
+
+    var origin_system: StarSystem = origin_port.star_system.get_ref()
+    var galaxy: Galaxy = origin_system.galaxy.get_ref()
+    var possible_destination_systems := galaxy.systems.filter(func(system: StarSystem) -> bool:
+        return system.ports and system != origin_system)
+
+    var destination_system: StarSystem = possible_destination_systems.pick_random()
+    mission.destination_port = destination_system.ports.pick_random()
+
+    mission.passengers = randi_range(1, 10)
+
+    mission.title = "Ferry passengers to %s" % mission.destination_port.name
+    mission.description = "Transport %d passenger%s to %s in the %s system." % [
+        mission.passengers,
+        "s" if mission.passengers > 1 else "",
+        mission.destination_port.name,
+        destination_system.name,
+    ]
+
+    var reward_money := destination_system.preferred_money()
+    if not reward_money:
+        reward_money = _credits
+
+    var base_reward := _FERRY_BASE_PRICE_PER_PASSENGER * mission.passengers
+    mission.monetary_reward = {
+        reward_money: round(reward_money.price_converted_from_credits(base_reward))
     }
 
     return mission
@@ -279,6 +324,7 @@ static func create_random_mission(origin_port: Port, calendar: Calendar, hero_ro
     var generators := [
         func() -> Mission: return Mission.create_bounty_mission(hero_roster),
         func() -> Mission: return Mission.create_rush_delivery_mission(origin_port, calendar),
+        func() -> Mission: return Mission.create_ferry_mission(origin_port),
     ]
 
     # Lazy way of weighting the random generation
@@ -325,6 +371,7 @@ func save_to_dict() -> Dictionary:
     result["cargo"] = SaveGame.serialize_dictionary_with_resource_keys(self.cargo)
     result["monetary_reward"] = SaveGame.serialize_dictionary_with_resource_keys(self.monetary_reward)
     result["starting_cost"] = SaveGame.serialize_dictionary_with_resource_keys(self.starting_cost)
+    result["passengers"] = self.passengers
 
     return result
 
@@ -350,5 +397,7 @@ func load_from_dict(dict: Dictionary) -> void:
 
     var saved_cost: Dictionary = dict["starting_cost"]
     self.starting_cost = SaveGame.deserialize_dictionary_with_resource_keys(saved_cost)
+
+    self.passengers = dict["passengers"] if "passengers" in dict else 0
 
     self.emit_changed()
