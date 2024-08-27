@@ -226,7 +226,7 @@ func _on_broadcasted_input_event(receiver: Node, event: InputEvent) -> void:
 
     var combat_object := receiver as CombatObject
     if combat_object:
-        self.ship.targeting_system.target = combat_object
+        self.ship.targeting_system.target = combat_object if combat_object != self.ship.combat_object else null
         return
 
     var celestial := receiver as Celestial
