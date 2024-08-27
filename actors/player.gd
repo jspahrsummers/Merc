@@ -106,6 +106,7 @@ func _ready() -> void:
 
     self.mission_controller.calendar = self.calendar
     self.mission_controller.cargo_hold = self.ship.cargo_hold
+    self.mission_controller.passenger_quarters = self.ship.passenger_quarters
     self.mission_controller.bank_account = self.bank_account
 
 func _on_hull_changed() -> void:
