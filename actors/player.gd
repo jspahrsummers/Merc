@@ -143,13 +143,13 @@ func _next_system_connection() -> StarSystem:
 
     var current_system := self.ship.hyperdrive_system.current_system()
     var galaxy: Galaxy = current_system.galaxy.get_ref()
-    var next_destination_name: Variant = ArrayUtils.cycle_through(current_system.connections, current_destination_name)
+    var next_destination_name: Variant = CollectionUtils.cycle_through(current_system.connections, current_destination_name)
     return galaxy.get_system(next_destination_name as StringName) if next_destination_name else null
 
 func _next_target() -> CombatObject:
     var available_targets := self.ship.targeting_system.get_available_targets()
     available_targets.erase(self.ship.combat_object)
-    return ArrayUtils.cycle_through(available_targets, self.ship.targeting_system.target)
+    return CollectionUtils.cycle_through(available_targets, self.ship.targeting_system.target)
 
 func _available_landing_targets() -> Array[Celestial]:
     var targets: Array[Celestial] = []
@@ -195,7 +195,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
         self._land()
 
     if event.is_action_pressed("cycle_landing_target", true):
-        var next_target: Celestial = ArrayUtils.cycle_through(self._available_landing_targets(), self.landing_target)
+        var next_target: Celestial = CollectionUtils.cycle_through(self._available_landing_targets(), self.landing_target)
         self.landing_target = next_target
         self.get_viewport().set_input_as_handled()
 

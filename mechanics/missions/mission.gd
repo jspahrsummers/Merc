@@ -14,6 +14,16 @@ enum Status {
     FORFEITED = 4
 }
 
+## Broad types of missions.
+##
+## Note that these values are saved via [SaveGame], so be careful not to break backwards compatibility!
+enum Type {
+    DELIVERY = 0,
+    RUSH_DELIVERY = 1,
+    FERRY = 2,
+    BOUNTY = 3,
+}
+
 ## The human-readable title of the mission.
 @export var title: String
 
@@ -21,6 +31,9 @@ enum Status {
 ##
 ## BBCode can be used to format this description.
 @export var description: String
+
+## The type of this mission.
+@export var type: Type
 
 ## A deadline for the mission, in GST cycles (see [Calendar]), or [constant INF] if there is no deadline.
 ##
@@ -129,12 +142,27 @@ const _RUSH_DELIVERY_MIN_DEADLINE_BUFFER = 1.1
 ## Maximum multiplier for a rush delivery's deadline, as computed by the number of hyperspace jumps required.
 const _RUSH_DELIVERY_MAX_DEADLINE_BUFFER = 1.5
 
-## Base price per passenger for ferry missions.
+## Base reward per passenger (in credits) for ferry missions.
 const _FERRY_BASE_PRICE_PER_PASSENGER = 1000
+
+## Minimum reward (in credits) for bounty missions.
+const _BOUNTY_MIN_CREDITS_REWARD = 15000
+
+## Maximum reward (in credits) for bounty missions.
+const _BOUNTY_MAX_CREDITS_REWARD = 40000
+
+# Mission type weights
+const _MISSION_WEIGHTS = {
+    Type.DELIVERY: 1.0,
+    Type.RUSH_DELIVERY: 0.7,
+    Type.FERRY: 1.0,
+    Type.BOUNTY: 0.2,
+}
 
 ## Creates a random delivery mission without a deadline.
 static func create_delivery_mission(origin_port: Port) -> Mission:
     var mission := Mission.new()
+    mission.type = Type.DELIVERY
 
     var origin_system: StarSystem = origin_port.star_system.get_ref()
     var galaxy: Galaxy = origin_system.galaxy.get_ref()
@@ -178,6 +206,7 @@ static func create_delivery_mission(origin_port: Port) -> Mission:
 ## Creates a random ferry passengers mission.
 static func create_ferry_mission(origin_port: Port) -> Mission:
     var mission := Mission.new()
+    mission.type = Type.FERRY
 
     var origin_system: StarSystem = origin_port.star_system.get_ref()
     var galaxy: Galaxy = origin_system.galaxy.get_ref()
@@ -258,6 +287,8 @@ static func create_rush_delivery_mission(origin_port: Port, calendar: Calendar) 
         return null
 
     var mission := Mission.new()
+    mission.type = Type.RUSH_DELIVERY
+
     mission.deadline_cycle = calendar.get_current_cycle()
     for i in range(path.size()):
         mission.deadline_cycle += HyperspaceSceneSwitcher.HYPERSPACE_APPROXIMATE_TRAVEL_DAYS * 24 * randf_range(_RUSH_DELIVERY_MIN_DEADLINE_BUFFER, _RUSH_DELIVERY_MAX_DEADLINE_BUFFER)
@@ -299,14 +330,12 @@ static func create_rush_delivery_mission(origin_port: Port, calendar: Calendar) 
 
     return mission
 
-const _BOUNTY_MIN_CREDITS_REWARD = 15000
-const _BOUNTY_MAX_CREDITS_REWARD = 40000
-
 ## Creates a random bounty mission.
 ##
 ## Note: this may not succeed every time, so ensure that the return value is checked.
 static func create_bounty_mission(hero_roster: HeroRoster) -> Mission:
     var mission := Mission.new()
+    mission.type = Type.BOUNTY
 
     mission.assassination_target = hero_roster.pick_random_bounty()
     if not mission.assassination_target:
@@ -327,20 +356,20 @@ static func create_bounty_mission(hero_roster: HeroRoster) -> Mission:
 ##
 ## Note: this may not succeed every time, so ensure that the return value is checked.
 static func create_random_mission(origin_port: Port, calendar: Calendar, hero_roster: HeroRoster) -> Mission:
-    var generators := [
-        func() -> Mission: return Mission.create_bounty_mission(hero_roster),
-        func() -> Mission: return Mission.create_rush_delivery_mission(origin_port, calendar),
-        func() -> Mission: return Mission.create_ferry_mission(origin_port),
-    ]
+    var mission_type: Type = CollectionUtils.weighted_random_choice(_MISSION_WEIGHTS)
 
-    # Lazy way of weighting the random generation
-    for i in range(2):
-        generators.append(
-            func() -> Mission: return Mission.create_delivery_mission(origin_port),
-        )
-
-    var generator: Callable = generators.pick_random()
-    return generator.call()
+    match mission_type:
+        Type.DELIVERY:
+            return create_delivery_mission(origin_port)
+        Type.RUSH_DELIVERY:
+            return create_rush_delivery_mission(origin_port, calendar)
+        Type.FERRY:
+            return create_ferry_mission(origin_port)
+        Type.BOUNTY:
+            return create_bounty_mission(hero_roster)
+    
+    assert(false, "Invalid mission type %s picked" % mission_type)
+    return null
 
 ## Filters out any missions from [param proposed_missions] that are incompatible with [param current_missions] or one of the other proposed missions.
 static func filter_incompatible_missions(current_missions: Array[Mission], proposed_missions: Array[Mission]) -> Array[Mission]:
@@ -363,6 +392,7 @@ func save_to_dict() -> Dictionary:
     var result := {}
     result["title"] = self.title
     result["description"] = self.description
+    result["type"] = self.type
 
     if is_finite(self.deadline_cycle):
         result["deadline_cycle"] = self.deadline_cycle
@@ -384,6 +414,7 @@ func save_to_dict() -> Dictionary:
 func load_from_dict(dict: Dictionary) -> void:
     self.title = dict["title"]
     self.description = dict["description"]
+    self.type = dict["type"]
     self.deadline_cycle = dict["deadline_cycle"] if "deadline_cycle" in dict else INF
     self.status = dict["status"]
 
