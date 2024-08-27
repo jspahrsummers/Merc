@@ -46,6 +46,9 @@ func _ready() -> void:
 
     self._update_refuel_button()
 
+    self.player.bank_account.changed.connect(self._update_refuel_button)
+    self.player.ship.cargo_hold.changed.connect(self._update_refuel_button)
+
 func _on_bar_button_pressed() -> void:
     self.bar_dialog.dialog_text = self.spaceport_bar.get_description()
     self.bar_dialog.show()
