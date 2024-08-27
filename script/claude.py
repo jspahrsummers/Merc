@@ -215,7 +215,9 @@ def sample(
                             console.print(syntax)
 
                             if Confirm.ask(f"\nWrite to file {path}?", default=False):
-                                Path(path).write_text(code)
+                                p = Path(path)
+                                p.parent.mkdir(parents=True, exist_ok=True)
+                                p.write_text(code)
 
                         current_tool = None
         finally:
