@@ -1,12 +1,12 @@
-[gd_scene load_steps=75 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=78 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperspace_scene_switcher.gd" id="4_yyrkm"]
 [ext_resource type="Material" uid="uid://tpd4rufhhe4h" path="res://fx/starfield/starfield.tres" id="7_gr6ce"]
+[ext_resource type="Script" path="res://mechanics/economy/passenger_quarters.gd" id="8_bkgwh"]
 [ext_resource type="Script" path="res://fx/starfield/starfield_parallax.gd" id="8_ueist"]
 [ext_resource type="Script" path="res://fx/main_camera.gd" id="9_v2hcn"]
 [ext_resource type="Script" path="res://fx/hyperspace/hyperspace_effect.gd" id="10_23l1d"]
-[ext_resource type="Script" path="res://mechanics/physics/rigid_body_cargo.gd" id="10_w7kut"]
 [ext_resource type="Script" path="res://mechanics/economy/cargo_hold.gd" id="11_ag0i7"]
 [ext_resource type="Resource" uid="uid://b764gd8q3il6s" path="res://mechanics/economy/currencies/credits.tres" id="11_cir2n"]
 [ext_resource type="AudioStream" uid="uid://cmjfgigj57eie" path="res://fx/hyperspace/teleport_02_slowed.ogg" id="11_tu1c7"]
@@ -77,13 +77,13 @@ script = ExtResource("15_sjw8q")
 max_power = 300.0
 power = 300.0
 
-[sub_resource type="Resource" id="Resource_ffax2"]
+[sub_resource type="Resource" id="Resource_rcbfw"]
 resource_local_to_scene = true
 script = ExtResource("14_bcf1o")
 max_integrity = 40.0
 integrity = 40.0
 
-[sub_resource type="Resource" id="Resource_75c8j"]
+[sub_resource type="Resource" id="Resource_7husa"]
 resource_local_to_scene = true
 script = ExtResource("13_xvthq")
 max_integrity = 80.0
@@ -92,18 +92,25 @@ recharge_rate = 5.0
 power_efficiency = 1.0
 only_recharge_above = 0.2
 
-[sub_resource type="Resource" id="Resource_xpwk4"]
+[sub_resource type="Resource" id="Resource_i5r8g"]
 resource_local_to_scene = true
 script = ExtResource("15_sjw8q")
 max_power = 100.0
 power = 100.0
 
-[sub_resource type="Resource" id="Resource_bsv1l"]
+[sub_resource type="Resource" id="Resource_on6n3"]
+resource_local_to_scene = true
 script = ExtResource("11_ag0i7")
 max_volume = 10.0
 commodities = {}
 
-[sub_resource type="Resource" id="Resource_he1l8"]
+[sub_resource type="Resource" id="Resource_ksma2"]
+resource_local_to_scene = true
+script = ExtResource("8_bkgwh")
+total_spaces = 6
+occupied_spaces = 0
+
+[sub_resource type="Resource" id="Resource_un4md"]
 resource_local_to_scene = true
 script = ExtResource("13_q2g24")
 max_fuel = 6.0
@@ -163,6 +170,17 @@ texture_margin_top = 10.0
 texture_margin_right = 15.0
 texture_margin_bottom = 10.0
 
+[sub_resource type="Resource" id="Resource_bsv1l"]
+script = ExtResource("11_ag0i7")
+max_volume = 10.0
+commodities = {}
+
+[sub_resource type="Resource" id="Resource_fb66t"]
+resource_local_to_scene = true
+script = ExtResource("8_bkgwh")
+total_spaces = 6
+occupied_spaces = 0
+
 [node name="Game" type="Node3D"]
 
 [node name="HyperspaceSceneSwitcher" type="Node3D" parent="." node_paths=PackedStringArray("player", "message_log") groups=["saveable"]]
@@ -177,15 +195,15 @@ hull = SubResource("Resource_p7sh0")
 shield = SubResource("Resource_dhynb")
 battery = SubResource("Resource_ubt7x")
 
-[node name="PlayerCorvette" parent="HyperspaceSceneSwitcher/Sol" node_paths=PackedStringArray("hyperdrive_system", "rigid_body_cargo") instance=ExtResource("12_bj83b")]
+[node name="PlayerCorvette" parent="HyperspaceSceneSwitcher/Sol" node_paths=PackedStringArray("hyperdrive_system") instance=ExtResource("12_bj83b")]
 physics_material_override = null
 hyperdrive_system = NodePath("HyperdriveSystem")
-rigid_body_cargo = NodePath("RigidBodyCargo")
-hull = SubResource("Resource_ffax2")
-shield = SubResource("Resource_75c8j")
-battery = SubResource("Resource_xpwk4")
-cargo_hold = SubResource("Resource_bsv1l")
-hyperdrive = SubResource("Resource_he1l8")
+hull = SubResource("Resource_rcbfw")
+shield = SubResource("Resource_7husa")
+battery = SubResource("Resource_i5r8g")
+cargo_hold = SubResource("Resource_on6n3")
+passenger_quarters = SubResource("Resource_ksma2")
+hyperdrive = SubResource("Resource_un4md")
 
 [node name="CombatObject" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="3" node_paths=PackedStringArray("targeted_sound")]
 targeted_sound = NodePath("../Player/TargetedSound")
@@ -217,9 +235,6 @@ current = false
 
 [node name="MissionController" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" index="5" node_paths=PackedStringArray("message_log")]
 message_log = NodePath("../../../../../InGameGUI/MarginContainer/HBoxContainer/MessageLog")
-
-[node name="RigidBodyCargo" type="Node3D" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette"]
-script = ExtResource("10_w7kut")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("1_pqled")
@@ -320,8 +335,11 @@ game_over_scene = ExtResource("17_yidh7")
 exit_dialog_scene = ExtResource("18_hl4w3")
 currency_trading_scene = ExtResource("25_57wc6")
 mission_log_scene = ExtResource("26_fk202")
-tutorial_window = NodePath("../TutorialWindow")
+tutorial_window = NodePath("TutorialWindow")
 player = NodePath("../HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player")
+
+[node name="TutorialWindow" parent="InGameGUI" instance=ExtResource("55_0jyo3")]
+visible = false
 
 [node name="MarginContainer" type="MarginContainer" parent="InGameGUI"]
 anchors_preset = 15
@@ -586,12 +604,14 @@ layout_mode = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/CurrenciesContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="CargoContainer" type="PanelContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar" node_paths=PackedStringArray("label_container", "free_cargo_label")]
+[node name="CargoContainer" type="PanelContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar" node_paths=PackedStringArray("label_container", "free_cargo_label", "passengers_label")]
 layout_mode = 2
 script = ExtResource("44_e80r5")
 cargo_hold = SubResource("Resource_bsv1l")
+passenger_quarters = SubResource("Resource_fb66t")
 label_container = NodePath("MarginContainer/VBoxContainer")
 free_cargo_label = NodePath("MarginContainer/VBoxContainer/FreeCargoLabel")
+passengers_label = NodePath("MarginContainer/VBoxContainer/PassengersLabel")
 
 [node name="MarginContainer" type="MarginContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/CargoContainer"]
 layout_mode = 2
@@ -604,6 +624,11 @@ layout_mode = 2
 text = "10L free"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PassengersLabel" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/CargoContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "0 passengers"
+horizontal_alignment = 1
 
 [node name="TimeContainer" type="PanelContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar"]
 layout_mode = 2
@@ -644,8 +669,6 @@ text = "30 FPS
 "
 horizontal_alignment = 2
 script = ExtResource("37_e11x7")
-
-[node name="TutorialWindow" parent="." instance=ExtResource("55_0jyo3")]
 
 [connection signal="jump_destination_loaded" from="HyperspaceSceneSwitcher" to="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" method="_on_jump_destination_loaded"]
 [connection signal="jump_destination_loaded" from="HyperspaceSceneSwitcher" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/SystemName" method="_on_jump_destination_loaded"]

@@ -8,6 +8,10 @@ extends CanvasLayer
 @export var tutorial_window: Window
 @export var player: Player
 
+func _ready() -> void:
+    if UserPreferences.tutorial_enabled:
+        self.tutorial_window.visible = true
+
 func _on_player_ship_destroyed(_player: Player) -> void:
     self._instantiate_and_show_window(self.game_over_scene)
 
@@ -28,7 +32,7 @@ func _unhandled_input(event: InputEvent) -> void:
         self.add_child(mission_log)
         mission_log.show()
     elif event.is_action_pressed("toggle_tutorial"):
-        self.tutorial_window.visible = not self.tutorial_window.visible
+        self.tutorial_window.visible = not self.tutorial_window.visible and UserPreferences.tutorial_enabled
     elif event.is_action_pressed("exit"):
         self._instantiate_and_show_window(self.exit_dialog_scene)
 

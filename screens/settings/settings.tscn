@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://screens/settings/settings.gd" id="1_cg0bx"]
 
-[node name="Settings" type="Control" node_paths=PackedStringArray("control_scheme_button", "ui_scale_range", "display_mode_button", "bindings_list")]
+[node name="Settings" type="Control" node_paths=PackedStringArray("control_scheme_button", "ui_scale_range", "display_mode_button", "tutorial_enabled_button", "bindings_list")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +13,7 @@ script = ExtResource("1_cg0bx")
 control_scheme_button = NodePath("PanelContainer/CenterContainer/VBoxContainer/GridContainer/ControlSchemeButton")
 ui_scale_range = NodePath("PanelContainer/CenterContainer/VBoxContainer/GridContainer/UIScaleSpinBox")
 display_mode_button = NodePath("PanelContainer/CenterContainer/VBoxContainer/GridContainer/DisplayModeButton")
+tutorial_enabled_button = NodePath("PanelContainer/CenterContainer/VBoxContainer/GridContainer/TutorialEnabledButton")
 bindings_list = NodePath("PanelContainer/CenterContainer/VBoxContainer/ScrollContainer/BindingsList")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -83,6 +84,20 @@ popup/item_0/id = 0
 popup/item_1/text = "FULLSCREEN"
 popup/item_1/id = 1
 
+[node name="TutorialEnabledLabel" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "IN-GAME TUTORIAL"
+horizontal_alignment = 2
+
+[node name="TutorialEnabledButton" type="OptionButton" parent="PanelContainer/CenterContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+item_count = 2
+selected = 0
+popup/item_0/text = "ENABLED"
+popup/item_0/id = 0
+popup/item_1/text = "DISABLED"
+popup/item_1/id = 1
+
 [node name="Label" type="Label" parent="PanelContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Key bindings:"
@@ -116,6 +131,7 @@ text = "Save"
 [connection signal="item_selected" from="PanelContainer/CenterContainer/VBoxContainer/GridContainer/ControlSchemeButton" to="." method="_on_control_scheme_item_selected"]
 [connection signal="value_changed" from="PanelContainer/CenterContainer/VBoxContainer/GridContainer/UIScaleSpinBox" to="." method="_on_ui_scale_changed"]
 [connection signal="item_selected" from="PanelContainer/CenterContainer/VBoxContainer/GridContainer/DisplayModeButton" to="." method="_on_display_mode_button_item_selected"]
+[connection signal="item_selected" from="PanelContainer/CenterContainer/VBoxContainer/GridContainer/TutorialEnabledButton" to="." method="_on_tutorial_enabled_item_selected"]
 [connection signal="item_clicked" from="PanelContainer/CenterContainer/VBoxContainer/ScrollContainer/BindingsList" to="." method="_on_bindings_list_item_clicked"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/RevertButton" to="." method="_on_revert_button_pressed"]
 [connection signal="pressed" from="PanelContainer/CenterContainer/VBoxContainer/HBoxContainer/SaveButton" to="." method="_on_save_button_pressed"]

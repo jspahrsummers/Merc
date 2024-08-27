@@ -40,6 +40,14 @@ var windowed: bool:
         self._config.set_value("display", "windowed", value)
         self._updated()
 
+## Whether the in-game tutorial is enabled.
+var tutorial_enabled: bool:
+    get:
+        return self._config.get_value("tutorial", "enabled", true)
+    set(value):
+        self._config.set_value("tutorial", "enabled", value)
+        self._updated()
+
 func _ready() -> void:
     self.reload()
 

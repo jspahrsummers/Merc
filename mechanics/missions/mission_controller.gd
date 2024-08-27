@@ -31,6 +31,18 @@ var cargo_hold: CargoHold:
             cargo_hold.changed.connect(_check_all_missions_failure)
             self._check_all_missions_failure()
 
+var passenger_quarters: PassengerQuarters:
+    set(value):
+        if value == passenger_quarters:
+            return
+
+        if passenger_quarters:
+            passenger_quarters.changed.disconnect(_check_all_missions_failure)
+        passenger_quarters = value
+        if passenger_quarters:
+            passenger_quarters.changed.connect(_check_all_missions_failure)
+            self._check_all_missions_failure()
+
 ## Fires when the player starts a mission.
 signal mission_started(mission: Mission)
 
@@ -69,6 +81,9 @@ func start_mission(mission: Mission) -> bool:
     if self.cargo_hold.get_occupied_volume() + required_volume > self.cargo_hold.max_volume:
         return false
 
+    if mission.passengers > 0 and self.passenger_quarters.occupied_spaces + mission.passengers > self.passenger_quarters.total_spaces:
+        return false
+
     # Only update the amounts after checking
     for trade_asset: TradeAsset in mission.starting_cost:
         var required_amount: float = mission.starting_cost[trade_asset]
@@ -79,6 +94,10 @@ func start_mission(mission: Mission) -> bool:
         var amount: int = mission.cargo[commodity]
         var result := self.cargo_hold.add_exactly(commodity, amount)
         assert(result, "Adding mission cargo should succeed after previous check")
+
+    if mission.passengers > 0:
+        var result := self.passenger_quarters.add_passengers(mission.passengers)
+        assert(result, "Adding mission passengers should succeed after previous check")
 
     self._missions.push_back(mission)
     mission.status = Mission.Status.STARTED
@@ -108,6 +127,9 @@ func _fail_mission(mission: Mission, failure_status: Mission.Status = Mission.St
         var amount: int = mission.cargo[commodity]
         self.cargo_hold.remove_up_to(commodity, amount)
 
+    if mission.passengers > 0:
+        self.passenger_quarters.remove_passengers(mission.passengers)
+
     if failure_status == Mission.Status.FORFEITED:
         self.message_log.add_message("Mission forfeited: %s" % mission.title, MessageLog.LONG_MESSAGE_LIFETIME)
         self.mission_forfeited.emit(mission)
@@ -131,6 +153,10 @@ func _succeed_mission(mission: Mission) -> void:
         var amount: int = mission.cargo[commodity]
         var result := self.cargo_hold.remove_exactly(commodity, amount)
         assert(result, "Expected cargo withdrawal to succeed when mission is succeeded")
+
+    if mission.passengers > 0:
+        var result := self.passenger_quarters.remove_passengers(mission.passengers)
+        assert(result, "Expected passenger removal to succeed when mission is succeeded")
 
     for trade_asset: TradeAsset in mission.monetary_reward:
         var amount: float = mission.monetary_reward[trade_asset]
@@ -159,6 +185,10 @@ func _check_mission_failure(mission: Mission) -> void:
         if actual_amount < required_amount:
             self._fail_mission(mission)
             return
+
+    if mission.passengers > 0 and self.passenger_quarters.occupied_spaces < mission.passengers:
+        self._fail_mission(mission)
+        return
 
 func _on_player_landed(_player: Player, port: Port) -> void:
     for mission: Mission in self._missions.duplicate():

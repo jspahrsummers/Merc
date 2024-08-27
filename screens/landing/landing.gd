@@ -75,6 +75,7 @@ func _on_missions_button_pressed() -> void:
         self._missions_window.mission_controller = self.player.mission_controller
         self._missions_window.cargo_hold = self.player.ship.cargo_hold
         self._missions_window.bank_account = self.player.bank_account
+        self._missions_window.passenger_quarters = self.player.ship.passenger_quarters
         self.add_child(self._missions_window)
 
     self._missions_window.show()

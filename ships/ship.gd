@@ -54,6 +54,9 @@ class_name Ship
 ## An optional cargo hold for this ship.
 @export var cargo_hold: CargoHold
 
+## Optional passenger quarters for this ship.
+@export var passenger_quarters: PassengerQuarters
+
 ## An optional hyperdrive for this ship.
 @export var hyperdrive: Hyperdrive
 
@@ -84,6 +87,7 @@ func _ready() -> void:
     
     if self.rigid_body_cargo:
         self.rigid_body_cargo.cargo_hold = self.cargo_hold
+        self.rigid_body_cargo.passenger_quarters = self.passenger_quarters
 
 func _to_string() -> String:
     return "Ship:%s (%s)" % [self.name, self.combat_object]

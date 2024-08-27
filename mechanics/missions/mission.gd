@@ -14,6 +14,16 @@ enum Status {
     FORFEITED = 4
 }
 
+## Broad types of missions.
+##
+## Note that these values are saved via [SaveGame], so be careful not to break backwards compatibility!
+enum Type {
+    DELIVERY = 0,
+    RUSH_DELIVERY = 1,
+    FERRY = 2,
+    BOUNTY = 3,
+}
+
 ## The human-readable title of the mission.
 @export var title: String
 
@@ -21,6 +31,9 @@ enum Status {
 ##
 ## BBCode can be used to format this description.
 @export var description: String
+
+## The type of this mission.
+@export var type: Type
 
 ## A deadline for the mission, in GST cycles (see [Calendar]), or [constant INF] if there is no deadline.
 ##
@@ -61,7 +74,16 @@ enum Status {
         cargo.make_read_only()
         self.emit_changed()
 
-## A destination to deliver cargo to.
+## The number of passengers to transport for this mission.
+@export var passengers: int = 0:
+    set(value):
+        if passengers == value:
+            return
+
+        passengers = value
+        self.emit_changed()
+
+## A destination to deliver cargo or passengers to.
 @export var destination_port: Port:
     set(value):
         if value == destination_port:
@@ -120,9 +142,27 @@ const _RUSH_DELIVERY_MIN_DEADLINE_BUFFER = 1.1
 ## Maximum multiplier for a rush delivery's deadline, as computed by the number of hyperspace jumps required.
 const _RUSH_DELIVERY_MAX_DEADLINE_BUFFER = 1.5
 
+## Base reward per passenger (in credits) for ferry missions.
+const _FERRY_BASE_PRICE_PER_PASSENGER = 1000
+
+## Minimum reward (in credits) for bounty missions.
+const _BOUNTY_MIN_CREDITS_REWARD = 15000
+
+## Maximum reward (in credits) for bounty missions.
+const _BOUNTY_MAX_CREDITS_REWARD = 40000
+
+# Mission type weights
+const _MISSION_WEIGHTS = {
+    Type.DELIVERY: 1.0,
+    Type.RUSH_DELIVERY: 0.7,
+    Type.FERRY: 1.0,
+    Type.BOUNTY: 0.2,
+}
+
 ## Creates a random delivery mission without a deadline.
 static func create_delivery_mission(origin_port: Port) -> Mission:
     var mission := Mission.new()
+    mission.type = Type.DELIVERY
 
     var origin_system: StarSystem = origin_port.star_system.get_ref()
     var galaxy: Galaxy = origin_system.galaxy.get_ref()
@@ -163,52 +203,93 @@ static func create_delivery_mission(origin_port: Port) -> Mission:
 
     return mission
 
-## Traveling-salesperson-suboptimal algorithm…
-static func _randomly_walk_systems(galaxy: Galaxy, path_so_far: Array[StarSystem]) -> Array[StarSystem]:
-    var last_system := path_so_far[-1]
-    var allowed_connections := last_system.connections.filter(func(connection: StringName) -> bool:
-        return not path_so_far.any(func(system: StarSystem) -> bool:
-            return system.name == connection
-        ))
+## Creates a random ferry passengers mission.
+static func create_ferry_mission(origin_port: Port) -> Mission:
+    var mission := Mission.new()
+    mission.type = Type.FERRY
 
-    if allowed_connections.is_empty():
+    var origin_system: StarSystem = origin_port.star_system.get_ref()
+    var galaxy: Galaxy = origin_system.galaxy.get_ref()
+    var possible_destination_systems := galaxy.systems.filter(func(system: StarSystem) -> bool:
+        return system.ports and system != origin_system)
+
+    var destination_system: StarSystem = possible_destination_systems.pick_random()
+    mission.destination_port = destination_system.ports.pick_random()
+
+    mission.passengers = randi_range(1, 10)
+
+    mission.title = "Ferry passengers to %s" % mission.destination_port.name
+    mission.description = "Transport %d passenger%s to %s in the %s system." % [
+        mission.passengers,
+        "s" if mission.passengers > 1 else "",
+        mission.destination_port.name,
+        destination_system.name,
+    ]
+
+    var reward_money := destination_system.preferred_money()
+    if not reward_money:
+        reward_money = _credits
+
+    var base_reward := _FERRY_BASE_PRICE_PER_PASSENGER * mission.passengers
+    mission.monetary_reward = {
+        reward_money: round(reward_money.price_converted_from_credits(base_reward))
+    }
+
+    return mission
+
+## Generates a random path through the galaxy, starting from the origin system.
+## Returns an array of StarSystems representing the path.
+static func _generate_random_path(origin_system: StarSystem, min_jumps: int, max_jumps: int) -> Array:
+    var galaxy: Galaxy = origin_system.galaxy.get_ref()
+    var queue: Array[Array] = [[origin_system]] # Queue of paths
+    var visited: Dictionary = {origin_system.name: true}
+    var valid_paths: Array[Array] = []
+    
+    while not queue.is_empty():
+        var current_path: Array = queue.pop_front()
+        var current_system: StarSystem = current_path[-1]
+        
+        if current_path.size() > 1: # Don't count the origin system
+            if current_system.ports and current_path.size() >= min_jumps:
+                valid_paths.append(current_path)
+            
+            if current_path.size() == max_jumps:
+                continue # Don't explore further if we've reached the maximum path length
+        
+        # Explore neighbors
+        var neighbors := current_system.connections.duplicate()
+        neighbors.shuffle() # Randomize the order of exploration
+        
+        for neighbor_name: StringName in neighbors:
+            if neighbor_name in visited:
+                continue
+            
+            var neighbor_system := galaxy.get_system(neighbor_name)
+            var new_path := current_path.duplicate()
+            new_path.append(neighbor_system)
+            queue.append(new_path)
+            visited[neighbor_name] = true
+    
+    if valid_paths.is_empty():
         return []
-
-    var next_name: StringName = allowed_connections.pick_random()
-    var next_system := galaxy.get_system(next_name)
-    var new_path := path_so_far.duplicate()
-    new_path.push_back(next_system)
-
-    if randf() >= _RUSH_DELIVERY_ADD_HOP_CHANCE:
-        # Add more hops to the path.
-        var possible_path := Mission._randomly_walk_systems(galaxy, new_path)
-        if possible_path:
-            new_path = possible_path
-
-    # Return the longest path that ends in a system with a port.
-    while not new_path[-1].ports:
-        new_path.pop_back()
-
-        if new_path.size() <= 1:
-            # Back to the starting point, so give up.
-            return []
-
-    return new_path
+    
+    return valid_paths.pick_random()
 
 ## Creates a random rush delivery mission.
 ##
 ## Note: this may not succeed every time, so ensure that the return value is checked.
 static func create_rush_delivery_mission(origin_port: Port, calendar: Calendar) -> Mission:
     var origin_system: StarSystem = origin_port.star_system.get_ref()
-    var galaxy: Galaxy = origin_system.galaxy.get_ref()
-
-    var path := Mission._randomly_walk_systems(galaxy, [origin_system])
-    if not path:
+    var path := _generate_random_path(origin_system, 2, 5) # Min 2 jumps, max 5 jumps
+    
+    if path.is_empty():
         return null
 
     var mission := Mission.new()
+    mission.type = Type.RUSH_DELIVERY
+
     mission.deadline_cycle = calendar.get_current_cycle()
-    for i in path.size() - 1:
+    for i in range(path.size()):
         mission.deadline_cycle += HyperspaceSceneSwitcher.HYPERSPACE_APPROXIMATE_TRAVEL_DAYS * 24 * randf_range(_RUSH_DELIVERY_MIN_DEADLINE_BUFFER, _RUSH_DELIVERY_MAX_DEADLINE_BUFFER)
 
     var destination_system: StarSystem = path[-1]
@@ -248,14 +329,12 @@ static func create_rush_delivery_mission(origin_port: Port, calendar: Calendar) 
 
     return mission
 
-const _BOUNTY_MIN_CREDITS_REWARD = 15000
-const _BOUNTY_MAX_CREDITS_REWARD = 40000
-
 ## Creates a random bounty mission.
 ##
 ## Note: this may not succeed every time, so ensure that the return value is checked.
 static func create_bounty_mission(hero_roster: HeroRoster) -> Mission:
     var mission := Mission.new()
+    mission.type = Type.BOUNTY
 
     mission.assassination_target = hero_roster.pick_random_bounty()
     if not mission.assassination_target:
@@ -276,19 +355,20 @@ static func create_bounty_mission(hero_roster: HeroRoster) -> Mission:
 ##
 ## Note: this may not succeed every time, so ensure that the return value is checked.
 static func create_random_mission(origin_port: Port, calendar: Calendar, hero_roster: HeroRoster) -> Mission:
-    var generators := [
-        func() -> Mission: return Mission.create_bounty_mission(hero_roster),
-        func() -> Mission: return Mission.create_rush_delivery_mission(origin_port, calendar),
-    ]
+    var mission_type: Type = CollectionUtils.weighted_random_choice(_MISSION_WEIGHTS)
 
-    # Lazy way of weighting the random generation
-    for i in range(2):
-        generators.append(
-            func() -> Mission: return Mission.create_delivery_mission(origin_port),
-        )
-
-    var generator: Callable = generators.pick_random()
-    return generator.call()
+    match mission_type:
+        Type.DELIVERY:
+            return create_delivery_mission(origin_port)
+        Type.RUSH_DELIVERY:
+            return create_rush_delivery_mission(origin_port, calendar)
+        Type.FERRY:
+            return create_ferry_mission(origin_port)
+        Type.BOUNTY:
+            return create_bounty_mission(hero_roster)
+    
+    assert(false, "Invalid mission type %s picked" % mission_type)
+    return null
 
 ## Filters out any missions from [param proposed_missions] that are incompatible with [param current_missions] or one of the other proposed missions.
 static func filter_incompatible_missions(current_missions: Array[Mission], proposed_missions: Array[Mission]) -> Array[Mission]:
@@ -311,6 +391,7 @@ func save_to_dict() -> Dictionary:
     var result := {}
     result["title"] = self.title
     result["description"] = self.description
+    result["type"] = self.type
 
     if is_finite(self.deadline_cycle):
         result["deadline_cycle"] = self.deadline_cycle
@@ -325,12 +406,14 @@ func save_to_dict() -> Dictionary:
     result["cargo"] = SaveGame.serialize_dictionary_with_resource_keys(self.cargo)
     result["monetary_reward"] = SaveGame.serialize_dictionary_with_resource_keys(self.monetary_reward)
     result["starting_cost"] = SaveGame.serialize_dictionary_with_resource_keys(self.starting_cost)
+    result["passengers"] = self.passengers
 
     return result
 
 func load_from_dict(dict: Dictionary) -> void:
     self.title = dict["title"]
     self.description = dict["description"]
+    self.type = dict["type"]
     self.deadline_cycle = dict["deadline_cycle"] if "deadline_cycle" in dict else INF
     self.status = dict["status"]
 
@@ -350,5 +433,7 @@ func load_from_dict(dict: Dictionary) -> void:
 
     var saved_cost: Dictionary = dict["starting_cost"]
     self.starting_cost = SaveGame.deserialize_dictionary_with_resource_keys(saved_cost)
+
+    self.passengers = dict["passengers"] if "passengers" in dict else 0
 
     self.emit_changed()

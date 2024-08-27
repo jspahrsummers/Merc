@@ -65,7 +65,7 @@ func _on_item_selected(index: int) -> void:
     self.cost_label.text = self._money_dict_to_string(self._selected_mission.starting_cost)
     self.reward_label.text = self._money_dict_to_string(self._selected_mission.monetary_reward)
     self.forfeit_button.disabled = false
-    self.forfeit_button.tooltip_text = "Forfeit the mission, losing any deposit paid."
+    self.forfeit_button.tooltip_text = "Forfeit the mission, losing the initial deposit." if self._selected_mission.starting_cost else "Forfeit the mission."
 
 func _money_dict_to_string(dict: Dictionary) -> String:
     var keys := dict.keys()
