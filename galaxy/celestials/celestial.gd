@@ -28,7 +28,7 @@ func get_available_missions(calendar: Calendar, hero_roster: HeroRoster) -> Arra
         var desired_count := randi_range(3, 5)
         while self._available_missions.size() < desired_count:
             var mission := Mission.create_random_mission(self.port, calendar, hero_roster)
-            if mission:
+            if mission and Mission.filter_incompatible_missions(self._available_missions, [mission]):
                 self._available_missions.push_back(mission)
 
     return self._available_missions
