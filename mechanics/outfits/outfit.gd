@@ -30,6 +30,24 @@ class_name Outfit
 ## A weapon provided by this outfit.
 @export var weapon: Weapon
 
+## How much of the purchase price is refunded when uninstalling this outfit.
+const REFUND_PERCENTAGE = 0.75
+
+## Whether this outfit is able to be installed onto the given ship.
+func can_install_onto_ship(ship: Ship) -> bool:
+    if self.weapon:
+        var mount_available := false
+        for mount in ship.weapon_mounts:
+            if not mount.weapon:
+                mount_available = true
+                break
+        
+        if not mount_available:
+            return false
+    
+    # TODO: Limit other types of outfits (e.g., based on hardpoints), to prevent infinite accumulation of benefits.
+    return true
+
 ## Apply the effects of this outfit to a ship, or returns false if the outfit cannot be installed.
 func apply_to_ship(ship: Ship) -> bool:
     if self.weapon:

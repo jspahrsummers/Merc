@@ -30,7 +30,7 @@ var _port: Port
 var _hyperdrive: Hyperdrive
 var _trading_window: TradingWindow = null
 var _missions_window: MissionComputerWindow = null
-var _outfitting_window: OutfittingUI = null
+var _outfitter_window: OutfitterWindow = null
 
 func _ready() -> void:
     self._hyperdrive = self.player.ship.hyperdrive
@@ -84,13 +84,17 @@ func _on_missions_button_pressed() -> void:
     self._missions_window.grab_focus()
 
 func _on_outfitter_button_pressed() -> void:
-    if not self._outfitting_window:
-        self._outfitting_window = self.outfitting_window_scene.instantiate()
-        self._outfitting_window.initialize(self.player.ship, self._port.available_outfits)
-        self.add_child(self._outfitting_window)
+    if not self._outfitter_window:
+        self._outfitter_window = self.outfitting_window_scene.instantiate()
+        self._outfitter_window.ship = self.player.ship
+        self._outfitter_window.available_outfits = self._port.available_outfits
+        self._outfitter_window.money = self.star_system.preferred_money()
+        self._outfitter_window.cargo_hold = self.player.ship.cargo_hold
+        self._outfitter_window.bank_account = self.player.bank_account
+        self.add_child(self._outfitter_window)
 
-    self._outfitting_window.show()
-    self._outfitting_window.grab_focus()
+    self._outfitter_window.show()
+    self._outfitter_window.grab_focus()
 
 func _on_shipyard_button_pressed() -> void:
     pass # Replace with function body.

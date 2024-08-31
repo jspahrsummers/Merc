@@ -63,6 +63,7 @@ class_name Ship
 ## Array of outfits currently equipped on the ship.
 ##
 ## This array should not be directly manipulated outside of the editor! Use [method add_outfit] and [method remove_outfit] instead.
+# TODO: Fire a signal when outfits are added or removed.
 @export var outfits: Array[Outfit] = []
 
 ## Used to save and restore the player's ship to the same node path across launches.
