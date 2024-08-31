@@ -63,6 +63,9 @@ class_name Ship
 ## Used to save and restore the player's ship to the same node path across launches.
 var save_node_path_override: NodePath
 
+## Array of outfits currently equipped on the ship.
+var outfits: Array[Outfit] = []
+
 func _ready() -> void:
     self.combat_object.hull = self.hull
     self.combat_object.shield = self.shield
@@ -92,6 +95,22 @@ func _ready() -> void:
 func _to_string() -> String:
     return "Ship:%s (%s)" % [self.name, self.combat_object]
 
+## Add an outfit to the ship and apply its effects.
+func add_outfit(outfit: Outfit) -> void:
+    outfits.append(outfit)
+    outfit.apply_to_ship(self)
+
+## Remove an outfit from the ship and undo its effects.
+func remove_outfit(outfit: Outfit) -> void:
+    var index = outfits.find(outfit)
+    if index != -1:
+        outfits.remove_at(index)
+        outfit.remove_from_ship(self)
+
+## Get all outfits of a specific type.
+func get_outfits_of_type(type: Outfit.OutfitType) -> Array[Outfit]:
+    return outfits.filter(func(outfit: Outfit) -> bool: return outfit.type == type)
+
 ## See [SaveGame].
 func save_to_dict() -> Dictionary:
     var result := {}
@@ -104,6 +123,10 @@ func save_to_dict() -> Dictionary:
     result["transform"] = SaveGame.serialize_transform(self.transform)
     result["linear_velocity"] = SaveGame.serialize_vector3(self.linear_velocity)
     result["angular_velocity"] = SaveGame.serialize_vector3(self.angular_velocity)
+    
+    # Save outfits
+    result["outfits"] = outfits.map(func(outfit: Outfit) -> Dictionary: return outfit.save_to_dict())
+    
     return result
 
 ## See [SaveGame].
@@ -117,3 +140,10 @@ func load_from_dict(dict: Dictionary) -> void:
     self.transform = SaveGame.deserialize_transform(dict["transform"])
     self.linear_velocity = SaveGame.deserialize_vector3(dict["linear_velocity"])
     self.angular_velocity = SaveGame.deserialize_vector3(dict["angular_velocity"])
+    
+    # Load outfits
+    outfits.clear()
+    for outfit_dict in dict["outfits"]:
+        var outfit = Outfit.new()
+        outfit.load_from_dict(outfit_dict)
+        add_outfit(outfit)
