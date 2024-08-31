@@ -1,4 +1,4 @@
-extends Resource
+extends SaveableResource
 class_name Outfit
 
 ## Represents a ship outfit or component that can be installed on a ship.
@@ -6,40 +6,70 @@ class_name Outfit
 ## The human-readable name of this outfit.
 @export var name: String
 
+## A human-readable BBCode description of this outfit.
+@export var description: String
+
 ## The mass of this outfit in kilograms.
 @export var mass: float
 
-## The volume this outfit occupies in cubic meters.
-@export var volume: float
+## The price of this outfit in credits.
+@export var price_in_credits: float
 
-## The power consumption of this outfit in watts.
-@export var power_consumption: float
+## Additional cargo capacity provided, in cubic meters.
+@export var additional_cargo_capacity: float = 0
 
-## The cost of this outfit in credits.
-@export var cost: int
+## Additional fuel capacity provided.
+@export var additional_fuel_capacity: float = 0
 
-## The type of this outfit (e.g., weapon, cargo hold, fuel tank, shield, engine).
-enum OutfitType {
-    WEAPON,
-    CARGO_HOLD,
-    FUEL_TANK,
-    SHIELD,
-    ENGINE,
-    MISCELLANEOUS
-}
-@export var type: OutfitType
+## Additional shield capacity provided.
+@export var additional_shield_capacity: float = 0
+
+## A multiplier to apply to shield recharge rate.
+@export var shield_recharge_multiplier: float = 1.0
 
 ## Apply the effects of this outfit to a ship.
+##
 ## This method should be overridden by specific outfit types.
-func apply_to_ship(_ship: Ship) -> void:
-    pass
+func apply_to_ship(ship: Ship) -> void:
+    if ship.cargo_hold:
+        ship.cargo_hold.max_volume += self.additional_cargo_capacity
+
+    if ship.hyperdrive:
+        ship.hyperdrive.max_fuel += self.additional_fuel_capacity
+
+    if ship.shield:
+        ship.shield.max_integrity += self.additional_shield_capacity
+        ship.shield.recharge_rate *= self.shield_recharge_multiplier
 
 ## Remove the effects of this outfit from a ship.
+##
 ## This method should be overridden by specific outfit types.
-func remove_from_ship(_ship: Ship) -> void:
-    pass
+func remove_from_ship(ship: Ship) -> void:
+    if ship.cargo_hold:
+        ship.cargo_hold.max_volume -= self.additional_cargo_capacity
 
-## Returns a description of the outfit's effects.
-## This method should be overridden by specific outfit types.
-func get_description() -> String:
-    return "A ship outfit."
+    if ship.hyperdrive:
+        ship.hyperdrive.max_fuel -= self.additional_fuel_capacity
+
+    if ship.shield:
+        ship.shield.max_integrity -= self.additional_shield_capacity
+        ship.shield.recharge_rate /= self.shield_recharge_multiplier
+
+## Returns the list of effects provided by this outfit, as BBCode formatted strings.
+func get_effects() -> PackedStringArray:
+    var effects := PackedStringArray()
+
+    if not is_zero_approx(self.additional_cargo_capacity):
+        effects.push_back("[b]Additional cargo capacity:[/b] %s m³" % self.additional_cargo_capacity)
+
+    if not is_zero_approx(self.additional_fuel_capacity):
+        effects.push_back("[b]Additional fuel capacity:[/b] %s hyperjumps" % self.additional_fuel_capacity)
+
+    if not is_zero_approx(self.additional_shield_capacity):
+        effects.push_back("[b]Additional shield capacity:[/b] %s" % self.additional_shield_capacity)
+
+    if not is_equal_approx(self.shield_recharge_multiplier, 1.0):
+        effects.push_back("[b]Shield recharge rate:[/b] %s%%" % [self.shield_recharge_multiplier * 100])
+
+    # TODO
+    return effects
