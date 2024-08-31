@@ -147,6 +147,9 @@ func load_from_dict(dict: Dictionary) -> void:
     self.linear_velocity = SaveGame.deserialize_vector3(dict["linear_velocity"])
     self.angular_velocity = SaveGame.deserialize_vector3(dict["angular_velocity"])
 
+    for outfit: Outfit in self.outfits.duplicate():
+        self.remove_outfit(outfit)
+
     var outfit_paths: Array = dict["outfits"]
     for path: String in outfit_paths:
         var outfit: Outfit = ResourceUtils.safe_load_resource(path, "tres")
