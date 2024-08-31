@@ -13,6 +13,7 @@ class_name Hyperdrive
             return
 
         max_fuel = value
+        fuel = clampf(value, 0.0, max_fuel)
         self.emit_changed()
 
 ## The current fuel level of this drive.
