@@ -101,15 +101,19 @@ func _to_string() -> String:
     return "Ship:%s (%s)" % [self.name, self.combat_object]
 
 ## Add an outfit to the ship and apply its effects.
-func add_outfit(outfit: Outfit) -> void:
+func add_outfit(outfit: Outfit) -> bool:
+    if not outfit.apply_to_ship(self):
+        return false
+
     self.outfits.append(outfit)
-    outfit.apply_to_ship(self)
+    return true
 
 ## Remove an outfit from the ship and undo its effects.
 func remove_outfit(outfit: Outfit) -> void:
     assert(outfit in outfits, "Cannot find outfit on ship")
-    self.outfits.erase(outfit)
+
     outfit.remove_from_ship(self)
+    self.outfits.erase(outfit)
 
 ## See [SaveGame].
 func save_to_dict() -> Dictionary:
