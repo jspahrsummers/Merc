@@ -374,6 +374,7 @@ And here are some files whose existence you should be aware of, though you do no
             console.print()
         except KeyboardInterrupt:
             console.print("\n\nDiscarding last turn.\n", style="info")
+            assistant_message = None
         except Exception:
             console.print_exception()
 
