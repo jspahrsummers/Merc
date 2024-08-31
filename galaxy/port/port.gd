@@ -6,8 +6,8 @@ enum {
     TRADING = 0b10,
     MISSIONS = 0b100,
     OUTFITTER = 0b1000,
-    SHIPYARD = 0b1000_0,
-    REFUEL = 0b1000_00,
+    SHIPYARD = 0b10000,
+    REFUEL = 0b100000,
 }
 
 ## The name of this port.
@@ -24,6 +24,9 @@ enum {
 ## BBCode can be used to format this description.
 @export_multiline var description: String
 
+## Outfits available at this port.
+@export var available_outfits: Array[Outfit]
+
 ## A weak reference to the [StarSystem] that this port exists within.
 ##
 ## This is populated when the star system is initialized.
@@ -31,3 +34,6 @@ var star_system: WeakRef
 
 func _to_string() -> String:
     return "Port:" + self.name
+
+func has_outfitter() -> bool:
+    return (facilities & OUTFITTER) != 0

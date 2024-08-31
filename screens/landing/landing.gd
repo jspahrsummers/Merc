@@ -12,6 +12,7 @@ class_name Landing
 @export var bar_dialog: AcceptDialog
 @export var trading_window_scene: PackedScene
 @export var missions_window_scene: PackedScene
+@export var outfitting_window_scene: PackedScene
 
 ## Defines how the spaceport bar should behave on this landing.
 @export var spaceport_bar: SpaceportBar
@@ -29,6 +30,7 @@ var _port: Port
 var _hyperdrive: Hyperdrive
 var _trading_window: TradingWindow = null
 var _missions_window: MissionComputerWindow = null
+var _outfitting_window: OutfittingUI = null
 
 func _ready() -> void:
     self._hyperdrive = self.player.ship.hyperdrive
@@ -82,7 +84,13 @@ func _on_missions_button_pressed() -> void:
     self._missions_window.grab_focus()
 
 func _on_outfitter_button_pressed() -> void:
-    pass # Replace with function body.
+    if not self._outfitting_window:
+        self._outfitting_window = self.outfitting_window_scene.instantiate()
+        self._outfitting_window.initialize(self.player.ship, self._port.available_outfits)
+        self.add_child(self._outfitting_window)
+
+    self._outfitting_window.show()
+    self._outfitting_window.grab_focus()
 
 func _on_shipyard_button_pressed() -> void:
     pass # Replace with function body.
