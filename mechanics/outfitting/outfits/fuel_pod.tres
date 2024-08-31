@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Outfit" load_steps=2 format=3 uid="uid://c52rjed1he0fw"]
+
+[ext_resource type="Script" path="res://mechanics/outfitting/outfit.gd" id="1_xjy0k"]
+
+[resource]
+script = ExtResource("1_xjy0k")
+name = "Fuel Pod"
+description = "For the spacefaring captain making long haul journeys, extra fuel is indispensable."
+mass = 1.0
+price_in_credits = 5000.0
+additional_cargo_capacity = 0.0
+additional_fuel_capacity = 1.0
+additional_shield_capacity = 0.0
+shield_recharge_multiplier = 1.0
