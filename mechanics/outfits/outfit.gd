@@ -27,10 +27,23 @@ class_name Outfit
 ## A multiplier to apply to shield recharge rate.
 @export var shield_recharge_multiplier: float = 1.0
 
-## Apply the effects of this outfit to a ship.
-##
-## This method should be overridden by specific outfit types.
-func apply_to_ship(ship: Ship) -> void:
+## A weapon provided by this outfit.
+@export var weapon: Weapon
+
+## Apply the effects of this outfit to a ship, or returns false if the outfit cannot be installed.
+func apply_to_ship(ship: Ship) -> bool:
+    if self.weapon:
+        var weapon_mount: WeaponMount = null
+        for mount in ship.weapon_mounts:
+            if not mount.weapon:
+                weapon_mount = mount
+                break
+        
+        if not weapon_mount:
+            return false
+        
+        weapon_mount.weapon = self.weapon
+
     ship.mass += self.mass
 
     if ship.cargo_hold:
@@ -42,10 +55,10 @@ func apply_to_ship(ship: Ship) -> void:
     if ship.shield:
         ship.shield.max_integrity += self.additional_shield_capacity
         ship.shield.recharge_rate *= self.shield_recharge_multiplier
+    
+    return true
 
 ## Remove the effects of this outfit from a ship.
-##
-## This method should be overridden by specific outfit types.
 func remove_from_ship(ship: Ship) -> void:
     ship.mass -= self.mass
 
@@ -58,6 +71,12 @@ func remove_from_ship(ship: Ship) -> void:
     if ship.shield:
         ship.shield.max_integrity -= self.additional_shield_capacity
         ship.shield.recharge_rate /= self.shield_recharge_multiplier
+    
+    if self.weapon:
+        for mount in ship.weapon_mounts:
+            if mount.weapon == self.weapon:
+                mount.weapon = null
+                break
 
 ## Returns the list of effects provided by this outfit, as BBCode formatted strings.
 func get_effects() -> PackedStringArray:
@@ -75,5 +94,8 @@ func get_effects() -> PackedStringArray:
     if not is_equal_approx(self.shield_recharge_multiplier, 1.0):
         effects.push_back("[b]Shield recharge rate:[/b] %s%%" % [self.shield_recharge_multiplier * 100])
 
-    # TODO
+    if self.weapon:
+        effects.push_back("[b]Fire interval:[/b] %ss" % [self.weapon.fire_interval])
+        effects.push_back("[b]Power consumption per shot:[/b] %s" % [self.weapon.power_consumption])
+
     return effects
