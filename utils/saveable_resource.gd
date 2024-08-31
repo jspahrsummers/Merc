@@ -32,6 +32,13 @@ func save_to_dict() -> Dictionary:
                 if ClassDB.is_parent_class(classname, &"SaveableResource"):
                     var nested_resource: SaveableResource = self.get(property_name)
                     save_dict[property_name] = nested_resource.save_to_dict()
+                elif ClassDB.is_parent_class(classname, &"Resource"):
+                    var nested_resource: Resource = self.get(property_name)
+                    if not nested_resource.resource_path:
+                        push_warning("save_to_dict: Cannot save resource property ", property_name, " as it does not have an on-disk path")
+                        continue
+                    
+                    save_dict[property_name] = nested_resource.resource_path
                 else:
                     push_warning("save_to_dict: Cannot save property ", property_name, " of class ", classname)
 
@@ -63,15 +70,23 @@ func load_from_dict(dict: Dictionary) -> void:
         var type: Variant.Type = property.type
         match type:
             TYPE_OBJECT:
-                var value_dict := value as Dictionary
-                if not value_dict:
-                    push_warning("load_from_dict: Object property ", property_name, " was not serialized as a dictionary")
-                    continue
-
                 var classname: StringName = property["class_name"]
                 if ClassDB.is_parent_class(classname, &"SaveableResource"):
+                    var value_dict := value as Dictionary
+                    if not value_dict:
+                        push_warning("load_from_dict: Object property ", property_name, " was not serialized as a dictionary")
+                        continue
+
                     var nested_resource: SaveableResource = ClassDB.instantiate(classname)
                     nested_resource.load_from_dict(value_dict)
+                    self.set(property_name, nested_resource)
+                elif ClassDB.is_parent_class(classname, &"Resource"):
+                    var value_str := value as String
+                    if not value_str:
+                        push_warning("load_from_dict: Resource property ", property_name, " was not serialized as a string path")
+                        continue
+
+                    var nested_resource := ResourceUtils.safe_load_resource(value_str, "tres")
                     self.set(property_name, nested_resource)
                 else:
                     push_warning("load_from_dict: Cannot load property ", property_name, " of class ", classname)
