@@ -31,6 +31,8 @@ class_name Outfit
 ##
 ## This method should be overridden by specific outfit types.
 func apply_to_ship(ship: Ship) -> void:
+    ship.mass += self.mass
+
     if ship.cargo_hold:
         ship.cargo_hold.max_volume += self.additional_cargo_capacity
 
@@ -45,6 +47,8 @@ func apply_to_ship(ship: Ship) -> void:
 ##
 ## This method should be overridden by specific outfit types.
 func remove_from_ship(ship: Ship) -> void:
+    ship.mass -= self.mass
+
     if ship.cargo_hold:
         ship.cargo_hold.max_volume -= self.additional_cargo_capacity
 
