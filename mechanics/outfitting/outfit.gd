@@ -1,4 +1,4 @@
-extends SaveableResource
+extends Resource
 class_name Outfit
 
 ## Represents a ship outfit or component that can be installed on a ship.

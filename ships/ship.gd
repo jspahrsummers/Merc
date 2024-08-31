@@ -60,6 +60,8 @@ class_name Ship
 ## An optional hyperdrive for this ship.
 @export var hyperdrive: Hyperdrive
 
+## OTHER RESOURCES
+
 ## Array of outfits currently equipped on the ship.
 ##
 ## This array should not be directly manipulated outside of the editor! Use [method add_outfit] and [method remove_outfit] instead.
@@ -128,8 +130,8 @@ func save_to_dict() -> Dictionary:
     result["transform"] = SaveGame.serialize_transform(self.transform)
     result["linear_velocity"] = SaveGame.serialize_vector3(self.linear_velocity)
     result["angular_velocity"] = SaveGame.serialize_vector3(self.angular_velocity)
-    result["outfits"] = outfits.map(func(outfit: Outfit) -> Dictionary:
-        return outfit.save_to_dict())
+    result["outfits"] = outfits.map(func(outfit: Outfit) -> String:
+        return outfit.resource_path)
     
     return result
 
@@ -145,10 +147,8 @@ func load_from_dict(dict: Dictionary) -> void:
     self.linear_velocity = SaveGame.deserialize_vector3(dict["linear_velocity"])
     self.angular_velocity = SaveGame.deserialize_vector3(dict["angular_velocity"])
 
-    var outfit_dicts: Array = dict["outfits"]
-    var loaded_outfits := outfit_dicts.map(func(outfit_dict: Dictionary) -> Outfit:
-        var outfit: Outfit = Outfit.new()
-        outfit.load_from_dict(outfit_dict)
-        return outfit)
-
-    self.outfits.assign(loaded_outfits)
+    var outfit_paths: Array = dict["outfits"]
+    for path: String in outfit_paths:
+        var outfit: Outfit = ResourceUtils.safe_load_resource(path, "tres")
+        if not self.add_outfit(outfit):
+            push_error("Could not load outfit ", path, " onto ship")
