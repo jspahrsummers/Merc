@@ -30,12 +30,13 @@ func _on_empty_clicked(_at_position: Vector2, _mouse_button_index: int) -> void:
 
 func _clear() -> void:
     self.outfit_description.text = ""
+    self.outfit_effects.text = ""
     self.cost_label.text = ""
     self.cost_heading.text = ""
     self.install_button.text = "INSTALL"
     self.install_button.disabled = true
 
-func _on_available_outfit_selected(index: int) -> void:
+func _on_available_outfit_clicked(index: int, _at_position: Vector2, _mouse_button_index: int) -> void:
     var outfit := self.available_outfits[index]
 
     self.outfit_description.text = outfit.description
@@ -53,7 +54,7 @@ func _on_available_outfit_selected(index: int) -> void:
     if not self.install_button.pressed.is_connected(_on_install_pressed):
         self.install_button.pressed.connect(_on_install_pressed)
 
-func _on_installed_outfit_selected(index: int) -> void:
+func _on_installed_outfit_clicked(index: int, _at_position: Vector2, _mouse_button_index: int) -> void:
     var outfit := self.ship.outfits[index]
     assert(outfit.name == self.installed_outfits_list.get_item_text(index), "Installed outfit name does not match!")
 

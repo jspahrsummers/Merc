@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_xjy0k")
 name = "Fuel Pod"
-description = "For the spacefaring captain making long haul journeys, extra fuel is indispensable."
+description = "For the spacefaring captain making long haul journeys, extra fuel is always indispensable."
 mass = 1.0
 price_in_credits = 5000.0
 additional_cargo_capacity = 0.0

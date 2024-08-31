@@ -7,7 +7,7 @@ class_name Outfit
 @export var name: String
 
 ## A human-readable BBCode description of this outfit.
-@export var description: String
+@export_multiline var description: String
 
 ## The mass of this outfit in kilograms.
 @export var mass: float
