@@ -25,6 +25,9 @@ func _ready() -> void:
     for outfit in self.ship.outfits:
         self.installed_outfits_list.add_item(outfit.name)
 
+func _on_close_requested() -> void:
+    self.visible = false
+
 func _on_empty_clicked(_at_position: Vector2, _mouse_button_index: int) -> void:
     self._clear()
 
