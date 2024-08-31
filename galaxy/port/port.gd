@@ -6,8 +6,8 @@ enum {
     TRADING = 0b10,
     MISSIONS = 0b100,
     OUTFITTER = 0b1000,
-    SHIPYARD = 0b10000,
-    REFUEL = 0b100000,
+    SHIPYARD = 0b1000_0,
+    REFUEL = 0b1000_00,
 }
 
 ## The name of this port.
@@ -34,6 +34,3 @@ var star_system: WeakRef
 
 func _to_string() -> String:
     return "Port:" + self.name
-
-func has_outfitter() -> bool:
-    return (facilities & OUTFITTER) != 0
