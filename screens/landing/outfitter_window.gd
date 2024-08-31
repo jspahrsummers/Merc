@@ -42,11 +42,22 @@ func _on_available_outfit_clicked(index: int, _at_position: Vector2, _mouse_butt
     self.outfit_description.text = outfit.description
     self.outfit_effects.text = "\n".join(outfit.get_effects())
 
-    self.cost_label.text = self.money.amount_as_string(self.money.price_converted_from_credits(outfit.price_in_credits))
+    var cost := self.money.price_converted_from_credits(outfit.price_in_credits)
+    self.cost_label.text = self.money.amount_as_string(cost)
     self.cost_heading.text = "Price"
 
     self.install_button.text = "INSTALL"
-    self.install_button.disabled = not outfit.can_install_onto_ship(self.ship)
+
+    var can_install := outfit.can_install_onto_ship(self.ship)
+    var can_afford := self.money.current_amount(self.cargo_hold, self.bank_account) >= cost
+    if not can_install:
+        self.install_button.disabled = true
+        self.install_button.tooltip_text = "Cannot install this outfit on this ship."
+    elif not can_afford:
+        self.install_button.disabled = true
+        self.install_button.tooltip_text = "Cannot afford this outfit."
+    else:
+        self.install_button.disabled = false
     
     if self.install_button.pressed.is_connected(_on_uninstall_pressed):
         self.install_button.pressed.disconnect(_on_uninstall_pressed)
@@ -79,8 +90,16 @@ func _on_install_pressed() -> void:
         return
     
     var outfit := self.available_outfits[selected[0]]
+    var cost := self.money.price_converted_from_credits(outfit.price_in_credits)
+    if not self.money.take_exactly(cost, self.cargo_hold, self.bank_account):
+        push_error("Cannot afford this outfit, button should not have been enabled!")
+        return
+
     if self.ship.add_outfit(outfit):
         self.installed_outfits_list.add_item(outfit.name)
+    else:
+        push_error("Cannot install this outfit, button should not have been enabled!")
+        self.money.add_up_to(cost, self.cargo_hold, self.bank_account)
     
     # TODO: This should probably actually preserve selection, to make it easy to buy multiple of the same outfit.
     self.available_outfits_list.deselect_all()
@@ -92,7 +111,10 @@ func _on_uninstall_pressed() -> void:
         return
     
     var outfit := self.ship.outfits[selected[0]]
+    var refund := self.money.price_converted_from_credits(outfit.price_in_credits) * Outfit.REFUND_PERCENTAGE
     self.ship.remove_outfit(outfit)
+    self.money.add_up_to(refund, self.cargo_hold, self.bank_account)
+
     self.installed_outfits_list.deselect_all()
     self.installed_outfits_list.remove_item(selected[0])
     self._clear()
