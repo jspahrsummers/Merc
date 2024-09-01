@@ -2,6 +2,14 @@ extends Resource
 class_name Outfit
 
 ## Represents a ship outfit or component that can be installed on a ship.
+##
+## For game balance, the number of outfits that can be installed on any given ship can be limited in a variety of ways:
+## - Weapons are limited by the number of weapon mounts (hardpoints) available.
+## - Outfits add to a ship's mass, reducing its ability to accelerate and manuever.
+## - Outfits may require power, which is limited by the ship's battery.
+
+# TODO: Heat
+# TODO: Power consumption
 
 ## The human-readable name of this outfit.
 @export var name: String
