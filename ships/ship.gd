@@ -104,12 +104,9 @@ func _to_string() -> String:
     return "Ship:%s (%s)" % [self.name, self.combat_object]
 
 ## Add an outfit to the ship and apply its effects.
-func add_outfit(outfit: Outfit) -> bool:
-    if not outfit.apply_to_ship(self):
-        return false
-
+func add_outfit(outfit: Outfit) -> void:
+    outfit.apply_to_ship(self)
     self.outfits.append(outfit)
-    return true
 
 ## Remove an outfit from the ship and undo its effects.
 func remove_outfit(outfit: Outfit) -> void:
@@ -153,5 +150,4 @@ func load_from_dict(dict: Dictionary) -> void:
     var outfit_paths: Array = dict["outfits"]
     for path: String in outfit_paths:
         var outfit: Outfit = ResourceUtils.safe_load_resource(path, "tres")
-        if not self.add_outfit(outfit):
-            push_error("Could not load outfit ", path, " onto ship")
+        self.add_outfit(outfit)

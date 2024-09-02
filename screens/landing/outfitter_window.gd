@@ -98,11 +98,8 @@ func _on_install_pressed() -> void:
         push_error("Cannot afford this outfit, button should not have been enabled!")
         return
 
-    if self.ship.add_outfit(outfit):
-        self.installed_outfits_list.add_item(outfit.name)
-    else:
-        push_error("Cannot install this outfit, button should not have been enabled!")
-        self.money.add_up_to(cost, self.cargo_hold, self.bank_account)
+    self.ship.add_outfit(outfit)
+    self.installed_outfits_list.add_item(outfit.name)
     
     # TODO: This should probably actually preserve selection, to make it easy to buy multiple of the same outfit.
     self.available_outfits_list.deselect_all()
