@@ -41,6 +41,12 @@ signal landed(player: Player, port: Port)
 ## Fires when the ship's hyperdrive changes.
 signal hyperdrive_changed(player: Player, hyperdrive: Hyperdrive)
 
+## Fires when the ship's cargo hold changes.
+signal cargo_hold_changed(player: Player, cargo_hold: CargoHold)
+
+## Fires when the ship's passenger quarters changes.
+signal passenger_quarters_changed(player: Player, passenger_quarters: PassengerQuarters)
+
 ## The current target for landing, if any.
 var landing_target: Celestial = null:
     set(value):
@@ -114,8 +120,16 @@ func _ready() -> void:
         self._on_shield_changed()
 
     if self.ship.hyperdrive:
-        self._on_hyperdrive_changed()
         self.ship.hyperdrive.changed.connect(_on_hyperdrive_changed)
+        self._on_hyperdrive_changed()
+    
+    if self.ship.cargo_hold:
+        self.ship.cargo_hold.changed.connect(_on_cargo_hold_changed)
+        self._on_cargo_hold_changed()
+    
+    if self.ship.passenger_quarters:
+        self.ship.passenger_quarters.changed.connect(_on_passenger_quarters_changed)
+        self._on_passenger_quarters_changed()
 
     self.mission_controller.calendar = self.calendar
     self.mission_controller.cargo_hold = self.ship.cargo_hold
@@ -149,6 +163,12 @@ func _on_jump_destination_loaded(_new_system_instance: StarSystemInstance) -> vo
 
 func _on_hyperdrive_changed() -> void:
     self.hyperdrive_changed.emit(self, self.ship.hyperdrive)
+
+func _on_passenger_quarters_changed() -> void:
+    self.passenger_quarters_changed.emit(self, self.ship.passenger_quarters)
+
+func _on_cargo_hold_changed() -> void:
+    self.cargo_hold_changed.emit(self, self.ship.cargo_hold)
 
 func _next_system_connection() -> StarSystem:
     var current_destination_name: Variant = null
@@ -295,6 +315,13 @@ func _depart_from_port(port: Port) -> void:
     self.message_log.clear()
 
     self.calendar.pass_approximate_days(PORT_LANDING_APPROXIMATE_DAYS)
+
+    if self.ship.battery:
+        self.ship.battery.power = self.ship.battery.max_power
+    if self.ship.shield:
+        self.ship.shield.integrity = self.ship.shield.max_integrity
+    self.ship.hull.integrity = self.ship.hull.max_integrity
+
     self._reset_controls()
     self._reset_velocity()
     self.takeoff_sound.play()
@@ -338,9 +365,9 @@ func _physics_process(_delta: float) -> void:
         self._jump_to_hyperspace()
         return
 
-    if Input.is_action_pressed("fire"):
-        for weapon_mount in self.ship.weapon_mounts:
-            weapon_mount.fire()
+    var firing := Input.is_action_pressed("fire")
+    for weapon_mount in self.ship.weapon_mounts:
+        weapon_mount.firing = firing
 
     match UserPreferences.control_scheme:
         UserPreferences.ControlScheme.RELATIVE:

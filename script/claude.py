@@ -44,6 +44,8 @@ client = Anthropic()
 MODEL = "claude-3-5-sonnet-20240620"
 
 CONTEXT_PATHS = [
+    "CONTRIBUTING.md",
+    "README.md",
     "actors/**/*",
     "addons/market_editor/**/*",
     "fx/**/*.gd",
@@ -58,7 +60,6 @@ CONTEXT_PATHS = [
     "screens/**/*.tscn",
     "ships/**/*.gd",
     "utils/**/*.gd",
-    "*.md",
     "project.godot",
 ]
 

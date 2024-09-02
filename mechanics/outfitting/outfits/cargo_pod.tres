@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Outfit" load_steps=2 format=3 uid="uid://46yak34p5xyl"]
+
+[ext_resource type="Script" path="res://mechanics/outfitting/outfit.gd" id="1_600wr"]
+
+[resource]
+script = ExtResource("1_600wr")
+name = "Cargo Pod"
+description = "Traders frequently like to expand their available cargo space, to transport as many possible commodities in a single trip. Unfortunately, it comes at the cost of maneuverability and reduced fuel capacity."
+mass = 10.0
+price_in_credits = 7000.0
+modified_cargo_capacity = 10.0
+modified_fuel_capacity = -1.0
+modified_shield_capacity = 0.0
+shield_recharge_multiplier = 1.0
+modified_power_generation = 0.0

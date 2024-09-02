@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Outfit" load_steps=2 format=3 uid="uid://hjh4w8wjgajc"]
+
+[ext_resource type="Script" path="res://mechanics/outfitting/outfit.gd" id="1_8vj05"]
+
+[resource]
+script = ExtResource("1_8vj05")
+name = "Shield Booster"
+description = "This nifty device draws from the ship's power to catalyze a small amount of hyperdrive fuel into bolstering the shield's strength and recharge rate. It doesn't come cheap, though."
+mass = 1.0
+price_in_credits = 11000.0
+modified_cargo_capacity = 0.0
+modified_passenger_capacity = 0
+modified_fuel_capacity = -1.0
+modified_hull_capacity = 0.0
+modified_shield_capacity = 50.0
+shield_recharge_multiplier = 1.1
+modified_power_generation = -3.0

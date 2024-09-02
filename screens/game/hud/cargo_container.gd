@@ -15,7 +15,6 @@ func _ready() -> void:
 
 func _update() -> void:
     self.label_container.remove_child(self.free_cargo_label)
-    self.label_container.remove_child(self.passengers_label)
 
     var existing_commodities := self._labels_by_commodity.keys()
     for commodity: Commodity in existing_commodities:
