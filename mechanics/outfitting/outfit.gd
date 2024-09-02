@@ -56,6 +56,11 @@ class_name Outfit
 ## If negative, the output of the ship's [PowerGenerator] will be reduced by this amount. The outfit cannot be installed if the [PowerGenerator] is insufficient.
 @export var modified_power_generation: float = 0
 
+## A modification this outfit makes to heat sink capacity.
+##
+## If negative, the capacity of the ship's [HeatSink] will be reduced. The outfit cannot be installed if the available heat capacity is insufficient.
+@export var modified_heat_capacity: float = 0
+
 ## A weapon provided by this outfit.
 @export var weapon: Weapon
 
@@ -110,6 +115,11 @@ func can_install_onto_ship(ship: Ship) -> bool:
         
         if generator.rate_of_power < self.modified_power_generation:
             return false
+    
+    if not is_zero_approx(self.modified_heat_capacity):
+        # Include some epsilon so the ship doesn't end up overheated and inoperable
+        if ship.heat_sink.max_heat + self.modified_heat_capacity < 0.01:
+            return false
 
     if self.weapon:
         var mount_available := false
@@ -143,6 +153,7 @@ func apply_to_ship(ship: Ship) -> void:
         ship.shield.recharge_rate *= self.shield_recharge_multiplier
     
     ship.hull.max_integrity += self.modified_hull_capacity
+    ship.heat_sink.max_heat += self.modified_heat_capacity
     
     if ship.power_management_unit.power_generator:
         ship.power_management_unit.power_generator.rate_of_power += self.modified_power_generation
@@ -175,6 +186,7 @@ func remove_from_ship(ship: Ship) -> void:
         ship.shield.recharge_rate /= self.shield_recharge_multiplier
     
     ship.hull.max_integrity -= self.modified_hull_capacity
+    ship.heat_sink.max_heat -= self.modified_heat_capacity
     
     if ship.power_management_unit.power_generator:
         ship.power_management_unit.power_generator.rate_of_power -= self.modified_power_generation
@@ -219,6 +231,9 @@ func get_effects() -> PackedStringArray:
     if self.weapon:
         effects.push_back("[b]Fire interval:[/b] %ss" % [self.weapon.fire_interval])
         effects.push_back("[b]Power consumption per shot:[/b] %s" % [self.weapon.power_consumption])
+
+    if not is_zero_approx(self.modified_heat_capacity):
+        effects.push_back("[b]Heat:[/b] %s" % self._signed_string(-self.modified_heat_capacity))
 
     return effects
 
