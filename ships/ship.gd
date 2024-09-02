@@ -95,6 +95,7 @@ func _ready() -> void:
             self.hero.killed.emit(self.hero))
 
     self.rigid_body_thruster.battery = self.battery
+    self.rigid_body_thruster.heat_sink = self.heat_sink
     self.rigid_body_direction.battery = self.battery
     self.power_management_unit.battery = self.battery
     self.power_management_unit.heat_sink = self.heat_sink

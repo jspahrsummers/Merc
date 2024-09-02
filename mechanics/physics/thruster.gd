@@ -8,3 +8,6 @@ class_name Thruster
 
 ## How much power the thruster consumes per second when thrusting at full power.
 @export var power_consumption_rate: float
+
+## How much heat the thruster generates per second when thrusting at full power.
+@export var heat_generation_rate: float
