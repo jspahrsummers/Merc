@@ -14,25 +14,50 @@ class_name WeaponMount
         weapon = value
         self._last_fired_usec = -1
 
+## The offset, as a percentage of the weapon's [member Weapon.fire_interval], when this mount will fire.
+##
+## This can be used to synchronize or desynchronize the firing of different weapon mounts on the same ship.
+@export_range(0, 1) var fire_offset: float = 0.0
+
 ## The [Battery] to power the weapon from.
 var battery: Battery
+
+## Set to true when this weapon should automatically fire; set to false to stop firing.
+var firing: bool = false:
+    set(value):
+        if value == firing:
+            return
+        
+        firing = value
+        if firing:
+            self._started_firing_usec = Time.get_ticks_usec()
+        else:
+            self._started_firing_usec = -1
 
 ## The tick (in microseconds) in which the weapon was last fired. 
 var _last_fired_usec: int = -1
 
+## The tick (in microseconds) in which the current round of firing began. 
+var _started_firing_usec: int = -1
+
 ## The [RigidBody3D] firing the projectile.
 @onready var _rigid_body := get_parent() as RigidBody3D
 
-func fire() -> bool:
-    if not self.weapon:
-        return false
-
+func _physics_process(_delta: float) -> void:
+    if not self.firing or not self.weapon:
+        return
+    
     var now := Time.get_ticks_usec()
+    if not is_zero_approx(self.fire_offset):
+        var offset_sec := self.weapon.fire_interval * self.fire_offset
+        if (now - self._started_firing_usec) / MathUtils.USEC_PER_SEC_F < offset_sec:
+            return
+
     if self._last_fired_usec >= 0 and (now - self._last_fired_usec) / MathUtils.USEC_PER_SEC_F < self.weapon.fire_interval:
-        return false
+        return
     
     if not self.battery.consume_exactly(self.weapon.power_consumption):
-        return false
+        return
     
     var projectile_instance: RigidBody3D = self.weapon.projectile.instantiate()
     get_parent().add_sibling(projectile_instance)
@@ -42,4 +67,3 @@ func fire() -> bool:
     projectile_instance.apply_central_impulse(projectile_instance.transform.basis * self.weapon.fire_force * Vector3.FORWARD)
 
     self._last_fired_usec = now
-    return true

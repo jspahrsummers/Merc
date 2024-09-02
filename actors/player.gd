@@ -358,9 +358,9 @@ func _physics_process(_delta: float) -> void:
         self._jump_to_hyperspace()
         return
 
-    if Input.is_action_pressed("fire"):
-        for weapon_mount in self.ship.weapon_mounts:
-            weapon_mount.fire()
+    var firing := Input.is_action_pressed("fire")
+    for weapon_mount in self.ship.weapon_mounts:
+        weapon_mount.firing = firing
 
     match UserPreferences.control_scheme:
         UserPreferences.ControlScheme.RELATIVE:
