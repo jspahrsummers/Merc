@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Port" load_steps=5 format=3 uid="uid://c0oe5ys0462x0"]
 
-[ext_resource type="Resource" uid="uid://c52rjed1he0fw" path="res://mechanics/outfitting/outfits/fuel_pod.tres" id="1_pxumv"]
+[ext_resource type="Resource" uid="uid://c52rjed1he0fw" path="res://mechanics/outfitting/outfits/fuel_tank.tres" id="1_pxumv"]
 [ext_resource type="Texture2D" uid="uid://bj326fr2sh34k" path="res://screens/landing/images/e44babbc-77e8-45dc-912f-a73b967e9724.jpg" id="1_u4fm6"]
 [ext_resource type="Script" path="res://galaxy/port/port.gd" id="2_i8uee"]
 [ext_resource type="Resource" uid="uid://dpvae1e5a7255" path="res://mechanics/outfitting/outfits/blaster.tres" id="2_q21v3"]
