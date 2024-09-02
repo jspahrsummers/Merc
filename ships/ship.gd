@@ -51,6 +51,9 @@ class_name Ship
 ## The [Battery] powering the ship.
 @export var battery: Battery
 
+## The [HeatSink] which accumulates ship heat.
+@export var heat_sink: HeatSink
+
 ## An optional cargo hold for this ship.
 @export var cargo_hold: CargoHold
 
@@ -128,6 +131,7 @@ func save_to_dict() -> Dictionary:
 
     SaveGame.save_resource_property_into_dict(self, result, "hull")
     SaveGame.save_resource_property_into_dict(self, result, "battery")
+    SaveGame.save_resource_property_into_dict(self, result, "heat_sink")
     SaveGame.save_resource_property_into_dict(self, result, "shield")
     SaveGame.save_resource_property_into_dict(self, result, "hyperdrive")
     SaveGame.save_resource_property_into_dict(self, result, "cargo_hold")
@@ -146,6 +150,7 @@ func load_from_dict(dict: Dictionary) -> void:
 
     SaveGame.load_resource_property_from_dict(self, dict, "hull")
     SaveGame.load_resource_property_from_dict(self, dict, "battery")
+    SaveGame.load_resource_property_from_dict(self, dict, "heat_sink")
     SaveGame.load_resource_property_from_dict(self, dict, "shield")
     SaveGame.load_resource_property_from_dict(self, dict, "hyperdrive")
     SaveGame.load_resource_property_from_dict(self, dict, "cargo_hold")
