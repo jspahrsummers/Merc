@@ -26,6 +26,9 @@ signal shield_changed(player: Player, shield: Shield)
 ## Fires when the ship's power level changes.
 signal power_changed(player: Player, battery: Battery)
 
+## Fires when the ship's heat level changes.
+signal heat_changed(player: Player, heat_sink: HeatSink)
+
 ## Fires when the player's ship is destroyed.
 signal ship_destroyed(player: Player)
 
@@ -107,6 +110,7 @@ func _ready() -> void:
     self.ship.hull.changed.connect(_on_hull_changed)
     self.ship.hull.hull_destroyed.connect(_on_hull_destroyed)
     self.ship.battery.changed.connect(_on_power_changed)
+    self.ship.heat_sink.changed.connect(_on_heat_changed)
     self.ship.targeting_system.target_changed.connect(_on_target_changed)
 
     InputEventBroadcaster.input_event.connect(_on_broadcasted_input_event)
@@ -114,6 +118,7 @@ func _ready() -> void:
     # Initial notifications so the UI can update.
     self._on_hull_changed()
     self._on_power_changed()
+    self._on_heat_changed()
 
     if self.ship.shield:
         self.ship.shield.changed.connect(_on_shield_changed)
@@ -144,6 +149,9 @@ func _on_shield_changed() -> void:
 
 func _on_power_changed() -> void:
     self.power_changed.emit(self, self.ship.battery)
+
+func _on_heat_changed() -> void:
+    self.heat_changed.emit(self, self.ship.heat_sink)
 
 func _on_hull_destroyed(hull: Hull) -> void:
     assert(hull == self.ship.hull, "Received hull_destroyed signal from incorrect hull")
