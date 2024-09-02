@@ -368,6 +368,9 @@ func _mouse_joystick_input() -> Vector2:
 func _physics_process(_delta: float) -> void:
     if self.ship.controls_disabled():
         self.ship.set_firing(false)
+        self.ship.rigid_body_thruster.throttle = 0.0
+        self.ship.rigid_body_direction.direction = Vector3.ZERO
+        self._rigid_body_turner.turning = 0.0
         return
 
     if Input.is_action_pressed("jump"):
