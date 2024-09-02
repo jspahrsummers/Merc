@@ -24,9 +24,6 @@ enum {
 ## BBCode can be used to format this description.
 @export_multiline var description: String
 
-## Outfits available at this port.
-@export var available_outfits: Array[Outfit]
-
 ## A weak reference to the [StarSystem] that this port exists within.
 ##
 ## This is populated when the star system is initialized.

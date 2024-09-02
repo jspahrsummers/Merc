@@ -87,7 +87,6 @@ func _on_outfitter_button_pressed() -> void:
     if not self._outfitter_window:
         self._outfitter_window = self.outfitting_window_scene.instantiate()
         self._outfitter_window.ship = self.player.ship
-        self._outfitter_window.available_outfits = self._port.available_outfits
         self._outfitter_window.money = self.star_system.preferred_money()
         self._outfitter_window.cargo_hold = self.player.ship.cargo_hold
         self._outfitter_window.bank_account = self.player.bank_account

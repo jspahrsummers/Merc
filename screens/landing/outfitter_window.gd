@@ -10,15 +10,24 @@ class_name OutfitterWindow
 @export var install_button: Button
 
 var ship: Ship
-var available_outfits: Array[Outfit] = []
 var money: TradeAsset
 var cargo_hold: CargoHold
 var bank_account: BankAccount
 
+const _OUTFITS_DIRECTORY = "res://mechanics/outfitting/outfits/"
+
+var _available_outfits: Array[Outfit] = []
+
 func _ready() -> void:
     self._clear()
 
-    for outfit in self.available_outfits:
+    var files := DirAccess.get_files_at(_OUTFITS_DIRECTORY)
+    for file in files:
+        if not file.ends_with(".tres"):
+            continue
+        
+        var outfit: Outfit = load("%s/%s" % [_OUTFITS_DIRECTORY, file])
+        self._available_outfits.append(outfit)
         self.available_outfits_list.add_item(outfit.name)
     
     # TODO: Show multiply installed outfits in the same row.
@@ -40,7 +49,7 @@ func _clear() -> void:
     self.install_button.disabled = true
 
 func _on_available_outfit_clicked(index: int, _at_position: Vector2, _mouse_button_index: int) -> void:
-    var outfit := self.available_outfits[index]
+    var outfit := self._available_outfits[index]
 
     self.outfit_description.text = outfit.description
     self.outfit_effects.text = "\n".join(outfit.get_effects())
@@ -92,7 +101,7 @@ func _on_install_pressed() -> void:
     if not selected:
         return
     
-    var outfit := self.available_outfits[selected[0]]
+    var outfit := self._available_outfits[selected[0]]
     var cost := self.money.price_converted_from_credits(outfit.price_in_credits)
     if not self.money.take_exactly(cost, self.cargo_hold, self.bank_account):
         push_error("Cannot afford this outfit, button should not have been enabled!")
