@@ -89,6 +89,7 @@ var save_node_path_override: NodePath
 func _ready() -> void:
     self.combat_object.hull = self.hull
     self.combat_object.shield = self.shield
+    self.combat_object.heat_sink = self.heat_sink
     if self.hero:
         self.combat_object.combat_name = self.hero.name
         self.hull.hull_destroyed.connect(func(_hull: Hull) -> void:

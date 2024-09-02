@@ -10,6 +10,7 @@
 script = ExtResource("2_eoln0")
 shield_damage = 80.0
 hull_damage = 40.0
+heat = 20.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5b1vh"]
 

@@ -49,6 +49,9 @@ var hull: Hull:
 ## An optional shield protecting the object.
 var shield: Shield
 
+## A heat sink to dump heat to.
+var heat_sink: HeatSink
+
 ## Fires when this object is targeted, or stops being targeted, by a new [TargetingSystem].
 ##
 ## See [method get_targeted_by]
@@ -106,6 +109,8 @@ func damage(dmg: Damage) -> void:
     
     if apply_hull_dmg_pct > 0.0:
         self.hull.integrity -= dmg.hull_damage * apply_hull_dmg_pct
+    
+    self.heat_sink.heat += dmg.heat
 
 ## Checks whether [param node] contains a [CombatObject], and damages it if so.
 static func damage_combat_object_inside(node: Node, dmg: Damage) -> bool:

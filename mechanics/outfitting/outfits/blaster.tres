@@ -16,4 +16,5 @@ modified_hull_capacity = 0.0
 modified_shield_capacity = 0.0
 shield_recharge_multiplier = 1.0
 modified_power_generation = -1.0
+modified_heat_capacity = 0.0
 weapon = ExtResource("2_womhg")
