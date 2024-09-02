@@ -38,6 +38,11 @@ class_name Outfit
 ## If negative, the fuel capacity of the ship's [Hyperdrive] will be reduced. The outfit cannot be installed if the available fuel capacity is insufficient.
 @export var modified_fuel_capacity: float = 0
 
+## A modification this outfit makes to maximum hull integrity.
+##
+## If negative, the maximum integrity of the ship's [Hull] will be reduced. The outfit cannot be installed if the maximum hull integrity is insufficient.
+@export var modified_hull_capacity: float = 0
+
 ## A modification this outfit makes to shield capacity.
 ##
 ## If negative, the maximum integrity of the ship's [Shield] will be reduced. The outfit cannot be installed if the maximum shield integrity is insufficient.
@@ -83,6 +88,11 @@ func can_install_onto_ship(ship: Ship) -> bool:
             return false
         
         if hyperdrive.max_fuel + self.modified_fuel_capacity < 0:
+            return false
+
+    if not is_zero_approx(self.modified_hull_capacity):
+        # Include some epsilon so the ship doesn't end up with 0 hull and automatically destruct
+        if ship.hull.max_integrity + self.modified_hull_capacity < 0.01:
             return false
         
     if not is_zero_approx(self.modified_shield_capacity):
@@ -132,6 +142,8 @@ func apply_to_ship(ship: Ship) -> void:
         ship.shield.max_integrity += self.modified_shield_capacity
         ship.shield.recharge_rate *= self.shield_recharge_multiplier
     
+    ship.hull.max_integrity += self.modified_hull_capacity
+    
     if ship.power_management_unit.power_generator:
         ship.power_management_unit.power_generator.rate_of_power += self.modified_power_generation
 
@@ -161,6 +173,8 @@ func remove_from_ship(ship: Ship) -> void:
     if ship.shield:
         ship.shield.max_integrity -= self.modified_shield_capacity
         ship.shield.recharge_rate /= self.shield_recharge_multiplier
+    
+    ship.hull.max_integrity -= self.modified_hull_capacity
     
     if ship.power_management_unit.power_generator:
         ship.power_management_unit.power_generator.rate_of_power -= self.modified_power_generation
@@ -192,6 +206,9 @@ func get_effects() -> PackedStringArray:
 
     if not is_zero_approx(self.modified_fuel_capacity):
         effects.push_back("[b]Fuel capacity:[/b] %s" % self._signed_string(self.modified_fuel_capacity))
+
+    if not is_zero_approx(self.modified_hull_capacity):
+        effects.push_back("[b]Maximum hull integrity:[/b] %s" % self._signed_string(self.modified_hull_capacity))
 
     if not is_zero_approx(self.modified_shield_capacity):
         effects.push_back("[b]Shield capacity:[/b] %s" % self._signed_string(self.modified_shield_capacity))
