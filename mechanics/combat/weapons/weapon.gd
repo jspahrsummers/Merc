@@ -14,5 +14,8 @@ class_name Weapon
 ## If the containing ship's available power is less than this amount, the weapon won't be able to fire.
 @export var power_consumption: float
 
+## The amount of heat generated when firing the weapon.
+@export var heat: float
+
 ## The projectile that this weapon fires. The root node [b]must[/b] be a [RigidBody3D].
 @export var projectile: PackedScene
