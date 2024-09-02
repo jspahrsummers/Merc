@@ -28,6 +28,11 @@ class_name Outfit
 ## If negative, the capacity of the ship's [CargoHold] will be reduced. The outfit cannot be installed if the available space in the cargo hold is insufficient.
 @export var modified_cargo_capacity: float = 0
 
+## A modification this outfit makes to passenger quarters capacity.
+##
+## If negative, the capacity of the ship's [PassengerQuarters] will be reduced. The outfit cannot be installed if the available space in the passenger quarters is insufficient.
+@export var modified_passenger_capacity: int = 0
+
 ## A modification this outfit makes to fuel capacity.
 ##
 ## If negative, the fuel capacity of the ship's [Hyperdrive] will be reduced. The outfit cannot be installed if the available fuel capacity is insufficient.
@@ -61,6 +66,15 @@ func can_install_onto_ship(ship: Ship) -> bool:
         
         var available_volume := cargo_hold.max_volume - cargo_hold.get_occupied_volume()
         if available_volume + self.modified_cargo_capacity < 0:
+            return false
+    
+    if self.modified_passenger_capacity != 0:
+        var passenger_quarters := ship.passenger_quarters
+        if not passenger_quarters:
+            return false
+        
+        var available_spaces := passenger_quarters.total_spaces - passenger_quarters.occupied_spaces
+        if available_spaces + self.modified_passenger_capacity < 0:
             return false
     
     if not is_zero_approx(self.modified_fuel_capacity):
@@ -108,6 +122,9 @@ func apply_to_ship(ship: Ship) -> void:
     if ship.cargo_hold:
         ship.cargo_hold.max_volume += self.modified_cargo_capacity
 
+    if ship.passenger_quarters:
+        ship.passenger_quarters.total_spaces += self.modified_passenger_capacity
+
     if ship.hyperdrive:
         ship.hyperdrive.max_fuel += self.modified_fuel_capacity
 
@@ -134,6 +151,9 @@ func remove_from_ship(ship: Ship) -> void:
 
     if ship.cargo_hold:
         ship.cargo_hold.max_volume -= self.modified_cargo_capacity
+
+    if ship.passenger_quarters:
+        ship.passenger_quarters.total_spaces -= self.modified_passenger_capacity
 
     if ship.hyperdrive:
         ship.hyperdrive.max_fuel -= self.modified_fuel_capacity
@@ -166,6 +186,9 @@ func get_effects() -> PackedStringArray:
 
     if not is_zero_approx(self.modified_cargo_capacity):
         effects.push_back("[b]Cargo capacity:[/b] %s m³" % self._signed_string(self.modified_cargo_capacity))
+
+    if self.modified_passenger_capacity != 0:
+        effects.push_back("[b]Passenger capacity:[/b] %s" % self._signed_string(self.modified_passenger_capacity))
 
     if not is_zero_approx(self.modified_fuel_capacity):
         effects.push_back("[b]Fuel capacity:[/b] %s" % self._signed_string(self.modified_fuel_capacity))
