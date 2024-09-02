@@ -15,3 +15,4 @@ modified_hull_capacity = 0.0
 modified_shield_capacity = 50.0
 shield_recharge_multiplier = 1.1
 modified_power_generation = -3.0
+modified_heat_capacity = -10.0
