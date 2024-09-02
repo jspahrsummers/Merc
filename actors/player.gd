@@ -329,6 +329,7 @@ func _depart_from_port(port: Port) -> void:
     if self.ship.shield:
         self.ship.shield.integrity = self.ship.shield.max_integrity
     self.ship.hull.integrity = self.ship.hull.max_integrity
+    self.ship.heat_sink.heat = 0
 
     self._reset_controls()
     self._reset_velocity()
