@@ -21,6 +21,9 @@ class_name Ship
 ## This ship's power management unit.
 @export var power_management_unit: PowerManagementUnit
 
+## The ship's radiator to dissipate heat.
+@export var radiator: Radiator
+
 ## An object for representing this ship on radar.
 @export var radar_object: RadarObject
 
@@ -94,6 +97,7 @@ func _ready() -> void:
     self.rigid_body_thruster.battery = self.battery
     self.rigid_body_direction.battery = self.battery
     self.power_management_unit.battery = self.battery
+    self.radiator.heat_sink = self.heat_sink
 
     if self.shield_recharger:
         self.shield_recharger.shield = self.shield
