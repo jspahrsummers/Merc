@@ -83,6 +83,7 @@ power_consumption_rate = 5.0
 script = ExtResource("10_6f48k")
 thrust_force = 100.0
 power_consumption_rate = 5.0
+heat_generation_rate = 3.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rurkt"]
 render_priority = 0
@@ -98,6 +99,7 @@ orientation = 1
 [sub_resource type="Resource" id="Resource_0m3cu"]
 script = ExtResource("14_ccaul")
 rate_of_power = 2.0
+rate_of_heat = 1.0
 
 [node name="Frigate" node_paths=PackedStringArray("radiator", "shield_recharger", "weapon_mounts") instance=ExtResource("1_w0piq")]
 mass = 100.0
@@ -165,6 +167,6 @@ weapon = ExtResource("17_h1u5w")
 
 [node name="Radiator" type="Node3D" parent="." index="9"]
 script = ExtResource("20_0bm6k")
-rate = 5.0
+rate = 8.0
 
 [editable path="CombatObject/TargetOverlay"]

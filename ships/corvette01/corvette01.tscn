@@ -84,10 +84,12 @@ power_consumption_rate = 5.0
 script = ExtResource("10_ffov7")
 thrust_force = 200.0
 power_consumption_rate = 8.0
+heat_generation_rate = 2.0
 
 [sub_resource type="Resource" id="Resource_csuav"]
 script = ExtResource("13_n5lfa")
 rate_of_power = 5.0
+rate_of_heat = 1.0
 
 [node name="Corvette" node_paths=PackedStringArray("radiator", "shield_recharger", "weapon_mounts", "rigid_body_cargo") instance=ExtResource("1_cmgif")]
 mass = 10.0
@@ -172,6 +174,6 @@ fire_offset = 0.5
 
 [node name="Radiator" type="Node3D" parent="." index="13"]
 script = ExtResource("22_o7v2x")
-rate = 3.0
+rate = 4.0
 
 [editable path="CombatObject/TargetOverlay"]

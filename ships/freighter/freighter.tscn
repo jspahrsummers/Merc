@@ -82,6 +82,7 @@ power_consumption_rate = 5.0
 script = ExtResource("10_8eiax")
 thrust_force = 60.0
 power_consumption_rate = 5.0
+heat_generation_rate = 5.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jl6dq"]
 render_priority = 0
@@ -97,6 +98,7 @@ orientation = 1
 [sub_resource type="Resource" id="Resource_ku887"]
 script = ExtResource("9_277l5")
 rate_of_power = 3.0
+rate_of_heat = 1.0
 
 [node name="Freighter" node_paths=PackedStringArray("radiator", "shield_recharger") instance=ExtResource("1_r6j4w")]
 mass = 150.0
