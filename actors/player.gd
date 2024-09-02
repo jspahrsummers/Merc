@@ -41,6 +41,12 @@ signal landed(player: Player, port: Port)
 ## Fires when the ship's hyperdrive changes.
 signal hyperdrive_changed(player: Player, hyperdrive: Hyperdrive)
 
+## Fires when the ship's cargo hold changes.
+signal cargo_hold_changed(player: Player, cargo_hold: CargoHold)
+
+## Fires when the ship's passenger quarters changes.
+signal passenger_quarters_changed(player: Player, passenger_quarters: PassengerQuarters)
+
 ## The current target for landing, if any.
 var landing_target: Celestial = null:
     set(value):
@@ -114,8 +120,16 @@ func _ready() -> void:
         self._on_shield_changed()
 
     if self.ship.hyperdrive:
-        self._on_hyperdrive_changed()
         self.ship.hyperdrive.changed.connect(_on_hyperdrive_changed)
+        self._on_hyperdrive_changed()
+    
+    if self.ship.cargo_hold:
+        self.ship.cargo_hold.changed.connect(_on_cargo_hold_changed)
+        self._on_cargo_hold_changed()
+    
+    if self.ship.passenger_quarters:
+        self.ship.passenger_quarters.changed.connect(_on_passenger_quarters_changed)
+        self._on_passenger_quarters_changed()
 
     self.mission_controller.calendar = self.calendar
     self.mission_controller.cargo_hold = self.ship.cargo_hold
@@ -149,6 +163,12 @@ func _on_jump_destination_loaded(_new_system_instance: StarSystemInstance) -> vo
 
 func _on_hyperdrive_changed() -> void:
     self.hyperdrive_changed.emit(self, self.ship.hyperdrive)
+
+func _on_passenger_quarters_changed() -> void:
+    self.passenger_quarters_changed.emit(self, self.ship.passenger_quarters)
+
+func _on_cargo_hold_changed() -> void:
+    self.cargo_hold_changed.emit(self, self.ship.cargo_hold)
 
 func _next_system_connection() -> StarSystem:
     var current_destination_name: Variant = null
