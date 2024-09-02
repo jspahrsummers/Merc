@@ -66,7 +66,16 @@ class_name Ship
 ##
 ## This array should not be directly manipulated outside of the editor! Use [method add_outfit] and [method remove_outfit] instead.
 # TODO: Fire a signal when outfits are added or removed.
-@export var outfits: Array[Outfit] = []
+@export var outfits: Array[Outfit] = []:
+    set(value):
+        if value == outfits:
+            return
+        
+        for outfit in outfits:
+            outfit.remove_from_ship(self)
+        outfits = value.duplicate()
+        for outfit in outfits:
+            outfit.apply_to_ship(self)
 
 ## Used to save and restore the player's ship to the same node path across launches.
 var save_node_path_override: NodePath
@@ -96,9 +105,6 @@ func _ready() -> void:
     if self.rigid_body_cargo:
         self.rigid_body_cargo.cargo_hold = self.cargo_hold
         self.rigid_body_cargo.passenger_quarters = self.passenger_quarters
-    
-    for outfit in self.outfits:
-        outfit.apply_to_ship(self)
 
 func _to_string() -> String:
     return "Ship:%s (%s)" % [self.name, self.combat_object]
@@ -118,6 +124,8 @@ func remove_outfit(outfit: Outfit) -> void:
 ## See [SaveGame].
 func save_to_dict() -> Dictionary:
     var result := {}
+    result["mass"] = self.mass
+
     SaveGame.save_resource_property_into_dict(self, result, "hull")
     SaveGame.save_resource_property_into_dict(self, result, "battery")
     SaveGame.save_resource_property_into_dict(self, result, "shield")
@@ -134,6 +142,8 @@ func save_to_dict() -> Dictionary:
 
 ## See [SaveGame].
 func load_from_dict(dict: Dictionary) -> void:
+    self.mass = dict["mass"]
+
     SaveGame.load_resource_property_from_dict(self, dict, "hull")
     SaveGame.load_resource_property_from_dict(self, dict, "battery")
     SaveGame.load_resource_property_from_dict(self, dict, "shield")
@@ -144,10 +154,9 @@ func load_from_dict(dict: Dictionary) -> void:
     self.linear_velocity = SaveGame.deserialize_vector3(dict["linear_velocity"])
     self.angular_velocity = SaveGame.deserialize_vector3(dict["angular_velocity"])
 
-    for outfit: Outfit in self.outfits.duplicate():
-        self.remove_outfit(outfit)
-
     var outfit_paths: Array = dict["outfits"]
-    for path: String in outfit_paths:
-        var outfit: Outfit = ResourceUtils.safe_load_resource(path, "tres")
-        self.add_outfit(outfit)
+    var loaded_outfits := outfit_paths.map(func(path: String) -> Outfit:
+        return ResourceUtils.safe_load_resource(path, "tres"))
+    
+    # Don't use add_outfit or property assignment here, because the outfits will have already been reflected in modifications to the other ship properties.
+    self.outfits.assign(loaded_outfits)
