@@ -97,6 +97,7 @@ func _ready() -> void:
     self.rigid_body_thruster.battery = self.battery
     self.rigid_body_direction.battery = self.battery
     self.power_management_unit.battery = self.battery
+    self.power_management_unit.heat_sink = self.heat_sink
     self.radiator.heat_sink = self.heat_sink
 
     if self.shield_recharger:
@@ -125,6 +126,11 @@ func controls_disabled() -> bool:
         return true
     
     return false
+
+## Starts or stops firing on all weapon mounts.
+func set_firing(firing: bool) -> void:
+    for weapon_mount in self.weapon_mounts:
+        weapon_mount.firing = firing
 
 ## Add an outfit to the ship and apply its effects.
 func add_outfit(outfit: Outfit) -> void:

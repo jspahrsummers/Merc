@@ -60,6 +60,7 @@ func _select_new_patrol_target() -> void:
 
 func _physics_process(delta: float) -> void:
     if self._ship.controls_disabled():
+        self._ship.set_firing(false)
         return
 
     if not self._ship.targeting_system.target:
@@ -88,7 +89,7 @@ func _pointing_in_direction(direction: Vector3) -> bool:
     return current_direction.angle_to(direction) <= self.direction_tolerance
 
 func _patrol_behavior(_delta: float) -> void:
-    self._set_firing(false)
+    self._ship.set_firing(false)
 
     var target := self._find_closest_target()
     self._ship.targeting_system.target = target
@@ -108,12 +109,12 @@ func _patrol_behavior(_delta: float) -> void:
 func _engage_behavior(_delta: float) -> void:
     var target := self._ship.targeting_system.target
     if not target:
-        self._set_firing(false)
+        self._ship.set_firing(false)
         self._current_state = State.PATROL
         return
 
     if not self._pointing_in_direction(self._desired_direction()):
-        self._set_firing(false)
+        self._ship.set_firing(false)
         self._ship.rigid_body_thruster.throttle = 0.0
         return
 
@@ -130,10 +131,10 @@ func _engage_behavior(_delta: float) -> void:
         else:
             self._ship.rigid_body_thruster.throttle = 0.0
     
-    self._set_firing(distance <= self.fire_range)
+    self._ship.set_firing(distance <= self.fire_range)
 
 func _retreat_behavior(_delta: float) -> void:
-    self._set_firing(false)
+    self._ship.set_firing(false)
 
     var target := self._ship.targeting_system.target
     if not target:
@@ -148,10 +149,6 @@ func _retreat_behavior(_delta: float) -> void:
     
     if distance >= self.preferred_distance:
         self._current_state = State.ENGAGE
-
-func _set_firing(firing: bool) -> void:
-    for weapon_mount in self._ship.weapon_mounts:
-        weapon_mount.firing = firing
 
 func _find_closest_target() -> CombatObject:
     var available_targets := self._ship.targeting_system.get_available_targets()

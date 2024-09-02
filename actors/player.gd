@@ -367,15 +367,14 @@ func _mouse_joystick_input() -> Vector2:
 
 func _physics_process(_delta: float) -> void:
     if self.ship.controls_disabled():
+        self.ship.set_firing(false)
         return
 
     if Input.is_action_pressed("jump"):
         self._jump_to_hyperspace()
         return
 
-    var firing := Input.is_action_pressed("fire")
-    for weapon_mount in self.ship.weapon_mounts:
-        weapon_mount.firing = firing
+    self.ship.set_firing(Input.is_action_pressed("fire"))
 
     match UserPreferences.control_scheme:
         UserPreferences.ControlScheme.RELATIVE:
