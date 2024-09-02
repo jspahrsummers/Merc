@@ -315,6 +315,13 @@ func _depart_from_port(port: Port) -> void:
     self.message_log.clear()
 
     self.calendar.pass_approximate_days(PORT_LANDING_APPROXIMATE_DAYS)
+
+    if self.ship.battery:
+        self.ship.battery.power = self.ship.battery.max_power
+    if self.ship.shield:
+        self.ship.shield.integrity = self.ship.shield.max_integrity
+    self.ship.hull.integrity = self.ship.hull.max_integrity
+
     self._reset_controls()
     self._reset_velocity()
     self.takeoff_sound.play()
