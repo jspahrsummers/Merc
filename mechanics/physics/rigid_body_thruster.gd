@@ -23,6 +23,9 @@ class_name RigidBodyThruster
 ## The [Battery] to power the thruster from.
 var battery: Battery
 
+## The [HeatSink] to dump heat to.
+var heat_sink: HeatSink
+
 ## The current level of throttle (where 1.0 is full throttle), which corresponds to the magnitude of the thrust to apply, as well as the amount of power to be consumed.
 var throttle: float:
     set(value):
@@ -75,6 +78,8 @@ func _physics_process(delta: float) -> void:
     var desired_power := self.thruster.power_consumption_rate * self.throttle * delta
     var power_consumed := self.battery.consume_up_to(desired_power)
     var magnitude := self.throttle * (power_consumed / desired_power)
+
+    self.heat_sink.heat += self.thruster.heat_generation_rate * magnitude * delta
     self._animate_transparency(1.0 - magnitude)
     self._rigid_body.apply_central_force(self._rigid_body.transform.basis * Vector3.FORWARD * self.thruster.thrust_force * magnitude)
 

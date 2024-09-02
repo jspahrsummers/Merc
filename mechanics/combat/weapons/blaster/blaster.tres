@@ -8,4 +8,5 @@ script = ExtResource("1_h0068")
 fire_interval = 0.2
 fire_force = 2.0
 power_consumption = 5.0
+heat = 10.0
 projectile = ExtResource("1_upvwn")

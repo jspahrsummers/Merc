@@ -1,7 +1,9 @@
 extends Node3D
 class_name AINavigation
 
-## Automatically navigates a [RigidBody3D] to a particular position using a [RigidBodyThruster] and a [RigidBodyDirection].
+## Automatically navigates a [Ship] to a particular position using a [RigidBodyThruster] and a [RigidBodyDirection].
+##
+## [b]This script expects the parent node to be a [Ship].[/b]
 
 @export var rigid_body_thruster: RigidBodyThruster
 @export var rigid_body_direction: RigidBodyDirection
@@ -43,7 +45,7 @@ var navigating: bool:
         else:
             self._state = State.IDLE
 
-@onready var _rigid_body := rigid_body_thruster.get_parent() as RigidBody3D
+@onready var _ship := get_parent() as Ship
 
 var _state: State = State.IDLE
 var _target_direction: Vector3
@@ -56,7 +58,7 @@ func _ready() -> void:
         self.navigating = true
 
 func _physics_process(_delta: float) -> void:
-    if not self.navigating:
+    if not self.navigating or self._ship.controls_disabled():
         return
 
     match self._state:
@@ -76,7 +78,7 @@ func _idle() -> void:
     self.rigid_body_thruster.throttle = 0.0
 
 func _rotate_to_accelerate() -> void:
-    self._target_direction = (self.destination - self._rigid_body.global_position).normalized()
+    self._target_direction = (self.destination - self._ship.global_position).normalized()
     self.rigid_body_direction.direction = self._target_direction
     self.rigid_body_thruster.throttle = 0.0
 
@@ -86,19 +88,19 @@ func _rotate_to_accelerate() -> void:
 func _accelerate_toward_destination() -> void:
     self.rigid_body_thruster.throttle = 1.0
 
-    var distance_to_destination := self._rigid_body.global_position.distance_to(self.destination)
-    var stopping_distance := self._calculate_stopping_distance(self._rigid_body.linear_velocity.length())
+    var distance_to_destination := self._ship.global_position.distance_to(self.destination)
+    var stopping_distance := self._calculate_stopping_distance(self._ship.linear_velocity.length())
 
     # Account for rotation time in stopping distance
-    var rotation_time := self._estimate_rotation_time(-self._rigid_body.linear_velocity.normalized())
-    var rotation_distance := self._rigid_body.linear_velocity.length() * rotation_time
+    var rotation_time := self._estimate_rotation_time(-self._ship.linear_velocity.normalized())
+    var rotation_distance := self._ship.linear_velocity.length() * rotation_time
     stopping_distance += rotation_distance
 
     if stopping_distance >= distance_to_destination:
         self._state = State.ROTATING_TO_DECELERATE
 
 func _rotate_to_decelerate() -> void:
-    self._target_direction = -self._rigid_body.linear_velocity.normalized()
+    self._target_direction = -self._ship.linear_velocity.normalized()
     self.rigid_body_direction.direction = self._target_direction
     self.rigid_body_thruster.throttle = 0.0
 
@@ -106,7 +108,7 @@ func _rotate_to_decelerate() -> void:
         self._state = State.DECELERATING_TO_STOP
 
 func _decelerate_to_stop() -> void:
-    self._target_direction = -self._rigid_body.linear_velocity.normalized()
+    self._target_direction = -self._ship.linear_velocity.normalized()
     self.rigid_body_direction.direction = self._target_direction
     
     if self._pointing_in_direction(self._target_direction):
@@ -114,8 +116,8 @@ func _decelerate_to_stop() -> void:
     else:
         self.rigid_body_thruster.throttle = 0.0
 
-    var distance_to_destination := self._rigid_body.global_position.distance_to(self.destination)
-    if distance_to_destination <= self.arrival_distance_tolerance and self._rigid_body.linear_velocity.length() <= self.stopping_velocity_tolerance:
+    var distance_to_destination := self._ship.global_position.distance_to(self.destination)
+    if distance_to_destination <= self.arrival_distance_tolerance and self._ship.linear_velocity.length() <= self.stopping_velocity_tolerance:
         self.navigating = false
         self.rigid_body_thruster.throttle = 0.0
 
@@ -123,15 +125,15 @@ func _decelerate_to_stop() -> void:
         self.destination_reached.emit(self)
 
 func _pointing_in_direction(direction: Vector3) -> bool:
-    var current_direction := -self._rigid_body.global_transform.basis.z
+    var current_direction := -self._ship.global_transform.basis.z
     return current_direction.angle_to(direction) <= self.direction_tolerance
 
 func _calculate_stopping_distance(current_velocity: float) -> float:
-    var acceleration := self.rigid_body_thruster.thruster.thrust_force / self._rigid_body.mass
+    var acceleration := self.rigid_body_thruster.thruster.thrust_force / self._ship.mass
     return (current_velocity * current_velocity) / (2 * acceleration)
 
 func _estimate_rotation_time(target_direction: Vector3) -> float:
-    var current_direction := -self._rigid_body.global_transform.basis.z
+    var current_direction := -self._ship.global_transform.basis.z
     var angle_to_rotate := current_direction.angle_to(target_direction)
     return angle_to_rotate / self.rigid_body_direction.spin_thruster.turning_rate
 

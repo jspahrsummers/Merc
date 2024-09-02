@@ -26,6 +26,9 @@ signal shield_changed(player: Player, shield: Shield)
 ## Fires when the ship's power level changes.
 signal power_changed(player: Player, battery: Battery)
 
+## Fires when the ship's heat level changes.
+signal heat_changed(player: Player, heat_sink: HeatSink)
+
 ## Fires when the player's ship is destroyed.
 signal ship_destroyed(player: Player)
 
@@ -107,6 +110,7 @@ func _ready() -> void:
     self.ship.hull.changed.connect(_on_hull_changed)
     self.ship.hull.hull_destroyed.connect(_on_hull_destroyed)
     self.ship.battery.changed.connect(_on_power_changed)
+    self.ship.heat_sink.changed.connect(_on_heat_changed)
     self.ship.targeting_system.target_changed.connect(_on_target_changed)
 
     InputEventBroadcaster.input_event.connect(_on_broadcasted_input_event)
@@ -114,6 +118,7 @@ func _ready() -> void:
     # Initial notifications so the UI can update.
     self._on_hull_changed()
     self._on_power_changed()
+    self._on_heat_changed()
 
     if self.ship.shield:
         self.ship.shield.changed.connect(_on_shield_changed)
@@ -144,6 +149,9 @@ func _on_shield_changed() -> void:
 
 func _on_power_changed() -> void:
     self.power_changed.emit(self, self.ship.battery)
+
+func _on_heat_changed() -> void:
+    self.heat_changed.emit(self, self.ship.heat_sink)
 
 func _on_hull_destroyed(hull: Hull) -> void:
     assert(hull == self.ship.hull, "Received hull_destroyed signal from incorrect hull")
@@ -206,7 +214,7 @@ func _closest_landing_target() -> Celestial:
     return nearest_celestial
 
 func _unhandled_input(event: InputEvent) -> void:
-    if self.ship.hyperdrive_system.jumping:
+    if self.ship.controls_disabled():
         return
     
     var motion_event := event as InputEventMouseMotion
@@ -321,6 +329,7 @@ func _depart_from_port(port: Port) -> void:
     if self.ship.shield:
         self.ship.shield.integrity = self.ship.shield.max_integrity
     self.ship.hull.integrity = self.ship.hull.max_integrity
+    self.ship.heat_sink.heat = 0
 
     self._reset_controls()
     self._reset_velocity()
@@ -358,16 +367,18 @@ func _mouse_joystick_input() -> Vector2:
     return offset.normalized() * normalized_distance
 
 func _physics_process(_delta: float) -> void:
-    if not self.ship.hyperdrive_system or self.ship.hyperdrive_system.jumping:
+    if self.ship.controls_disabled():
+        self.ship.set_firing(false)
+        self.ship.rigid_body_thruster.throttle = 0.0
+        self.ship.rigid_body_direction.direction = Vector3.ZERO
+        self._rigid_body_turner.turning = 0.0
         return
 
     if Input.is_action_pressed("jump"):
         self._jump_to_hyperspace()
         return
 
-    var firing := Input.is_action_pressed("fire")
-    for weapon_mount in self.ship.weapon_mounts:
-        weapon_mount.firing = firing
+    self.ship.set_firing(Input.is_action_pressed("fire"))
 
     match UserPreferences.control_scheme:
         UserPreferences.ControlScheme.RELATIVE:

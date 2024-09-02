@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dqrul5pyjbxjc"]
+[gd_scene load_steps=33 format=3 uid="uid://dqrul5pyjbxjc"]
 
 [ext_resource type="PackedScene" uid="uid://c0eitctnmmfyq" path="res://ships/ship.tscn" id="1_r6j4w"]
 [ext_resource type="PackedScene" uid="uid://co3rcmgurh2gb" path="res://ships/freighter/freighter.glb" id="2_qliud"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://mechanics/combat/shield.gd" id="3_ti3ck"]
 [ext_resource type="Script" path="res://mechanics/combat/hull.gd" id="4_n1hc8"]
 [ext_resource type="Shader" path="res://fx/shield/shield.gdshader" id="4_unqrx"]
+[ext_resource type="Script" path="res://mechanics/heat/heat_sink.gd" id="5_0dh7p"]
 [ext_resource type="PackedScene" uid="uid://cdyo800b83x5i" path="res://fx/explosions/explosion002.tscn" id="5_bgpiu"]
 [ext_resource type="Script" path="res://mechanics/combat/shield_recharger.gd" id="5_s17ip"]
 [ext_resource type="Script" path="res://mechanics/physics/spin_thruster.gd" id="8_ngx4b"]
@@ -16,6 +17,7 @@
 [ext_resource type="AudioStream" uid="uid://5iqc5o8p02l5" path="res://ships/audio/THRUSTER LOW.wav" id="11_5uksh"]
 [ext_resource type="PackedScene" uid="uid://dbc2usdmy5wf3" path="res://fx/engine_glow/engine_glow.tscn" id="12_8a1b6"]
 [ext_resource type="Shader" path="res://fx/engine_glow/engine_glow.gdshader" id="13_0qykh"]
+[ext_resource type="Script" path="res://mechanics/heat/radiator.gd" id="18_jmrpj"]
 
 [sub_resource type="Resource" id="Resource_t05wf"]
 resource_local_to_scene = true
@@ -37,6 +39,12 @@ resource_local_to_scene = true
 script = ExtResource("8_w8qvs")
 max_power = 300.0
 power = 300.0
+
+[sub_resource type="Resource" id="Resource_10qq0"]
+resource_local_to_scene = true
+script = ExtResource("5_0dh7p")
+max_heat = 400.0
+heat = 0.0
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_23xxj"]
 height = 3.88505
@@ -74,6 +82,7 @@ power_consumption_rate = 5.0
 script = ExtResource("10_8eiax")
 thrust_force = 60.0
 power_consumption_rate = 5.0
+heat_generation_rate = 5.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jl6dq"]
 render_priority = 0
@@ -89,13 +98,16 @@ orientation = 1
 [sub_resource type="Resource" id="Resource_ku887"]
 script = ExtResource("9_277l5")
 rate_of_power = 3.0
+rate_of_heat = 1.0
 
-[node name="Freighter" node_paths=PackedStringArray("shield_recharger") instance=ExtResource("1_r6j4w")]
+[node name="Freighter" node_paths=PackedStringArray("radiator", "shield_recharger") instance=ExtResource("1_r6j4w")]
 mass = 150.0
+radiator = NodePath("Radiator")
 shield_recharger = NodePath("ShieldRecharger")
 hull = SubResource("Resource_t05wf")
 shield = SubResource("Resource_ln8ln")
 battery = SubResource("Resource_lo26u")
+heat_sink = SubResource("Resource_10qq0")
 
 [node name="Model" parent="." index="0" instance=ExtResource("2_qliud")]
 transform = Transform3D(-1, 3.48787e-16, -8.74228e-08, 3.48787e-16, 1, -3.48787e-16, 8.74228e-08, -3.48787e-16, -1, 0, 0, 0)
@@ -152,5 +164,9 @@ power_generator = SubResource("Resource_ku887")
 
 [node name="ShieldRecharger" type="Node3D" parent="." index="7"]
 script = ExtResource("5_s17ip")
+
+[node name="Radiator" type="Node3D" parent="." index="8"]
+script = ExtResource("18_jmrpj")
+rate = 6.0
 
 [editable path="CombatObject/TargetOverlay"]

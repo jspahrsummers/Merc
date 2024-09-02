@@ -21,6 +21,9 @@ class_name Ship
 ## This ship's power management unit.
 @export var power_management_unit: PowerManagementUnit
 
+## The ship's radiator to dissipate heat.
+@export var radiator: Radiator
+
 ## An object for representing this ship on radar.
 @export var radar_object: RadarObject
 
@@ -50,6 +53,9 @@ class_name Ship
 
 ## The [Battery] powering the ship.
 @export var battery: Battery
+
+## The [HeatSink] which accumulates ship heat.
+@export var heat_sink: HeatSink
 
 ## An optional cargo hold for this ship.
 @export var cargo_hold: CargoHold
@@ -83,14 +89,18 @@ var save_node_path_override: NodePath
 func _ready() -> void:
     self.combat_object.hull = self.hull
     self.combat_object.shield = self.shield
+    self.combat_object.heat_sink = self.heat_sink
     if self.hero:
         self.combat_object.combat_name = self.hero.name
         self.hull.hull_destroyed.connect(func(_hull: Hull) -> void:
             self.hero.killed.emit(self.hero))
 
     self.rigid_body_thruster.battery = self.battery
+    self.rigid_body_thruster.heat_sink = self.heat_sink
     self.rigid_body_direction.battery = self.battery
     self.power_management_unit.battery = self.battery
+    self.power_management_unit.heat_sink = self.heat_sink
+    self.radiator.heat_sink = self.heat_sink
 
     if self.shield_recharger:
         self.shield_recharger.shield = self.shield
@@ -101,6 +111,7 @@ func _ready() -> void:
     
     for weapon_mount in self.weapon_mounts:
         weapon_mount.battery = self.battery
+        weapon_mount.heat_sink = self.heat_sink
     
     if self.rigid_body_cargo:
         self.rigid_body_cargo.cargo_hold = self.cargo_hold
@@ -108,6 +119,21 @@ func _ready() -> void:
 
 func _to_string() -> String:
     return "Ship:%s (%s)" % [self.name, self.combat_object]
+
+## Whether this ship's controls should be disabled.
+func controls_disabled() -> bool:
+    if self.heat_sink.heat >= self.heat_sink.max_heat:
+        return true
+    
+    if self.hyperdrive_system and self.hyperdrive_system.jumping:
+        return true
+    
+    return false
+
+## Starts or stops firing on all weapon mounts.
+func set_firing(firing: bool) -> void:
+    for weapon_mount in self.weapon_mounts:
+        weapon_mount.firing = firing
 
 ## Add an outfit to the ship and apply its effects.
 func add_outfit(outfit: Outfit) -> void:
@@ -128,6 +154,7 @@ func save_to_dict() -> Dictionary:
 
     SaveGame.save_resource_property_into_dict(self, result, "hull")
     SaveGame.save_resource_property_into_dict(self, result, "battery")
+    SaveGame.save_resource_property_into_dict(self, result, "heat_sink")
     SaveGame.save_resource_property_into_dict(self, result, "shield")
     SaveGame.save_resource_property_into_dict(self, result, "hyperdrive")
     SaveGame.save_resource_property_into_dict(self, result, "cargo_hold")
@@ -146,6 +173,7 @@ func load_from_dict(dict: Dictionary) -> void:
 
     SaveGame.load_resource_property_from_dict(self, dict, "hull")
     SaveGame.load_resource_property_from_dict(self, dict, "battery")
+    SaveGame.load_resource_property_from_dict(self, dict, "heat_sink")
     SaveGame.load_resource_property_from_dict(self, dict, "shield")
     SaveGame.load_resource_property_from_dict(self, dict, "hyperdrive")
     SaveGame.load_resource_property_from_dict(self, dict, "cargo_hold")

@@ -1,7 +1,8 @@
-[gd_scene load_steps=77 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=80 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperspace_scene_switcher.gd" id="4_yyrkm"]
+[ext_resource type="Script" path="res://mechanics/heat/heat_sink.gd" id="6_hv4l5"]
 [ext_resource type="Material" uid="uid://tpd4rufhhe4h" path="res://fx/starfield/starfield.tres" id="7_gr6ce"]
 [ext_resource type="Script" path="res://mechanics/economy/passenger_quarters.gd" id="8_bkgwh"]
 [ext_resource type="Script" path="res://fx/starfield/starfield_parallax.gd" id="8_ueist"]
@@ -78,6 +79,12 @@ script = ExtResource("15_sjw8q")
 max_power = 300.0
 power = 300.0
 
+[sub_resource type="Resource" id="Resource_dr1mv"]
+resource_local_to_scene = true
+script = ExtResource("6_hv4l5")
+max_heat = 400.0
+heat = 0.0
+
 [sub_resource type="Resource" id="Resource_rcbfw"]
 resource_local_to_scene = true
 script = ExtResource("14_bcf1o")
@@ -98,6 +105,12 @@ resource_local_to_scene = true
 script = ExtResource("15_sjw8q")
 max_power = 100.0
 power = 100.0
+
+[sub_resource type="Resource" id="Resource_s186x"]
+resource_local_to_scene = true
+script = ExtResource("6_hv4l5")
+max_heat = 100.0
+heat = 0.0
 
 [sub_resource type="Resource" id="Resource_on6n3"]
 script = ExtResource("11_ag0i7")
@@ -182,6 +195,14 @@ message_log = NodePath("../InGameGUI/MarginContainer/HBoxContainer/MessageLog")
 hull = SubResource("Resource_p7sh0")
 shield = SubResource("Resource_dhynb")
 battery = SubResource("Resource_ubt7x")
+heat_sink = SubResource("Resource_dr1mv")
+outfits = null
+
+[node name="AINavigation" parent="HyperspaceSceneSwitcher/Sol/Freighter" index="8"]
+direction_tolerance = null
+arrival_distance_tolerance = null
+stopping_velocity_tolerance = null
+auto_start = null
 
 [node name="PlayerCorvette" parent="HyperspaceSceneSwitcher/Sol" node_paths=PackedStringArray("hyperdrive_system") instance=ExtResource("12_bj83b")]
 physics_material_override = null
@@ -189,9 +210,11 @@ hyperdrive_system = NodePath("HyperdriveSystem")
 hull = SubResource("Resource_rcbfw")
 shield = SubResource("Resource_7husa")
 battery = SubResource("Resource_i5r8g")
+heat_sink = SubResource("Resource_s186x")
 cargo_hold = SubResource("Resource_on6n3")
 passenger_quarters = SubResource("Resource_ksma2")
 hyperdrive = SubResource("Resource_un4md")
+outfits = null
 
 [node name="CombatObject" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="3" node_paths=PackedStringArray("targeted_sound")]
 targeted_sound = NodePath("../Player/TargetedSound")
@@ -230,6 +253,9 @@ message_log = NodePath("../../../../../InGameGUI/MarginContainer/HBoxContainer/M
 script = ExtResource("15_cfr6f")
 rigid_body_thruster = NodePath("../RigidBodyThruster")
 rigid_body_direction = NodePath("../RigidBodyDirection")
+direction_tolerance = null
+destination = null
+arrival_distance_tolerance = null
 stopping_velocity_tolerance = 0.5
 auto_start = false
 
@@ -362,6 +388,8 @@ mouse_filter = 2
 [node name="MinimapContainer" type="PanelContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_7gqif")
 
@@ -465,15 +493,16 @@ theme_override_font_sizes/font_size = 10
 text = "Ship systems"
 uppercase = true
 
-[node name="PlayerVitals" type="GridContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer" node_paths=PackedStringArray("hull_bar", "shield_bar", "power_bar")]
+[node name="PlayerVitals" type="GridContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer" node_paths=PackedStringArray("hull_bar", "shield_bar", "power_bar", "heat_bar")]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_constants/h_separation = 16
-columns = 3
+theme_override_constants/h_separation = 8
+columns = 4
 script = ExtResource("27_mar8l")
 hull_bar = NodePath("HullBar")
 shield_bar = NodePath("ShieldBar")
 power_bar = NodePath("PowerBar")
+heat_bar = NodePath("HeatBar")
 
 [node name="HullLabel" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals"]
 layout_mode = 2
@@ -493,6 +522,12 @@ theme_type_variation = &"HUDLabel"
 text = "PWR"
 horizontal_alignment = 1
 
+[node name="HeatLabel" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals"]
+layout_mode = 2
+theme_type_variation = &"HUDLabel"
+text = "HEAT"
+horizontal_alignment = 1
+
 [node name="HullBar" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" instance=ExtResource("28_7l7fi")]
 layout_mode = 2
 
@@ -500,6 +535,9 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="PowerBar" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" instance=ExtResource("28_7l7fi")]
+layout_mode = 2
+
+[node name="HeatBar" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" instance=ExtResource("28_7l7fi")]
 layout_mode = 2
 
 [node name="TargetInfoContainer" type="PanelContainer" parent="InGameGUI/MarginContainer/HBoxContainer/Sidebar" node_paths=PackedStringArray("target_label", "target_viewport", "hull_bar", "shield_bar", "pick_sound")]
@@ -670,6 +708,7 @@ script = ExtResource("37_e11x7")
 [connection signal="jump_destination_loaded" from="HyperspaceSceneSwitcher" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/SystemName" method="_on_jump_destination_loaded"]
 [connection signal="jump_path_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/HyperdriveSystem" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PanelContainer/VBoxContainer/JumpDestinationName" method="_on_jump_path_changed"]
 [connection signal="jumping_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/HyperdriveSystem" to="MainCameraTransform/MainCamera/HyperspaceEffect" method="_on_jumping_changed"]
+[connection signal="heat_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_heat_changed"]
 [connection signal="hull_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PlayerVitalsContainer/VBoxContainer/PlayerVitals" method="_on_player_hull_changed"]
 [connection signal="hyperdrive_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/PanelContainer/VBoxContainer/FuelBar" method="_on_player_hyperdrive_changed"]
 [connection signal="landing_target_changed" from="HyperspaceSceneSwitcher/Sol/PlayerCorvette/Player" to="InGameGUI/MarginContainer/HBoxContainer/Sidebar/LandingTargetName" method="_on_landing_target_changed"]

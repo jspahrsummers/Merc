@@ -22,6 +22,9 @@ class_name WeaponMount
 ## The [Battery] to power the weapon from.
 var battery: Battery
 
+## The [HeatSink] to dump heat into.
+var heat_sink: HeatSink
+
 ## Set to true when this weapon should automatically fire; set to false to stop firing.
 var firing: bool = false:
     set(value):
@@ -67,3 +70,4 @@ func _physics_process(_delta: float) -> void:
     projectile_instance.apply_central_impulse(projectile_instance.transform.basis * self.weapon.fire_force * Vector3.FORWARD)
 
     self._last_fired_usec = now
+    self.heat_sink.heat += self.weapon.heat
