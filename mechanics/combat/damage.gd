@@ -12,3 +12,8 @@ class_name Damage
 ##
 ## If a damageable object has shields, damage is applied to the shields first, then the hull, in proportion.
 @export var hull_damage: float
+
+## How much heat will be inflicted on the target.
+##
+## Heat is not directly damaging, but can result in a ship becoming disabled.
+@export var heat: float
