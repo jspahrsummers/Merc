@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Outfit" load_steps=2 format=3 uid="uid://dyt6spma8366r"]
+
+[ext_resource type="Script" path="res://mechanics/outfitting/outfit.gd" id="1_6y3hi"]
+
+[resource]
+script = ExtResource("1_6y3hi")
+name = "Cargo Conversion"
+description = "Building a successful freight business requires maximizing cargo space at the expense of all else. This conversion gets rid of disused passenger quarters in favor of a bigger cargo hold."
+mass = 0.0
+price_in_credits = 4000.0
+modified_cargo_capacity = 5.0
+modified_passenger_capacity = -4
+modified_fuel_capacity = 0.0
+modified_shield_capacity = 0.0
+shield_recharge_multiplier = 1.0
+modified_power_generation = 0.0

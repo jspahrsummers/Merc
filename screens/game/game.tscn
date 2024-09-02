@@ -200,10 +200,10 @@ targeted_sound = NodePath("../Player/TargetedSound")
 script = ExtResource("16_6olqp")
 
 [node name="Player" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" node_paths=PackedStringArray("hyperspace_scene_switcher", "message_log", "hero_roster", "main_camera", "ai_navigation") groups=["saveable"] instance=ExtResource("16_lqltb")]
-bank_account = SubResource("Resource_j1y8s")
-calendar = SubResource("Resource_jc1pg")
 hyperspace_scene_switcher = NodePath("../../..")
 message_log = NodePath("../../../../InGameGUI/MarginContainer/HBoxContainer/MessageLog")
+bank_account = SubResource("Resource_j1y8s")
+calendar = SubResource("Resource_jc1pg")
 hero_roster = NodePath("../../../../HeroRoster")
 main_camera = NodePath("../../../../MainCameraTransform/MainCamera")
 ai_navigation = NodePath("../AINavigation")
