@@ -12,4 +12,4 @@ additional_cargo_capacity = 0.0
 additional_fuel_capacity = 1.0
 additional_shield_capacity = 0.0
 shield_recharge_multiplier = 1.0
-constant_power_drain = 0.5
+constant_power_drain = 1.0
