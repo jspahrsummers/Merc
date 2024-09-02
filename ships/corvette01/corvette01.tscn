@@ -84,7 +84,7 @@ rate_of_power = 5.0
 [node name="Corvette" node_paths=PackedStringArray("shield_recharger", "weapon_mounts", "rigid_body_cargo") instance=ExtResource("1_cmgif")]
 mass = 10.0
 shield_recharger = NodePath("ShieldRecharger")
-weapon_mounts = [NodePath("Blaster")]
+weapon_mounts = [NodePath("Blaster"), NodePath("LeftWeaponMount"), NodePath("RightWeaponMount")]
 rigid_body_cargo = NodePath("RigidBodyCargo")
 hull = SubResource("Resource_5twpq")
 shield = SubResource("Resource_alskh")
@@ -149,5 +149,13 @@ weapon = ExtResource("16_17v50")
 
 [node name="RigidBodyCargo" type="Node3D" parent="." index="10"]
 script = ExtResource("19_f3xy8")
+
+[node name="LeftWeaponMount" type="Node3D" parent="." index="11"]
+transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, -0.199402, -1.62168e-16, 0.0532059)
+script = ExtResource("15_douxu")
+
+[node name="RightWeaponMount" type="Node3D" parent="." index="12"]
+transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, 0.199, 2.08165e-12, 0.053)
+script = ExtResource("15_douxu")
 
 [editable path="CombatObject/TargetOverlay"]
