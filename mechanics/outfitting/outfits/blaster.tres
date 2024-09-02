@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="Outfit" load_steps=3 format=3 uid="uid://dpvae1e5a7255"]
+
+[ext_resource type="Script" path="res://mechanics/outfitting/outfit.gd" id="1_n6qr2"]
+[ext_resource type="Resource" uid="uid://cw1tu3qdxdgfi" path="res://mechanics/combat/weapons/blaster/blaster.tres" id="2_womhg"]
+
+[resource]
+script = ExtResource("1_n6qr2")
+name = "Blaster"
+description = "Commonly installed by traders heading into more dangerous reaches of the galaxy, the blaster fires packets of superheated plasma to disable or destroy would-be attackers."
+mass = 2.0
+price_in_credits = 12000.0
+modified_cargo_capacity = 0.0
+modified_fuel_capacity = 0.0
+modified_shield_capacity = 0.0
+shield_recharge_multiplier = 1.0
+modified_power_generation = -1.0
+weapon = ExtResource("2_womhg")
