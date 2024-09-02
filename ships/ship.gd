@@ -116,6 +116,16 @@ func _ready() -> void:
 func _to_string() -> String:
     return "Ship:%s (%s)" % [self.name, self.combat_object]
 
+## Whether this ship's controls should be disabled.
+func controls_disabled() -> bool:
+    if self.heat_sink.heat >= self.heat_sink.max_heat:
+        return true
+    
+    if self.hyperdrive_system and self.hyperdrive_system.jumping:
+        return true
+    
+    return false
+
 ## Add an outfit to the ship and apply its effects.
 func add_outfit(outfit: Outfit) -> void:
     outfit.apply_to_ship(self)

@@ -214,7 +214,7 @@ func _closest_landing_target() -> Celestial:
     return nearest_celestial
 
 func _unhandled_input(event: InputEvent) -> void:
-    if self.ship.hyperdrive_system.jumping:
+    if self.ship.controls_disabled():
         return
     
     var motion_event := event as InputEventMouseMotion
@@ -366,7 +366,7 @@ func _mouse_joystick_input() -> Vector2:
     return offset.normalized() * normalized_distance
 
 func _physics_process(_delta: float) -> void:
-    if not self.ship.hyperdrive_system or self.ship.hyperdrive_system.jumping:
+    if self.ship.controls_disabled():
         return
 
     if Input.is_action_pressed("jump"):

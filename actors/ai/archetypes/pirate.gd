@@ -59,6 +59,9 @@ func _select_new_patrol_target() -> void:
     self._patrol_target = MathUtils.random_unit_vector() * self.patrol_radius
 
 func _physics_process(delta: float) -> void:
+    if self._ship.controls_disabled():
+        return
+
     if not self._ship.targeting_system.target:
         self._current_state = State.PATROL
 
