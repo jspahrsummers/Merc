@@ -7,13 +7,14 @@ class_name PowerManagementUnit
 @export var power_generator: PowerGenerator:
     set(value):
         power_generator = value
-        self.set_physics_process(self.battery != null and power_generator != null)
+        self.set_physics_process(power_generator != null)
 
 ## A battery storing power.
-var battery: Battery:
-    set(value):
-        battery = value
-        self.set_physics_process(battery != null and self.power_generator != null)
+var battery: Battery
+
+## A sink for absorbing heat.
+var heat_sink: HeatSink
 
 func _physics_process(delta: float) -> void:
     self.battery.recharge(self.power_generator.rate_of_power * delta)
+    self.heat_sink.heat += self.power_generator.rate_of_heat * delta
