@@ -17,5 +17,5 @@ class_name Weapon
 ## The amount of heat generated when firing the weapon.
 @export var heat: float
 
-## The projectile that this weapon fires. The root node [b]must[/b] be a [RigidBody3D].
+## The projectile that this weapon fires. The root node [b]must[/b] be a [Projectile].
 @export var projectile: PackedScene

@@ -54,8 +54,13 @@ var heat_sink: HeatSink
 
 ## Fires when this object is targeted, or stops being targeted, by a new [TargetingSystem].
 ##
-## See [method get_targeted_by]
+## See [method get_targeted_by].
 signal targeted_by_changed(combat_object: CombatObject)
+
+## Fires after this object has been damaged.
+##
+## [param attacker] is an optional [CombatObject] indicating the source of the damage. If not specified, the damage is assumed to be environmental.
+signal damaged(damage: Damage, attacker: CombatObject)
 
 var _shield_tween: Tween
 var _targeted_by: Array[TargetingSystem] = []
@@ -72,7 +77,7 @@ func _enter_tree() -> void:
 func get_targeted_by() -> Array[TargetingSystem]:
     return self._targeted_by.duplicate()
 
-## Adds to the list of [TArgetingSystem]s targeting this object.
+## Adds to the list of [TargetingSystem]s targeting this object.
 ##
 ## This [b]must not[/b] be called twice for the same targeting system, without an intervening removal.
 func add_targeted_by(targeting_system: TargetingSystem) -> void:
@@ -95,7 +100,9 @@ func remove_targeted_by(targeting_system: TargetingSystem) -> void:
     self.targeted_by_changed.emit(self)
 
 ## Damages this object, potentially destroying it.
-func damage(dmg: Damage) -> void:
+##
+## [param attacker] is an optional [CombatObject] indicating the source of the damage. If not specified, the damage is assumed to be environmental.
+func damage(dmg: Damage, attacker: CombatObject) -> void:
     var apply_hull_dmg_pct := 1.0
 
     if self.shield and self.shield.integrity > 0.01: # compare with epilson to mitigate floating point rounding issues
@@ -111,14 +118,15 @@ func damage(dmg: Damage) -> void:
         self.hull.integrity -= dmg.hull_damage * apply_hull_dmg_pct
     
     self.heat_sink.heat += dmg.heat
+    self.damaged.emit(dmg, attacker)
 
 ## Checks whether [param node] contains a [CombatObject], and damages it if so.
-static func damage_combat_object_inside(node: Node, dmg: Damage) -> bool:
+static func damage_combat_object_inside(node: Node, dmg: Damage, attacker: CombatObject) -> bool:
     var combat_object := node.get_node_or_null(^"CombatObject") as CombatObject
     if not combat_object:
         return false
     
-    combat_object.damage(dmg)
+    combat_object.damage(dmg, attacker)
     return true
 
 func _on_hull_destroyed(destroyed_hull: Hull) -> void:

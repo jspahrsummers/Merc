@@ -38,6 +38,7 @@ linear_damp_mode = 1
 angular_velocity = Vector3(3.63316e-14, 3.63316e-14, 3.63316e-14)
 angular_damp_mode = 1
 script = ExtResource("1_yrcn8")
+lifetime_msec = null
 damage = SubResource("Resource_a466u")
 explosion = ExtResource("3_0y0wg")
 

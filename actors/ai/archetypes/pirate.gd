@@ -52,8 +52,7 @@ func _ready() -> void:
     self._connect_notifications.call_deferred()
 
 func _connect_notifications() -> void:
-    self._ship.hull.changed.connect(_on_damage_received)
-    self._ship.shield.changed.connect(_on_damage_received)
+    self._ship.combat_object.damaged.connect(_on_damaged)
 
 func _select_new_patrol_target() -> void:
     self._patrol_target = MathUtils.random_unit_vector() * self.patrol_radius
@@ -165,16 +164,14 @@ func _find_closest_target() -> CombatObject:
 
     return closest_target
 
-func _on_damage_received() -> void:
+func _on_damaged(_damage: Damage, attacker: CombatObject) -> void:
     # TODO: This isn't necessarily the actual attacker. Need to implement a way
     # to figure out who fired a weapon.
-    var attacker := self._find_closest_target()
-    if attacker == null:
+    if attacker == null or attacker == self._ship.targeting_system.target:
         return
     
-    if attacker != self._ship.targeting_system.target:
-        self._ship.targeting_system.target = attacker
-        self._current_state = State.ENGAGE
+    self._ship.targeting_system.target = attacker
+    self._current_state = State.ENGAGE
 
 ## See [SaveGame].
 func save_to_dict() -> Dictionary:

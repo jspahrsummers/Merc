@@ -10,6 +10,9 @@ class_name Projectile
 ## An explosion to instantiate upon collision.
 @export var explosion: PackedScene
 
+## The [CombatObject] which launched this projectile.
+var fired_by: CombatObject
+
 var _spawn_time_msec: int
 
 func _ready() -> void:
@@ -32,6 +35,6 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
     var collider := state.get_contact_collider_object(0)
     var node := collider as Node
     if node:
-        CombatObject.damage_combat_object_inside(node, self.damage)
+        CombatObject.damage_combat_object_inside(node, self.damage, self.fired_by)
 
     self.queue_free()
