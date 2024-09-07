@@ -1,9 +1,10 @@
 extends RigidBody3D
+class_name Projectile
 
-## How long before the blaster bolt expires (in milliseconds).
+## How long before the projectile expires (in milliseconds).
 @export var lifetime_msec: int = 2000
 
-## How much damage the blaster bolt does.
+## How much damage the projectile does.
 @export var damage: Damage
 
 ## An explosion to instantiate upon collision.

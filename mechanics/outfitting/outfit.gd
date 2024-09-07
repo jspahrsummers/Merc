@@ -9,8 +9,6 @@ class_name Outfit
 ## - Outfits may require constant power, which is limited by the ship's power generator.
 ## - Outfits may consume cargo space, which could otherwise be used to carry more trade or mission commodities.
 
-# TODO: Heat
-
 ## The human-readable name of this outfit.
 @export var name: String
 

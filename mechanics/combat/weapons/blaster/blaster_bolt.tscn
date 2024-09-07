@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://b7tckdwyjwpso"]
 
-[ext_resource type="Script" path="res://mechanics/combat/weapons/blaster/blaster_bolt.gd" id="1_nmdx1"]
+[ext_resource type="Script" path="res://mechanics/combat/weapons/projectile.gd" id="1_yrcn8"]
 [ext_resource type="Script" path="res://mechanics/combat/damage.gd" id="2_eoln0"]
 [ext_resource type="PackedScene" uid="uid://cp0b07jvhi5a" path="res://fx/explosions/explosion001.tscn" id="3_0y0wg"]
 [ext_resource type="Texture2D" uid="uid://lyur31oafltf" path="res://mechanics/combat/weapons/blaster/blaster_bolt.png" id="4_02x53"]
@@ -37,7 +37,7 @@ contact_monitor = true
 linear_damp_mode = 1
 angular_velocity = Vector3(3.63316e-14, 3.63316e-14, 3.63316e-14)
 angular_damp_mode = 1
-script = ExtResource("1_nmdx1")
+script = ExtResource("1_yrcn8")
 damage = SubResource("Resource_a466u")
 explosion = ExtResource("3_0y0wg")
 
