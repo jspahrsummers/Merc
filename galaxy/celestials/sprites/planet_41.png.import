@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b11cnbwqjqv8w"
-path.s3tc="res://.godot/imported/planet_41.png-2c1089535e84f6b411cb98a9182157b8.s3tc.ctex"
+path="res://.godot/imported/planet_41.png-2c1089535e84f6b411cb98a9182157b8.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://galaxy/celestials/sprites/planet_41.png"
-dest_files=["res://.godot/imported/planet_41.png-2c1089535e84f6b411cb98a9182157b8.s3tc.ctex"]
+dest_files=["res://.godot/imported/planet_41.png-2c1089535e84f6b411cb98a9182157b8.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

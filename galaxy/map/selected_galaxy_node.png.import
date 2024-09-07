@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://lllwynbx0xg7"
-path.s3tc="res://.godot/imported/selected_galaxy_node.png-84421f31adb3392d93ff1b37acf419f5.s3tc.ctex"
+path="res://.godot/imported/selected_galaxy_node.png-84421f31adb3392d93ff1b37acf419f5.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://galaxy/map/selected_galaxy_node.png"
-dest_files=["res://.godot/imported/selected_galaxy_node.png-84421f31adb3392d93ff1b37acf419f5.s3tc.ctex"]
+dest_files=["res://.godot/imported/selected_galaxy_node.png-84421f31adb3392d93ff1b37acf419f5.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
