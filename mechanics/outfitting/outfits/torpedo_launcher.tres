@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="Outfit" load_steps=3 format=3 uid="uid://cyx3v8jagovnv"]
+
+[ext_resource type="Script" path="res://mechanics/outfitting/outfit.gd" id="1_um0on"]
+[ext_resource type="Resource" uid="uid://x4cvy30r6rdc" path="res://mechanics/combat/weapons/torpedo/torpedo.tres" id="2_c22kq"]
+
+[resource]
+script = ExtResource("1_um0on")
+name = "Torpedo Launcher"
+description = "Installed on less-maneuverable capital ships, torpedoes acquire and track their targets over longer distances. Although they are slower than many other weapons, torpedoes pack a significant punch—few ships can survive being on the other side."
+mass = 10.0
+price_in_credits = 20000.0
+modified_cargo_capacity = 0.0
+modified_passenger_capacity = 0
+modified_fuel_capacity = -1.0
+modified_hull_capacity = 0.0
+modified_shield_capacity = 0.0
+shield_recharge_multiplier = 1.0
+modified_power_generation = 0.0
+modified_heat_capacity = 0.0
+weapon = ExtResource("2_c22kq")
