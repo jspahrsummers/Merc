@@ -38,9 +38,9 @@ func _physics_process(delta: float) -> void:
         self._guide_toward_target(delta)
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-    var velocity := state.linear_velocity.length()
-    var direction := -state.transform.basis.orthonormalized().z
-    state.linear_velocity = direction * velocity
+    # var velocity := state.linear_velocity.length()
+    # var direction := -state.transform.basis.z
+    # state.linear_velocity = direction * velocity
 
     if state.get_contact_count() > 0:
         self._explode_on_contact(state)
@@ -52,6 +52,9 @@ func _guide_toward_target(delta: float) -> void:
         return
 
     self.global_basis = self.global_basis.slerp(desired_basis, self.turning_rate * delta)
+
+    var desired_velocity := -self.global_basis.z
+    self.linear_velocity = self.linear_velocity.slerp(desired_velocity, self.turning_rate * delta)
 
 func _explode_on_contact(state: PhysicsDirectBodyState3D) -> void:
     var explosion_instance: AnimatedSprite3D = self.explosion.instantiate()
