@@ -81,6 +81,7 @@ func load_jump_destination() -> void:
 func finish_jump() -> void:
     assert(self._hyperdrive_system.jumping, "No jump in progress")
     self._hyperdrive_system.jumping = false
+    SaveGame.autosave()
 
 ## See [SaveGame].
 func before_save() -> void:

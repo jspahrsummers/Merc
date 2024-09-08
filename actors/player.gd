@@ -320,6 +320,7 @@ func _land() -> void:
     self.landed.emit(self, port)
 
 func _depart_from_port(port: Port) -> void:
+    SaveGame.autosave()
     self.message_log.clear()
 
     self.calendar.pass_approximate_days(PORT_LANDING_APPROXIMATE_DAYS)

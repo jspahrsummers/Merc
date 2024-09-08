@@ -6,6 +6,9 @@ const SAVEABLE_GROUP = "saveable"
 ## The directory to save and load games to/from.
 const SAVE_GAMES_DIRECTORY = "user://save_games/"
 
+## The name of the save file for autosaving.
+const _AUTOSAVE_NAME = "autosave"
+
 ## The current save file version, for all new files.
 const _FILE_VERSION = 1
 
@@ -32,6 +35,14 @@ func get_save_game_names() -> Array[String]:
         file_name = dir.get_next()
 
     return paths
+
+## Autosaves the current game.
+func autosave() -> void:
+    var result := self.save(_AUTOSAVE_NAME)
+    if result == Error.OK:
+        print("Autosaved")
+    else:
+        push_error("Failed to save game: %s" % result)
 
 ## Saves all [i]saveable[/i] nodes in the scene tree to a file with the given name.
 func save(filename: String) -> Error:
