@@ -66,10 +66,10 @@ func _physics_process(_delta: float) -> void:
         return
     
     var projectile_instance: Projectile = self.weapon.projectile.instantiate()
-    get_parent().add_sibling(projectile_instance)
-    projectile_instance.add_collision_exception_with(self._rigid_body)
     projectile_instance.target = self.targeting_system.target
     projectile_instance.fired_by = self.targeting_system.combat_object
+    get_parent().add_sibling(projectile_instance)
+    projectile_instance.add_collision_exception_with(self._rigid_body)
     projectile_instance.global_transform = self.global_transform
     projectile_instance.linear_velocity = self._rigid_body.linear_velocity
     projectile_instance.apply_central_impulse(projectile_instance.transform.basis * self.weapon.fire_force * Vector3.FORWARD)

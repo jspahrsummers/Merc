@@ -24,6 +24,12 @@ var _spawn_time_msec: int
 func _ready() -> void:
     self._spawn_time_msec = Time.get_ticks_msec()
 
+    if self.target:
+        self.target.hull.hull_destroyed.connect(_target_destroyed)
+    
+func _target_destroyed(_hull: Hull) -> void:
+    self.target = null
+
 func _physics_process(delta: float) -> void:
     if Time.get_ticks_msec() - self._spawn_time_msec > self.lifetime_msec:
         self.queue_free()
@@ -32,6 +38,10 @@ func _physics_process(delta: float) -> void:
         self._guide_toward_target(delta)
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+    var velocity := state.linear_velocity.length()
+    var direction := -state.transform.basis.orthonormalized().z
+    state.linear_velocity = direction * velocity
+
     if state.get_contact_count() > 0:
         self._explode_on_contact(state)
 
