@@ -19,8 +19,8 @@
 [ext_resource type="Script" path="res://mechanics/power/power_generator.gd" id="13_n5lfa"]
 [ext_resource type="Script" path="res://mechanics/combat/shield_recharger.gd" id="14_mp2y5"]
 [ext_resource type="Script" path="res://mechanics/combat/weapons/weapon_mount.gd" id="15_douxu"]
-[ext_resource type="Resource" uid="uid://cw1tu3qdxdgfi" path="res://mechanics/combat/weapons/blaster/blaster.tres" id="16_17v50"]
 [ext_resource type="Script" path="res://mechanics/physics/rigid_body_cargo.gd" id="19_f3xy8"]
+[ext_resource type="Resource" uid="uid://x4cvy30r6rdc" path="res://mechanics/combat/weapons/torpedo/torpedo.tres" id="20_p5ggw"]
 [ext_resource type="Script" path="res://mechanics/heat/radiator.gd" id="22_o7v2x"]
 
 [sub_resource type="Resource" id="Resource_5twpq"]
@@ -158,7 +158,7 @@ script = ExtResource("14_mp2y5")
 [node name="Blaster" type="Node3D" parent="." index="9"]
 transform = Transform3D(1, -1.21652e-31, 0, -1.21652e-31, 1, 0, 0, 0, 1, 1.62168e-16, -1.62168e-16, -0.464948)
 script = ExtResource("15_douxu")
-weapon = ExtResource("16_17v50")
+weapon = ExtResource("20_p5ggw")
 
 [node name="RigidBodyCargo" type="Node3D" parent="." index="10"]
 script = ExtResource("19_f3xy8")

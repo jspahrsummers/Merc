@@ -42,6 +42,7 @@ script = ExtResource("1_lgstg")
 lifetime_msec = 10000
 damage = SubResource("Resource_a466u")
 explosion = ExtResource("3_kxh65")
+turning_rate = 0.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.3, 0, -4.57379e-24, -4.57379e-24, -1.31134e-08, -0.3, 0, 0.3, -1.31134e-08, 0, 0, -0.486987)
