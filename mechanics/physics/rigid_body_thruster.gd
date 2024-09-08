@@ -7,7 +7,7 @@ class_name RigidBodyThruster
 
 @export var thruster: Thruster
 
-## An audio clip to play while the thruster is active.
+## An optional audio clip to play while the thruster is active.
 ##
 ## This audio stream should be a looping sound. Rather than restarting from the beginning each time the thruster is used, the audio stream is paused and resumed, and evenutally loops.
 @export var thruster_audio: AudioStreamPlayer3D
@@ -20,10 +20,10 @@ class_name RigidBodyThruster
 @export var animation_transition: Tween.TransitionType = Tween.TRANS_CUBIC
 @export var animation_ease: Tween.EaseType = Tween.EASE_IN_OUT
 
-## The [Battery] to power the thruster from.
+## An optional [Battery] to power the thruster from.
 var battery: Battery
 
-## The [HeatSink] to dump heat to.
+## An optional [HeatSink] to dump heat to.
 var heat_sink: HeatSink
 
 ## The current level of throttle (where 1.0 is full throttle), which corresponds to the magnitude of the thrust to apply, as well as the amount of power to be consumed.
@@ -52,34 +52,38 @@ func _enter_tree() -> void:
             var geometry_instance := self.get_child(child_index) as GeometryInstance3D
             if not geometry_instance:
                 continue
-            
+
             self._animation_geometry.push_back(geometry_instance)
-        
+
         for geometry in self._animation_geometry:
             geometry.transparency = 1.0
 
     if self._tween:
         self._tween.kill()
         self._tween = null
-    
+
     self._target_transparency = 1.0
 
 func _physics_process(delta: float) -> void:
-    if is_zero_approx(self.throttle) or is_zero_approx(self.battery.power):
-        self.thruster_audio.stream_paused = true
+    if is_zero_approx(self.throttle) or (self.battery and is_zero_approx(self.battery.power)):
+        if self.thruster_audio:
+            self.thruster_audio.stream_paused = true
         self._animate_transparency(1.0)
         return
-    
-    if self.thruster_audio.stream_paused:
-        self.thruster_audio.stream_paused = false
-    if !self.thruster_audio.playing:
-        self.thruster_audio.play()
-    
+
+    if self.thruster_audio:
+        if self.thruster_audio.stream_paused:
+            self.thruster_audio.stream_paused = false
+        if !self.thruster_audio.playing:
+            self.thruster_audio.play()
+
     var desired_power := self.thruster.power_consumption_rate * self.throttle * delta
-    var power_consumed := self.battery.consume_up_to(desired_power)
+    var power_consumed := self.battery.consume_up_to(desired_power) if self.battery else desired_power
     var magnitude := self.throttle * (power_consumed / desired_power)
 
-    self.heat_sink.heat += self.thruster.heat_generation_rate * magnitude * delta
+    if self.heat_sink:
+        self.heat_sink.heat += self.thruster.heat_generation_rate * magnitude * delta
+
     self._animate_transparency(1.0 - magnitude)
     self._rigid_body.apply_central_force(self._rigid_body.transform.basis * Vector3.FORWARD * self.thruster.thrust_force * magnitude)
 
@@ -101,6 +105,6 @@ func _animate_transparency(to_transparency: float) -> void:
 
     for geometry in self._animation_geometry:
         tween.tween_property(geometry, "transparency", to_transparency, duration)
-    
+
     self._tween = tween
     self._target_transparency = to_transparency
