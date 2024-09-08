@@ -10,14 +10,15 @@ class_name Projectile
 ## An explosion to instantiate upon collision.
 @export var explosion: PackedScene
 
-## An optional [RigidBodyDirection] for applying [member target] tracking.
-@export var rigid_body_direction: RigidBodyDirection
+## The force (in N) with which this projectile follows its [member target].
+##
+## Set to 0 to disable target tracking.
+@export var thrust_force: float
 
-## An optional [RigidBodyThruster] for implementing [member target] following.
-@export var rigid_body_thruster: RigidBodyThruster
-
-## For thrusting, the tolerance for being slightly off-rotated.
-@export_range(0, 180, 1, "radians_as_degrees") var direction_tolerance: float = deg_to_rad(5)
+## The maximum turning rate, in rad/s, if this projectile has [member target] tracking.
+##
+## At the moment, this affects visuals only (not physics).
+@export var turning_rate: float
 
 ## The [CombatObject] that was being targeted when this projectile was fired.
 var target: CombatObject
@@ -41,32 +42,26 @@ func _physics_process(_delta: float) -> void:
         self.queue_free()
         return
 
-    if not self.target:
+    if not self.target or is_zero_approx(self.thrust_force):
         return
 
+    # TODO: This is kinda EZ mode, because the projectile is not constrained by a particular rotation speed or velocity limiter.
     var desired_direction := (self.target.global_transform.origin - self.global_transform.origin).normalized()
-    self.apply_central_force(desired_direction * self.rigid_body_thruster.thruster.thrust_force)
-
-    # var desired_direction := (self.target.global_transform.origin - self.global_transform.origin).normalized()
-    # if self.rigid_body_direction:
-    #     self.rigid_body_direction.direction = desired_direction
-
-    # if self.rigid_body_thruster:
-    #     self.rigid_body_thruster.throttle = 1.0
-    #     # var current_direction := -self.global_transform.basis.z
-    #     # var angle_offset := current_direction.angle_to(desired_direction)
-    #     # self.rigid_body_thruster.throttle = 1.0 - clampf(0.0, 1.0, angle_offset / self.direction_tolerance)
+    self.apply_central_force(desired_direction * self.thrust_force)
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
     if state.get_contact_count() > 0:
         self._explode_on_contact(state)
     
+    if not self.target or is_zero_approx(self.turning_rate):
+        return
+
     var desired_basis := Basis.looking_at(state.linear_velocity.normalized(), Vector3.UP)
     var desired_rotation := desired_basis.get_rotation_quaternion()
     var current_rotation := state.transform.basis.get_rotation_quaternion()
 
     var angle_delta := current_rotation.angle_to(desired_rotation)
-    var slerp_weight := clampf(self.rigid_body_direction.spin_thruster.turning_rate * state.step / angle_delta, 0.0, 1.0)
+    var slerp_weight := clampf(self.turning_rate * state.step / angle_delta, 0.0, 1.0)
     state.transform.basis = state.transform.basis.slerp(desired_basis, slerp_weight)
 
 func _explode_on_contact(state: PhysicsDirectBodyState3D) -> void:

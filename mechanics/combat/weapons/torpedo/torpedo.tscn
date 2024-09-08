@@ -1,14 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://djo5waum4hiyn"]
+[gd_scene load_steps=10 format=3 uid="uid://djo5waum4hiyn"]
 
 [ext_resource type="Script" path="res://mechanics/combat/weapons/projectile.gd" id="1_lgstg"]
 [ext_resource type="Script" path="res://mechanics/combat/damage.gd" id="2_nykuf"]
 [ext_resource type="PackedScene" uid="uid://cp0b07jvhi5a" path="res://fx/explosions/explosion001.tscn" id="3_kxh65"]
 [ext_resource type="Texture2D" uid="uid://b6338fvv2c7c2" path="res://mechanics/combat/weapons/torpedo/torpedo.png" id="4_ej81m"]
 [ext_resource type="AudioStream" uid="uid://cb2xi2uin55r1" path="res://mechanics/combat/weapons/torpedo/laser1.mp3" id="5_ayg2o"]
-[ext_resource type="Script" path="res://mechanics/physics/rigid_body_thruster.gd" id="6_6uhc7"]
-[ext_resource type="Script" path="res://mechanics/physics/thruster.gd" id="7_atm73"]
-[ext_resource type="Script" path="res://mechanics/physics/rigid_body_direction.gd" id="7_to02a"]
-[ext_resource type="Script" path="res://mechanics/physics/spin_thruster.gd" id="8_qm5dx"]
 
 [sub_resource type="Resource" id="Resource_a466u"]
 script = ExtResource("2_nykuf")
@@ -28,18 +24,7 @@ albedo_color = Color(0.359069, 0.359069, 0.359069, 1)
 material = SubResource("StandardMaterial3D_04jjf")
 orientation = 1
 
-[sub_resource type="Resource" id="Resource_p3cd5"]
-script = ExtResource("7_atm73")
-thrust_force = 6.0
-power_consumption_rate = 1.0
-heat_generation_rate = 1.0
-
-[sub_resource type="Resource" id="Resource_iervr"]
-script = ExtResource("8_qm5dx")
-turning_rate = 3.0
-power_consumption_rate = 1.0
-
-[node name="Torpedo" type="RigidBody3D" node_paths=PackedStringArray("rigid_body_direction", "rigid_body_thruster")]
+[node name="Torpedo" type="RigidBody3D"]
 collision_layer = 2
 axis_lock_linear_y = true
 axis_lock_angular_x = true
@@ -57,8 +42,8 @@ script = ExtResource("1_lgstg")
 lifetime_msec = 10000
 damage = SubResource("Resource_a466u")
 explosion = ExtResource("3_kxh65")
-rigid_body_direction = NodePath("RigidBodyDirection")
-rigid_body_thruster = NodePath("RigidBodyThruster")
+thrust_force = 6.0
+turning_rate = 3.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(0.3, 0, -4.57379e-24, -4.57379e-24, -1.31134e-08, -0.3, 0, 0.3, -1.31134e-08, 0, 0, -0.486987)
@@ -84,11 +69,3 @@ mesh = SubResource("QuadMesh_fxvid")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.510476)
 stream = ExtResource("5_ayg2o")
 autoplay = true
-
-[node name="RigidBodyThruster" type="Node3D" parent="."]
-script = ExtResource("6_6uhc7")
-thruster = SubResource("Resource_p3cd5")
-
-[node name="RigidBodyDirection" type="Node3D" parent="."]
-script = ExtResource("7_to02a")
-spin_thruster = SubResource("Resource_iervr")
