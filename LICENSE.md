@@ -101,8 +101,10 @@ As mentioned before, the one stipulation is that these images aren’t to be use
 
 [Laser Bullets Pack 2020](https://wenrexa.itch.io/laser2020) released by [Wenrexa](https://wenrexa.itch.io/), licensed under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/):
 - blaster_bolt
+- torpedo
 
 [Digital sound effects](https://opengameart.org/content/63-digital-sound-effects-lasers-phasers-space-etc) created by [Kenney](https://www.kenney.nl/), licensed under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/):
+- laser1
 - laser4
 
 [Xenon Star](https://kodiakgraphics.itch.io/xenon-star) created by [Kodiak Graphics](https://kodiakgraphics.itch.io/), purchased for use in this project:

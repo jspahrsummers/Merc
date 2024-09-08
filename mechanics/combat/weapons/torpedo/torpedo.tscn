@@ -1,18 +1,20 @@
-[gd_scene load_steps=10 format=3 uid="uid://b7tckdwyjwpso"]
+[gd_scene load_steps=10 format=3 uid="uid://djo5waum4hiyn"]
 
-[ext_resource type="Script" path="res://mechanics/combat/weapons/projectile.gd" id="1_yrcn8"]
-[ext_resource type="Script" path="res://mechanics/combat/damage.gd" id="2_eoln0"]
-[ext_resource type="PackedScene" uid="uid://cp0b07jvhi5a" path="res://fx/explosions/explosion001.tscn" id="3_0y0wg"]
-[ext_resource type="Texture2D" uid="uid://lyur31oafltf" path="res://mechanics/combat/weapons/blaster/blaster_bolt.png" id="4_02x53"]
-[ext_resource type="AudioStream" uid="uid://cscjfy7e1dy78" path="res://mechanics/combat/weapons/blaster/laser4.mp3" id="5_dbrcg"]
+[ext_resource type="Script" path="res://mechanics/combat/weapons/projectile.gd" id="1_lgstg"]
+[ext_resource type="Script" path="res://mechanics/combat/damage.gd" id="2_nykuf"]
+[ext_resource type="PackedScene" uid="uid://cp0b07jvhi5a" path="res://fx/explosions/explosion001.tscn" id="3_kxh65"]
+[ext_resource type="Texture2D" uid="uid://b6338fvv2c7c2" path="res://mechanics/combat/weapons/torpedo/torpedo.png" id="4_ej81m"]
+[ext_resource type="AudioStream" uid="uid://cb2xi2uin55r1" path="res://mechanics/combat/weapons/torpedo/laser1.mp3" id="5_ayg2o"]
 
 [sub_resource type="Resource" id="Resource_a466u"]
-script = ExtResource("2_eoln0")
-shield_damage = 80.0
-hull_damage = 40.0
-heat = 20.0
+script = ExtResource("2_nykuf")
+shield_damage = 100.0
+hull_damage = 100.0
+heat = 40.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5b1vh"]
+radius = 0.33408
+height = 1.10555
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_04jjf"]
 shading_mode = 0
@@ -22,13 +24,12 @@ albedo_color = Color(0.359069, 0.359069, 0.359069, 1)
 material = SubResource("StandardMaterial3D_04jjf")
 orientation = 1
 
-[node name="BlasterBolt" type="RigidBody3D"]
+[node name="Torpedo" type="RigidBody3D"]
 collision_layer = 2
 axis_lock_linear_y = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
-mass = 0.1
 gravity_scale = 1.66533e-16
 lock_rotation = true
 continuous_cd = true
@@ -37,20 +38,22 @@ contact_monitor = true
 linear_damp_mode = 1
 angular_velocity = Vector3(3.63316e-14, 3.63316e-14, 3.63316e-14)
 angular_damp_mode = 1
-script = ExtResource("1_yrcn8")
+script = ExtResource("1_lgstg")
+lifetime_msec = 10000
 damage = SubResource("Resource_a466u")
-explosion = ExtResource("3_0y0wg")
+explosion = ExtResource("3_kxh65")
+thrust_force = 6.0
+turning_rate = 3.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.3, 0, -4.57379e-24, -4.57379e-24, -1.31134e-08, -0.3, 0, 0.3, -1.31134e-08, 0, 0, -0.510476)
+transform = Transform3D(0.3, 0, -4.57379e-24, -4.57379e-24, -1.31134e-08, -0.3, 0, 0.3, -1.31134e-08, 0, 0, -0.486987)
 shape = SubResource("CapsuleShape3D_5b1vh")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(-4.37114e-08, 3.48787e-16, 1, 3.48787e-16, 1, -3.48787e-16, -1, 3.48787e-16, -4.37114e-08, 0, 0, -0.510476)
 gi_mode = 2
-pixel_size = 0.005
 axis = 1
-texture = ExtResource("4_02x53")
+texture = ExtResource("4_ej81m")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, -0.510476)
@@ -64,5 +67,5 @@ mesh = SubResource("QuadMesh_fxvid")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.510476)
-stream = ExtResource("5_dbrcg")
+stream = ExtResource("5_ayg2o")
 autoplay = true

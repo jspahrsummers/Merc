@@ -112,7 +112,7 @@ func _ready() -> void:
     for weapon_mount in self.weapon_mounts:
         weapon_mount.battery = self.battery
         weapon_mount.heat_sink = self.heat_sink
-        weapon_mount.combat_object = self.combat_object
+        weapon_mount.targeting_system = self.targeting_system
     
     if self.rigid_body_cargo:
         self.rigid_body_cargo.cargo_hold = self.cargo_hold

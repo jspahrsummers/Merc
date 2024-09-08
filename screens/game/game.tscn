@@ -196,7 +196,6 @@ hull = SubResource("Resource_p7sh0")
 shield = SubResource("Resource_dhynb")
 battery = SubResource("Resource_ubt7x")
 heat_sink = SubResource("Resource_dr1mv")
-outfits = null
 
 [node name="AINavigation" parent="HyperspaceSceneSwitcher/Sol/Freighter" index="8"]
 direction_tolerance = null
@@ -206,6 +205,7 @@ auto_start = null
 
 [node name="PlayerCorvette" parent="HyperspaceSceneSwitcher/Sol" node_paths=PackedStringArray("hyperdrive_system") instance=ExtResource("12_bj83b")]
 physics_material_override = null
+hyperdrive_system = NodePath("HyperdriveSystem")
 hull = SubResource("Resource_rcbfw")
 shield = SubResource("Resource_7husa")
 battery = SubResource("Resource_i5r8g")
@@ -213,7 +213,6 @@ heat_sink = SubResource("Resource_s186x")
 cargo_hold = SubResource("Resource_on6n3")
 passenger_quarters = SubResource("Resource_ksma2")
 hyperdrive = SubResource("Resource_un4md")
-hyperdrive_system = NodePath("HyperdriveSystem")
 
 [node name="CombatObject" parent="HyperspaceSceneSwitcher/Sol/PlayerCorvette" index="3" node_paths=PackedStringArray("targeted_sound")]
 targeted_sound = NodePath("../Player/TargetedSound")

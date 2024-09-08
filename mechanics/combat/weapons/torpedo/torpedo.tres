@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=3 format=3 uid="uid://x4cvy30r6rdc"]
+
+[ext_resource type="Script" path="res://mechanics/combat/weapons/weapon.gd" id="1_l24ix"]
+[ext_resource type="PackedScene" uid="uid://djo5waum4hiyn" path="res://mechanics/combat/weapons/torpedo/torpedo.tscn" id="1_xfgdh"]
+
+[resource]
+script = ExtResource("1_l24ix")
+fire_interval = 1.0
+fire_force = 6.0
+power_consumption = 10.0
+heat = 20.0
+projectile = ExtResource("1_xfgdh")
