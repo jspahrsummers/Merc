@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dtkub033ohnss"
-path="res://.godot/imported/star_blue03.png-f76cf93ce02011e9a57ed675cd9ab6d8.ctex"
+uid="uid://blhloa7osaffn"
+path="res://.godot/imported/star_blue_giant03.png-5431042930176150b2329e3eb5330426.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://galaxy/stars/sprites/star_blue03.png"
-dest_files=["res://.godot/imported/star_blue03.png-f76cf93ce02011e9a57ed675cd9ab6d8.ctex"]
+source_file="res://galaxy/stars/sprites/star_blue_giant03.png"
+dest_files=["res://.godot/imported/star_blue_giant03.png-5431042930176150b2329e3eb5330426.ctex"]
 
 [params]
 
