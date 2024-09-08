@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_um0on")
 name = "Torpedo Launcher"
-description = "Installed on less-maneuverable capital ships, torpedoes acquire and track their targets over longer distances. Although they are slower than many other weapons, torpedoes pack a significant punch—few ships can survive being on the other side."
+description = "Installed on less-maneuverable capital ships, torpedoes acquire and track their targets over longer distances. Although they are slower than many other weapons, torpedoes pack a significant punch, as long as your ship is well-equipped to discard the excess waste heat they generate."
 mass = 10.0
 price_in_credits = 20000.0
 modified_cargo_capacity = 0.0
