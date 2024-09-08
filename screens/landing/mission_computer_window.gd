@@ -21,6 +21,9 @@ func _ready() -> void:
 
     for mission in self.available_missions:
         self.mission_list.add_item(mission.title)
+    
+    self.cargo_hold.changed.connect(_cargo_or_bank_account_changed)
+    self.bank_account.changed.connect(_cargo_or_bank_account_changed)
 
 func _on_close_requested() -> void:
     self.visible = false
@@ -35,6 +38,14 @@ func _clear() -> void:
     self.start_button.disabled = true
     self.start_button.tooltip_text = "No mission selected."
     self._selected_mission = null
+
+func _cargo_or_bank_account_changed() -> void:
+    var selection := mission_list.get_selected_items()
+    if not selection:
+        return
+    
+    # Update everything for the selected item again
+    self._on_item_selected(selection[0])
 
 func _on_item_selected(index: int) -> void:
     self._selected_mission = self.available_missions[index]
