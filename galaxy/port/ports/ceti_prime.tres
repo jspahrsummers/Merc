@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Port" load_steps=3 format=3 uid="uid://dx5mj0427aidg"]
+
+[ext_resource type="Texture2D" uid="uid://pph3ec3xdp62" path="res://screens/landing/images/ceti-prime.jpg" id="1_3pepk"]
+[ext_resource type="Script" path="res://galaxy/port/port.gd" id="1_m5fwf"]
+
+[resource]
+script = ExtResource("1_m5fwf")
+name = "Ceti Prime"
+facilities = 39
+landscape_image = ExtResource("1_3pepk")
+description = "The stark beauty of Ceti Prime's barren landscape stretches out beneath your ship as you make your final approach. Rust-red plains and jagged mountain ranges dominate the view, broken only by the gleaming domes and towering structures of the mining colony - a testament to human perseverance in even the harshest environments.
+
+Your ship touches down on a reinforced landing pad, designed to withstand the planet's punishing dust storms. As the airlock cycles, you're immediately struck by the controlled atmosphere - a stark contrast to the harsh conditions outside. The air carries a distinct metallic tang, a constant reminder of the mineral wealth that drew humanity to this unforgiving world.
+
+The spaceport is a hive of activity, with cargo ships constantly arriving and departing, laden with mined resources or bringing much-needed supplies. Huge, automated conveyor systems ferry raw ore from the mining sites to the massive refineries that dominate the horizon.
+
+As you make your way through the port, you pass by off-duty miners in their distinctive pressure suits, chatting and laughing in the common areas. Despite the industrial nature of the colony, there's a strong sense of community here. Through one of the larger habitat domes, you can see the central plaza bustling with activity - colonists going about their daily lives against the backdrop of this alien world.
+
+In the distance, beyond the safety of the colony's environmental shields, you can see enormous mining rigs prowling across the plains, drills piercing deep into the planet's crust to extract its valuable minerals and rare earth elements. Above them, the sky is a dusty orange, occasionally split by arcs of lightning from the frequent ion storms that scour the planet's surface.
+
+Ceti Prime Mining Colony stands as a monument to human determination and technological prowess. It's a place where the harshest conditions bring out the best in human ingenuity, and where fortunes can be made or lost in the blink of an eye. Whether you're here to trade, seek employment, or simply witness one of humanity's most ambitious extraterrestrial operations, Ceti Prime offers a raw, unvarnished glimpse into life on the frontier of space exploration."

@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Port" load_steps=3 format=3 uid="uid://go3u5v753j1a"]
+
+[ext_resource type="Script" path="res://galaxy/port/port.gd" id="1_m5fwf"]
+[ext_resource type="Texture2D" uid="uid://d2s63fop6rtf0" path="res://screens/landing/images/aegis.jpg" id="1_qjn6a"]
+
+[resource]
+script = ExtResource("1_m5fwf")
+name = "Aegis"
+facilities = 39
+landscape_image = ExtResource("1_qjn6a")
+description = "The shimmering dome of Aegis's planetary shield comes into view as your ship approaches, a testament to the advanced technology that protects this world. As you pass through the energy barrier, you feel a slight tingle, a reminder of the formidable defenses that have made Aegis a safe haven in this sector of space.
+
+Vast oceans of deep blue stretch across much of the planet's surface, broken by archipelagos of emerald islands and two major continents. The larger continent is a patchwork of lush forests, golden prairies, and jagged mountain ranges, while the smaller one is more arid, with expansive deserts and rocky badlands dominating its interior.
+
+Aegis City, the planet's capital and your destination, rises from the coast of the larger continent. Its gleaming spires and domed structures are a testament to human ingenuity, seamlessly blending with the natural beauty of the surrounding landscape. The city's design emphasizes sustainability, with abundant green spaces and buildings that harness solar and wind energy.
+
+As you approach the spaceport, you notice the bustle of activity. Ships of various designs and origins come and go, a clear sign of Aegis's importance as a trade hub. The port itself is a marvel of efficiency, with automated systems guiding ships to their designated landing pads.
+
+Disembarking, you're struck by the crisp, clean air and the faint scent of alien flora. The spaceport is alive with the chatter of diverse languages and the excitement of new arrivals. Traders haggle over exotic goods, scientists discuss their latest findings, and tourists gawk at the breathtaking views of the city and beyond.
+
+In the distance, you can see the faint shimmer of the planetary shield stretching across the sky. This unique feature has made Aegis not just a safe haven, but a symbol of humanity's resilience and technological prowess in the face of cosmic dangers. Whether you're here to trade, explore, or seek new horizons, Aegis offers a perfect blend of security, opportunity, and natural wonder."

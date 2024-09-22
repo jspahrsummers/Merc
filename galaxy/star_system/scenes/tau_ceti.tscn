@@ -1,0 +1,37 @@
+[gd_scene load_steps=9 format=3 uid="uid://r4h43wc24wj5"]
+
+[ext_resource type="Resource" uid="uid://dy0tvi57qf3bd" path="res://galaxy/star_system/star_systems/tau_ceti.tres" id="2_xc8nh"]
+[ext_resource type="PackedScene" uid="uid://ct6hx24xakxq3" path="res://galaxy/stars/main_sequence/star_class_g.tscn" id="3_en328"]
+[ext_resource type="PackedScene" uid="uid://b04hfgkcuq7k6" path="res://galaxy/celestials/celestial.tscn" id="4_wx4b8"]
+[ext_resource type="Resource" uid="uid://dren5n1hfsvrc" path="res://galaxy/port/ports/nova_terra.tres" id="5_u2wh5"]
+[ext_resource type="Resource" uid="uid://dx5mj0427aidg" path="res://galaxy/port/ports/ceti_prime.tres" id="6_anm5q"]
+[ext_resource type="Texture2D" uid="uid://cbggjd7fd33p8" path="res://galaxy/celestials/sprites/planet_26.png" id="6_ipreh"]
+[ext_resource type="Texture2D" uid="uid://cf0g36mpu7enh" path="res://galaxy/celestials/sprites/planet_03.png" id="8_lxy5c"]
+[ext_resource type="PackedScene" uid="uid://fxemun7o6rix" path="res://galaxy/star_system/star_system_instance.tscn" id="star_system_instance"]
+
+[node name="Tau Ceti" instance=ExtResource("star_system_instance")]
+star_system = ExtResource("2_xc8nh")
+
+[node name="Star Class G" parent="." index="0" instance=ExtResource("3_en328")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Nova Terra" parent="." index="1" instance=ExtResource("4_wx4b8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 0, 6.2)
+port = ExtResource("5_u2wh5")
+
+[node name="Sprite3D" parent="Nova Terra" index="1"]
+transform = Transform3D(-0.923083, 0, -0.384601, 0, 1, 0, 0.384601, 0, -0.923083, 0, -1, 0)
+texture = ExtResource("6_ipreh")
+
+[node name="Ceti Prime" parent="." index="2" instance=ExtResource("4_wx4b8")]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -7.2, 0, -5.5)
+port = ExtResource("6_anm5q")
+
+[node name="Sprite3D" parent="Ceti Prime" index="1"]
+transform = Transform3D(-0.879765, 0, -0.475409, 0, 1, 0, 0.475409, 0, -0.879765, 0, -1, 0)
+texture = ExtResource("8_lxy5c")
+
+[editable path="Nova Terra"]
+[editable path="Nova Terra/TargetOverlay"]
+[editable path="Ceti Prime"]
+[editable path="Ceti Prime/TargetOverlay"]

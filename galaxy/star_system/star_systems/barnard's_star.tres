@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_bblmw")
 name = &"Barnard\'s Star"
-connections = Array[StringName]([&"Sol", &"Helios"])
+connections = Array[StringName]([&"Sol", &"Helios", &"Tau Ceti"])
 position = Vector3(-3, 2.08165e-12, 2.08165e-12)
 scene_path = "res://galaxy/star_system/scenes/barnard's_star.tscn"
 ports = Array[Resource("res://galaxy/port/port.gd")]([])

@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="StarSystem" load_steps=13 format=3 uid="uid://dy0tvi57qf3bd"]
+
+[ext_resource type="Script" path="res://galaxy/star_system/star_system.gd" id="1_svcf4"]
+[ext_resource type="Resource" uid="uid://b764gd8q3il6s" path="res://mechanics/economy/currencies/credits.tres" id="2_5qdhc"]
+[ext_resource type="Script" path="res://mechanics/economy/market.gd" id="3_solmg"]
+[ext_resource type="Resource" uid="uid://dren5n1hfsvrc" path="res://galaxy/port/ports/nova_terra.tres" id="4_xe2f2"]
+[ext_resource type="Resource" uid="uid://dx5mj0427aidg" path="res://galaxy/port/ports/ceti_prime.tres" id="5_anm5q"]
+[ext_resource type="Resource" uid="uid://dd63q3wg4vrk" path="res://mechanics/economy/commodities/biological_samples.tres" id="6_jupt3"]
+[ext_resource type="Resource" uid="uid://skhvwlendqx7" path="res://mechanics/economy/commodities/exotic_matter.tres" id="7_y4ndb"]
+[ext_resource type="Resource" uid="uid://dnutrj5jdgiaj" path="res://mechanics/economy/commodities/food.tres" id="8_c855x"]
+[ext_resource type="Resource" uid="uid://ccvds2nloqvwn" path="res://mechanics/economy/commodities/industrial_equipment.tres" id="9_ju1ds"]
+[ext_resource type="Resource" uid="uid://dl132ceubbcos" path="res://mechanics/economy/commodities/rare_earth_elements.tres" id="10_ce4dd"]
+[ext_resource type="Resource" uid="uid://lkpwswpw8ss4" path="res://mechanics/economy/commodities/precious_metals.tres" id="11_3gu2w"]
+
+[sub_resource type="Resource" id="Resource_7y1hy"]
+script = ExtResource("3_solmg")
+money = ExtResource("2_5qdhc")
+commodities = {
+ExtResource("6_jupt3"): 0.2,
+ExtResource("7_y4ndb"): 0.6,
+ExtResource("8_c855x"): 0.5,
+ExtResource("9_ju1ds"): 0.7,
+ExtResource("10_ce4dd"): 0.3,
+ExtResource("11_3gu2w"): 0.4
+}
+
+[resource]
+script = ExtResource("1_svcf4")
+name = &"Tau Ceti"
+connections = Array[StringName]([&"Barnard\'s Star"])
+position = Vector3(-4.5, 0.2, -0.3)
+scene_path = "res://galaxy/star_system/scenes/tau_ceti.tscn"
+ports = Array[Resource("res://galaxy/port/port.gd")]([ExtResource("4_xe2f2"), ExtResource("5_anm5q")])
+market = SubResource("Resource_7y1hy")
+refueling_money = ExtResource("2_5qdhc")
+refueling_relative_price = 0.6

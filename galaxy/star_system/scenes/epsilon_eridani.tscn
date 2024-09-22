@@ -1,0 +1,26 @@
+[gd_scene load_steps=7 format=3 uid="uid://bn6wvt6dnxpfm"]
+
+[ext_resource type="Resource" uid="uid://dcpc8lxbwpw30" path="res://galaxy/star_system/star_systems/epsilon_eridani.tres" id="2_xc8nh"]
+[ext_resource type="PackedScene" uid="uid://d1sevq56wdchx" path="res://galaxy/stars/main_sequence/star_class_b.tscn" id="3_7g7tp"]
+[ext_resource type="PackedScene" uid="uid://b04hfgkcuq7k6" path="res://galaxy/celestials/celestial.tscn" id="4_wx4b8"]
+[ext_resource type="Resource" uid="uid://go3u5v753j1a" path="res://galaxy/port/ports/aegis.tres" id="5_u2wh5"]
+[ext_resource type="Texture2D" uid="uid://c0155fkdfnehk" path="res://galaxy/celestials/sprites/planet_47.png" id="6_ih7yq"]
+[ext_resource type="PackedScene" uid="uid://fxemun7o6rix" path="res://galaxy/star_system/star_system_instance.tscn" id="star_system_instance"]
+
+[node name="Epsilon Eridani" instance=ExtResource("star_system_instance")]
+star_system = ExtResource("2_xc8nh")
+
+[node name="Star Class B" parent="." index="0" instance=ExtResource("3_7g7tp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2395, 2.08165e-12, -4.09539)
+
+[node name="Aegis" parent="." index="1" instance=ExtResource("4_wx4b8")]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 2, 8.5, 0, 6.2)
+port = ExtResource("5_u2wh5")
+
+[node name="Sprite3D" parent="Aegis" index="1"]
+transform = Transform3D(0.12329, 0, -0.992371, 0, 1, 0, 0.992371, 0, 0.12329, 0, -1, 0)
+pixel_size = 0.0025
+texture = ExtResource("6_ih7yq")
+
+[editable path="Aegis"]
+[editable path="Aegis/TargetOverlay"]

@@ -1,0 +1,31 @@
+[gd_resource type="Resource" script_class="StarSystem" load_steps=10 format=3 uid="uid://dcpc8lxbwpw30"]
+
+[ext_resource type="Script" path="res://galaxy/star_system/star_system.gd" id="1_j0i0x"]
+[ext_resource type="Resource" uid="uid://b764gd8q3il6s" path="res://mechanics/economy/currencies/credits.tres" id="2_5qdhc"]
+[ext_resource type="Script" path="res://mechanics/economy/market.gd" id="3_solmg"]
+[ext_resource type="Resource" uid="uid://go3u5v753j1a" path="res://galaxy/port/ports/aegis.tres" id="4_xe2f2"]
+[ext_resource type="Resource" uid="uid://dd63q3wg4vrk" path="res://mechanics/economy/commodities/biological_samples.tres" id="5_jupt3"]
+[ext_resource type="Resource" uid="uid://skhvwlendqx7" path="res://mechanics/economy/commodities/exotic_matter.tres" id="6_y4ndb"]
+[ext_resource type="Resource" uid="uid://dnutrj5jdgiaj" path="res://mechanics/economy/commodities/food.tres" id="7_c855x"]
+[ext_resource type="Resource" uid="uid://ccvds2nloqvwn" path="res://mechanics/economy/commodities/industrial_equipment.tres" id="8_ju1ds"]
+
+[sub_resource type="Resource" id="Resource_7y1hy"]
+script = ExtResource("3_solmg")
+money = ExtResource("2_5qdhc")
+commodities = {
+ExtResource("5_jupt3"): 0.3,
+ExtResource("6_y4ndb"): 0.7,
+ExtResource("7_c855x"): 0.4,
+ExtResource("8_ju1ds"): 0.6
+}
+
+[resource]
+script = ExtResource("1_j0i0x")
+name = &"Epsilon Eridani"
+connections = Array[StringName]([&"Thalassa"])
+position = Vector3(1.1, -0.3, 4.1)
+scene_path = "res://galaxy/star_system/scenes/epsilon_eridani.tscn"
+ports = Array[Resource("res://galaxy/port/port.gd")]([ExtResource("4_xe2f2")])
+market = SubResource("Resource_7y1hy")
+refueling_money = ExtResource("2_5qdhc")
+refueling_relative_price = 0.55

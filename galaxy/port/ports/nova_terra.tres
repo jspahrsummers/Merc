@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Port" load_steps=3 format=3 uid="uid://dren5n1hfsvrc"]
+
+[ext_resource type="Script" path="res://galaxy/port/port.gd" id="1_m5fwf"]
+[ext_resource type="Texture2D" uid="uid://b8cnwgdtcnxjo" path="res://screens/landing/images/nova-terra.jpg" id="1_o5p7u"]
+
+[resource]
+script = ExtResource("1_m5fwf")
+name = "Nova Terra"
+facilities = 63
+landscape_image = ExtResource("1_o5p7u")
+description = "The familiar yet alien landscape of Nova Terra unfolds beneath your ship as you begin your descent. This world, often called humanity's second cradle, bears an uncanny resemblance to Earth, yet subtle differences remind you of the vast distance between here and humanity's birthplace.
+
+Celestia, the capital city, emerges from the misty coastline of the largest continent. Its architecture is a harmonious blend of human ingenuity and alien influence, with towering spires that seem to defy gravity and sprawling gardens that incorporate both Earth and native flora. The city is a testament to the delicate balance struck between human colonization and preservation of Nova Terra's unique ecosystem.
+
+Your ship touches down on the remarkable spaceport that extends out over the azure waters of the Celestial Ocean. The structure itself is a marvel of engineering, designed to minimize impact on the planet's delicate coastal ecosystems while efficiently handling the constant flow of interstellar traffic.
+
+As you disembark, the air greets you with a complex bouquet of scents - familiar ocean brine mingled with the subtle, alien aromas of Nova Terra's native vegetation. The spaceport bustles with a diverse crowd: traders arranging deals for exotic goods, scientists excitedly discussing their latest discoveries, and wide-eyed tourists from across the galaxy, all drawn by Nova Terra's unique position as a 'second Earth'.
+
+In the distance, beyond the city limits, you can see the shimmering dome of the Xenobiology Research Center. The facility, surrounded by a vast nature preserve, stands as a symbol of humanity's commitment to understanding and preserving the unique life forms of this new world.
+
+Nova Terra represents more than just another colony - it's a second chance for humanity, a proving ground for sustainable expansion into the cosmos. Whether you're here to trade, explore, or perhaps even start a new life, Nova Terra offers a unique blend of the familiar and the extraordinary, a world where the best of Earth's past meets the promise of a bright interstellar future."
