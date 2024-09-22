@@ -50,10 +50,12 @@ CONTEXT_PATHS = [
     "addons/market_editor/**/*",
     "fx/**/*.gd",
     "galaxy/**/*.gd",
+    "galaxy/celestials/**/*.tscn",
     "galaxy/map/galaxy_map_window.tscn",
     "galaxy/port/**/*.tres",
     "galaxy/star_system/scenes/*.tscn",
     "galaxy/star_system/star_systems/*.tres",
+    "galaxy/stars/**/*.tscn",
     "mechanics/**/*.gd",
     "mechanics/**/*.tres",
     "screens/**/*.gd",
@@ -64,7 +66,7 @@ CONTEXT_PATHS = [
 ]
 
 AWARENESS_PATHS = [
-    "galaxy/stars/**/*.tscn",
+    "galaxy/celestials/sprites/**/*.png",
     "ships/**/*.tscn",
 ]
 
