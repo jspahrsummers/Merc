@@ -20,7 +20,7 @@ ExtResource("3_8a2sl"): 0.14
 [resource]
 script = ExtResource("1_psxkv")
 name = &"Zephyria"
-connections = Array[StringName]([&"Alpha Centauri", &"Nova Lumina"])
+connections = Array[StringName]([&"Alpha Centauri", &"Nova Lumina", &"Barnard\'s Star"])
 position = Vector3(-2.7, 0.5, -3)
 scene_path = "res://galaxy/star_system/scenes/zephyria.tscn"
 ports = Array[Resource("res://galaxy/port/port.gd")]([ExtResource("6_jhedg")])
