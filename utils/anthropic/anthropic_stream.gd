@@ -63,7 +63,7 @@ func _on_event(event: ServerSentEvent) -> void:
             
             self._current_content_block = data["content_block"]
             
-            var contents: Array[Dictionary] = self._message.get_or_add("content", [])
+            var contents: Array = self._message.get_or_add("content", [])
             self._current_content_index = data["index"]
             if self._current_content_index != len(contents):
                 push_error("Out-of-order \"content_block_start\" event received (expected index %d, got %d)" % [len(contents), self._current_content_index])

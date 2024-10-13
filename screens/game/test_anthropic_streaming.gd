@@ -16,12 +16,12 @@ func _on_finished(stream: AnthropicStream) -> void:
     self._update_text_from_message(stream.get_message())
 
 func _update_text_from_message(message: Dictionary) -> void:
-    var content: Array[Dictionary] = message["content"]
+    var content: Array = message["content"]
     var message_text := ""
 
-    for block in content:
+    for block: Dictionary in content:
         if block["type"] == "text":
-            message_text += block["value"]
+            message_text += block["text"]
     
     self.text = message_text
 
