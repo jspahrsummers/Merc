@@ -54,6 +54,13 @@ var tutorial_enabled: bool:
         self._config.set_value("tutorial", "enabled", value)
         self._updated()
 
+var anthropic_api_key: String:
+    get:
+        return self._config.get_value("anthropic", "api_key", "")
+    set(value):
+        self._config.set_value("anthropic", "api_key", value)
+        self._updated()
+
 func _ready() -> void:
     self.reload()
 
@@ -119,7 +126,8 @@ func _updated() -> void:
         InputMap.action_erase_events(action)
         for event: InputEvent in events:
             InputMap.action_add_event(action, event)
-
+    
+    AnthropicClient.api_key = self.anthropic_api_key
     self.preferences_updated.emit()
 
 func _window_mode_is_windowed(mode: Window.Mode) -> bool:
