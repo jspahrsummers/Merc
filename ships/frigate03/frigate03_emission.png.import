@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://blmv5xmt0v6kn"
 path.s3tc="res://.godot/imported/frigate03_emission.png-4ef44702929594f1e12c26604acc8f11.s3tc.ctex"
+path.etc2="res://.godot/imported/frigate03_emission.png-4ef44702929594f1e12c26604acc8f11.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://ships/frigate03/frigate03_emission.png"
-dest_files=["res://.godot/imported/frigate03_emission.png-4ef44702929594f1e12c26604acc8f11.s3tc.ctex"]
+dest_files=["res://.godot/imported/frigate03_emission.png-4ef44702929594f1e12c26604acc8f11.s3tc.ctex", "res://.godot/imported/frigate03_emission.png-4ef44702929594f1e12c26604acc8f11.etc2.ctex"]
 
 [params]
 

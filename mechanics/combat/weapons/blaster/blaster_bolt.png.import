@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://lyur31oafltf"
 path.s3tc="res://.godot/imported/blaster_bolt.png-cf917c22631d91f405f626c3e65ce5c0.s3tc.ctex"
+path.etc2="res://.godot/imported/blaster_bolt.png-cf917c22631d91f405f626c3e65ce5c0.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://mechanics/combat/weapons/blaster/blaster_bolt.png"
-dest_files=["res://.godot/imported/blaster_bolt.png-cf917c22631d91f405f626c3e65ce5c0.s3tc.ctex"]
+dest_files=["res://.godot/imported/blaster_bolt.png-cf917c22631d91f405f626c3e65ce5c0.s3tc.ctex", "res://.godot/imported/blaster_bolt.png-cf917c22631d91f405f626c3e65ce5c0.etc2.ctex"]
 
 [params]
 

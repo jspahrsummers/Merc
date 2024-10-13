@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b3edwsa85u8fx"
 path.s3tc="res://.godot/imported/splash_screen.png-c45ad41a7eec51aa73d8d7eea717778f.s3tc.ctex"
+path.etc2="res://.godot/imported/splash_screen.png-c45ad41a7eec51aa73d8d7eea717778f.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://screens/shared_ui/images/splash_screen.png"
-dest_files=["res://.godot/imported/splash_screen.png-c45ad41a7eec51aa73d8d7eea717778f.s3tc.ctex"]
+dest_files=["res://.godot/imported/splash_screen.png-c45ad41a7eec51aa73d8d7eea717778f.s3tc.ctex", "res://.godot/imported/splash_screen.png-c45ad41a7eec51aa73d8d7eea717778f.etc2.ctex"]
 
 [params]
 
