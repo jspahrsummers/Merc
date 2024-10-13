@@ -19,15 +19,18 @@ var _current_content_index := -1
 var _current_partial_input_json := ""
 
 signal error(stream: AnthropicStream, type: String, message: String)
-signal contents_updated(stream: AnthropicStream, message: Dictionary)
-signal finished(stream: AnthropicStream, message: Dictionary)
+signal contents_updated(stream: AnthropicStream)
+signal finished(stream: AnthropicStream)
 
 func _process(_delta: float) -> void:
     self.event_source.poll()
 
-func _stop() -> void:
+func cancel() -> void:
     self.event_source.stop()
     self.get_parent().remove_child(self)
+
+func get_message() -> Dictionary:
+    return self._message.duplicate(true)
 
 func _on_event(event: ServerSentEvent) -> void:
     var data: Dictionary = JSON.parse_string(event.data)
@@ -41,7 +44,7 @@ func _on_event(event: ServerSentEvent) -> void:
 
         "error":
             self.error.emit(self, data["type"], data["message"])
-            self._stop()
+            self.cancel()
         
         "message_start":
             var message_start: Dictionary = data["message"]
@@ -67,7 +70,7 @@ func _on_event(event: ServerSentEvent) -> void:
                 return
 
             contents.append(self._current_content_block)
-            self.contents_updated.emit(self, self._message)
+            self.contents_updated.emit(self)
         
         "content_block_delta":
             if not self._current_content_block:
@@ -83,7 +86,7 @@ func _on_event(event: ServerSentEvent) -> void:
                 "text_delta":
                     var existing_text: String = self._current_content_block.get("text", "")
                     self._current_content_block["text"] = existing_text + delta["text"]
-                    self.contents_updated.emit(self, self._message)
+                    self.contents_updated.emit(self)
                 
                 "input_json_delta":
                     self._current_partial_input_json += delta["partial_json"]
@@ -100,7 +103,7 @@ func _on_event(event: ServerSentEvent) -> void:
             if self._current_partial_input_json:
                 self._current_content_block["input"] = JSON.parse_string(self._current_partial_input_json)
                 self._current_partial_input_json = ""
-                self.contents_updated.emit(self, self._message)
+                self.contents_updated.emit(self)
 
             self._current_content_block = {}
         
@@ -118,7 +121,7 @@ func _on_event(event: ServerSentEvent) -> void:
             else:
                 push_error("\"message_stop\" event received before \"message_start\"")
 
-            self._stop()
+            self.cancel()
         
         _:
             push_warning("Unrecognized SSE event \"%s\"" % event.type)
