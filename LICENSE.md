@@ -152,3 +152,5 @@ Graphics created by [Justin Spahr-Summers](https://github.com/jspahrsummers) for
 # Addon licenses
 
 [MarkdownLabel](https://godotengine.org/asset-library/asset/2302) copyright (c) 2023 Daenvil, licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+[HTTPEventSource](https://godotengine.org/asset-library/asset/3316) copyright (c) 2024 DaGammla, licensed under the [MIT license](https://opensource.org/licenses/MIT).
