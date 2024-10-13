@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=82 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperspace_scene_switcher.gd" id="4_yyrkm"]
@@ -58,6 +58,7 @@
 [ext_resource type="Script" path="res://screens/game/hud/time_label.gd" id="45_4kcdo"]
 [ext_resource type="Script" path="res://mechanics/time/calendar.gd" id="46_cos1s"]
 [ext_resource type="PackedScene" uid="uid://dasi6qq5tfc10" path="res://mechanics/tutorial/tutorial_window.tscn" id="55_0jyo3"]
+[ext_resource type="Script" path="res://screens/game/test_anthropic_streaming.gd" id="58_fr2wr"]
 
 [sub_resource type="Resource" id="Resource_p7sh0"]
 resource_local_to_scene = true
@@ -693,6 +694,15 @@ new_message_audio = NodePath("AudioStreamPlayer")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="InGameGUI/MarginContainer/HBoxContainer/MessageLog"]
 stream = ExtResource("36_3gr28")
 volume_db = -5.0
+
+[node name="TestAnthropicStreaming" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer/MessageLog"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("58_fr2wr")
 
 [node name="FPSCounter" type="Label" parent="InGameGUI/MarginContainer/HBoxContainer"]
 layout_mode = 2
