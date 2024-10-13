@@ -106,7 +106,7 @@ jobs:
       - name: Install Godot
         working-directory: ${{ env.RUNNER_TEMP }}
         run: |
-          curl -sL https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.333-stable_linux.x86_64.zip -o godot.zip
+          curl -sL https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_linux.x86_64.zip -o godot.zip
           unzip godot.zip
           mv Godot_v4.3-stable_linux.x86_64 "$RUNNER_TEMP/godot"
 
