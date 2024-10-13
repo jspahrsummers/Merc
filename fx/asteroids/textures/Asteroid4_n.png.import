@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bnymlq6n4kjow"
 path.s3tc="res://.godot/imported/Asteroid4_n.png-a389079e34e2adfd6ff92f568da041aa.s3tc.ctex"
+path.etc2="res://.godot/imported/Asteroid4_n.png-a389079e34e2adfd6ff92f568da041aa.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://fx/asteroids/textures/Asteroid4_n.png"
-dest_files=["res://.godot/imported/Asteroid4_n.png-a389079e34e2adfd6ff92f568da041aa.s3tc.ctex"]
+dest_files=["res://.godot/imported/Asteroid4_n.png-a389079e34e2adfd6ff92f568da041aa.s3tc.ctex", "res://.godot/imported/Asteroid4_n.png-a389079e34e2adfd6ff92f568da041aa.etc2.ctex"]
 
 [params]
 

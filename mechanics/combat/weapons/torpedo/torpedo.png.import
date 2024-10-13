@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b6338fvv2c7c2"
 path.s3tc="res://.godot/imported/torpedo.png-4a0a8d422c14cf953d57dd81ae28908c.s3tc.ctex"
+path.etc2="res://.godot/imported/torpedo.png-4a0a8d422c14cf953d57dd81ae28908c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://mechanics/combat/weapons/torpedo/torpedo.png"
-dest_files=["res://.godot/imported/torpedo.png-4a0a8d422c14cf953d57dd81ae28908c.s3tc.ctex"]
+dest_files=["res://.godot/imported/torpedo.png-4a0a8d422c14cf953d57dd81ae28908c.s3tc.ctex", "res://.godot/imported/torpedo.png-4a0a8d422c14cf953d57dd81ae28908c.etc2.ctex"]
 
 [params]
 

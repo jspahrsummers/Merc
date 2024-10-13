@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="StarSystem" load_steps=2 format=3 uid="uid://cs1x8gyt6a7kw"]
+[gd_resource type="Resource" script_class="StarSystem" load_steps=3 format=3 uid="uid://cs1x8gyt6a7kw"]
 
+[ext_resource type="Script" path="res://galaxy/port/port.gd" id="1_2thjy"]
 [ext_resource type="Script" path="res://galaxy/star_system/star_system.gd" id="1_un4y1"]
 
 [resource]
@@ -8,5 +9,5 @@ name = &"Alpha Centauri"
 connections = Array[StringName]([&"Sol", &"Wolf 359", &"Zephyria"])
 position = Vector3(-1.5, 0.2, -2.3)
 scene_path = "res://galaxy/star_system/scenes/alpha_centauri.tscn"
-ports = Array[Resource("res://galaxy/port/port.gd")]([])
+ports = Array[ExtResource("1_2thjy")]([])
 refueling_relative_price = 0.0

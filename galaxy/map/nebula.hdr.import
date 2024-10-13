@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bg6scgrmluxuv"
 path.bptc="res://.godot/imported/nebula.hdr-6595dea6c1a5e74acb2f786f2c065ee8.bptc.ctex"
+path.astc="res://.godot/imported/nebula.hdr-6595dea6c1a5e74acb2f786f2c065ee8.astc.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://galaxy/map/nebula.hdr"
-dest_files=["res://.godot/imported/nebula.hdr-6595dea6c1a5e74acb2f786f2c065ee8.bptc.ctex"]
+dest_files=["res://.godot/imported/nebula.hdr-6595dea6c1a5e74acb2f786f2c065ee8.bptc.ctex", "res://.godot/imported/nebula.hdr-6595dea6c1a5e74acb2f786f2c065ee8.astc.ctex"]
 
 [params]
 

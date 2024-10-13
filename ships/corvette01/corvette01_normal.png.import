@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://g2e38qv1qhq7"
 path.s3tc="res://.godot/imported/corvette01_normal.png-298c4eefca500eaa613643557cbf0c90.s3tc.ctex"
+path.etc2="res://.godot/imported/corvette01_normal.png-298c4eefca500eaa613643557cbf0c90.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://ships/corvette01/corvette01_normal.png"
-dest_files=["res://.godot/imported/corvette01_normal.png-298c4eefca500eaa613643557cbf0c90.s3tc.ctex"]
+dest_files=["res://.godot/imported/corvette01_normal.png-298c4eefca500eaa613643557cbf0c90.s3tc.ctex", "res://.godot/imported/corvette01_normal.png-298c4eefca500eaa613643557cbf0c90.etc2.ctex"]
 
 [params]
 

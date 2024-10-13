@@ -24,7 +24,7 @@ class_name Hull
         self.emit_changed()
 
         if integrity <= 0.01:
-            self.emit_signal("hull_destroyed", self)
+            self.hull_destroyed.emit(self)
 
 ## Fires when the hull is destroyed (i.e., its integrity reaches zero).
 ##

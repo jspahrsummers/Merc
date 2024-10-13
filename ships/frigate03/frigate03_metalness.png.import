@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://fthfhauj5n0t"
 path.s3tc="res://.godot/imported/frigate03_metalness.png-ccb13c0d0d1d4b520f1c9b70c09550ff.s3tc.ctex"
+path.etc2="res://.godot/imported/frigate03_metalness.png-ccb13c0d0d1d4b520f1c9b70c09550ff.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://ships/frigate03/frigate03_metalness.png"
-dest_files=["res://.godot/imported/frigate03_metalness.png-ccb13c0d0d1d4b520f1c9b70c09550ff.s3tc.ctex"]
+dest_files=["res://.godot/imported/frigate03_metalness.png-ccb13c0d0d1d4b520f1c9b70c09550ff.s3tc.ctex", "res://.godot/imported/frigate03_metalness.png-ccb13c0d0d1d4b520f1c9b70c09550ff.etc2.ctex"]
 
 [params]
 

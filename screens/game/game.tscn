@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://sunhu71swcs2"]
+[gd_scene load_steps=81 format=3 uid="uid://sunhu71swcs2"]
 
 [ext_resource type="Environment" uid="uid://b7t3opwr35xen" path="res://fx/environment.tres" id="1_pqled"]
 [ext_resource type="Script" path="res://mechanics/hyperspace/hyperspace_scene_switcher.gd" id="4_yyrkm"]
@@ -27,6 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://ca3awvk1a7xyi" path="res://screens/game/exit_dialog/exit_dialog.tscn" id="18_hl4w3"]
 [ext_resource type="Resource" uid="uid://qlbnowlag2dr" path="res://actors/heroes/bounties/Zora 'Starshiv' Blackburn.tres" id="18_wo2tf"]
 [ext_resource type="Script" path="res://screens/game/in_game_gui.gd" id="18_y74ml"]
+[ext_resource type="Script" path="res://actors/heroes/hero.gd" id="19_lcd21"]
 [ext_resource type="Texture2D" uid="uid://bphfuhdpceacb" path="res://mechanics/radar/images/radar_bg.png" id="19_vr47x"]
 [ext_resource type="Shader" path="res://screens/shared_ui/shaders/circular_mask.gdshader" id="20_wa4c1"]
 [ext_resource type="Texture2D" uid="uid://cmyn742dooo0n" path="res://mechanics/radar/images/radar_circles.png" id="21_bomkk"]
@@ -262,7 +263,7 @@ environment = ExtResource("1_pqled")
 
 [node name="HeroRoster" type="Node3D" parent="." groups=["saveable"]]
 script = ExtResource("16_j7kx1")
-heroes = Array[Resource("res://actors/heroes/hero.gd")]([ExtResource("17_yop8u"), ExtResource("18_wo2tf")])
+heroes = Array[ExtResource("19_lcd21")]([ExtResource("17_yop8u"), ExtResource("18_wo2tf")])
 
 [node name="StarfieldTransform" type="Node3D" parent="."]
 
