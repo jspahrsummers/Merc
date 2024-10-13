@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="StarSystem" load_steps=18 format=3 uid="uid://ku5qjeo4jlkt"]
+[gd_resource type="Resource" script_class="StarSystem" load_steps=19 format=3 uid="uid://ku5qjeo4jlkt"]
 
 [ext_resource type="Script" path="res://galaxy/star_system/star_system.gd" id="1_j0i0x"]
 [ext_resource type="Resource" uid="uid://dd63q3wg4vrk" path="res://mechanics/economy/commodities/biological_samples.tres" id="1_jupt3"]
@@ -13,6 +13,7 @@
 [ext_resource type="Resource" uid="uid://lkpwswpw8ss4" path="res://mechanics/economy/commodities/precious_metals.tres" id="8_3gu2w"]
 [ext_resource type="Resource" uid="uid://dl132ceubbcos" path="res://mechanics/economy/commodities/rare_earth_elements.tres" id="9_ce4dd"]
 [ext_resource type="Resource" uid="uid://bnw61s2hj8a0m" path="res://mechanics/economy/commodities/water.tres" id="10_k521h"]
+[ext_resource type="Script" path="res://galaxy/port/port.gd" id="13_l1hc8"]
 [ext_resource type="Resource" uid="uid://duf1gpmd1ydk7" path="res://galaxy/port/ports/auroris.tres" id="13_xe2f2"]
 [ext_resource type="Resource" uid="uid://ooe0w4eaywk3" path="res://galaxy/port/ports/lumina_prime.tres" id="14_g8v4d"]
 [ext_resource type="Resource" uid="uid://cq4qs7xackj8j" path="res://galaxy/port/ports/novus.tres" id="15_2ogxd"]
@@ -39,7 +40,7 @@ name = &"Nova Lumina"
 connections = Array[StringName]([&"Zephyria", &"Wolf 359"])
 position = Vector3(-1.2, 0.4, -7.1)
 scene_path = "res://galaxy/star_system/scenes/nova_lumina.tscn"
-ports = Array[Resource("res://galaxy/port/port.gd")]([ExtResource("13_xe2f2"), ExtResource("14_g8v4d"), ExtResource("15_2ogxd")])
+ports = Array[ExtResource("13_l1hc8")]([ExtResource("13_xe2f2"), ExtResource("14_g8v4d"), ExtResource("15_2ogxd")])
 market = SubResource("Resource_7y1hy")
 refueling_money = ExtResource("1_tb2fi")
 refueling_relative_price = 0.237

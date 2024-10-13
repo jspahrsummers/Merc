@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="StarSystem" load_steps=2 format=3 uid="uid://shiglva7yxl0"]
+[gd_resource type="Resource" script_class="StarSystem" load_steps=3 format=3 uid="uid://shiglva7yxl0"]
 
 [ext_resource type="Script" path="res://galaxy/star_system/star_system.gd" id="1_bblmw"]
+[ext_resource type="Script" path="res://galaxy/port/port.gd" id="1_p0j58"]
 
 [resource]
 script = ExtResource("1_bblmw")
@@ -8,5 +9,5 @@ name = &"Barnard\'s Star"
 connections = Array[StringName]([&"Sol", &"Helios", &"Tau Ceti", &"Zephyria"])
 position = Vector3(-3, 2.08165e-12, 2.08165e-12)
 scene_path = "res://galaxy/star_system/scenes/barnard's_star.tscn"
-ports = Array[Resource("res://galaxy/port/port.gd")]([])
+ports = Array[ExtResource("1_p0j58")]([])
 refueling_relative_price = 0.5
