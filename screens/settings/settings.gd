@@ -5,6 +5,7 @@ extends Control
 @export var display_mode_button: OptionButton
 @export var tutorial_enabled_button: OptionButton
 @export var bindings_list: ItemList
+@export var anthropic_api_key_edit: TextEdit
 
 enum DisplayMode {
     WINDOWED = 0,
@@ -23,6 +24,7 @@ func _on_preferences_updated() -> void:
     self.ui_scale_range.set_value_no_signal(UserPreferences.ui_scale * 100)
     self.display_mode_button.selected = DisplayMode.WINDOWED if UserPreferences.windowed else DisplayMode.FULLSCREEN
     self.tutorial_enabled_button.selected = 0 if UserPreferences.tutorial_enabled else 1
+    self.anthropic_api_key_edit.text = UserPreferences.anthropic_api_key
 
     self._input_actions.clear()
     self.bindings_list.clear()
@@ -55,6 +57,9 @@ func _on_display_mode_button_item_selected(index: int) -> void:
 
 func _on_tutorial_enabled_item_selected(index: int) -> void:
     UserPreferences.tutorial_enabled = index == 0
+
+func _on_anthropic_api_key_changed() -> void:
+    UserPreferences.anthropic_api_key = self.anthropic_api_key_edit.text
 
 func _input(event: InputEvent) -> void:
     if self._current_action_being_rebound == "":
