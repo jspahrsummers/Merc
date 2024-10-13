@@ -165,8 +165,6 @@ func _find_closest_target() -> CombatObject:
     return closest_target
 
 func _on_damaged(_damage: Damage, attacker: CombatObject) -> void:
-    # TODO: This isn't necessarily the actual attacker. Need to implement a way
-    # to figure out who fired a weapon.
     if attacker == null or attacker == self._ship.targeting_system.target:
         return
     
