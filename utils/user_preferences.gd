@@ -120,7 +120,7 @@ func _updated() -> void:
         for event: InputEvent in events:
             InputMap.action_add_event(action, event)
 
-    self.emit_signal("preferences_updated")
+    self.preferences_updated.emit()
 
 func _window_mode_is_windowed(mode: Window.Mode) -> bool:
     return mode != Window.MODE_FULLSCREEN and mode != Window.MODE_EXCLUSIVE_FULLSCREEN
