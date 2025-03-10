@@ -2,7 +2,6 @@ on:
   push:
     branches:
       - main
-      - godot-4.3
 
     paths-ignore:
       - ".gitattributes"
@@ -48,7 +47,7 @@ jobs:
       - name: Install Godot
         working-directory: ${{ env.RUNNER_TEMP }}
         run: |
-          curl -sL https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_macos.universal.zip -o godot.zip
+          curl -sL https://github.com/godotengine/godot/releases/download/4.4-stable/Godot_v4.4-stable_macos.universal.zip -o godot.zip
           unzip godot.zip
           mv Godot.app "$RUNNER_TEMP/Godot.app"
 
@@ -63,8 +62,8 @@ jobs:
 
       - name: Prepare export templates
         run: |
-          mkdir -p ~/Library/Application\ Support/Godot/export_templates/4.3.stable
-          mv build/export_templates/* ~/Library/Application\ Support/Godot/export_templates/4.3.stable/
+          mkdir -p ~/Library/Application\ Support/Godot/export_templates/4.4.stable
+          mv build/export_templates/* ~/Library/Application\ Support/Godot/export_templates/4.4.stable/
 
       - name: Cache .godot
         uses: actions/cache@v4
@@ -106,9 +105,9 @@ jobs:
       - name: Install Godot
         working-directory: ${{ env.RUNNER_TEMP }}
         run: |
-          curl -sL https://github.com/godotengine/godot/releases/download/4.3-stable/Godot_v4.3-stable_linux.x86_64.zip -o godot.zip
+          curl -sL https://github.com/godotengine/godot/releases/download/4.4-stable/Godot_v4.4-stable_linux.x86_64.zip -o godot.zip
           unzip godot.zip
-          mv Godot_v4.3-stable_linux.x86_64 "$RUNNER_TEMP/godot"
+          mv Godot_v4.4-stable_linux.x86_64 "$RUNNER_TEMP/godot"
 
       - name: Install butler
         working-directory: ${{ env.RUNNER_TEMP }}
@@ -121,8 +120,8 @@ jobs:
 
       - name: Prepare export templates
         run: |
-          mkdir -p ~/.local/share/godot/export_templates/4.3.stable
-          mv build/export_templates/* ~/.local/share/godot/export_templates/4.3.stable/
+          mkdir -p ~/.local/share/godot/export_templates/4.4.stable
+          mv build/export_templates/* ~/.local/share/godot/export_templates/4.4.stable/
 
       - name: Cache .godot
         uses: actions/cache@v4
