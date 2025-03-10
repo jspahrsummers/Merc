@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Port" load_steps=3 format=3 uid="uid://dx5mj0427aidg"]
 
 [ext_resource type="Texture2D" uid="uid://pph3ec3xdp62" path="res://screens/landing/images/ceti-prime.jpg" id="1_3pepk"]
-[ext_resource type="Script" path="res://galaxy/port/port.gd" id="1_m5fwf"]
+[ext_resource type="Script" uid="uid://yxkr36mlepyj" path="res://galaxy/port/port.gd" id="1_m5fwf"]
 
 [resource]
 script = ExtResource("1_m5fwf")

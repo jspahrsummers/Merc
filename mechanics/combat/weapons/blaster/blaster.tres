@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Weapon" load_steps=3 format=3 uid="uid://cw1tu3qdxdgfi"]
 
-[ext_resource type="Script" path="res://mechanics/combat/weapons/weapon.gd" id="1_h0068"]
+[ext_resource type="Script" uid="uid://y6hk7f87wti1" path="res://mechanics/combat/weapons/weapon.gd" id="1_h0068"]
 [ext_resource type="PackedScene" uid="uid://b7tckdwyjwpso" path="res://mechanics/combat/weapons/blaster/blaster_bolt.tscn" id="1_upvwn"]
 
 [resource]

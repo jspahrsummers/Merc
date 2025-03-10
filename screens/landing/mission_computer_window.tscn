@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://hos1wawl1u68"]
 
-[ext_resource type="Script" path="res://screens/landing/mission_computer_window.gd" id="1_m0je2"]
+[ext_resource type="Script" uid="uid://dbn2hxrfx4ihv" path="res://screens/landing/mission_computer_window.gd" id="1_m0je2"]
 [ext_resource type="Material" uid="uid://cs5s3tb7vagsi" path="res://screens/shared_ui/premultiplied_canvas_material.tres" id="2_pnrxm"]
 
 [node name="MissionComputerWindow" type="Window" node_paths=PackedStringArray("mission_list", "description_label", "cost_label", "reward_label", "start_button")]

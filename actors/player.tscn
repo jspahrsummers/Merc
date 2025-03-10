@@ -1,11 +1,11 @@
 [gd_scene load_steps=10 format=3 uid="uid://cxlg0yj8cjbrf"]
 
-[ext_resource type="Script" path="res://actors/player.gd" id="1_qxs3b"]
+[ext_resource type="Script" uid="uid://bfkkkp8esjyoe" path="res://actors/player.gd" id="1_qxs3b"]
 [ext_resource type="PackedScene" uid="uid://d1kbmfvjs6nrv" path="res://screens/landing/landing.tscn" id="2_2bp8c"]
 [ext_resource type="AudioStream" uid="uid://b5h867m6j0kb2" path="res://screens/landing/audio/LandingGear.ogg" id="2_lqyst"]
-[ext_resource type="Script" path="res://mechanics/economy/bank_account.gd" id="3_0316y"]
-[ext_resource type="Script" path="res://mechanics/time/calendar.gd" id="4_x2dfd"]
-[ext_resource type="Script" path="res://mechanics/missions/mission_controller.gd" id="6_502td"]
+[ext_resource type="Script" uid="uid://bnw4qoai6xaeb" path="res://mechanics/economy/bank_account.gd" id="3_0316y"]
+[ext_resource type="Script" uid="uid://cluigcy5o5wnu" path="res://mechanics/time/calendar.gd" id="4_x2dfd"]
+[ext_resource type="Script" uid="uid://dakkj8vty7hrb" path="res://mechanics/missions/mission_controller.gd" id="6_502td"]
 [ext_resource type="AudioStream" uid="uid://dxusa0iwscvln" path="res://fx/jsyd_klaxon2_trimmed.mp3" id="7_16rdj"]
 
 [sub_resource type="Resource" id="Resource_bycam"]

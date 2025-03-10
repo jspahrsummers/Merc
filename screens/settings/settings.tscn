@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dxfmf433s5ab3"]
 
-[ext_resource type="Script" path="res://screens/settings/settings.gd" id="1_cg0bx"]
+[ext_resource type="Script" uid="uid://dsvbs8glyy1ui" path="res://screens/settings/settings.gd" id="1_cg0bx"]
 
 [node name="Settings" type="Control" node_paths=PackedStringArray("control_scheme_button", "ui_scale_range", "display_mode_button", "tutorial_enabled_button", "bindings_list")]
 layout_mode = 3

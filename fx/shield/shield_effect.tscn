@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bwna41dl1fs1b"]
 
-[ext_resource type="Shader" path="res://fx/shield/shield.gdshader" id="1_mad6o"]
+[ext_resource type="Shader" uid="uid://le2xa0prj1v3" path="res://fx/shield/shield.gdshader" id="1_mad6o"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_pmc4q"]
 

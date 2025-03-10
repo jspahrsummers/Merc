@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Port" load_steps=3 format=3 uid="uid://dren5n1hfsvrc"]
 
-[ext_resource type="Script" path="res://galaxy/port/port.gd" id="1_m5fwf"]
+[ext_resource type="Script" uid="uid://yxkr36mlepyj" path="res://galaxy/port/port.gd" id="1_m5fwf"]
 [ext_resource type="Texture2D" uid="uid://b8cnwgdtcnxjo" path="res://screens/landing/images/nova-terra.jpg" id="1_o5p7u"]
 
 [resource]

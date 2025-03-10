@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Galaxy" load_steps=2 format=3 uid="uid://bcva4l4cpt70c"]
 
-[ext_resource type="Script" path="res://galaxy/galaxy.gd" id="1_bckai"]
+[ext_resource type="Script" uid="uid://dvwxkvmyak0rp" path="res://galaxy/galaxy.gd" id="1_bckai"]
 
 [resource]
 script = ExtResource("1_bckai")

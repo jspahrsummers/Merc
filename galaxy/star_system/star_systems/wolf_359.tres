@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="StarSystem" load_steps=3 format=3 uid="uid://di0bekcy5g0ya"]
 
-[ext_resource type="Script" path="res://galaxy/star_system/star_system.gd" id="1_go4uk"]
-[ext_resource type="Script" path="res://galaxy/port/port.gd" id="1_grtex"]
+[ext_resource type="Script" uid="uid://caa3h7n2ybl2u" path="res://galaxy/star_system/star_system.gd" id="1_go4uk"]
+[ext_resource type="Script" uid="uid://yxkr36mlepyj" path="res://galaxy/port/port.gd" id="1_grtex"]
 
 [resource]
 script = ExtResource("1_go4uk")

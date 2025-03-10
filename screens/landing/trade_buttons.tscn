@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://b04gt254vhyra"]
 
-[ext_resource type="Script" path="res://screens/landing/trade_buttons.gd" id="1_xjexx"]
+[ext_resource type="Script" uid="uid://da0uxi4rullxs" path="res://screens/landing/trade_buttons.gd" id="1_xjexx"]
 
 [node name="TradeButtons" type="HBoxContainer" node_paths=PackedStringArray("buy_button", "sell_button")]
 script = ExtResource("1_xjexx")

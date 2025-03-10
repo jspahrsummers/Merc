@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b6tdj2tjqldnt"]
 
-[ext_resource type="Script" path="res://screens/game/game_over/game_over.gd" id="1_3h6he"]
+[ext_resource type="Script" uid="uid://chcfthd6v7frh" path="res://screens/game/game_over/game_over.gd" id="1_3h6he"]
 [ext_resource type="PackedScene" uid="uid://btc568gwt7fuc" path="res://screens/main_menu/main_menu.tscn" id="2_pxfub"]
 
 [node name="GameOverDialog" type="AcceptDialog"]

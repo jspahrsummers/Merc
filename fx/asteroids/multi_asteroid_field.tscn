@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://ccdkamqw03rk7"]
 
 [ext_resource type="ArrayMesh" uid="uid://egjrnflmbqnp" path="res://fx/asteroids/meshes/asteroid1_lod0.res" id="1_ursq3"]
-[ext_resource type="Script" path="res://fx/asteroids/asteroid_field.gd" id="2_053vl"]
+[ext_resource type="Script" uid="uid://cu34qjhqwk66a" path="res://fx/asteroids/asteroid_field.gd" id="2_053vl"]
 [ext_resource type="ArrayMesh" uid="uid://bdx8s6accwbl5" path="res://fx/asteroids/meshes/asteroid2_lod1.res" id="2_uwgy4"]
 [ext_resource type="ArrayMesh" uid="uid://djxe4lnj0t0iy" path="res://fx/asteroids/meshes/asteroid4_lod1.res" id="3_nbcmb"]
 [ext_resource type="ArrayMesh" uid="uid://gvgnphuont33" path="res://fx/asteroids/meshes/asteroid6_lod1.res" id="4_n6jry"]

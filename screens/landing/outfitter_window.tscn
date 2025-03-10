@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cp50a8fel0pfa"]
 
-[ext_resource type="Script" path="res://screens/landing/outfitter_window.gd" id="1_0klch"]
+[ext_resource type="Script" uid="uid://cyq0oh0dvmskq" path="res://screens/landing/outfitter_window.gd" id="1_0klch"]
 [ext_resource type="Material" uid="uid://cs5s3tb7vagsi" path="res://screens/shared_ui/premultiplied_canvas_material.tres" id="2_q0pr4"]
 
 [node name="OutfitterWindow" type="Window" node_paths=PackedStringArray("available_outfits_list", "installed_outfits_list", "outfit_description", "outfit_effects", "cost_label", "cost_heading", "install_button")]

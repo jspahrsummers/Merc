@@ -1,13 +1,13 @@
 [gd_scene load_steps=15 format=3 uid="uid://dq8h67fl0mw43"]
 
-[ext_resource type="Script" path="res://screens/licenses/licenses.gd" id="1_2v0e5"]
-[ext_resource type="Script" path="res://addons/markdownlabel/markdownlabel.gd" id="1_8p6lr"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h1_format.gd" id="2_qsvt8"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h2_format.gd" id="3_tgr4h"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h3_format.gd" id="4_47hqo"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h4_format.gd" id="5_6xc54"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="6_8y8et"]
-[ext_resource type="Script" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="7_6a842"]
+[ext_resource type="Script" uid="uid://bygr36pr8b1tu" path="res://screens/licenses/licenses.gd" id="1_2v0e5"]
+[ext_resource type="Script" uid="uid://cqy6hh6heam25" path="res://addons/markdownlabel/markdownlabel.gd" id="1_8p6lr"]
+[ext_resource type="Script" uid="uid://dky6u0qqi6y4d" path="res://addons/markdownlabel/header_formats/h1_format.gd" id="2_qsvt8"]
+[ext_resource type="Script" uid="uid://dsvg0yvuo3kb1" path="res://addons/markdownlabel/header_formats/h2_format.gd" id="3_tgr4h"]
+[ext_resource type="Script" uid="uid://tt7o8yy1ykqa" path="res://addons/markdownlabel/header_formats/h3_format.gd" id="4_47hqo"]
+[ext_resource type="Script" uid="uid://ds4th21t1tv23" path="res://addons/markdownlabel/header_formats/h4_format.gd" id="5_6xc54"]
+[ext_resource type="Script" uid="uid://x82ro18dmfq6" path="res://addons/markdownlabel/header_formats/h5_format.gd" id="6_8y8et"]
+[ext_resource type="Script" uid="uid://bcwgjg1najk27" path="res://addons/markdownlabel/header_formats/h6_format.gd" id="7_6a842"]
 
 [sub_resource type="Resource" id="Resource_3bmn2"]
 resource_local_to_scene = true

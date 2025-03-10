@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://ca3awvk1a7xyi"]
 
-[ext_resource type="Script" path="res://screens/game/exit_dialog/exit_dialog.gd" id="1_7whrb"]
+[ext_resource type="Script" uid="uid://bixycpmpppjy8" path="res://screens/game/exit_dialog/exit_dialog.gd" id="1_7whrb"]
 [ext_resource type="PackedScene" uid="uid://btc568gwt7fuc" path="res://screens/main_menu/main_menu.tscn" id="2_dfrt5"]
 
 [node name="ExitDialog" type="ConfirmationDialog"]

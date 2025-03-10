@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dmneg7pw872n2"]
 
-[ext_resource type="Script" path="res://mechanics/radar/radar_object.gd" id="1_io8dg"]
+[ext_resource type="Script" uid="uid://bs2gdles45wtt" path="res://mechanics/radar/radar_object.gd" id="1_io8dg"]
 [ext_resource type="Texture2D" uid="uid://du58qp0yjl18w" path="res://mechanics/radar/images/your_vessel.png" id="2_wdmmt"]
 [ext_resource type="Texture2D" uid="uid://ctcdsd6rf0v6d" path="res://mechanics/radar/images/neutral_vessel.png" id="3_jwj8n"]
 [ext_resource type="Texture2D" uid="uid://celfiy38f3ec5" path="res://mechanics/radar/images/friendly_vessel.png" id="4_mvbae"]

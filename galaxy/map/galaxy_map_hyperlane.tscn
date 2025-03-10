@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://d3lphosly5y8b"]
 
-[ext_resource type="Script" path="res://galaxy/map/galaxy_map_hyperlane.gd" id="1_qtr5l"]
+[ext_resource type="Script" uid="uid://bpliajmiufjjx" path="res://galaxy/map/galaxy_map_hyperlane.gd" id="1_qtr5l"]
 [ext_resource type="Material" uid="uid://wjykkjty1dt5" path="res://galaxy/map/galaxy_map_current_mat.tres" id="2_xrjew"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_futeo"]

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="StarSystem" load_steps=21 format=3 uid="uid://cew4x137v08q"]
 
-[ext_resource type="Script" path="res://galaxy/star_system/star_system.gd" id="1_ewhsc"]
+[ext_resource type="Script" uid="uid://caa3h7n2ybl2u" path="res://galaxy/star_system/star_system.gd" id="1_ewhsc"]
 [ext_resource type="Resource" uid="uid://bnw61s2hj8a0m" path="res://mechanics/economy/commodities/water.tres" id="1_g3m08"]
 [ext_resource type="Resource" uid="uid://dnutrj5jdgiaj" path="res://mechanics/economy/commodities/food.tres" id="2_qhtq3"]
 [ext_resource type="Resource" uid="uid://dd63q3wg4vrk" path="res://mechanics/economy/commodities/biological_samples.tres" id="3_yqu3j"]
@@ -15,9 +15,9 @@
 [ext_resource type="Resource" uid="uid://dl132ceubbcos" path="res://mechanics/economy/commodities/rare_earth_elements.tres" id="12_wobus"]
 [ext_resource type="Resource" uid="uid://bj7201uluhfpk" path="res://mechanics/economy/commodities/semiconductors.tres" id="13_qtdhe"]
 [ext_resource type="Resource" uid="uid://b764gd8q3il6s" path="res://mechanics/economy/currencies/credits.tres" id="14_yyru0"]
-[ext_resource type="Script" path="res://mechanics/economy/market.gd" id="15_v0bfu"]
+[ext_resource type="Script" uid="uid://8ma6vqqibkt7" path="res://mechanics/economy/market.gd" id="15_v0bfu"]
 [ext_resource type="Resource" uid="uid://cmm0akidhocmo" path="res://galaxy/port/ports/earth.tres" id="16_bjai2"]
-[ext_resource type="Script" path="res://galaxy/port/port.gd" id="16_elnv2"]
+[ext_resource type="Script" uid="uid://yxkr36mlepyj" path="res://galaxy/port/port.gd" id="16_elnv2"]
 [ext_resource type="Resource" uid="uid://c0oe5ys0462x0" path="res://galaxy/port/ports/mars.tres" id="17_1phbv"]
 
 [sub_resource type="Resource" id="Resource_tj2o3"]

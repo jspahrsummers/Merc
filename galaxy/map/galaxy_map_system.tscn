@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://ckdnlnrybk4mh"]
 
-[ext_resource type="Script" path="res://galaxy/map/galaxy_map_system.gd" id="1_jbywj"]
+[ext_resource type="Script" uid="uid://byy7w0so7it47" path="res://galaxy/map/galaxy_map_system.gd" id="1_jbywj"]
 [ext_resource type="Material" uid="uid://wjykkjty1dt5" path="res://galaxy/map/galaxy_map_current_mat.tres" id="2_ddy2j"]
 [ext_resource type="FontFile" uid="uid://csj4t4r3hegan" path="res://screens/shared_ui/fonts/TitilliumWeb-Regular.ttf" id="3_747hn"]
 [ext_resource type="Texture2D" uid="uid://lllwynbx0xg7" path="res://galaxy/map/selected_galaxy_node.png" id="4_211rw"]

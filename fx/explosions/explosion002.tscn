@@ -1,7 +1,7 @@
 [gd_scene load_steps=70 format=3 uid="uid://cdyo800b83x5i"]
 
 [ext_resource type="Texture2D" uid="uid://0aaekoo13gdw" path="res://fx/explosions/textures/explosion002_fullsize.png" id="1_lbape"]
-[ext_resource type="Script" path="res://fx/explosions/explosion.gd" id="2_746tl"]
+[ext_resource type="Script" uid="uid://d2ji6tx7caoya" path="res://fx/explosions/explosion.gd" id="2_746tl"]
 [ext_resource type="AudioStream" uid="uid://b8tpfftx3si3h" path="res://fx/explosions/audio/chunky_explosion.mp3" id="3_ll7lb"]
 [ext_resource type="PackedScene" uid="uid://bh57cxqvqr20w" path="res://mechanics/physics/explosive_force.tscn" id="4_fe5b5"]
 

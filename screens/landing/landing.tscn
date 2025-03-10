@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://d1kbmfvjs6nrv"]
 
-[ext_resource type="Script" path="res://screens/landing/landing.gd" id="1_h6plc"]
+[ext_resource type="Script" uid="uid://uctnqsrjpw2u" path="res://screens/landing/landing.gd" id="1_h6plc"]
 [ext_resource type="AudioStream" uid="uid://bbxl7rk2jq5qi" path="res://screens/landing/audio/HangarDoors.ogg" id="2_g2uae"]
-[ext_resource type="Script" path="res://screens/landing/spaceport_bar.gd" id="2_k5nxq"]
+[ext_resource type="Script" uid="uid://cidg0ka7tnfmj" path="res://screens/landing/spaceport_bar.gd" id="2_k5nxq"]
 [ext_resource type="PackedScene" uid="uid://hos1wawl1u68" path="res://screens/landing/mission_computer_window.tscn" id="3_3kp6r"]
 [ext_resource type="PackedScene" uid="uid://dpihtkm0u6kmb" path="res://screens/landing/trading_window.tscn" id="4_ci831"]
 [ext_resource type="PackedScene" uid="uid://cp50a8fel0pfa" path="res://screens/landing/outfitter_window.tscn" id="4_ptr78"]

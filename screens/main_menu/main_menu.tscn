@@ -2,11 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://b3edwsa85u8fx" path="res://screens/shared_ui/images/splash_screen.png" id="1_hdxn3"]
 [ext_resource type="PackedScene" uid="uid://cbk7pta41y2nh" path="res://screens/save_games/load_game.tscn" id="2_b02o5"]
-[ext_resource type="Script" path="res://screens/main_menu/main_menu.gd" id="2_dwbyb"]
+[ext_resource type="Script" uid="uid://xiiaff16nq0r" path="res://screens/main_menu/main_menu.gd" id="2_dwbyb"]
 [ext_resource type="PackedScene" uid="uid://210831aopuew" path="res://screens/main_menu/main_menu_button.tscn" id="2_kk5nj"]
 [ext_resource type="PackedScene" uid="uid://dxfmf433s5ab3" path="res://screens/settings/settings.tscn" id="2_xomwj"]
 [ext_resource type="PackedScene" uid="uid://dq8h67fl0mw43" path="res://screens/licenses/licenses.tscn" id="3_bl7ky"]
-[ext_resource type="Script" path="res://screens/main_menu/version_label.gd" id="6_ucu8b"]
+[ext_resource type="Script" uid="uid://d3o1qit31lbqt" path="res://screens/main_menu/version_label.gd" id="6_ucu8b"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j8tcr"]
 texture = ExtResource("1_hdxn3")

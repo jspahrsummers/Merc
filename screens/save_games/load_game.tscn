@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cbk7pta41y2nh"]
 
-[ext_resource type="Script" path="res://screens/save_games/load_game.gd" id="1_lq0b6"]
+[ext_resource type="Script" uid="uid://b4a0mbhgww6qc" path="res://screens/save_games/load_game.gd" id="1_lq0b6"]
 
 [node name="Load Game" type="Control" node_paths=PackedStringArray("save_game_list", "load_button")]
 layout_mode = 3

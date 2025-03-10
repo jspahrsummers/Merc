@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="StarSystem" load_steps=5 format=3 uid="uid://nbm8is7uln37"]
 
 [ext_resource type="Resource" uid="uid://b764gd8q3il6s" path="res://mechanics/economy/currencies/credits.tres" id="1_axqux"]
-[ext_resource type="Script" path="res://galaxy/star_system/star_system.gd" id="1_rf1b6"]
+[ext_resource type="Script" uid="uid://caa3h7n2ybl2u" path="res://galaxy/star_system/star_system.gd" id="1_rf1b6"]
 [ext_resource type="Resource" uid="uid://dd61sms23ju2r" path="res://galaxy/port/ports/pyra.tres" id="1_uqygg"]
-[ext_resource type="Script" path="res://galaxy/port/port.gd" id="1_ynog0"]
+[ext_resource type="Script" uid="uid://yxkr36mlepyj" path="res://galaxy/port/port.gd" id="1_ynog0"]
 
 [resource]
 script = ExtResource("1_rf1b6")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bh57cxqvqr20w"]
 
-[ext_resource type="Script" path="res://mechanics/physics/explosive_force.gd" id="1_gv5w2"]
+[ext_resource type="Script" uid="uid://c5lx7bq072b1l" path="res://mechanics/physics/explosive_force.gd" id="1_gv5w2"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_bn7a2"]
 radius = 3.0

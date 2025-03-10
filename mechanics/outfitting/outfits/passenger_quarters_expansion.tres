@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Outfit" load_steps=2 format=3 uid="uid://b4cmd5e1exfa1"]
 
-[ext_resource type="Script" path="res://mechanics/outfitting/outfit.gd" id="1_leytj"]
+[ext_resource type="Script" uid="uid://dpgdh7lbpjyvq" path="res://mechanics/outfitting/outfit.gd" id="1_leytj"]
 
 [resource]
 script = ExtResource("1_leytj")
@@ -11,6 +11,8 @@ price_in_credits = 5500.0
 modified_cargo_capacity = -5.0
 modified_passenger_capacity = 4
 modified_fuel_capacity = 0.0
+modified_hull_capacity = 0.0
 modified_shield_capacity = 0.0
 shield_recharge_multiplier = 1.0
 modified_power_generation = 0.0
+modified_heat_capacity = 0.0

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Outfit" load_steps=2 format=3 uid="uid://46yak34p5xyl"]
 
-[ext_resource type="Script" path="res://mechanics/outfitting/outfit.gd" id="1_600wr"]
+[ext_resource type="Script" uid="uid://dpgdh7lbpjyvq" path="res://mechanics/outfitting/outfit.gd" id="1_600wr"]
 
 [resource]
 script = ExtResource("1_600wr")

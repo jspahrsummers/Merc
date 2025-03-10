@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dasi6qq5tfc10"]
 
-[ext_resource type="Script" path="res://mechanics/tutorial/tutorial_window.gd" id="1_v4ja5"]
+[ext_resource type="Script" uid="uid://bgnlse8o4wyqk" path="res://mechanics/tutorial/tutorial_window.gd" id="1_v4ja5"]
 [ext_resource type="Material" uid="uid://cs5s3tb7vagsi" path="res://screens/shared_ui/premultiplied_canvas_material.tres" id="2_7hvyq"]
 
 [node name="TutorialWindow" type="Window" node_paths=PackedStringArray("label", "previous_button", "next_button") groups=["saveable"]]

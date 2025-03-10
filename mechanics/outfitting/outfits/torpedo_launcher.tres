@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Outfit" load_steps=3 format=3 uid="uid://cyx3v8jagovnv"]
 
-[ext_resource type="Script" path="res://mechanics/outfitting/outfit.gd" id="1_um0on"]
+[ext_resource type="Script" uid="uid://dpgdh7lbpjyvq" path="res://mechanics/outfitting/outfit.gd" id="1_um0on"]
 [ext_resource type="Resource" uid="uid://x4cvy30r6rdc" path="res://mechanics/combat/weapons/torpedo/torpedo.tres" id="2_c22kq"]
 
 [resource]

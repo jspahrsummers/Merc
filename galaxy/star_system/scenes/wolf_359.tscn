@@ -3,9 +3,9 @@
 [ext_resource type="Resource" uid="uid://di0bekcy5g0ya" path="res://galaxy/star_system/star_systems/wolf_359.tres" id="2_byjpf"]
 [ext_resource type="PackedScene" uid="uid://d27pdcik2lwf1" path="res://galaxy/stars/main_sequence/star_class_m.tscn" id="3_wjxxu"]
 [ext_resource type="PackedScene" uid="uid://culoat6jnbwc8" path="res://actors/ai/pirate_frigate.tscn" id="4_tean3"]
-[ext_resource type="Script" path="res://mechanics/combat/hull.gd" id="5_1fi2w"]
-[ext_resource type="Script" path="res://mechanics/combat/shield.gd" id="6_fwcxa"]
-[ext_resource type="Script" path="res://mechanics/power/battery.gd" id="7_el5w1"]
+[ext_resource type="Script" uid="uid://0dfgkl20rg0h" path="res://mechanics/combat/hull.gd" id="5_1fi2w"]
+[ext_resource type="Script" uid="uid://dpx2q5cmjfk36" path="res://mechanics/combat/shield.gd" id="6_fwcxa"]
+[ext_resource type="Script" uid="uid://lag462jxbniv" path="res://mechanics/power/battery.gd" id="7_el5w1"]
 [ext_resource type="Resource" uid="uid://dehs0xqbalevx" path="res://actors/heroes/bounties/Vex 'Quantum' Cygnus.tres" id="8_25dnf"]
 [ext_resource type="PackedScene" uid="uid://fxemun7o6rix" path="res://galaxy/star_system/star_system_instance.tscn" id="star_system_instance"]
 

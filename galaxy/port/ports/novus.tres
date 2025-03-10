@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Port" load_steps=3 format=3 uid="uid://cq4qs7xackj8j"]
 
-[ext_resource type="Script" path="res://galaxy/port/port.gd" id="1_gsf4u"]
+[ext_resource type="Script" uid="uid://yxkr36mlepyj" path="res://galaxy/port/port.gd" id="1_gsf4u"]
 [ext_resource type="Texture2D" uid="uid://dxiyqpd0fq46b" path="res://screens/landing/images/dadf749a-a886-4a5b-ae6f-5182b3753a5c.jpg" id="1_mfwts"]
 
 [resource]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b04hfgkcuq7k6"]
 
-[ext_resource type="Script" path="res://galaxy/celestials/celestial.gd" id="1_5e6rp"]
+[ext_resource type="Script" uid="uid://cbtxtp2rqtos7" path="res://galaxy/celestials/celestial.gd" id="1_5e6rp"]
 [ext_resource type="Texture2D" uid="uid://olumucogupnw" path="res://galaxy/celestials/sprites/planet_04.png" id="2_rfi26"]
 [ext_resource type="PackedScene" uid="uid://ikpmfsfblp3i" path="res://fx/target_overlay/target_overlay.tscn" id="3_vrby2"]
 

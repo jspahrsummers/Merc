@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bksd1ida60ymi"]
 
-[ext_resource type="Script" path="res://galaxy/map/galaxy_map.gd" id="1_ksqdq"]
+[ext_resource type="Script" uid="uid://bsk5s148k6kir" path="res://galaxy/map/galaxy_map.gd" id="1_ksqdq"]
 [ext_resource type="PackedScene" uid="uid://kqong7nrl4p2" path="res://galaxy/map/galaxy_map_3d.tscn" id="1_rlhp4"]
 [ext_resource type="Resource" uid="uid://bcva4l4cpt70c" path="res://galaxy/main_galaxy.tres" id="2_okeml"]
 [ext_resource type="PackedScene" uid="uid://ckdnlnrybk4mh" path="res://galaxy/map/galaxy_map_system.tscn" id="3_do8cs"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://djo5waum4hiyn"]
 
-[ext_resource type="Script" path="res://mechanics/combat/weapons/projectile.gd" id="1_lgstg"]
-[ext_resource type="Script" path="res://mechanics/combat/damage.gd" id="2_nykuf"]
+[ext_resource type="Script" uid="uid://yaol1egq2gn0" path="res://mechanics/combat/weapons/projectile.gd" id="1_lgstg"]
+[ext_resource type="Script" uid="uid://2e1umvs4p16u" path="res://mechanics/combat/damage.gd" id="2_nykuf"]
 [ext_resource type="PackedScene" uid="uid://cp0b07jvhi5a" path="res://fx/explosions/explosion001.tscn" id="3_kxh65"]
 [ext_resource type="Texture2D" uid="uid://b6338fvv2c7c2" path="res://mechanics/combat/weapons/torpedo/torpedo.png" id="4_ej81m"]
 [ext_resource type="AudioStream" uid="uid://cb2xi2uin55r1" path="res://mechanics/combat/weapons/torpedo/laser1.mp3" id="5_ayg2o"]

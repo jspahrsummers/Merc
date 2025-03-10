@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b0oavecy2l8p5"]
 
-[ext_resource type="Script" path="res://screens/game/mission_log/mission_log_window.gd" id="1_5is5j"]
+[ext_resource type="Script" uid="uid://ea7r85k6fwjp" path="res://screens/game/mission_log/mission_log_window.gd" id="1_5is5j"]
 [ext_resource type="Material" uid="uid://cs5s3tb7vagsi" path="res://screens/shared_ui/premultiplied_canvas_material.tres" id="2_8vnsw"]
 
 [node name="MissionLogWindow" type="Window" node_paths=PackedStringArray("mission_list", "description_label", "cost_label", "reward_label", "forfeit_button")]
