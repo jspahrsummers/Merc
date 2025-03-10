@@ -61,9 +61,12 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Prepare export templates
+        working-directory: ${{ env.RUNNER_TEMP }}
         run: |
+          curl -sL https://github.com/godotengine/godot/releases/download/4.4-stable/Godot_v4.4-stable_export_templates.tpz -o templates.zip
+          unzip templates.zip
           mkdir -p ~/Library/Application\ Support/Godot/export_templates/4.4.stable
-          mv build/export_templates/* ~/Library/Application\ Support/Godot/export_templates/4.4.stable/
+          mv templates/* ~/Library/Application\ Support/Godot/export_templates/4.4.stable/
 
       - name: Cache .godot
         uses: actions/cache@v4
@@ -119,9 +122,12 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Prepare export templates
+        working-directory: ${{ env.RUNNER_TEMP }}
         run: |
+          curl -sL https://github.com/godotengine/godot/releases/download/4.4-stable/Godot_v4.4-stable_export_templates.tpz -o templates.zip
+          unzip templates.zip
           mkdir -p ~/.local/share/godot/export_templates/4.4.stable
-          mv build/export_templates/* ~/.local/share/godot/export_templates/4.4.stable/
+          mv templates/* ~/.local/share/godot/export_templates/4.4.stable/
 
       - name: Cache .godot
         uses: actions/cache@v4
