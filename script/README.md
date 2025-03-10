@@ -18,7 +18,7 @@ pip install -r ./requirements.txt
 Afterward, invoke scripts directly:
 
 ```sh
-./script/claude.py
+./script/markdown_changelog.py
 ```
 
-Note that some scripts may require additional setup or configuration. For example, `claude.py` requires an `ANTHROPIC_API_KEY` environment variable to be set.
+Note that some scripts may require additional setup or configuration.
